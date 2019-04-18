@@ -29,7 +29,7 @@ cmake -DCREATE_BOX_PACKAGE=OFF \
 
 ```
 # Installing the dependencies on Ubuntu:
-sudo apt install bison clang-tools cmake doxygen flew \
+sudo apt install bison clang-tools cmake doxygen flex \
                  libceres-dev libeigen3-dev libglm-dev \
                  libfaac-dev libfaad-dev \
                  libglew-dev libglfw3-dev \
