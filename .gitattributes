@@ -1,0 +1,9 @@
+*.sh            eol=lf
+*.version       eol=lf
+*.gpu           linguist-language=OpenCL
+*.cl            linguist-language=OpenCL
+*.incl          linguist-language=OpenCL
+*.inst          linguist-language=C++
+*.ptv           linguist-language=JSON
+*.vah           linguist-language=JSON
+

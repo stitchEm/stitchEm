@@ -1,0 +1,243 @@
+{
+  "algorithms" : [
+    {
+      "name": "calibration",
+      "config" : {
+        "cp_extractor" : {
+          "extractor" : "AKAZE",
+          "matcher_norm" : "HAMMING",
+          "octaves" : 2,
+          "sublevels" : 2,
+          "threshold" : 0.001,
+          "nndr_ratio" : 0.6
+        },
+        "cp_filter" : {
+          "angle_threshold" : 5,
+          "min_ratio_inliers" : 0.1,
+          "min_samples_for_fit" : 3,
+          "ratio_outliers" : 0.5,
+          "proba_draw_outlier_free_samples" : 0.99,
+          "decimating_grid_size" : 0.02
+        },
+        "optimizer" : {
+          "bundle_adjustment" : [
+            {
+              "vars" : "y# p# r#",
+              "num_iterations" : 2000
+            },
+            {
+              "vars" : "y# p# r# f b",
+              "num_iterations" : 2000
+            }
+          ]
+        },
+        "improve_mode" : false,
+        "apply_presets_only" : false,
+        "single_focal" : true,
+        "dump_calibration_snapshots" : false,
+        "deshuffle_mode_only" : true,
+        "deshuffle_mode_preserve_readers_order" : true,
+        "deshuffle_mode" : true,
+        "rig" : {
+          "name" : "360Heroes - H3PRO6 (1440p)",
+          "rigcameras" : [
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -109.939,
+              "pitch_mean" : -87.391,
+              "roll_mean" : 20.6309,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -0.642906,
+              "pitch_mean" : -0.740652,
+              "roll_mean" : -1.59987,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_1"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 89.6186,
+              "pitch_mean" : 3.24697,
+              "roll_mean" : -92.0056,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_2"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -24.8394,
+              "pitch_mean" : 85.9389,
+              "roll_mean" : -116.45,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_3"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 179.762,
+              "pitch_mean" : -0.605354,
+              "roll_mean" : 1.12759,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_4"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -88.6535,
+              "pitch_mean" : -2.91203,
+              "roll_mean" : 90.3811,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "camera" : "camera_5"
+            }
+          ]
+        },
+        "cameras" : [
+          {
+            "name" : "camera_0",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_1",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_2",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_3",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_4",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_5",
+            "format" : "ff_fisheye",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 898.13,
+            "fu_variance" : 2016.59,
+            "fv_mean" : 898.13,
+            "fv_variance" : 2016.59,
+            "cu_mean" : 960,
+            "cu_variance" : 9216,
+            "cv_mean" : 720,
+            "cv_variance" : 9216,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0.0736025,
+            "distortb_variance" : 0.00012189,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          }
+        ],
+        "list_frames" : [
+          2
+        ]
+      }
+    }
+  ],
+  "outputPtv": [
+    {
+      "name" : "output_calibration.ptv",
+      "outputFile": {
+        "name" : "out-vs",
+        "type" : "jpg"
+      }
+    }
+  ]
+}

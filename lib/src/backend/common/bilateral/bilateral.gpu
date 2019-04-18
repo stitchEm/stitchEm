@@ -1,0 +1,127 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#include "backend/common/coredepth/sphereSweepParams.h"
+
+#define GAUSSIAN_SPATIAL_SIZE 64
+
+__constant__ float cGaussian[GAUSSIAN_SPATIAL_SIZE];  // gaussian array in device side
+
+/*
+Because a 2D gaussian mask is symmetry in row and column,
+here only generate a 1D mask, and use the product by row
+and column index later.
+
+1D gaussian distribution :
+g(x, d) -- C * exp(-x^2/d^2), C is a constant amplifier
+
+parameters:
+og - output gaussian array in global memory
+delta - the 2nd parameter 'd' in the above function
+radius - half of the filter size
+(total filter size = 2 * radius + 1)
+*/
+bool updateGaussian(float delta, int radius) {
+  if (2 * radius + 1 <= GAUSSIAN_SPATIAL_SIZE) {
+    float fGaussian[GAUSSIAN_SPATIAL_SIZE];
+
+    for (int i = 0; i < 2 * radius + 1; ++i) {
+      const float x = (float)(i - radius);
+      fGaussian[i] = expf(-(x * x) / (2 * delta * delta));
+    }
+
+    cudaMemcpyToSymbol(cGaussian, fGaussian, sizeof(float) * (2 * radius + 1));
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Cross shaped kernel, number of filter taps is 2 * 2 * radius + 1
+template <int radius>
+__global__ void depthBilateralFilterCrossShapedKernel(surface_t dst, int width, int height, read_only image2d_t texture,
+                                                      read_only surface_t depth, float inverse2RangeSigmaSquared,
+                                                      int xblock, int yblock, int blockSizeX, int blockSizeY) {
+  const int x = get_global_id_x() + xblock * blockSizeX;
+  const int y = get_global_id_y() + yblock * blockSizeY;
+
+  static_assert(2 * radius + 1 <= GAUSSIAN_SPATIAL_SIZE, "Please increase GAUSSIAN_SPATIAL_SIZE");
+
+  if (x < width && y < height && (int)get_global_id_x() < blockSizeX && (int)get_global_id_y() < blockSizeY) {
+    float sum = 0.0f;
+    float t = 0.f;
+    const float4 center = read_texture_vs(texture, make_float2(x + 0.5f, y + 0.5f));
+
+    if (center.w > 0.0f) {
+      for (int i = -radius; i <= radius; i++) {
+        const int xj = x + i;
+        const int yi = y;
+        if (xj >= 0 && yi >= 0 && xj < width && yi < height) {
+          const float2 coords = make_float2(xj + 0.5f, yi + 0.5f);
+          const float4 photometricDifference = read_texture_vs(texture, coords) - center;
+          const float factor =
+              cGaussian[i + radius] *                                                               // domain factor
+              exp(-dot(photometricDifference, photometricDifference) * inverse2RangeSigmaSquared);  // range factor
+          t += factor * read_depth_vs(depth, xj, yi);
+          sum += factor;
+        }
+      }
+      for (int i = -radius; i <= radius; i++) {
+        if (i != 0) {  // do not count i ==  0 twice
+          const int xj = x;
+          const int yi = y + i;
+          if (xj >= 0 && yi >= 0 && xj < width && yi < height) {
+            const float2 coords = make_float2(xj + 0.5f, yi + 0.5f);
+            const float4 photometricDifference = read_texture_vs(texture, coords) - center;
+            const float factor =
+                cGaussian[i + radius] *                                                               // domain factor
+                exp(-dot(photometricDifference, photometricDifference) * inverse2RangeSigmaSquared);  // range factor
+            t += factor * read_depth_vs(depth, xj, yi);
+            sum += factor;
+          }
+        }
+      }
+    }
+
+    const float outputDepth = (sum > 0.0f) ? t / sum : 0.0f;
+    surface_write_depth(outputDepth, dst, x, y);
+  }
+}
+
+// Cross shaped kernel, number of filter taps is (2 * radius + 1)^2
+template <int radius>
+__global__ void depthBilateralFilterKernel(surface_t dst, int width, int height, read_only image2d_t texture,
+                                           read_only surface_t depth, float inverse2RangeSigmaSquared, int xblock,
+                                           int yblock, int blockSizeX, int blockSizeY) {
+  const int x = get_global_id_x() + xblock * blockSizeX;
+  const int y = get_global_id_y() + yblock * blockSizeY;
+
+  static_assert(2 * radius + 1 <= GAUSSIAN_SPATIAL_SIZE, "Please increase GAUSSIAN_SPATIAL_SIZE");
+
+  if (x < width && y < height && (int)get_global_id_x() < blockSizeX && (int)get_global_id_y() < blockSizeY) {
+    float sum = 0.0f;
+    float t = 0.f;
+    const float4 center = read_texture_vs(texture, make_float2(x + 0.5f, y + 0.5f));
+
+    if (center.w > 0.0f) {
+      for (int j = -radius; j <= radius; j++) {
+        for (int i = -radius; i <= radius; i++) {
+          const int xj = x + j;
+          const int yi = y + i;
+          if (xj >= 0 && yi >= 0 && xj < width && yi < height) {
+            const float2 coords = make_float2(xj + 0.5f, yi + 0.5f);
+            const float4 photometricDifference = read_texture_vs(texture, coords) - center;
+            const float factor =
+                cGaussian[i + radius] * cGaussian[j + radius] *                                       // domain factor
+                exp(-dot(photometricDifference, photometricDifference) * inverse2RangeSigmaSquared);  // range factor
+            t += factor * read_depth_vs(depth, xj, yi);
+            sum += factor;
+          }
+        }
+      }
+    }
+
+    const float outputDepth = (sum > 0.0f) ? t / sum : 0.0f;
+    surface_write_depth(outputDepth, dst, x, y);
+  }
+}

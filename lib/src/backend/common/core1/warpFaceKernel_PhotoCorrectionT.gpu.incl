@@ -1,0 +1,11 @@
+#define PhotoCorrectionT LinearPhotoCorrection
+#include "warpFaceKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT GammaPhotoCorrection
+#include "warpFaceKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT EmorPhotoCorrection
+#include "warpFaceKernel.gpu.incl"
+#undef PhotoCorrectionT

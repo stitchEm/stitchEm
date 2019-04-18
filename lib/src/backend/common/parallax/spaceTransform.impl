@@ -1,0 +1,135 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#include "parallax/spaceTransform.hpp"
+#include "core/geoTransform.hpp"
+#include "core/rect.hpp"
+
+#include "libvideostitch/geometryDef.hpp"
+#include "libvideostitch/panoDef.hpp"
+#include <string.h>
+
+#define MAP_KERNEL_BLOCK_SIZE_X 16
+#define MAP_KERNEL_BLOCK_SIZE_Y 8
+
+namespace VideoStitch {
+namespace Core {
+namespace {
+
+#define MAPCOORDOUTPUTTOINPUT_DEF2(SPHERETOINPUT, ISWITHIN)                                                                                                                                                                                                                                                 \
+MAPCOORDOUTPUTTOINPUT_DEF3(SPHERETOINPUT, noopDistortionTransform, distortionScaled, ISWITHIN)                                                                                                                                                                                                                      \
+MAPCOORDOUTPUTTOINPUT_DEF3(SPHERETOINPUT, distortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                                      \
+Status mapCoordOutputToInput_##SPHERETOINPUT##_##ISWITHIN(const int time, const int offsetX, const int offsetY, const int croppedWidth, const int croppedHeight, GPU::Buffer<float2> outputBuffer, GPU::Buffer<uint32_t> maskBuffer, const PanoDefinition& pano, const videoreaderid_t id, GPU::Stream gpuStream) const {  \
+  if (pano.getInput(id).getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return mapCoordOutputToInput_##SPHERETOINPUT##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN (time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);                                                                                                                                                        \
+  } else {                                                                                                                                                                                                                                                                                                     \
+    return mapCoordOutputToInput_##SPHERETOINPUT##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN (time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);                                                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                                           \
+
+#define MAPCOORDOUTPUTTOINPUT_DEF                                                                                                                                                                                                                                                                           \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToRect, isWithinCropRect)                                                                                                                                                                                                                                                  \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToErect, isWithinCropRect)                                                                                                                                                                                                                                                 \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToExternal, isWithinCropRect)                                                                                                                                                                                                                                              \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToExternal, isWithinCropCircle)                                                                                                                                                                                                                                            \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToFisheye, isWithinCropRect)                                                                                                                                                                                                                                               \
+MAPCOORDOUTPUTTOINPUT_DEF2(SphereToFisheye, isWithinCropCircle)
+
+
+#define MAPCOORDINPUTTOOUTPUT_DEF2(INPUTTOSPHERE, ISWITHIN)                                                                                                                                                                                                                                                 \
+MAPCOORDINPUTTOOUTPUT_DEF3(INPUTTOSPHERE, noopDistortionTransform, inverseDistortionScaled, ISWITHIN)                                                                                                                                                                                                               \
+MAPCOORDINPUTTOOUTPUT_DEF3(INPUTTOSPHERE, inverseDistortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                               \
+Status mapCoordInputToOutput_##INPUTTOSPHERE##_##ISWITHIN(const int time, GPU::Buffer<float2> outputBuffer, const int inputWidth, const int inputHeight, const GPU::Buffer<const float2> inputBuffer, const GPU::Buffer<const uint32_t> inputMask, const PanoDefinition& pano, const videoreaderid_t id, GPU::Stream gpuStream) const { \
+  if (pano.getInput(id).getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return mapCoordInputToOutput_##INPUTTOSPHERE##_##noopDistortionTransform##_##inverseDistortionScaled##_##ISWITHIN (time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);                                                                                                                                                        \
+  } else {                                                                                                                                                                                                                                                                                                     \
+    return mapCoordInputToOutput_##INPUTTOSPHERE##_##inverseDistortionScaled##_##noopDistortionTransform##_##ISWITHIN (time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);                                                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                                           \
+
+#define MAPCOORDINPUTTOOUTPUT_DEF                                                                                                                                                                                                                                                                           \
+MAPCOORDINPUTTOOUTPUT_DEF2(RectToSphere, isWithinCropRect)                                                                                                                                                                                                                                                  \
+MAPCOORDINPUTTOOUTPUT_DEF2(ErectToSphere, isWithinCropRect)                                                                                                                                                                                                                                                 \
+MAPCOORDINPUTTOOUTPUT_DEF2(ExternalToSphere, isWithinCropRect)                                                                                                                                                                                                                                              \
+MAPCOORDINPUTTOOUTPUT_DEF2(ExternalToSphere, isWithinCropCircle)                                                                                                                                                                                                                                            \
+MAPCOORDINPUTTOOUTPUT_DEF2(FisheyeToSphere, isWithinCropRect)                                                                                                                                                                                                                                               \
+MAPCOORDINPUTTOOUTPUT_DEF2(FisheyeToSphere, isWithinCropCircle)
+                                                                                                                                                                                                                                                                                                                          \
+
+/**
+ *SpaceTransform final implementation.
+ *The factory is here since we need explicit access to the transform stack for template instantiation
+ */
+class SpaceTransformImpl : public SpaceTransform {
+public:
+  SpaceTransformImpl(const InputDefinition::Format & inputf, const Vector3<double> oldOriCoord, const Vector3<double> newOriCoord)
+    : inputformat(inputf), SpaceTransform(oldOriCoord, newOriCoord) {
+  }
+
+  Status mapCoordInputToOutput(const int time,
+                               GPU::Buffer<float2> outputBuffer,
+							   const int inputWidth, const int inputHeight,
+							   const GPU::Buffer<const float2> inputBuffer, const GPU::Buffer<const uint32_t> inputMask,
+							   const PanoDefinition& pano, const videoreaderid_t id,
+							   GPU::Stream gpuStream) const override {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapCoordInputToOutput_RectToSphere_isWithinCropRect(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapCoordInputToOutput_ErectToSphere_isWithinCropRect(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapCoordInputToOutput_ExternalToSphere_isWithinCropCircle(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapCoordInputToOutput_ExternalToSphere_isWithinCropRect(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapCoordInputToOutput_FisheyeToSphere_isWithinCropCircle(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapCoordInputToOutput_FisheyeToSphere_isWithinCropRect(time, outputBuffer, inputWidth, inputHeight, inputBuffer, inputMask, pano, id, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    }
+  }
+
+  Status mapCoordOutputToInput(const int time,
+                               const int offsetX, const int offsetY,
+							   const int croppedWidth, const int croppedHeight,
+							   GPU::Buffer<float2> outputBuffer, GPU::Buffer<uint32_t> maskBuffer,
+							   const PanoDefinition& pano, const videoreaderid_t id,
+							   GPU::Stream gpuStream) const override {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapCoordOutputToInput_SphereToRect_isWithinCropRect(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapCoordOutputToInput_SphereToErect_isWithinCropRect(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapCoordOutputToInput_SphereToExternal_isWithinCropCircle(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapCoordOutputToInput_SphereToExternal_isWithinCropRect(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapCoordOutputToInput_SphereToFisheye_isWithinCropCircle(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapCoordOutputToInput_SphereToFisheye_isWithinCropRect(time, offsetX, offsetY, croppedWidth, croppedHeight, outputBuffer, maskBuffer, pano, id, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+private:
+
+  MAPCOORDINPUTTOOUTPUT_DEF
+
+  MAPCOORDOUTPUTTOINPUT_DEF
+
+private:
+  InputDefinition::Format inputformat;
+};
+
+
+SpaceTransform* createSpaceTransform(const InputDefinition& im, const Vector3<double> oldOriCoord, const Vector3<double> newOriCoord) {
+  return new SpaceTransformImpl(im.getFormat(), oldOriCoord, newOriCoord);
+}
+
+}
+
+}
+}

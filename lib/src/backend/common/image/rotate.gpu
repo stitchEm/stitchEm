@@ -1,0 +1,52 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void flipKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ src,
+                           unsigned length) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (x < length && y < length) {
+    dst[y * length + x] = src[(length - 1 - y) * length + x];
+  }
+}
+
+__global__ void flopKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ src,
+                           unsigned length) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (x < length && y < length) {
+    dst[y * length + x] = src[y * length + length - 1 - x];
+  }
+}
+
+__global__ void rotateKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ src,
+                             unsigned length) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (x < length && y < length) {
+    dst[y * length + x] = src[(length - 1 - y) * length + length - 1 - x];
+  }
+}
+
+__global__ void rotateLeftKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ src,
+                                 unsigned length) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (x < length && y < length) {
+    dst[(length - 1 - x) * length + y] = src[y * length + x];
+  }
+}
+
+__global__ void rotateRightKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ src,
+                                  unsigned length) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (x < length && y < length) {
+    dst[y * length + x] = src[(length - 1 - x) * length + y];
+  }
+}

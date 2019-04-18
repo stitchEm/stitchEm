@@ -1,0 +1,8 @@
+
+/*
+ * This ptv file is invalid, the user has failed to terminate a string.
+ */
+
+my_txt_var = "toto
+";
+

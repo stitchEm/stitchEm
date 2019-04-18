@@ -1,0 +1,23 @@
+The langage used by behave is Gherkin: the same langage as cucumber:
+
+https://github.com/cucumber/cucumber/wiki/Gherkin
+
+The behave documentation:
+
+http://pythonhosted.org/behave/
+
+#####
+
+A few tips:
+
+The test code should be in the folder features/steps in a file named steps_*.py
+
+* "Given" are used for initial conditions.
+* "When" are actions actually performed with the software or a third party
+application
+* "Then" is used to check if teh actions performed actually resulted in the
+expected results. Therefor, it should always contain at least one "assert"
+
+When checking the result of "videostitch-cmd" always delete the output file,
+it will avoid false positive
+

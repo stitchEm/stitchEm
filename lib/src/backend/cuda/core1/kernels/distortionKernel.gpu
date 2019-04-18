@@ -1,0 +1,113 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#pragma once
+
+// Rectilinear
+__device__ unsigned char SphereToRect_isWithinCropRect_distortionFunction(const float2 uv, const int texWidth,
+                                                                          const int texHeight, const float cLeft,
+                                                                          const float cRight, const float cTop,
+                                                                          const float cBottom) {
+  // TODO: Implement this function properly
+  return 0;
+}
+
+// Equirectangular
+__device__ unsigned char SphereToErect_isWithinCropRect_distortionFunction(const float2 uv, const int texWidth,
+                                                                           const int texHeight, const float cLeft,
+                                                                           const float cRight, const float cTop,
+                                                                           const float cBottom) {
+  // TODO: Implement this function properly
+  return 0;
+}
+
+// CircularFisheye
+__device__ unsigned char SphereToFisheye_isWithinCropCircle_distortionFunction(const float2 uv, const int texWidth,
+                                                                               const int texHeight, const float cLeft,
+                                                                               const float cRight, const float cTop,
+                                                                               const float cBottom) {
+  const float centerX = (cRight + cLeft) / 2.0f;
+  const float centerY = (cBottom + cTop) / 2.0f;
+  const float radiusX = (cRight - cLeft) / 2.0f;
+  const float radiusY = (cBottom - cTop) / 2.0f;
+  const float distance = sqrt((uv.x - centerX) * (uv.x - centerX) + (uv.y - centerY) * (uv.y - centerY)) /
+                         sqrt(radiusX * radiusX + radiusY * radiusY);
+  return (unsigned char)(255.0f * min(1.0f, distance));
+}
+
+// FullFrameFisheye
+__device__ unsigned char SphereToFisheye_isWithinCropRect_distortionFunction(const float2 uv, const int texWidth,
+                                                                             const int texHeight, const float cLeft,
+                                                                             const float cRight, const float cTop,
+                                                                             const float cBottom) {
+  return SphereToFisheye_isWithinCropCircle_distortionFunction(uv, texWidth, texHeight, cLeft, cRight, cTop, cBottom) /
+         4;
+}
+
+// CircularFrameFisheye_Opt
+__device__ unsigned char SphereToExternal_isWithinCropCircle_distortionFunction(const float2 uv, const int texWidth,
+                                                                                const int texHeight, const float cLeft,
+                                                                                const float cRight, const float cTop,
+                                                                                const float cBottom) {
+  return SphereToFisheye_isWithinCropCircle_distortionFunction(uv, texWidth, texHeight, cLeft, cRight, cTop, cBottom) /
+         4;
+}
+
+// FullFrameFisheye_Opt
+__device__ unsigned char SphereToExternal_isWithinCropRect_distortionFunction(const float2 uv, const int texWidth,
+                                                                              const int texHeight, const float cLeft,
+                                                                              const float cRight, const float cTop,
+                                                                              const float cBottom) {
+  return SphereToFisheye_isWithinCropCircle_distortionFunction(uv, texWidth, texHeight, cLeft, cRight, cTop, cBottom) /
+         4;
+}
+
+#define DISTORTIONKERNEL(fromSphereToInput, isWithin, distortionMetersTransform, distortionPixelsTransform,           \
+                         OutputCropper)                                                                               \
+  __global__ void                                                                                                     \
+      distortionKernel_##fromSphereToInput##_##isWithin##_##distortionMetersTransform##_##distortionPixelsTransform(  \
+          global_mem unsigned char* g_odata, int texWidth, int texHeight, int oWidth, int oHeight, int oOffsetX,      \
+          int oOffsetY, int panoWidth, int panoHeight, int cropLeft, int cropRight, int cropTop, int cropBottom,      \
+          const float2 panoScale, const vsfloat3x4 transform, const float2 inputScale, const vsDistortion distortion, \
+          const float2 centerShift) {                                                                                 \
+    /* calculate normalized texture coordinates */                                                                    \
+    const int x = get_global_id_x();                                                                                  \
+    const int y = get_global_id_y();                                                                                  \
+    const int panoX = (x + oOffsetX) % panoWidth;                                                                     \
+    const int panoY = y + oOffsetY;                                                                                   \
+                                                                                                                      \
+    if (x < oWidth && y < oHeight) {                                                                                  \
+      if (OutputRectCropper_isPanoPointVisible(panoX, panoY, panoWidth, panoHeight)) {                                \
+        float2 uv = make_float2((float)panoX, (float)panoY);                                                          \
+                                                                                                                      \
+        uv.x -= panoWidth / 2.0f;                                                                                     \
+        uv.y -= panoHeight / 2.0f;                                                                                    \
+                                                                                                                      \
+        uv = mapPanoramaToInput_##fromSphereToInput##_##distortionMetersTransform##_##distortionPixelsTransform(      \
+            uv, panoScale, transform, inputScale, distortion, centerShift);                                           \
+                                                                                                                      \
+        uv.x += texWidth / 2.0f;                                                                                      \
+        uv.y += texHeight / 2.0f;                                                                                     \
+        if (isWithin(uv, (float)texWidth, (float)texHeight, (float)cropLeft, (float)cropRight, (float)cropTop,        \
+                     (float)cropBottom)) {                                                                            \
+          g_odata[y * oWidth + x] = fromSphereToInput##_##isWithin##_distortionFunction(                              \
+              uv, texWidth, texHeight, (float)cropLeft, (float)cropRight, (float)cropTop, (float)cropBottom);         \
+        } else {                                                                                                      \
+          g_odata[y * oWidth + x] = 255;                                                                              \
+        }                                                                                                             \
+      } else {                                                                                                        \
+        g_odata[y * oWidth + x] = 255;                                                                                \
+      }                                                                                                               \
+    }                                                                                                                 \
+  }
+
+#define DISTORTIONKERNEL2(RADIAL1, RADIAL2)                                                  \
+  DISTORTIONKERNEL(SphereToRect, isWithinCropRect, RADIAL1, RADIAL2, PhotoCorrectionT)       \
+  DISTORTIONKERNEL(SphereToErect, isWithinCropRect, RADIAL1, RADIAL2, PhotoCorrectionT)      \
+  DISTORTIONKERNEL(SphereToFisheye, isWithinCropCircle, RADIAL1, RADIAL2, PhotoCorrectionT)  \
+  DISTORTIONKERNEL(SphereToFisheye, isWithinCropRect, RADIAL1, RADIAL2, PhotoCorrectionT)    \
+  DISTORTIONKERNEL(SphereToExternal, isWithinCropCircle, RADIAL1, RADIAL2, PhotoCorrectionT) \
+  DISTORTIONKERNEL(SphereToExternal, isWithinCropRect, RADIAL1, RADIAL2, PhotoCorrectionT)
+
+DISTORTIONKERNEL2(noopDistortionTransform, distortionScaled)
+DISTORTIONKERNEL2(distortionScaled, noopDistortionTransform)

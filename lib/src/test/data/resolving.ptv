@@ -1,0 +1,13 @@
+
+/*
+ * This is a very simple
+ * valid ptv file.
+ */
+
+a = 1;
+b = 3.5;
+c = "test";
+
+a2 = a;
+b2 = b;
+c2 = c;

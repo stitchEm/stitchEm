@@ -1,0 +1,47 @@
+
+kernel void
+REMAPKERNEL(global uint32_t* g_odata,  read_only image2d_t tex,
+            int panoWidth, int panoHeight,
+            const float2 inPanoScale, const float2 outPanoScale, const vsfloat3x3 R) {
+  const int x = (int)get_global_id(0);
+  const int y = (int)get_global_id(1);
+
+  if (OUTPUTCROPPER(x, y, panoWidth, panoHeight)) {
+
+    float2 uv = make_float2((float)x, (float)y);
+
+    /**
+     * The transformations are applied relative to the center of the panorama image
+     */
+    uv.x -= (panoWidth - 1) / 2.0f;
+    uv.y -= (panoHeight - 1) / 2.0f;
+
+    /**
+     * Apply transform stack
+     */
+    uv.x /= outPanoScale.x;
+    uv.y /= outPanoScale.y;
+
+    float3 pt = OUTPUTPROJECTION(uv);
+
+    pt = rotateSphere(pt, R);
+
+    uv = SphereToErect(pt);
+
+    uv.x *= inPanoScale.x;
+    uv.y *= inPanoScale.y;
+
+    /**
+     * See notes in warp kernel
+     * compensate fetching offset with CLK_FILTER_LINEAR by adding 0.5f https://stackoverflow.com/a/23418156/463796
+     */
+    uv.x += panoWidth / 2.0f;
+    uv.y += panoHeight / 2.0f;
+
+    const float4 im = read_imagef(tex, smp, uv) * 255.0f;
+    g_odata[y*panoWidth + x] = (uchar)im.s3 << 24 | (uchar)im.s2 << 16 | (uchar)im.s1 << 8 | (uchar)im.s0;
+  }
+  else {
+    g_odata[y*panoWidth + x] = 0;
+  }
+}

@@ -1,0 +1,23 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// don't have too many kernel definitions (many template parameters!) in a single file
+// or the GPU compiler runs out of heap or randomly dies (both AMD OpenCL and Nvidia CUDA)
+
+#define WARPKERNEL_VARIANT_INCLUDE "warpFaceKernel_face_x.gpu.incl"
+#define WARPFACEKERNEL_VARIANT_INCLUDE "cubemapMapKernel.gpu.incl"
+#include "warpKernelSphere_distortion.gpu"
+#undef WARPFACEKERNEL_VARIANT_INCLUDE
+#undef WARPKERNEL_VARIANT_INCLUDE
+
+#define WARPKERNEL_VARIANT_INCLUDE "warpFaceKernel_face_y.gpu.incl"
+#define WARPFACEKERNEL_VARIANT_INCLUDE "cubemapMapKernel.gpu.incl"
+#include "warpKernelSphere_distortion.gpu"
+#undef WARPFACEKERNEL_VARIANT_INCLUDE
+#undef WARPKERNEL_VARIANT_INCLUDE
+
+#define WARPKERNEL_VARIANT_INCLUDE "warpFaceKernel_face_z.gpu.incl"
+#define WARPFACEKERNEL_VARIANT_INCLUDE "cubemapMapKernel.gpu.incl"
+#include "warpKernelSphere_distortion.gpu"
+#undef WARPFACEKERNEL_VARIANT_INCLUDE
+#undef WARPKERNEL_VARIANT_INCLUDE

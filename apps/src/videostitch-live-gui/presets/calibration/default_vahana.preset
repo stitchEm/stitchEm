@@ -1,0 +1,30 @@
+{
+  "cp_extractor" : {
+    "extractor" : "AKAZE", 
+    "matcher_norm" : "HAMMING", 
+    "octaves" : 4, 
+    "sublevels" : 4, 
+    "threshold" : 0.001, 
+    "nndr_ratio" : 0.6
+  }, 
+  "cp_filter" : {
+    "angle_threshold" : 2, 
+    "min_ratio_inliers" : 0.1, 
+    "min_samples_for_fit" : 3, 
+    "ratio_outliers" : 0.5, 
+    "proba_draw_outlier_free_samples" : 0.99, 
+    "decimating_grid_size" : 0.02
+  }, 
+  "optimizer" : {
+    "bundle_adjustment" : [
+      {
+        "vars" : "y# p# r#", 
+        "num_iterations" : 2000
+      },
+      {
+        "vars" : "y# p# r# f b", 
+        "num_iterations" : 2000
+      }
+    ]
+  }
+}

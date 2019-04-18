@@ -1,0 +1,27 @@
+#define mergerT gradientMerge
+#define PhotoCorrectionT LinearPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT GammaPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT EmorPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+#undef mergerT
+
+#define mergerT noopMerge
+#define PhotoCorrectionT LinearPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT GammaPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+
+#define PhotoCorrectionT EmorPhotoCorrection
+#include "warpLookupKernel.gpu.incl"
+#undef PhotoCorrectionT
+#undef mergerT

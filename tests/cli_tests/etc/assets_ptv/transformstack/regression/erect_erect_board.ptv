@@ -1,0 +1,89 @@
+{
+  "lib_version" : "v2.3.0-24663-gbfca502",
+  "buffer_frames" : 1,
+  "merger" : {
+    "type" : "gradient",
+    "feather" : 100,
+    "mask_merger" : 0
+  },
+  "warper" : {
+    "type" : "no"
+  },
+  "flow" : {
+    "type" : "no"
+  },
+  "pano" : {
+    "width" : 2048,
+    "height" : 1024,
+    "pad_top" : 0,
+    "pad_bottom" : 0,
+    "hfov" : 360,
+    "proj" : "equirectangular",
+    "global_orientation" : [
+      1,
+      0,
+      0,
+      0
+    ],
+    "stabilization" : [
+      1,
+      0,
+      0,
+      0
+    ],
+    "ev" : 0,
+    "red_corr" : 1,
+    "green_corr" : 1,
+    "blue_corr" : 1,
+    "calibration_cost" : -1,
+    "inputs" : [
+      {
+        "filename" : "procedural:checker(size=120,color1=000000,color2=ee2222,color3=222222)",
+        "group" : 0,
+        "width" : 3840,
+        "height" : 1920,
+        "mask_data" : "",
+        "no_delete_masked_pixels" : false,
+        "proj" : "equirectangular",
+        "hfov" : 360,
+        "ev" : 0,
+        "red_corr" : 1,
+        "green_corr" : 1,
+        "blue_corr" : 1,
+        "response" : "gamma",
+        "emor_a" : 0,
+        "emor_b" : 0,
+        "emor_c" : 0,
+        "emor_d" : 0,
+        "emor_e" : 0,
+        "gamma" : 1,
+        "vign_a" : 1,
+        "vign_b" : 0,
+        "vign_c" : 0,
+        "vign_d" : 0,
+        "vign_x" : 0,
+        "vign_y" : 0,
+        "frame_offset" : 0,
+        "synchro_cost" : -1,
+        "stack_order" : 0,
+        "video_enabled" : true,
+        "audio_enabled" : true
+      }
+    ],
+    "merger_mask" : {
+      "width" : 0,
+      "height" : 0,
+      "enable" : false,
+      "interpolationEnabled" : false,
+      "inputScaleFactor" : 2,
+      "masks" : []
+    },
+    "calibration_control_points" : {}
+  },
+  "first_frame" : 0,
+  "last_frame" : 6620,
+  "output" : {
+    "type" : "png",
+    "filename" : "erect_erect_board"
+  }
+}

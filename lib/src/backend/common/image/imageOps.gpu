@@ -1,0 +1,101 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void subtractRGBKernel(global_mem uint32_t* __restrict__ dst,
+                                  global_mem const uint32_t* __restrict__ toSubtract, unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    uint32_t vSrc = toSubtract[i];
+    uint32_t vDst = dst[i];
+    int32_t toSubtractIsSolid = !!Image_RGBA_a(vSrc);
+    int32_t r = Image_RGBA_r(vDst) - toSubtractIsSolid * Image_RGBA_r(vSrc);
+    int32_t g = Image_RGBA_g(vDst) - toSubtractIsSolid * Image_RGBA_g(vSrc);
+    int32_t b = Image_RGBA_b(vDst) - toSubtractIsSolid * Image_RGBA_b(vSrc);
+    dst[i] = Image_RGB210_pack(r, g, b, Image_RGBA_a(vDst));
+  }
+}
+
+__global__ void subtractKernel(global_mem unsigned char* __restrict__ dst,
+                               global_mem const unsigned char* __restrict__ toSubtract, unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    dst[i] -= toSubtract[i];
+  }
+}
+
+__global__ void addKernel(global_mem unsigned char* __restrict__ dst,
+                          global_mem const unsigned char* __restrict__ toAdd0,
+                          global_mem const unsigned char* __restrict__ toAdd1, unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    dst[i] = toAdd0[i] + toAdd1[i];
+  }
+}
+
+__global__ void addKernelEx(global_mem unsigned char* __restrict__ dst,
+                            global_mem const unsigned char* __restrict__ toAdd, unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    dst[i] += toAdd[i];
+  }
+}
+
+__global__ void add10Kernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ toAdd,
+                            unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    uint32_t vSrc = toAdd[i];
+    uint32_t vDst = dst[i];
+    int32_t srcIsSolid = !!Image_RGB210_a(vSrc);
+    int32_t dstIsSolid = !!Image_RGB210_a(vDst);
+    int32_t r = dstIsSolid * (Image_RGB210_r(vDst) + srcIsSolid * Image_RGB210_r(vSrc));
+    int32_t g = dstIsSolid * (Image_RGB210_g(vDst) + srcIsSolid * Image_RGB210_g(vSrc));
+    int32_t b = dstIsSolid * (Image_RGB210_b(vDst) + srcIsSolid * Image_RGB210_b(vSrc));
+    dst[i] = Image_RGB210_pack(r, g, b, dstIsSolid * 0xff);
+  }
+}
+
+__global__ void add10n8Kernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ toAdd,
+                              unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    uint32_t vSrc = toAdd[i];
+    uint32_t vDst = dst[i];
+    int32_t srcIsSolid = !!Image_RGBA_a(vSrc);
+    int32_t dstIsSolid = !!Image_RGB210_a(vDst);
+    int32_t r = dstIsSolid * (Image_RGB210_r(vDst) + srcIsSolid * Image_RGBA_r(vSrc));
+    int32_t g = dstIsSolid * (Image_RGB210_g(vDst) + srcIsSolid * Image_RGBA_g(vSrc));
+    int32_t b = dstIsSolid * (Image_RGB210_b(vDst) + srcIsSolid * Image_RGBA_b(vSrc));
+    dst[i] = Image_RGB210_pack(r, g, b, dstIsSolid * 0xff);
+  }
+}
+
+__global__ void add10n8ClampKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ toAdd,
+                                   unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    uint32_t vSrc = toAdd[i];
+    uint32_t vDst = dst[i];
+    int32_t srcIsSolid = !!Image_RGBA_a(vSrc);
+    int32_t dstIsSolid = !!Image_RGB210_a(vDst);
+    int32_t r = dstIsSolid * (Image_RGB210_r(vDst) + srcIsSolid * Image_RGBA_r(vSrc));
+    int32_t g = dstIsSolid * (Image_RGB210_g(vDst) + srcIsSolid * Image_RGBA_g(vSrc));
+    int32_t b = dstIsSolid * (Image_RGB210_b(vDst) + srcIsSolid * Image_RGBA_b(vSrc));
+    dst[i] = Image_RGBA_pack(clamp8(r), clamp8(g), clamp8(b), dstIsSolid * 0xff);
+  }
+}
+
+__global__ void addClampKernel(global_mem uint32_t* __restrict__ dst, global_mem const uint32_t* __restrict__ toAdd,
+                               unsigned size) {
+  unsigned i = get_global_id_x();
+  if (i < size) {
+    uint32_t vSrc = toAdd[i];
+    uint32_t vDst = dst[i];
+    int32_t srcIsSolid = !!Image_RGB210_a(vSrc);
+    int32_t dstIsSolid = !!Image_RGB210_a(vDst);
+    int32_t r = dstIsSolid * (Image_RGB210_r(vDst) + srcIsSolid * Image_RGB210_r(vSrc));
+    int32_t g = dstIsSolid * (Image_RGB210_g(vDst) + srcIsSolid * Image_RGB210_g(vSrc));
+    int32_t b = dstIsSolid * (Image_RGB210_b(vDst) + srcIsSolid * Image_RGB210_b(vSrc));
+    dst[i] = Image_RGBA_pack(clamp8(r), clamp8(g), clamp8(b), dstIsSolid * 0xff);
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "rig" : {
+    "name" : "Elmo - QBIC Panorama X", 
+    "rigcameras" : [
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : -78.4076, 
+        "pitch_mean" : 13.733, 
+        "roll_mean" : 90.142, 
+        "yaw_variance" : 1, 
+        "pitch_variance" : 1, 
+        "roll_variance" : 1, 
+        "camera" : "camera_0"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 13.9593, 
+        "pitch_mean" : -15.5137, 
+        "roll_mean" : 89.8395, 
+        "yaw_variance" : 1, 
+        "pitch_variance" : 1, 
+        "roll_variance" : 1, 
+        "camera" : "camera_1"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 103.794, 
+        "pitch_mean" : 14.3805, 
+        "roll_mean" : 90.4449, 
+        "yaw_variance" : 1, 
+        "pitch_variance" : 1, 
+        "roll_variance" : 1, 
+        "camera" : "camera_2"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : -163.132, 
+        "pitch_mean" : -11.3404, 
+        "roll_mean" : 89.8214, 
+        "yaw_variance" : 1, 
+        "pitch_variance" : 1, 
+        "roll_variance" : 1, 
+        "camera" : "camera_3"
+      }
+    ]
+  }, 
+  "cameras" : [
+    {
+      "name" : "camera_0", 
+      "format" : "ff_fisheye", 
+      "width" : 1920, 
+      "height" : 1080, 
+      "fu_mean" : 614.799, 
+      "fu_variance" : 944.945, 
+      "fv_mean" : 614.799, 
+      "fv_variance" : 944.945, 
+      "cu_mean" : 976.914, 
+      "cu_variance" : 9216, 
+      "cv_mean" : 594.556, 
+      "cv_variance" : 9216, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0, 
+      "distortb_mean" : 0.0901089, 
+      "distortb_variance" : 0.000182691, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0
+    },
+    {
+      "name" : "camera_1", 
+      "format" : "ff_fisheye", 
+      "width" : 1920, 
+      "height" : 1080, 
+      "fu_mean" : 614.799, 
+      "fu_variance" : 944.945, 
+      "fv_mean" : 614.799, 
+      "fv_variance" : 944.945, 
+      "cu_mean" : 964.877, 
+      "cu_variance" : 9216, 
+      "cv_mean" : 547.151, 
+      "cv_variance" : 9216, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0, 
+      "distortb_mean" : 0.0901089, 
+      "distortb_variance" : 0.000182691, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0
+    },
+    {
+      "name" : "camera_2", 
+      "format" : "ff_fisheye", 
+      "width" : 1920, 
+      "height" : 1080, 
+      "fu_mean" : 614.799, 
+      "fu_variance" : 944.945, 
+      "fv_mean" : 614.799, 
+      "fv_variance" : 944.945, 
+      "cu_mean" : 987.928, 
+      "cu_variance" : 9216, 
+      "cv_mean" : 566.192, 
+      "cv_variance" : 9216, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0, 
+      "distortb_mean" : 0.0901089, 
+      "distortb_variance" : 0.000182691, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0
+    },
+    {
+      "name" : "camera_3", 
+      "format" : "ff_fisheye", 
+      "width" : 1920, 
+      "height" : 1080, 
+      "fu_mean" : 614.799, 
+      "fu_variance" : 944.945, 
+      "fv_mean" : 614.799, 
+      "fv_variance" : 944.945, 
+      "cu_mean" : 944.455, 
+      "cu_variance" : 9216, 
+      "cv_mean" : 531.709, 
+      "cv_variance" : 9216, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0, 
+      "distortb_mean" : 0.0901089, 
+      "distortb_variance" : 0.000182691, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#define INSTANTIATE_COPY_FN(CopyType)                                                                            \
+  template Status memcpyAsync(Buffer<CopyType> dst, Buffer<const CopyType> src, size_t copySize,                 \
+                              const Stream& stream);                                                             \
+  template Status memcpyBlocking(Buffer<CopyType> dst, Buffer<const CopyType> src, size_t copySize);             \
+  template Status memcpyAsync(Buffer<CopyType> dst, const CopyType* src, size_t copySize, const Stream& stream); \
+  template Status memcpyBlocking(GPU::Buffer<CopyType> dst, const CopyType* src, size_t copySize);               \
+  template Status memcpyAsync(CopyType* dst, Buffer<const CopyType> src, size_t copySize, const Stream& stream); \
+  template Status memcpyBlocking(CopyType* dst, Buffer<const CopyType> src, size_t copySize);                    \
+  template Status memsetToZeroAsync(Buffer<CopyType> devPtr, size_t count, const Stream& stream);                \
+  template Status memsetToZeroBlocking(Buffer<CopyType> devPtr, size_t count);
+
+INSTANTIATE_COPY_FN(unsigned char)
+INSTANTIATE_COPY_FN(char)
+INSTANTIATE_COPY_FN(int16_t)
+INSTANTIATE_COPY_FN(uint16_t)
+INSTANTIATE_COPY_FN(uchar3)
+INSTANTIATE_COPY_FN(uint32_t)
+INSTANTIATE_COPY_FN(float)
+INSTANTIATE_COPY_FN(float2)
+INSTANTIATE_COPY_FN(float4)
+INSTANTIATE_COPY_FN(int2)
+
+template Status memcpyAsync(uint32_t* dst, Surface& src, const Stream& stream);
+template Status memcpyAsync(float* dst, Surface& src, const Stream& stream);
+
+template Status memcpyBlocking(uint32_t* dst, Surface& src);
+template Status memcpyBlocking(float* dst, Surface& src);

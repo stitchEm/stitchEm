@@ -1,0 +1,7 @@
+[DEFAULT]
+apiVersion=0.9
+serverVersion=1.2.0-alpha1
+supportedFirmwares=1.0.0, 1.1.0, 1.1.4, 1.50.6, 1.50.23
+unsupportedFirmwares=1.0.99
+firmwareVersion=1.50.23
+firmwareUpdates=[ { "version": "1.0.99", "file": "_firmware_1_0_99", "md5": "993b6b04d20b979c8f291b57c0d735e3" }, { "version": "1.50.23", "file": "firmware_1_50_23", "md5": "2d1b58fc293b825a14236401523017d0" } ]

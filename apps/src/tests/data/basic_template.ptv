@@ -1,0 +1,7 @@
+{
+  "type" : "laplacian", 
+  "levels" : 0, 
+  "gaussian_radius" : 1, 
+  "blend_radius" : 3, 
+  "hf_blend_radius" : 2 
+ }

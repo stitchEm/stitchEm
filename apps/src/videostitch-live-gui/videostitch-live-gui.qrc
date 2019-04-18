@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/vahanavr_client_id.json</file>
+        <file>resources/style_variables.ini</file>
+        <file>presets/calibration/default_vahana.preset</file>
+        <file>presets/project/default_vah_project.preset</file>
+        <file>presets/rigs/360Heroes - H3Pro6L v2.preset</file>
+        <file>presets/rigs/Elmo - QBIC Panorama X.preset</file>
+        <file>presets/rigs/Freedom360 - Broadcaster.preset</file>
+        <file>resources/vahana-vr.qss</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,7 @@
+#define face XPos
+#include "warpFaceKernel_equiangular.gpu.incl"
+#undef face
+
+#define face XNeg
+#include "warpFaceKernel_equiangular.gpu.incl"
+#undef face

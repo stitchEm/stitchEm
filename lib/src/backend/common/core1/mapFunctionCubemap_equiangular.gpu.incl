@@ -1,0 +1,7 @@
+#define equiangular true
+#include "mapFunctionCubemap.gpu.incl"
+#undef equiangular
+
+#define equiangular false
+#include "mapFunctionCubemap.gpu.incl"
+#undef equiangular

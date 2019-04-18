@@ -1,0 +1,6 @@
+{ 
+ "merger" : {
+    "type" : "gradient", 
+    "blend_radius" : -1
+  }
+}

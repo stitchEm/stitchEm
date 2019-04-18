@@ -1,0 +1,19 @@
+{
+  "type": "rtmp",
+  "filename": "rtmp://127.0.0.1:1935/live/preview",
+  "video_codec": "h264_nvenc",
+  "profile": "baseline",
+  "level": "5.1",
+  "bitrate_mode": "VBR",
+  "preset": "ll",
+  "bitrate": 5000,
+  "gop": 10,
+  "fps": 30,
+  "num_slice": 0,
+  "downsampling_factor": 2,
+  "audio_codec": "aac",
+  "sample_format": "flt",
+  "sampling_rate": 44100,
+  "audio_bitrate": 384,
+  "ambisonic_audio_bitrate": 512
+}

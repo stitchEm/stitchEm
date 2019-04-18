@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ptv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>videostitch.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>VideoStitch PTV</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ptv</string>
+				<string>ptvb</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>videostitch.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>Image Stitching</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pto</string>
+				<string>pts</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mp4</string>
+				<string>mov</string>
+				<string>mpg</string>
+				<string>avi</string>
+				<string>mkv</string>
+				<string>mp2</string>
+				<string>3gp</string>
+				<string>m4v</string>
+				<string>mpeg</string>
+				<string>ogv</string>
+				<string>ogg</string>
+				<string>wmv</string>
+				<string>tiff</string>
+				<string>tif</string>
+				<string>jpeg</string>
+				<string>jpg</string>
+				<string>png</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>None</string>
+		</dict>
+	</array>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>CFBundleName</key>
+	<string>VideoStitch Studio</string>
+	<key>CFBundleIconFile</key>
+	<string>videostitch-studio.icns</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Copyright stitchEm</string>
+	<key>CFBundleSignature</key>
+	<string>orah</string>
+	<key>CFBundleExecutable</key>
+	<string>VideoStitch Studio</string>
+	<key>CFBundleShortVersionString</key>
+	<string>9.9.9</string>
+	<key>CFBundleVersion</key>
+	<string>9.9.9</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.8.0</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.video-stitch.Studio</string>
+	<key>NOTE</key>
+	<string>https://github.com/stitchEm</string>
+</dict>
+</plist>

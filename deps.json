@@ -1,0 +1,244 @@
+{
+  "repo" : "deps",
+  "packages" : [
+    {
+      "name" : "vlc",
+      "version" : "2.2.0"
+    },
+    {
+      "name" : "ffmpeg",
+      "version" : "3.3.0"
+    },
+    {
+      "name" : "portaudio",
+      "version" : "20170830"
+    },
+    {
+    "name" : "lame",
+    "version" : "3.99.5"
+    },
+    {
+      "name" : "x264",
+      "version" : "148"
+    },
+    {
+      "name" : "libtiff",
+      "version" : "4.0.2"
+    },
+    {
+      "name" : "libpng",
+      "version" : "1.6.13"
+    },
+    {
+      "name" : "opencv2",
+      "version" : "3.1.0_patch_akaze_angle"
+    },
+    {
+      "name" : "aja",
+      "version" : "12.5.2.1"
+    },
+    {
+      "name" : "ladybug",
+      "version" : "latest"
+    },
+    {
+      "name" : "magewell",
+      "version" : "2.1.0.2075"
+    },
+    {
+      "name" : "magewellPro",
+      "version" : "3.2.1.2583"
+    },
+    {
+      "name" : "teledyne",
+      "version" : "latest"
+    },
+    {
+      "name" : "Ximea",
+      "version" : "latest"
+    },
+    {
+      "name" : "yuan",
+      "version" : "latest"
+    },
+    {
+      "name" : "OculusSDK",
+      "version" : "1.4.0"
+    },
+    {
+      "name" : "GL",
+      "version" : "latest"
+    },
+    {
+      "name" : "librtmp",
+      "version" : "2.4.vs-1"
+    },
+    {
+      "name" : "libjpeg-turbo",
+      "version" : "1.4"
+    },
+    {
+      "name" : "decklink",
+      "version" : "10.9",
+      "static" : true
+    },
+    {
+      "name" : "ptgrey",
+      "version" : "latest",
+      "static" : true
+    },
+    {
+      "name" : "Sapera",
+      "version" : "7.50.1",
+      "static" : true
+    },
+    {
+      "name" : "QCAP",
+      "version" : "latest",
+      "static" : true
+    },
+    {
+      "name" : "unikey",
+      "version" : "6.7.0",
+      "static" : true
+    },
+    {
+      "name" : "nginx_rtmp",
+      "version" : "1.2.4"
+    },
+    {
+      "name" : "CL",
+      "version" : "1.2"
+    },
+    {
+      "name" : "clangcl",
+      "version" : "3.2"
+    },
+    {
+      "name" : "openvr",
+      "version" : "1.0.3"
+    },
+    {
+      "name" : "Intel_Media_SDK",
+      "version" : "2016.0.1_a"
+    },
+    {
+      "name" : "eigen",
+      "version" : "3.2.7"
+    },
+    {
+      "name" : "ceres",
+      "version" : "1.11.0"
+    },
+    {
+      "name" : "faac",
+      "version" : "1.28"
+    },
+    {
+      "name" : "faad",
+      "version" : "2.7"
+    },
+    {
+      "name" : "gflags",
+      "version" : "2.0"
+    },
+    {
+      "name" : "jsoncpp",
+      "version" : "0.5.0"
+    },
+    {
+      "name" : "googleapis",
+      "version" : "2016.02.29"
+    },
+    {
+      "name" : "json",
+      "version" : "0.5.0"
+    },
+    {
+      "name" : "glog",
+      "version" : "0.3.3"
+    },
+    {
+      "name" : "curl",
+      "version" : "7.47.1"
+    },
+    {
+      "name" : "openssl",
+      "version" : "1.0.2f"
+
+    },
+    {
+      "name" : "youtubeapi",
+      "version" : "3.20160418"
+    },
+    {
+      "name" : "nvenc",
+      "version" : "6.0"
+    },
+    {
+      "name" : "v4l2",
+      "version" : "latest"
+    },
+    {
+      "name" : "r8b",
+      "version" : "1.6"
+    },
+    {
+      "name": "jansson",
+      "version": "4.7.0"
+    },
+    {
+      "name": "googleprotobuf",
+      "version": "2.6.1"
+    },
+    {
+      "name": "websocketpp",
+      "version": "0.7.0"
+    },
+    {
+      "name": "stitchingboxFW",
+      "version": "1.50.23"
+    },
+    {
+      "name": "stitchingboxDocs",
+      "version": "1.0.2"
+    },
+    {
+      "name": "glfw",
+      "version": "3.3",
+      "source": "https://github.com/OlivierNemoz/glfw"
+    },
+    {
+      "name": "GLEW",
+      "version": "2.0.0"
+    },
+    {
+      "name": "glfm",
+      "version": "0.8.1"
+    },
+    {
+      "name": "NVGameWorks",
+      "version": "master"
+    },
+    {
+      "name": "glm",
+      "version": "0.9.8"
+    },
+    {
+      "name": "vcredist",
+      "version": "13"
+    },
+    {
+      "name": "bonjour",
+      "version": "3.0"
+    },
+    {
+      "name": "revulyticsUsageIntelligence",
+      "version": "5.1.0"
+    },
+    {
+      "name": "openexr",
+      "version": "2.2.0"
+    }
+  ]
+}

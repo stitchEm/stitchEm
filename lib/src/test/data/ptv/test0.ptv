@@ -1,0 +1,208 @@
+{
+  "buffer_frames" : 1,   
+  "merger" : {
+    "type" : "laplacian", 
+    "feather" : 30
+  },  
+  "pano" : {
+    "width" : 1920, 
+    "height" : 960, 
+    "hfov" : 360, 
+    "proj" : "equirectangular", 
+    "global_orientation" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "stabilization" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "ev" : 0,     
+    "inputs" : [
+      {
+        "reader_config" : "test0-0.jpg", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",                
+        "frame_offset" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 60.0416, 
+            "pitch" : -47.8843, 
+            "roll" : -33.8408, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "test0-1.jpg", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",                 
+        "frame_offset" : 683, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 18.6529, 
+            "pitch" : 33.1574, 
+            "roll" : 63.1182, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "test0-2.jpg", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",                 
+        "frame_offset" : 1395, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -166.336, 
+            "pitch" : -31.0698, 
+            "roll" : -62.0834, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "test0-3.jpg", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",        
+        "frame_offset" : 1245, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -119.454, 
+            "pitch" : 49.7505, 
+            "roll" : 34.9776, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "test0-4.jpg", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",                 
+        "frame_offset" : 1074, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -58.085, 
+            "pitch" : -22.3757, 
+            "roll" : -34.7845, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "test0-5.png", 
+        "width" : 1280, 
+        "height" : 960, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "ff_fisheye",        
+        "frame_offset" : 400, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "response" : "emor", 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 123.422, 
+            "pitch" : 23.899, 
+            "roll" : 34.7259, 
+            "center_x" : 9.63823, 
+            "center_y" : -6.80599, 
+            "distort_a" : 0, 
+            "distort_b" : 0.0498567, 
+            "distort_c" : 0,
+            "horizontalFocal" : 594.803
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      }
+    ]
+  }, 
+  "first_frame" : 0, 
+  "last_frame" : 0, 
+  "output" : {
+    "type" : "jpg", 
+    "filename" : "test0-out"
+  }
+}

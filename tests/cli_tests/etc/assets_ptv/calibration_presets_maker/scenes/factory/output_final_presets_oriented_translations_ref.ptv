@@ -1,0 +1,459 @@
+{
+  "lib_version" : "v2.3.0-20753-gfdfd3f9", 
+  "buffer_frames" : 1, 
+  "merger" : {
+    "type" : "gradient", 
+    "feather" : 100, 
+    "mask_merger" : 0
+  }, 
+  "pano" : {
+    "width" : 1024, 
+    "height" : 512, 
+    "hfov" : 360, 
+    "proj" : "equirectangular", 
+    "global_orientation" : [
+      0,
+      2694,
+      [
+        0.70012200000000002,
+        0.19128300000000001,
+        0.074078599999999994,
+        0.68392399999999998
+      ]
+    ], 
+    "stabilization" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "ev" : 0, 
+    "red_corr" : 1, 
+    "green_corr" : 1, 
+    "blue_corr" : 1, 
+    "calibration_cost" : -1233.0799999999999, 
+    "inputs" : [
+      {
+        "reader_config" : "/Users/valente/Projects/factory/0_0.mp4", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "group" : 0, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -105, 
+        "crop_right" : 1935, 
+        "crop_top" : -289, 
+        "crop_bottom" : 1751, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 0, 
+            "pitch" : 0, 
+            "roll" : 0, 
+            "center_x" : -74.7864, 
+            "center_y" : 94.361800000000002, 
+            "distort_a" : 0, 
+            "distort_b" : -0.401758, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 1035.5999999999999, 
+            "verticalFocal" : 1046.1500000000001
+          }
+        ]
+      },
+      {
+        "reader_config" : "/Users/valente/Projects/factory/0_1.mp4", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "group" : 0, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -78, 
+        "crop_right" : 1962, 
+        "crop_top" : -354, 
+        "crop_bottom" : 1686, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -132.32300000000001, 
+            "pitch" : -4.1059299999999999, 
+            "roll" : 175.42599999999999, 
+            "center_x" : -91.134799999999998, 
+            "center_y" : -19.3065, 
+            "distort_a" : 0, 
+            "distort_b" : -0.38156099999999998, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 1035.5999999999999, 
+            "verticalFocal" : 1046.1500000000001
+          }
+        ]
+      },
+      {
+        "reader_config" : "/Users/valente/Projects/factory/1_0.mp4", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "group" : 0, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -7, 
+        "crop_right" : 2033, 
+        "crop_top" : -289, 
+        "crop_bottom" : 1751, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 133.685, 
+            "pitch" : 61.561300000000003, 
+            "roll" : 112.226, 
+            "center_x" : 38.769100000000002, 
+            "center_y" : -60.974400000000003, 
+            "distort_a" : 0, 
+            "distort_b" : -0.43872800000000001, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 1035.5999999999999, 
+            "verticalFocal" : 1046.1500000000001
+          }
+        ]
+      },
+      {
+        "reader_config" : "/Users/valente/Projects/factory/1_1.mp4", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "group" : 0, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -28, 
+        "crop_right" : 2012, 
+        "crop_top" : -270, 
+        "crop_bottom" : 1770, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 93.067999999999998, 
+            "pitch" : -67.286199999999994, 
+            "roll" : -68.228499999999997, 
+            "center_x" : 14.67, 
+            "center_y" : -29.225999999999999, 
+            "distort_a" : 0, 
+            "distort_b" : -0.31198100000000001, 
+            "distort_c" : 0, 
+            "horizontalFocal" : 1035.5999999999999, 
+            "verticalFocal" : 1046.1500000000001
+          }
+        ]
+      }
+    ], 
+    "merger_mask" : {
+      "width" : 0, 
+      "height" : 0, 
+      "enable" : false, 
+      "interpolationEnabled" : false, 
+      "inputScaleFactor" : 2, 
+      "masks" : []
+    }, 
+    "calibration_control_points" : {}, 
+    "cameras" : [
+      {
+        "name" : "camera_0", 
+        "format" : "circular_fisheye_opt", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "fu_mean" : 1035.5999999999999, 
+        "fu_variance" : 2681.1684, 
+        "fv_mean" : 1046.1500000000001, 
+        "fv_variance" : 2736.0745562499997, 
+        "cu_mean" : 840.21360000000004, 
+        "cu_variance" : 23592.959999999999, 
+        "cv_mean" : 825.36180000000002, 
+        "cv_variance" : 23592.959999999999, 
+        "distorta_mean" : 0, 
+        "distorta_variance" : 0, 
+        "distortb_mean" : -0.401758, 
+        "distortb_variance" : 0.040352372641000001, 
+        "distortc_mean" : 0, 
+        "distortc_variance" : 0
+      },
+      {
+        "name" : "camera_1", 
+        "format" : "circular_fisheye_opt", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "fu_mean" : 1035.5999999999999, 
+        "fu_variance" : 2681.1684, 
+        "fv_mean" : 1046.1500000000001, 
+        "fv_variance" : 2736.0745562499997, 
+        "cu_mean" : 850.86519999999996, 
+        "cu_variance" : 23592.959999999999, 
+        "cv_mean" : 646.69349999999997, 
+        "cv_variance" : 23592.959999999999, 
+        "distorta_mean" : 0, 
+        "distorta_variance" : 0, 
+        "distortb_mean" : -0.38156099999999998, 
+        "distortb_variance" : 0.036397199180249987, 
+        "distortc_mean" : 0, 
+        "distortc_variance" : 0
+      },
+      {
+        "name" : "camera_2", 
+        "format" : "circular_fisheye_opt", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "fu_mean" : 1035.5999999999999, 
+        "fu_variance" : 2681.1684, 
+        "fv_mean" : 1046.1500000000001, 
+        "fv_variance" : 2736.0745562499997, 
+        "cu_mean" : 1051.7691, 
+        "cu_variance" : 23592.959999999999, 
+        "cv_mean" : 670.02559999999994, 
+        "cv_variance" : 23592.959999999999, 
+        "distorta_mean" : 0, 
+        "distorta_variance" : 0, 
+        "distortb_mean" : -0.43872800000000001, 
+        "distortb_variance" : 0.048120564496000003, 
+        "distortc_mean" : 0, 
+        "distortc_variance" : 0
+      },
+      {
+        "name" : "camera_3", 
+        "format" : "circular_fisheye_opt", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "fu_mean" : 1035.5999999999999, 
+        "fu_variance" : 2681.1684, 
+        "fv_mean" : 1046.1500000000001, 
+        "fv_variance" : 2736.0745562499997, 
+        "cu_mean" : 1006.67, 
+        "cu_variance" : 23592.959999999999, 
+        "cv_mean" : 720.774, 
+        "cv_variance" : 23592.959999999999, 
+        "distorta_mean" : 0, 
+        "distorta_variance" : 0, 
+        "distortb_mean" : -0.31198100000000001, 
+        "distortb_variance" : 0.024333036090250001, 
+        "distortc_mean" : 0, 
+        "distortc_variance" : 0
+      }
+    ], 
+    "rig" : {
+      "name" : "Orah 4i - calibration_presets_maker", 
+      "rigcameras" : [
+        {
+          "angle_unit" : "degrees", 
+          "yaw_mean" : 9.7832251671412624, 
+          "pitch_mean" : -21.664508296139342, 
+          "roll_mean" : -90.535306805137523, 
+          "translation_x_mean" : 0, 
+          "translation_y_mean" : 0, 
+          "translation_z_mean" : 0, 
+          "yaw_variance" : 1, 
+          "pitch_variance" : 4, 
+          "roll_variance" : 9, 
+          "translation_x_variance" : 0.0049000000000000007, 
+          "translation_y_variance" : 0, 
+          "translation_z_variance" : 0, 
+          "camera" : "camera_0"
+        },
+        {
+          "angle_unit" : "degrees", 
+          "yaw_mean" : -175.22223089037641, 
+          "pitch_mean" : -25.899223444897459, 
+          "roll_mean" : -92.021617878320953, 
+          "translation_x_mean" : 0, 
+          "translation_y_mean" : 0, 
+          "translation_z_mean" : 0, 
+          "yaw_variance" : 1, 
+          "pitch_variance" : 4, 
+          "roll_variance" : 9, 
+          "translation_x_variance" : 0.0049000000000000007, 
+          "translation_y_variance" : 0, 
+          "translation_z_variance" : 0, 
+          "camera" : "camera_1"
+        },
+        {
+          "angle_unit" : "degrees", 
+          "yaw_mean" : -91.844075031047566, 
+          "pitch_mean" : 25.710802262599042, 
+          "roll_mean" : -92.363023732259265, 
+          "translation_x_mean" : 0, 
+          "translation_y_mean" : 0, 
+          "translation_z_mean" : 0, 
+          "yaw_variance" : 1, 
+          "pitch_variance" : 4, 
+          "roll_variance" : 9, 
+          "translation_x_variance" : 0.0049000000000000007, 
+          "translation_y_variance" : 0, 
+          "translation_z_variance" : 0, 
+          "camera" : "camera_2"
+        },
+        {
+          "angle_unit" : "degrees", 
+          "yaw_mean" : 91.955559230438837, 
+          "pitch_mean" : 21.960126204066579, 
+          "roll_mean" : -88.34025118137842, 
+          "translation_x_mean" : 0, 
+          "translation_y_mean" : 0, 
+          "translation_z_mean" : 0, 
+          "yaw_variance" : 1, 
+          "pitch_variance" : 4, 
+          "roll_variance" : 9, 
+          "translation_x_variance" : 0.0049000000000000007, 
+          "translation_y_variance" : 0, 
+          "translation_z_variance" : 0, 
+          "camera" : "camera_3"
+        }
+      ]
+    }
+  }, 
+  "audio_pipe" : {
+    "sampling_rate" : 44100, 
+    "block_size" : 512, 
+    "audio_inputs" : [
+      {
+        "name" : "0_0.mp4", 
+        "sources" : [
+          {
+            "reader_id" : 0, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "0_1.mp4", 
+        "sources" : [
+          {
+            "reader_id" : 1, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "1_0.mp4", 
+        "sources" : [
+          {
+            "reader_id" : 2, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "1_1.mp4", 
+        "sources" : [
+          {
+            "reader_id" : 3, 
+            "channel" : -1
+          }
+        ]
+      }
+    ]
+  }, 
+  "first_frame" : 0, 
+  "last_frame" : 12061, 
+  "output" : {
+    "filename" : "vs-out", 
+    "bitrate" : 15000000, 
+    "bitrate_mode" : "VBR", 
+    "gop" : 25, 
+    "b_frames" : 2, 
+    "video_codec" : "h264", 
+    "type" : "mp4"
+  }
+}

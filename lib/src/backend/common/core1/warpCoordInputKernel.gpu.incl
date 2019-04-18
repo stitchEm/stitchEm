@@ -1,0 +1,40 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void FUNCTION_NAME_5(warpCoordInputKernel, fromInputToSphere, isWithin, inverseDistortionMetersTransform, inverseRadialPixelsTransform)
+  (global_mem float2* g_odata,
+  const int scaleFactor,
+  const int inputWidth, const int inputHeight,
+  const int inputLeft, const int inputRight, const int inputTop, const int inputBottom,
+  const int panoWidth, const int panoHeight,
+  const float2 panoScale,
+  const vsfloat3x4 poseInverse,
+  const float rigSphereRadius,
+  const float2 inputScale,
+  const vsDistortion distortion,
+  const float2 centerShift
+  ) {
+  /* calculate normalized texture coordinates */
+  const int x = get_global_id_x();
+  const int y = get_global_id_y();
+  if (x < scaleFactor * inputWidth && y < scaleFactor*inputHeight) {
+    float2 uv = make_float2(((float) x) / scaleFactor, ((float)y) / scaleFactor);
+    if (isWithin(uv, (float)inputWidth, (float)inputHeight, (float)inputLeft, (float)inputRight, (float)inputTop, (float)inputBottom)) {
+      /**
+       * Texture fetches are relative to the upper left, not the center.
+       */
+      uv.x -= (inputWidth - 1) / 2.0f;
+      uv.y -= (inputHeight - 1) / 2.0f;
+      uv = FUNCTION_NAME_4(mapInputToPanorama, fromInputToSphere, inverseDistortionMetersTransform, inverseRadialPixelsTransform)(uv, panoScale, poseInverse, rigSphereRadius, inputScale, distortion, centerShift);
+      /**
+       * Move to center-based coordinate
+       */
+      uv.x += (panoWidth - 1) / 2.0f;
+      uv.y += (panoHeight - 1) / 2.0f;
+      g_odata[(y * scaleFactor * inputWidth + x)] = make_float2(uv.x, uv.y);
+    }
+    else {
+      g_odata[(y * scaleFactor * inputWidth + x)] = make_float2(INVALID_FLOW_VALUE, INVALID_FLOW_VALUE);
+    }
+  }
+}

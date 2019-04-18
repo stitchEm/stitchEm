@@ -1,0 +1,10 @@
+{ 
+ "merger" : {
+    "type" : "laplacian", 
+    "levels" : 3, 
+    "gaussian_radius" : 5, 
+    "blend_radius" : 5, 
+    "hf_blend_radius" : 3, 
+    "filter_passes" : 3
+  }
+}

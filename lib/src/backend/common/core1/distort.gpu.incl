@@ -1,0 +1,20 @@
+__device__ float2
+FUNCTION_NAME_3(distort, distortionMetersTransform, distortionPixelsTransform)(
+  float2 uv,
+  const float2 inputScale,
+  const vsDistortion distortion,
+  const float2 centerShift) const_member {
+
+  /** Add distortion to point coordinates before scaling*/
+  uv = distortionMetersTransform(uv, distortion);
+
+  /** From meters to pixels*/
+  uv *= inputScale;
+
+  /** Add distortion to point coordinates after scaling*/
+  uv = distortionPixelsTransform(uv, distortion);
+
+  /** Shift of principal point (Wrt image center)*/
+  uv += centerShift;
+  return uv;
+}

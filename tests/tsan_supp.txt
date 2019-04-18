@@ -1,0 +1,14 @@
+# Suppressions file for ThreadSanitizer
+# OS X 10.11.5 / Xcode 8 Beta: unlock of an unlocked mutex
+# in system library libGPUSupportMercury.dylib
+# when calling clCreateCommandQueue from main thread
+#
+# See confluence "OpenCL driver bugs" for complete example
+mutex:gldCreateQueue
+# Race condition reported in std::future in ReaderController::seekFrame
+# It seems the std::future implementation of libc++ first checks a non-atomic
+# state to throw an exception, which is later set (written with a lock)
+#
+# I believe the race (benign or not) is in libc++ and our usage
+# of std::async is correct
+race:__assoc_state<VideoStitch::Status>::set_value

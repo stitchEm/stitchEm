@@ -1,0 +1,378 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#define BLOCK_SIZE 16
+
+// ------------------- Subsampling
+
+/**
+ * Subsample src by a factor of two on each dimension and put it in into dst.
+ * src has size (srcWidth * srcHeight), dst has size ((srcWidth + 1)/2 * (srcHeight + 1)/2)
+ */
+__global__ void subsample22RegularKernel(global_mem unsigned char* __restrict__ dst,
+                                         global_mem const unsigned char* __restrict__ src, unsigned srcWidth,
+                                         unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth && srcY + 1 < srcHeight) {
+    float v = src[srcY * srcWidth + srcX];
+    v += src[srcY * srcWidth + srcX + 1];
+    v += src[(srcY + 1) * srcWidth + srcX];
+    v += src[(srcY + 1) * srcWidth + srcX + 1];
+    dst[dstY * dstWidth + dstX] = (unsigned char)(v / 4.0f);
+  }
+}
+
+__global__ void subsample22RegularKernelFloat2(global_mem float2* __restrict__ dst,
+                                               global_mem const float2* __restrict__ src, unsigned srcWidth,
+                                               unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth && srcY + 1 < srcHeight) {
+    float2 v = src[srcY * srcWidth + srcX];
+    v += src[srcY * srcWidth + srcX + 1];
+    v += src[(srcY + 1) * srcWidth + srcX];
+    v += src[(srcY + 1) * srcWidth + srcX + 1];
+    dst[dstY * dstWidth + dstX] = v / 4.0f;
+  }
+}
+
+/**
+ * The pixels for this kernel have a bottom neighbour.
+ */
+__global__ void subsample22RightBoundaryKernel(global_mem unsigned char* __restrict__ dst,
+                                               global_mem const unsigned char* __restrict__ src, unsigned srcWidth,
+                                               unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = (srcWidth - 1) / 2;
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = srcWidth - 1;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcY + 1 < srcHeight) {
+    float v = src[srcY * srcWidth + srcX];
+    v += src[(srcY + 1) * srcWidth + srcX];
+    dst[dstY * dstWidth + dstX] = (unsigned char)(v / 2.0f);
+  }
+}
+
+__global__ void subsample22RightBoundaryKernelFloat2(global_mem float2* __restrict__ dst,
+                                                     global_mem const float2* __restrict__ src, unsigned srcWidth,
+                                                     unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = (srcWidth - 1) / 2;
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = srcWidth - 1;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcY + 1 < srcHeight) {
+    float2 v = src[srcY * srcWidth + srcX];
+    v += src[(srcY + 1) * srcWidth + srcX];
+    dst[dstY * dstWidth + dstX] = v / 2.0f;
+  }
+}
+
+/**
+ * The pixels for this kernel have a right neighbour
+ */
+__global__ void subsample22BottomBoundaryKernel(global_mem unsigned char* __restrict__ dst,
+                                                global_mem const unsigned char* __restrict__ src, unsigned srcWidth,
+                                                unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = (srcHeight - 1) / 2;
+  unsigned srcX = dstX * 2;
+  unsigned srcY = srcHeight - 1;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth) {
+    float v = src[srcY * srcWidth + srcX];
+    v += src[srcY * srcWidth + srcX + 1];
+    dst[dstY * dstWidth + dstX] = (unsigned char)(v / 2.0f);
+  }
+}
+
+__global__ void subsample22BottomBoundaryKernelFloat2(global_mem float2* __restrict__ dst,
+                                                      global_mem const float2* __restrict__ src, unsigned srcWidth,
+                                                      unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = (srcHeight - 1) / 2;
+  unsigned srcX = dstX * 2;
+  unsigned srcY = srcHeight - 1;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth) {
+    float2 v = src[srcY * srcWidth + srcX];
+    v += src[srcY * srcWidth + srcX + 1];
+    dst[dstY * dstWidth + dstX] = v / 2.0f;
+  }
+}
+
+__global__ void subsample22MaskRegularKernel(global_mem float2* __restrict__ dst,
+                                             global_mem uint32_t* __restrict__ dstMask,
+                                             global_mem const float2* __restrict__ src,
+                                             global_mem const uint32_t* __restrict__ srcMask, unsigned srcWidth,
+                                             unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth && srcY + 1 < srcHeight) {
+    // Here, weight is used as a mask
+
+    uint32_t w00 = srcMask[srcY * srcWidth + srcX];
+    uint32_t w01 = srcMask[srcY * srcWidth + srcX + 1];
+    uint32_t w10 = srcMask[(srcY + 1) * srcWidth + srcX];
+    uint32_t w11 = srcMask[(srcY + 1) * srcWidth + srcX + 1];
+    if (w00 == w01 && w01 == w10 && w10 == w11) {
+      float2 v = src[srcY * srcWidth + srcX];
+      v += src[srcY * srcWidth + srcX + 1];
+      v += src[(srcY + 1) * srcWidth + srcX];
+      v += src[(srcY + 1) * srcWidth + srcX + 1];
+      dst[dstY * dstWidth + dstX] = v / 4.0f;
+    } else {
+      dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+    }
+    dstMask[dstY * dstWidth + dstX] = w00;
+  }
+}
+
+/**
+ * The pixels for this kernel have a bottom neighbour.
+ */
+__global__ void subsample22MaskRightBoundaryKernel(global_mem float2* __restrict__ dst,
+                                                   global_mem uint32_t* __restrict__ dstMask,
+                                                   global_mem const float2* __restrict__ src,
+                                                   global_mem const uint32_t* __restrict__ srcMask, unsigned srcWidth,
+                                                   unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = (srcWidth - 1) / 2;
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = srcWidth - 1;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcY + 1 < srcHeight) {
+    uint32_t w00 = srcMask[srcY * srcWidth + srcX];
+    uint32_t w10 = srcMask[(srcY + 1) * srcWidth + srcX];
+    if (w00 == w10) {
+      float2 v = src[srcY * srcWidth + srcX];
+      v += src[(srcY + 1) * srcWidth + srcX];
+      dst[dstY * dstWidth + dstX] = v / 2.0f;
+    } else {
+      dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+    }
+    dstMask[dstY * dstWidth + dstX] = w00;
+  }
+}
+
+/**
+ * The pixels for this kernel have a right neighbour
+ */
+__global__ void subsample22MaskBottomBoundaryKernel(global_mem float2* __restrict__ dst,
+                                                    global_mem uint32_t* __restrict__ dstMask,
+                                                    global_mem const float2* __restrict__ src,
+                                                    global_mem const uint32_t* __restrict__ srcMask, unsigned srcWidth,
+                                                    unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = (srcHeight - 1) / 2;
+  unsigned srcX = dstX * 2;
+  unsigned srcY = srcHeight - 1;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth) {
+    uint32_t w00 = srcMask[srcY * srcWidth + srcX];
+    uint32_t w01 = srcMask[srcY * srcWidth + srcX + 1];
+    if (w00 == w01) {
+      float2 v = src[srcY * srcWidth + srcX];
+      v += src[srcY * srcWidth + srcX + 1];
+      dst[dstY * dstWidth + dstX] = v / 2.0f;
+    } else {
+      dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+    }
+    dstMask[dstY * dstWidth + dstX] = w00;
+  }
+}
+
+/**
+ * Subsample src by a factor of two on each dimension and put it in into dst.
+ * src has size (srcWidth * srcHeight), dst has size ((srcWidth + 1)/2 * (srcHeight + 1)/2)
+ */
+__global__ void subsample22NearestRegularKernel(global_mem unsigned char* __restrict__ dst,
+                                                global_mem const unsigned char* __restrict__ src, unsigned srcWidth,
+                                                unsigned srcHeight, unsigned dstWidth, unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth && srcY + 1 < srcHeight) {
+    dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+  }
+}
+
+/**
+ * The pixels for this kernel have a bottom neighbour.
+ */
+__global__ void subsample22NearestRightBoundaryKernel(global_mem unsigned char* __restrict__ dst,
+                                                      global_mem const unsigned char* __restrict__ src,
+                                                      unsigned srcWidth, unsigned srcHeight, unsigned dstWidth,
+                                                      unsigned dstHeight) {
+  unsigned dstX = (srcWidth - 1) / 2;
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = srcWidth - 1;
+  unsigned srcY = dstY * 2;
+  if (dstX < dstWidth && dstY < dstHeight && srcY + 1 < srcHeight) {
+    dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+  }
+}
+
+/**
+ * The pixels for this kernel have a right neighbour
+ */
+__global__ void subsample22NearestBottomBoundaryKernel(global_mem unsigned char* __restrict__ dst,
+                                                       global_mem const unsigned char* __restrict__ src,
+                                                       unsigned srcWidth, unsigned srcHeight, unsigned dstWidth,
+                                                       unsigned dstHeight) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = (srcHeight - 1) / 2;
+  unsigned srcX = dstX * 2;
+  unsigned srcY = srcHeight - 1;
+  if (dstX < dstWidth && dstY < dstHeight && srcX + 1 < srcWidth) {
+    dst[dstY * dstWidth + dstX] = src[srcY * srcWidth + srcX];
+  }
+}
+
+/**
+ * Same except that the alpha of the upsampled pixel is zero only if the alpha of all samples is 0.
+ * There is an interior kernel that handles pixels with neighbours on the left, right and diagonal,
+ * and a border kernel for each of the 3 remaining cases.
+ */
+__global__ void subsample22RGBARegularKernel(global_mem uint32_t* __restrict__ dst,
+                                             global_mem const uint32_t* __restrict__ src, unsigned srcWidth,
+                                             unsigned srcHeight, unsigned dstWidth) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (srcX + 1 < srcWidth && srcY + 1 < srcHeight) {
+    int32_t a = 0, r = 0, g = 0, b = 0;
+    uint32_t v = src[srcY * srcWidth + srcX];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    v = src[srcY * srcWidth + srcX + 1];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    v = src[(srcY + 1) * srcWidth + srcX];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    v = src[(srcY + 1) * srcWidth + srcX + 1];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    if (a) {
+      dst[dstY * dstWidth + dstX] = Image_RGBA_pack(r / a, g / a, b / a, 0xff);
+    } else {
+      dst[dstY * dstWidth + dstX] = 0;
+    }
+  }
+}
+
+/**
+ * The pixels for this kernel have a bottom neighbour.
+ */
+__global__ void subsample22RGBARightBoundaryKernel(global_mem uint32_t* __restrict__ dst,
+                                                   global_mem const uint32_t* __restrict__ src, unsigned srcWidth,
+                                                   unsigned srcHeight, unsigned dstWidth) {
+  unsigned dstX = get_global_id_x() + srcWidth / 2;
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (srcY + 1 < srcHeight) {
+    int32_t a = 0, r = 0, g = 0, b = 0;
+    uint32_t v = src[srcY * srcWidth + srcX];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    v = src[(srcY + 1) * srcWidth + srcX];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    if (a) {
+      dst[dstY * dstWidth + dstX] = Image_RGBA_pack(r / a, g / a, b / a, 0xff);
+    } else {
+      dst[dstY * dstWidth + dstX] = 0;
+    }
+  }
+}
+
+/**
+ * The pixels for this kernel have a right neighbour
+ */
+__global__ void subsample22RGBABottomBoundaryKernel(global_mem uint32_t* __restrict__ dst,
+                                                    global_mem const uint32_t* __restrict__ src, unsigned srcWidth,
+                                                    unsigned srcHeight, unsigned dstWidth) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y() + srcHeight / 2;
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (srcX + 1 < srcWidth) {
+    int32_t a = 0, r = 0, g = 0, b = 0;
+    uint32_t v = src[srcY * srcWidth + srcX];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    v = src[srcY * srcWidth + srcX + 1];
+    if (Image_RGBA_a(v)) {
+      ++a;
+      r += Image_RGBA_r(v);
+      g += Image_RGBA_g(v);
+      b += Image_RGBA_b(v);
+    }
+    if (a) {
+      dst[dstY * dstWidth + dstX] = Image_RGBA_pack(r / a, g / a, b / a, 0xff);
+    } else {
+      dst[dstY * dstWidth + dstX] = 0;
+    }
+  }
+}
+
+// ---------------- Masks sampling
+
+__global__ void subsampleMask22Kernel(global_mem unsigned char* __restrict__ dst,
+                                      global_mem const unsigned char* __restrict__ src, unsigned srcWidth,
+                                      unsigned srcHeight, unsigned dstWidth) {
+  unsigned dstX = get_global_id_x();
+  unsigned dstY = get_global_id_y();
+  unsigned srcX = dstX * 2;
+  unsigned srcY = dstY * 2;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    unsigned char result = 0;
+    if (src[srcY * srcWidth + srcX] == 1) {
+      result = 1;
+    }
+    if (srcX + 1 < srcWidth && srcY < srcHeight && src[srcY * srcWidth + (srcX + 1)] == 1) {
+      result = 1;
+    }
+    if (srcX < srcWidth && srcY + 1 < srcHeight && src[(srcY + 1) * srcWidth + srcX] == 1) {
+      result = 1;
+    }
+    if (srcX + 1 < srcWidth && srcY + 1 < srcHeight && src[(srcY + 1) * srcWidth + (srcX + 1)] == 1) {
+      result = 1;
+    }
+    dst[dstY * dstWidth + dstX] = result;
+  }
+}

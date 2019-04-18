@@ -1,0 +1,16 @@
+{
+  "bitrate_mode": "VBR",
+  "gop": 60,
+  "fps": 30,
+  "b_frames": 2,
+  "video_codec": "h264_nvenc",
+  "type": "mp4",
+  "filename": "ORH",
+  "max_video_file_chunk": 4294967295,
+  "max_moov_size": 5000000,
+  "audio_codec": "aac",
+  "sample_format": "fltp",
+  "sampling_rate": 48000,
+  "audio_bitrate": 384,
+  "ambisonic_audio_bitrate": 512
+}

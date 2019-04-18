@@ -1,0 +1,579 @@
+*.vah file format specification
+===============================
+*.vah is the file format used by Vahana VR it defines the configuration of a Vahana VR system.
+It uses full [JSON](http://www.json.org/) syntax. Projects are simply defined by populating the root object with a few named variables.
+
+!TOC
+
+
+# Objects
+
+Vahana VR will interpret the following objects. An object is of course free to have other members in addition to these.
+In the tables below, mandatory members are shown in bold. If not set, optional members take a default value specified in the "Default value" column.
+
+
+# Root
+
+Vahana VR will interpret the following members of the root object:
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><th>pano</th><td>object</td><td>-</td><td>See <a href="#pano">Panorama object</a>.</td></tr>
+<tr><th>outputs</th><td>array</td><td>-</td><td>See <a href="#outputs">Output configuration</a>.</td></tr>
+<tr><th>merger</th><td>object</td><td>-</td><td>See <a href="#merger">Merger</a>.</td></tr>
+<tr><th>fps</th><td>int</td><td>0</td><td>The internal engine framerate. See <a href="#framerate">framerate</a></td></tr>
+<tr><td>buffer_frames</td><td>int</td><td>2</td><td>The number of frames to buffer. If set to > 0, the writer will buffer that many frames. This can improve GPU utilization. It will usually not be interesting to buffer more than a few frames. Memory usage (CPU RAM only) will go up linearly with buffer_frames.</td></tr>
+</table>
+
+## Framerate
+The global framerate sets the stitcher framerate. When `fps` is equal to `0` (the default value), the global framerate will be set to the value defined on the [readers](#videocapturecardsconfiguration).
+
+
+# Pano
+
+This specifies the geometry and photometry options of the panorama.
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><th>width</th><td>int</td><td>-</td><td>The output width, in pixels.</td></tr>
+<tr><th>height</th><td>int</td><td>-</td><td>The output height, in pixels.</td></tr>
+<tr><th>hfov</th><td>double</td><td>-</td><td>The horizontal field of view, in degrees.</td></tr>
+<tr><th>proj</th><td>string</td><td>-</td><td>The projection. <a href="#supportedpanooutputprojections">See possible values below</a>.</td></tr>
+<tr><th>inputs</th><td>array[object]</td><td>-</td><td>The list of input objects (see below).</td></tr>
+<tr><td>crop_left</td><td>int</td><td>0</td><td>Crop that many pixels from the left of the output.</td></tr>
+<tr><td>crop_right</td><td>int</td><td>=width</td><td>Crop that many pixels from the right of the output.</td></tr>
+<tr><td>crop_top</td><td>int</td><td>0</td><td>Crop that many pixels from the top of the output.</td></tr>
+<tr><td>crop_bottom</td><td>int</td><td>=height</td><td>Crop that many pixels from the bottom of the output.</td></tr>
+<tr><td>pad_top</td><td>int</td><td>0</td><td>Padding to add to the top of the output.</td></tr>
+<tr><td>pad_bottom</td><td>int</td><td>0</td><td>Padding to add to the bottom of the output.</td></tr>
+<tr><td>wrap</td><td>boolean</td><td>true</td><td>If wrap is true, hfov is 360.0, and the projection supports it, then the panorama will wrap seamlessly across 360 border.</td></tr>
+<tr><td>ev</td><td>double</td><td>0.0</td><td>Exposure value correction.</td></tr>
+<tr><td>global_yaw</td><td>object</td><td>null</td><td>The panorama's global yaw. Can depend on time. Default is no global yaw.</td></tr>
+<tr><td>global_pitch</td><td>object</td><td>null</td><td>The panorama's global pitch. Default is no global pitch.</td></tr>
+<tr><td>global_roll</td><td>object</td><td>null</td><td>The panorama's global roll. Default is no global roll.</td></tr>
+</table>
+
+## Supported pano output projections
+
+*   `rectilinear`
+*   `equirectangular` This projection enforces a 2:1 output image ratio.
+*   `ff_fisheye`
+*   `circular_fisheye`
+*   `stereographic`
+
+## Output size and aspect ratio
+
+The output size is set directly in the *.vah configuration file by defining the width and height properties of the pano object.
+
+    {
+      ...
+      "pano" : {
+        "width" : 3840, 
+        "height" : 1920,
+        "pad_top" : 0, 
+        "pad_bottom" : 0,
+        ...
+        }
+      ...
+    }
+
+The typical spherical output will have a 2:1 aspect ratio (result from the 360x180 equirectangular projection having). 
+
+The `pad_top`/`pad_bottom` fields can be used to fit the 2:1 image in a larger frame, by adding black borders at the top/bottom.
+
+### Custom sizes for each video output (downsampling_factor)
+
+The local storage and RTMP video output configuration can provide a down-sampling factor which is effectively scales down to the output video. The DeckLink output (SDI and HDMI outputs) can use a different resolution than the panorama.
+
+The following output configurations will produce simultaneously 1920x960 RTMP stream, with a downsampling factor of 2, and a 3840x1920 in both SDI and HDMI outputs:
+
+    {
+      ...
+
+      "pano" : {
+        "width" : 3840, 
+        "height" : 1920,
+        ...
+      },
+    
+      ...
+      
+      "outputs" : [
+          {
+            "type" : "rtmp", 
+            "downsampling_factor" : 2,
+            "bitrate" : 10000000, 
+            "bitrate_mode" : "CBR", 
+            "gop" : 10, 
+            "b_frames" : 0, 
+            "video_codec" : "h264", 
+            "filename" : "rtmp://127.0.0.1:1935/live/stream"
+          },
+          {
+            "type" : "decklink",
+            "filename" : "DeckLink SDI 4K",
+            "width" : 1920,
+            "height" : 1080,
+            "interleaved" : false,
+            "fps" : 25,
+            "pixel_format" : "UYVY"
+          }
+        ]
+    }
+
+See the [RTMP output](#rtmpoutput) and the [DeckLink (SDI and HDMI output)](#sdiandhdmioutputsusingdecklink) configurations below.
+
+
+# Input
+
+This specifies the geometry and photometry options for each input.
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>width</strong></td><td>int</td><td>-</td><td>The input width, in pixels.</td></tr>
+<tr><td><strong>height</strong></td><td>int</td><td>-</td><td>The input height, in pixels.</td></tr>
+<tr><td><strong>hfov</strong></td><td>double</td><td>-</td><td>The horizontal field of view, in degrees.</td></tr>
+<tr><td><strong>yaw</strong></td><td>double</td><td>-</td><td>The yaw, in degrees.</td></tr>
+<tr><td><strong>pitch</strong></td><td>double</td><td>-</td><td>The pitch, in degrees.</td></tr>
+<tr><td><strong>roll</strong></td><td>double</td><td>-</td><td>The roll, in degrees.</td></tr>
+<tr><td><strong>reader_config</strong></td><td>string or object</td><td>-</td><td>The reader configuration. Usually a filename, but can be more elaborated to enable advanced features. See the <a href="#readers">Readers section</a> below.</td></tr>
+<tr><td><strong>proj</strong></td><td>string</td><td>-</td><td>The projection. <a href="#supportedinputprojections">Possible values</a></td></tr>
+<tr><td> crop_left</td><td>int</td><td>0</td><td>Crop that many pixels from the left of the input.</td></tr>
+<tr><td> crop_right</td><td>int</td><td>=width</td><td>Crop that many pixels from the right of the input.</td></tr>
+<tr><td> crop_top</td><td>int</td><td>0</td><td>Crop that many pixels from the top of the input.</td></tr>
+<tr><td> crop_bottom</td><td>int</td><td>=height</td><td>Crop that many pixels from the bottom of the input.</td></tr>
+<tr><td> viewpoint_model</td><td>string</td><td>"hugin"</td><td>Viewpoint model: "hugin" or "ptgui".</td></tr>
+<tr><td> translation_x</td><td>double</td><td>0.0</td><td>Viewpoint translation along the X axis.</td></tr>
+<tr><td> translation_y</td><td>double</td><td>0.0</td><td>Viewpoint translation along the Y axis.</td></tr>
+<tr><td> translation_z</td><td>double</td><td>0.0</td><td>Viewpoint translation along the Z axis.</td></tr>
+<tr><td> viewpoint_pan</td><td>double</td><td>0.0</td><td>Viewpoint pan (if viewpoint_model=="ptgui").</td></tr>
+<tr><td> viewpoint_tilt</td><td>double</td><td>0.0</td><td>Viewpoint tilt (if viewpoint_model=="ptgui").</td></tr>
+<tr><td> dist_center_x</td><td>double</td><td>0.0</td><td>Horizontal shift</td></tr>
+<tr><td> dist_center_y</td><td>double</td><td>0.0</td><td>Vertical shift</td></tr>
+<tr><td> response</td><td>string</td><td>"emor"</td><td>Camera response model. One of "emor", "gamma", "linear", "inverse_emor".</td></tr>
+<tr><td> gamma</td><td>double</td><td>1.0</td><td>If response is "gamma", the gamma response parameter.</td></tr>
+<tr><td> emor_a</td><td>double</td><td>0.0</td><td>If response is "emor" or "inverse_emor", the first emor response parameter.</td></tr>
+<tr><td> emor_b</td><td>double</td><td>0.0</td><td>If response is "emor" or "inverse_emor", the second emor response parameter.</td></tr>
+<tr><td> emor_c</td><td>double</td><td>0.0</td><td>If response is "emor" or "inverse_emor", the third emor response parameter.</td></tr>
+<tr><td> emor_d</td><td>double</td><td>0.0</td><td>If response is "emor" or "inverse_emor", the fourth emor response parameter.</td></tr>
+<tr><td> emor_e</td><td>double</td><td>0.0</td><td>If response is "emor" or "inverse_emor", the fifth emor response parameter.</td></tr>
+<tr><td> ev</td><td>double</td><td>0.0</td><td>Exposure value correction.</td></tr>
+<tr><td> red_corr</td><td>double</td><td>1.0</td><td>Red white balance multiplier.</td></tr>
+<tr><td> blue_corr</td><td>double</td><td>1.0</td><td>Blue white balance multiplier.</td></tr>
+<tr><td> lens_dist_a</td><td>double</td><td>0.0</td><td>Lens distortion parameter (degree 0).</td></tr>
+<tr><td> lens_dist_b</td><td>double</td><td>0.0</td><td>Lens distortion parameter (degree 1).</td></tr>
+<tr><td> lens_dist_c</td><td>double</td><td>0.0</td><td>Lens distortion parameter (degree 2).</td></tr>
+<tr><td> vign_a</td><td>double</td><td>1.0</td><td>Vigneting parameter (degree 0).</td></tr>
+<tr><td> vign_b</td><td>double</td><td>0.0</td><td>Vigneting parameter (degree 1).</td></tr>
+<tr><td> vign_c</td><td>double</td><td>0.0</td><td>Vigneting parameter (degree 2).</td></tr>
+<tr><td> vign_d</td><td>double</td><td>0.0</td><td>Vigneting parameter (degree 3).</td></tr>
+<tr><td> vign_x</td><td>double</td><td>0.0</td><td>Vigneting center along x axis, relative to image center.</td></tr>
+<tr><td> vign_y</td><td>double</td><td>0.0</td><td>Vigneting center along y axis, relative to image center.</td></tr>
+<tr><td> frame_offset</td><td>int</td><td>0</td><td>Offset of this input relative to the origin of time, in frames.</td></tr>
+<tr><td> preprocessors</td><td>list</td><td>[]</td><td>A list of processors to run before mapping. See below for a <a href="#preprocessors">list of available preprocessors</a>.</td></tr>
+<tr><td> mask_data</td><td>string</td><td>-</td><td>An inline, base64 encoded 2-color colormapped png file, the size of the input. Red pixels are masked out.</td></tr>
+<tr><td> no_delete_masked_pixels</td><td>bool</td><td>false</td><td>If true, masked pixels will just have alpha 0. If false, they will also influence how stitching seams are computed. To get smooth blending around masked areas, always disable no_delete_masked_pixels.</td></tr>
+
+</table>
+
+## Supported input projections
+
+The possible values for input projections are:
+
+*   `rectilinear`
+*   `circular_fisheye`
+*   `ff_fisheye`
+*   `equirectangular`
+
+
+# Readers
+
+How to read each input is specified using the `reader_config` member of the input. If you are reading from videos or image sequences you will most certainly only specify a filename.
+If a relative name is given, it starts at the directory where the *.vah file is.
+
+However, some setups need to specify complex configurations. In that case, the configuration is an object with a `type` field. The following types are recognized:
+
+## Video capture cards configuration
+
+### Magewell
+
+    "inputs" : [
+    {
+      ...
+      "reader_config" : {
+        "type" : "magewell", 
+        "name" : "0", 
+        "builtin_zoom" : "zoom", 
+        "fps" : 25,
+        "audio" : false
+      }
+      ...
+    }
+    ,{
+      ...
+      "reader_config" : {
+        "type" : "magewell", 
+        "name" : "1", 
+        "builtin_zoom" : "zoom", 
+        "fps" : 25,
+        "audio" : false
+      }
+    ...
+    
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>magewell</td><td><strong>Required</strong>. Defines a Magewell HDMI input.</td></tr>
+<tr><td><strong>name</strong></td><td>string</td><td>-</td><td><strong>Required</strong>. The device's number (starting from <code>0</code>).</td></tr>
+<tr><td>interleaved</td><td>bool</td><td>false</td><td>If the input is interlaced.</td>
+<tr><td><strong>pixel_format</strong></td><td>string</td><td>-</td><td colspan="2"><strong>Required</strong>. The input pixel format. Supported values are <code>UYVY</code>, <code>YUY2</code>, <code>RGBA</code>, and <code>RGB</code>. See <a href="#supportedpixelformats">Supported pixel formats</a> for details.</td></tr>
+<tr><td><strong>builtin_zoom</strong></td><td>string</td><td>-</td><td><strong>Required</strong>. Defines the zoom behaviour. Available values are: <code>zoom</code>, <code>fill</code> or <code>none</code>.</td></tr>
+<tr><td><strong>fps</strong></td><td>float</td><td>-</td><td><strong>Required</strong>. The input framerate.</td></tr>
+<tr><td><strong>audio</strong></td><td>bool</td><td>-</td><td><strong>Required</strong>. Does this reader capture audio.</td></tr>
+</table>
+</table>
+
+### DeckLink (BlackMagic Design)
+
+The DeckLink card will use the selected input in the BlackMagic Design Control Panel, HDMI or SDI, according to its capabilities.
+
+    "inputs" : [
+    {
+      "width" : 1920,
+      "height" : 1080,
+      ...
+      "reader_config" : {
+        "type" : "decklink",
+        "name" : "DeckLink SDI (1)",
+        "interleaved" : false,
+        "fps" : 30,
+        "pixel_format" : "UYVY",
+        "audio" : true,
+        "audio_sample_depth" : 16,
+        "audio_channels" 2:
+      }      
+      ...
+    }
+    ,{
+      "width" : 1920,
+      "height" : 1080,
+      ...
+      "reader_config" : {
+        "type" : "decklink",
+        "name" : "DeckLink SDI (2)",
+        "interleaved" : false,
+        "fps" : 30,
+        "pixel_format" : "UYVY",
+        "audio" : false
+      }
+    ...
+   
+<table>
+<tr><th>Member</th><th>Type</th><th>Value</th><th colspan="2"></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>decklink</td><td colspan="2"><strong>Required</strong>. Defines a DeckLink input.</td></tr>
+<tr><td><strong>name</strong></td><td>string</td><td>-</td><td colspan="2"><strong>Required</strong>. The DeckLink card to be used to input.</td></tr>
+<tr><td>interleaved</td><td>bool</td><td>-</td><td><strong>Required</strong>. If the input is interlaced.</td><td rowspan="2">See <a href="#decklinkavailabledisplaymodes">DeckLink available display modes</a> for detail
+<br /> Note that these fields width the <code>width</code> and <code>height</code> fields must match exactly an existing display mode below.</td></tr>
+<tr><td> fps</td><td>float</td><td>-</td><td><strong>Required</strong>. The input framerate.</td></tr>
+<tr><td> pixel_format</td><td>string</td><td>-</td><td colspan="2"><strong>Required</strong>. The output pixel format. Supported values are <code>UYVY</code>, <code>YV12</code> and <code>BGRU</code>. See <a href="#supportedpixelformats">Supported pixel formats</a> for details.</td></tr>
+<tr><td><strong>audio</strong></td><td>bool</td><td>-</td><td><strong>Required</strong>. Does this reader capture audio.</td></tr>
+<tr><td><strong>audio_sample_depth</strong></td><td>integer</td><td>-</td><td><strong></strong>. Sample size (eg 16 or 32 bits).</td></tr>
+<tr><td><strong>audio_channels</strong></td><td>integer</td><td>-</td><td><strong></strong>. Number of channels (1 for mono, 2 for stereo, etc).</td></tr>
+</table>
+
+Note that `width` and `height` fields are defined in the `input` node, above the `reader_config` node.
+
+
+### AJA
+
+    "inputs" : [
+    {
+      ...
+      "reader_config" : {
+          "type" : "ntv2", 
+          "name" : "ajain", 
+          "device" : 0,
+          "channel" : 1,
+          "pixel_format" : "UYVY",
+          "audio" : false
+      }
+      ...
+    }
+    ,{
+      ...
+      "reader_config" : {
+          "type" : "ntv2", 
+          "name" : "ajain", 
+          "device" : 1,
+          "channel" : 1,
+          "pixel_format" : "UYVY",
+          "audio" : false
+      }
+    ...
+    
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>ntv2</td><td><strong>Required</strong>. Defines a AJA SDI input.</td></tr>
+<tr><td>name</td><td>string</td><td>-</td>. The device's name.</td></tr>
+<tr><td><strong>device</strong></td><td>integer</td><td><strong>Required</strong> The device's number (starting from <code>0</code>).</td>
+<tr><td><strong>device</strong></td><td>integer</td><td><strong>Required</strong> The channel's number (starting from <code>1</code>).</td>
+<tr><td><strong>pixel_format</strong></td><td>string</td><td>-</td><td colspan="2"><strong>Required</strong>. The input pixel format. Supported values are <code>UYVY</code>, <code>YUY2</code>, <code>RGBA</code>, and <code>RGB</code>. See <a href="#supportedpixelformats">Supported pixel formats</a> for details.</td></tr>
+<tr><td><strong>audio</strong></td><td>bool</td><td>-</td><td><strong>Required</strong>. Does this reader capture audio.</td></tr>
+</table>
+</table>
+
+
+### Supported pixel formats
+
+If you are using an input or an output based on video capture card, it will probably requires a <code>pixel_format</code> field. This are the supported pixel format by Vahana VR. 
+However, each input/output has different capabilities and will support few of them. Please refer to the section related to this input/output.
+
+<table>
+<tr><th>Pixel format</th><th>Description</th></tr>
+<tr><th>RGB</th><td>Raw RGB.</td></tr>
+<tr><th>RGBA</th><td>Raw RGB with alpha. See <a href="http://www.fourcc.org/rgb.php#RGBA">http://www.fourcc.org/rgb.php#RGBA</a>.</td></tr>
+<tr><th>BGR</th><td>Raw BGR.</td></tr>
+<tr><th>BGRU</th><td>Raw RGB with alpha.</td></tr>
+<tr><th>UYVY</th><td>16 bit YUV 4:2:2 format. See <a href="http://www.fourcc.org/yuv.php#UYVY">http://www.fourcc.org/yuv.php#UYVY</a>.</td></tr>
+<tr><th>YUY2</th><td>16 bit YUV 4:2:2 format. See <a href="http://www.fourcc.org/yuv.php#YUY2">http://www.fourcc.org/yuv.php#YUY2</a>.</td></tr>
+<tr><th>YV12</th><td>12 bit planar YUV 4:2:0 format. See <a href="http://www.fourcc.org/yuv.php#YV12">http://www.fourcc.org/yuv.php#YV12</a>.</td></tr>
+<tr><th>Grayscale</th><td>8 bit Y plane format. See <a href="http://www.fourcc.org/yuv.php#Y800">http://www.fourcc.org/yuv.php#Y800</a>.</td></tr>
+</table>
+
+## Procedural readers
+
+Procedural readers are used to automatically generate synthetic content, usually for testing. Most procedural readers generate their inputs directly in device memory using the GPU,
+and are therefore extremely efficient. They can be used to assess performance.
+The exact procedural reader to use is specified using the `name` field of the config. Then, each reader has specific options.
+
+### color
+
+Fills the input with a single color specified in the `color` field. The following config fills the input with solid red:
+
+    "reader_config" : { "type" : "procedural", "name" : "color", "color" : "ff0000" }
+
+### checker
+
+Fills the input with a two-color checkerboard of a given size. The following config fills the input with a red-and-white solid checker of size 32 pixels. 
+
+    "reader_config" : { "type" : "procedural", "name" : "checker", "color1" : "ff0000", "color2" : "ffffff", "size" : 32 }
+
+### grid
+
+Fills the input with a wireframe grid of a given size. The following config fills the input with a red-on-transparent grid of size 32 pixels and line width 3 pixels.
+
+    "reader_config" : { "type" : "procedural", "name" : "grid", "color" : "ff0000", "bg_color" : "00000000", "size" : 32, "line_width" : 3 }
+
+### expr
+
+Writes the result of evaluating an expression. The expression can be any integer expression using numerical constants and the following variables:
+*   `cFrame` The current stitcher frame.
+*   `rFrame` The current reader reader frame. This can be different from the stitcher frame if there are temporal offsets.
+*   `inputId` The id of the input, from `0` to `num_input - 1`.
+
+The following config writes the current stitcher frame in red:
+
+    "reader_config" : { "type" : "procedural", "name" : "expr", "color" : "ff0000", "bg_color" : "00000000", "expr" : "cFrame" }
+  
+## Shared readers (4x1 multiplexed video matrix)
+
+Some cameras multiplex their output in a single image. In that case, all inputs must share a common `delegate` input to read the multiplexed stream,
+and each input reads a portion of the resulting image. The portion to read is specified by its `offset` with the top-left corner of the delegate.
+For example, the configuration below declares two `shared` inputs that read from the same delegate "test". The delegate reads a 1280 x 1024 video that multiplexes four
+640 x 512 streams. The first input reads the top-left portion (offset is (0,0)), while the second input reads the bottom-left one (offset is (0,512)).
+
+This kind of configuration can be useful to multiplex 4x HD into a 4K, then feed the 4K stream to Vahana VR. 
+
+    "inputs" : [
+      {
+        "width" : 640,
+        "height" : 512, 
+        "reader_config" : {
+          "type" : "shared",
+          "shared_id" : "Matrix",
+          "delegate" : {
+            "expected_width" : 1280,
+            "expected_height" : 1024,
+            "reader_config" : {
+              ...
+            }
+          },
+          "offset_x" : 0,
+          "offset_y" : 0
+        }
+        ...
+      },
+      {
+        "width" : 640,
+        "height" : 512,
+        "reader_config" : {
+          "type" : "shared",
+          "shared_id" : "Matrix",
+          "delegate" : {
+            "expected_width" : 1280,
+            "expected_height" : 1024,
+            "reader_config" : {
+              ...
+            }
+          },
+          "offset_x" : 0,
+          "offset_y" : 512
+        }
+        ...
+      },
+    ]
+
+## Preprocessors
+
+It is sometimes desirable to preprocess the inputs to overlay information or modify the image before mapping.
+To do that, you can use one or several optional preprocessors on each input. The processors are executed in the order they are specified.
+Each preprocessor is identified by a `type` (and can take option). Here is a list of available types:
+
+### tint
+
+Transforms the input by mapping its luminosity onto a single hue given by `color`. Alpha is ignored.
+
+    "preprocessors" : {"type" : "tint", "color" : "ff3300"}
+
+### expr
+
+Overlays the result of evaluating an expression on the input. Options are similar to the `expr` reader.
+
+### grid
+
+Overlays a grid on the input. Options are similar to the `grid` reader.
+
+
+# Outputs
+
+The outputs are defined as an array and can be used simultaneously. At start they will be all deactivated. Then, you will be able to can activate/deactivate them as much as you want in Vahana VR.
+For example, the following outputs can be used simultaneously:
+
+*   2 x [RTMP output configurations](#rtmpoutput)
+*   1 x [local storage output](#localstorageoutput)
+*   `n` x [SDI and HDMI outputs](#sdiandhdmioutputsusingdecklink) using `n` DeckLink cards
+
+## Local storage output
+
+You can add record the 360 video output into a video file by adding a dedicated output configuration object.
+Make sure your the destination drive has sufficient writing capabilities and the system resources can handle CPU intensive encoding.
+
+    { 
+      "type" : "mp4",
+      "filename" : "full/path/to/output",
+      "video_codec" : "h264",
+      "bitrate" : 1500000,
+      "bitrate_mode" : "CBR", 
+      "gop" : 10, 
+      "b_frames" : 0
+    }
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>mp4</td><td><strong>Required</strong>. Defines a video container output to be written to a file. Possible values are: mp4, mov, jpeg, png, ppm, pam, raw, yuv420p</td></tr>
+<tr><td><strong>filename</strong></td><td>string</td><td>-</td><td><strong>Required</strong>. The full path to the output filename. No backslash, use slash only to specify directory.</td></tr>
+<tr><td> video_codec</td><td>string</td><td>"h264"</td><td><strong>Required</strong>. The video codec (mp4, mov continers only). Available values are: "mpeg2", "mpeg4" (MPEG4 part2, not h264/AVC), "h264", "mjpeg" (Motion JPEG).</td></tr>
+<tr><td> bitrate</td><td>int</td><td>15000000</td><td><strong>Required</strong>. The bitrate in bits per second. Available values range from 500000 to 110000000.</td></tr>
+<tr><td> bitrate_mode</td><td>string</td><td>CBR</td><td><strong>Required</strong>. The rate-control mode. Available values are "VBR" (Variable Bit Rate) and "CBR" (Constant Bit Rate).</td></tr>
+<tr><td> gop</td><td>int</td><td>25</td><td><strong>Required</strong>. Group Of Pictures: set the interval between random-access pictures. Available values range between 1 frame to 10 times the fps value (i.e. 10 seconds).</td></tr>
+<tr><td> b_frames</td><td>int</td><td>2</td><td><strong>Required</strong>. Specifies the number of B frames in an IP(B)* GOP pattern. Available values ranges from 0 to 5. Ignored with the "mjpeg" video codec.</td></tr>
+</table>
+
+## RTMP output
+
+You can add multiple RTMP output configurations to the outputs array. 
+Each RTMP output will consume additional CPU resources, therefore we recommend a maximum of 2 simultaneous RTMP streams.
+
+    {
+      "type" : "rtmp", 
+      "filename" : "rtmp://127.0.0.1:1935/live/stream", 
+      "downsampling_factor" : 2,
+      "video_codec" : "h264", 
+      "bitrate" : 1000000, 
+      "bitrate_mode" : "VBR", 
+      "gop" : 10, 
+      "b_frames" : 0, 
+      "profile" : "baseline",
+      "rc-lookahead" : "0", 
+      "preset" : "medium", 
+      "tune" : "film"
+    }
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>rtmp</td><td><strong>Required</strong>. Defines a rtmp output configuration object.</td></tr>
+<tr><td><strong>filename</strong></td><td>string</td><td>rtmp://</td><td>The fully qualified URL to which the RTMP stream should be broadcasted.</td></tr>
+<tr><td><strong>downsampling_factor</strong></td><td>int</td><td>1</td><td>Divide the output size by an optional downsampling factor. The output size has to be a multiple of the downsampling factor.</td></tr>
+<tr><td><strong>video_codec</strong></td><td>string</td><td>h264</td><td><strong>Required</strong>. H264 is currently the only supported encoding for RTMP output configuration.</td></tr>
+<tr><td> bitrate</td><td>int</td><td>15000000</td><td>The bitrate in bits per second. Available values range from 500000 to 110000000.</td></tr>
+<tr><td> bitrate_mode</td><td>string</td><td>CBR</td><td>The rate-control mode. Available values are "VBR" (Variable Bit Rate) and "CBR" (Constant Bit Rate).</td></tr>
+<tr><td> gop</td><td>int</td><td>25</td><td>Group Of Pictures: set the interval between random-access pictures. Available values range between 1 frame to 10 times the fps value (i.e. 10 seconds).</td></tr>
+<tr><td> b_frames</td><td>int</td><td>2</td><td>Specifies the number of B frames in an IP(B)* GOP pattern. Available values ranges from 0 to 5. Ignored with the "mjpeg" video codec.</td></tr> 
+</table>
+
+## H264 settings
+
+H264 settings are available for RTMP output:
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>rc-lookahead</strong></td><td>string</td><td>0</td><td>Optional override for compression lookahead. 0 ~ 250</td></tr>
+<tr><td><strong>preset</strong></td><td>string</td><td>medium</td><td>Optional preset: placebo, veryslow, slower, slow, medium, fast, faster, veryfast, superfast, ultrafast</td></tr>
+<tr><td><strong>profile</strong></td><td>string</td><td>baseline</td><td>H264 Encoding profile. Possible values: baseline, main, high, high10, high422, high444</td></tr>
+<tr><td><strong>tune</strong></td><td>string</td><td>zerolatency</td><td>film, animation, grain, stillimage, psnr, ssim, fastdecode, zerolatency</td></tr>
+</table>
+
+## SDI and HDMI outputs using DeckLink
+
+See the DeckLink documentation.
+
+# Merger
+
+Mergers specify how to blend remapped images.
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td><strong>type</strong></td><td>string</td><td>laplacian</td><td>Type of blending. One of the types below.</td></tr>
+</table>
+
+## gradient merger
+
+The gradient merger simply blends images using a linear gradient. The radius specifies how smooth the transition is.
+Larger radius have smoother transition but will make calibration errors more apparent. Also, too large a radius will overflow the overlay
+zone between two images, making the edge visible. The special value -1 will make the transition as smooth as possible while never overflowing the overlay zone.
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td> blend_radius</td><td>int</td><td>2</td><td>The blending radius, in pixels. (-1 means as smooth as possible.)</td></tr>
+</table>
+
+## laplacian merger
+
+The laplacian merge blends across multiple spacial frequency bands to hide calibration errors and preserve high frequency details while providing a smooth perceptual blending.
+It's slower than gradient merging but of much higher quality.
+
+<table>
+<tr><th>Member</th><th>Type</th><th>Default value</th><th></th></tr>
+<tr><td> base_size</td><td>int</td><td>16</td><td>The size of the base level in the laplacian pyramid. The lower this number, the smoother the output (up to a point).</td></tr>
+<tr><td> levels</td><td>int</td><td>5</td><td>[DEPRECATED, please use base_size] The number of levels in the laplacian pyramid.</td></tr>
+<tr><td> blend_radius</td><td>int</td><td>2</td><td>The blending radius of lower frequency levels, in pixels.</td></tr>
+<tr><td> hf_blend_radius</td><td>int</td><td>1</td><td>The blending radius of the highest frequency level, in pixels.</td></tr>
+<tr><td> gaussian_radius</td><td>int</td><td>5</td><td>The radius of the low pass gaussian filter used to build the pyramid.</td></tr>
+<tr><td> filter_passes</td><td>int</td><td>3</td><td>The number of passes for guaussian filter computation. 3 makes up for a 97% accuracy.</td></tr>
+</table>
+
+## stack merger
+
+Inputs are not merged, but simply stacked on top of each other.
+
+## array merger
+
+The array merger is not a merger per se, and will ignore the actual content of the inputs. Instead, it enables visualizing the overlap between inputs (camera array).
+
+## diff merger
+
+The diff merger shows how well inputs coincide in overlapping zones. The output will be as usual outside of overlapping zones. In overlapping zones, green indicates
+a perfect match between inputs, and the error gets bigger as the output moves towards more red.
+
+## inputidv2 merger
+
+The inputid merger shows the overlap zones of each of the inputs. Each pixel of the output is set if the corresponding input contributes to this pixel.

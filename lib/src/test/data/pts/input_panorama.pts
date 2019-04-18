@@ -1,0 +1,667 @@
+# ptGui project file
+
+#-encoding utf8
+#-pathseparator \
+#-fileversion 49
+#-previewwidth 1132
+#-previewheight 566
+#-vfov 180
+#-resolution 300
+#-fixaspect 1
+#-outputfile 
+#-ccdcrop 1
+#-hasbeenoptimized 1
+#-hvcpmode 1
+#-jpegparameters 95 0
+#-tiffparameters 8bit packbits alpha_assoc
+#-psdparameters 8bit packbits layered
+#-qtvrparameters 800 600 1 1000 70 0 0 -180 180 0 -90 90 90 10 120 1
+#-honorexiforientation 1
+#-exrparameters noalpha
+#-hdroutputhdrblended
+#-hdroutputtonemapped
+#-hdrfileformat hdr
+#-hdrmethod fuse
+#-hdrpsdparameters float none layered
+#-tonemapv2settings PTGTM 1 0.5 20 20 0 0 2 1 0.15 0
+#-fusesettings 0.5 0 0.2 0 0
+#-cameracurve 3.441228 -0.551975 0.294423 -0.095632 0.072139
+#-vignettingparams 
+#-wbexposure 0 0 0
+#-pmoptexposuremode auto
+#-pmoptvignettingmode enabled
+#-pmoptwbmode disabled
+#-pmoptflaremode disabled
+#-pmoptcameracurvemode auto
+#-exposurecorrection 0
+#-tonemapldrpanorama 0
+#-blendweight 100 100 100 100 100
+#-optviewpoint 00000
+#-useexif0
+#-batchbuilder_useexif 0
+#-stitcher ptgui
+#-blender ptgui
+#-blenderfeather -0.6
+#-optimizer ptgui
+#-interpolator default
+#-autocpdone
+#-imgrotate44444
+#-cpinactive
+#-imginactive
+#-linktoprevious
+#-previewinactive
+#-outputcrop 0 1 0 1
+#-location default
+#-viewingdirection default
+#-alignsettings_generatecp 1
+#-alignsettings_optimize 1
+#-alignsettings_optimizeprealign 1
+#-alignsettings_straighten 1
+#-alignsettings_fit 1
+#-alignsettings_chooseprojection 1
+#-alignsettings_setoptimumsize 1
+#-alignsettings_limitsize 500
+#-alignsettings_optimizeexposure 0
+#-hdrsettings_defaultlinkmode nolink
+#-hdrsettings_donotask 0
+#-batchsettings_align 0
+#-batchsettings_stitch 1
+#-batchsettings_stitchonlyifcontrolpoints 1
+#-defaultprojectfilenamemode firstsourceimage
+#-defaultprojectfilename_custom " Panorama"
+#-defaultprojectfoldermode sourcefolder
+#-defaultprojectfolder_custom ""
+#-defaultpanoramafilenamemode asproject
+#-defaultpanoramafilename_custom ""
+#-defaultpanoramafoldermode projectfolder
+#-defaultpanoramafolder_custom ""
+#-userelativesourceimagepaths 1
+#-optimizeraskreinitialize 1
+#-applytemplate_lens 1
+#-applytemplate_imageparams 1
+#-applytemplate_crop 1
+#-applytemplate_mask 1
+#-applytemplate_panoramasettings 1
+#-applytemplate_projectsettings 1
+#-applytemplate_optimizer 1
+#-globalcrop 0 0 0 0 0 0 0 0.5109375
+#-theoreticalhfov 180
+#-rect_compression_x 0
+#-rect_compression_y 0
+#-cylindrical_compression_y 0
+#-transverse_cylindrical_compression_x 0
+#-vedutismo_compression_x 1
+#-transverse_vedutismo_compression_y 1
+#-stereographic_compression 1
+#-rectifisheye_compression 1
+# Panorama settings:
+p w4008 h2004 f2 v360 u0 n"JPEG g0 q95"
+m g0 i0
+
+# input images:
+#-dummyimage
+# The following line contains a 'dummy image' containing some global parameters for the project
+o w1 h1 y0 r0 p0 v175.2562691126621 a0 b-0.06165799342339282 c0 f2 d0 e0 g0 t0
+#-imgfile 1920 1080 "input-00.jpg"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T * 13123673440348932
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+#-imgcrop 0 0 0 0 0 0 0 0.5109375
+o f2 y143.2211326538632 r-91.09760287064903 p6.897419286577986 v175.7812174942264 a0 b-0.0744754809797083 c0 d-29.08434906421225 e7.175647004507058 g=0 t=0 C-21,1941,-441,1521
+#-imgfile 1920 1080 "input-01.jpg"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T * 13123673440382019
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+#-imgcrop 0 0 0 0 0 0 0 0.5109375
+o f2 y69.63772406054682 r-89.12364091587745 p0.9121419050716781 v178.376393886888 a0 b-0.09696938906081032 c0 d5.518024377558794 e-6.63649619006324 g=0 t=0 C-21,1941,-441,1521
+#-imgfile 1920 1080 "input-02.jpg"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T * 13123673440409122
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+#-imgcrop 0 0 0 0 0 0 0 0.5109375
+o f2 y-4.750411529385218 r-88.2186783762188 p-0.7522228127076573 v175.8197593919791 a0 b-0.05981326155515083 c0 d-34.00972654117405 e-20.47601420326151 g=0 t=0 C-21,1941,-441,1521
+#-imgfile 1920 1080 "input-03.jpg"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T * 13123673440436163
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+#-imgcrop 0 0 0 0 0 0 0 0.5109375
+o f2 y-74.27562980534873 r-89.87939767492631 p2.610561356978991 v178.8322545369097 a0 b-0.07453176794675875 c0 d-19.62658146226222 e3.340391257965653 g=0 t=0 C-21,1941,-441,1521
+#-imgfile 1920 1080 "input-04.jpg"
+#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T * 13123673440461257
+#-viewpoint 0 0 0 0 0
+#-exposureparams 0 0 0 0
+#-imgcrop 0 0 0 0 0 0 0 0.5109375
+o f2 y-141.8718027750241 r-91.30306984190504 p2.625542734919179 v179.2770943341386 a0 b-0.08792525868588237 c0 d4.371941767018867 e29.52600667326248 g=0 t=0 C-21,1941,-441,1521
+
+# Control points:
+c n4 N5 x1042 y101 X1055 Y896 t0
+# Control Point No 0: 13.76338138282127
+c n4 N5 x1048 y215 X1069 Y1012 t0
+# Control Point No 1: 10.52068579253756
+c n4 N5 x914 y31 X931 Y859 t0
+# Control Point No 2: 13.59193699683953
+c n4 N5 x831 y120 X848 Y933 t0
+# Control Point No 3: 1.481509901180828
+c n4 N5 x614 y277 X610 Y1040 t0
+# Control Point No 4: 7.211980373101462
+c n4 N5 x293 y347 X280 Y901 t0
+# Control Point No 5: 8.522365580990389
+c n4 N5 x1545 y335 X1587 Y896 t0
+# Control Point No 6: 5.455421974061529
+c n4 N5 x1346 y357 X1402 Y1034 t0
+# Control Point No 7: 15.12165078408805
+c n4 N5 x1250 y192 X1270 Y932 t0
+# Control Point No 8: 11.8463352798596
+c n4 N5 x535 y78 X575 Y791 t0
+# Control Point No 9: 16.32941921392726
+c n4 N5 x400 y211 X420 Y848 t0
+# Control Point No 10: 10.14209444075276
+c n4 N5 x1526 y166 X1516 Y771 t0
+# Control Point No 11: 11.28415084933352
+c n4 N5 x1478 y34 X1430 Y653 t0
+# Control Point No 12: 16.4311657919781
+c n1 N2 x807 y62 X900 Y928 t0
+# Control Point No 13: 4.488472022882834
+c n1 N2 x972 y67 X1059 Y916 t0
+# Control Point No 14: 0.5264871479195138
+c n1 N2 x1306 y34 X1350 Y752 t0
+# Control Point No 15: 3.13564551257275
+c n1 N2 x1050 y159 X1150 Y988 t0
+# Control Point No 16: 1.180037015201051
+c n1 N2 x778 y136 X873 Y1001 t0
+# Control Point No 17: 3.700414367424326
+c n1 N2 x982 y145 X1078 Y995 t0
+# Control Point No 18: 4.958285801705469
+c n1 N2 x1171 y68 X1244 Y858 t0
+# Control Point No 19: 1.868565314073898
+c n1 N2 x1351 y282 X1470 Y947 t0
+# Control Point No 20: 4.236156866779555
+c n1 N2 x1326 y96 X1388 Y801 t0
+# Control Point No 21: 0.9177143836691861
+c n1 N2 x1300 y372 X1449 Y1052 t0
+# Control Point No 22: 9.539465620279495
+c n1 N2 x1054 y58 X1136 Y887 t0
+# Control Point No 23: 1.471608842614809
+c n1 N2 x836 y161 X933 Y1032 t0
+# Control Point No 24: 9.233517408700065
+c n1 N2 x630 y159 X722 Y986 t0
+# Control Point No 25: 11.15486494260203
+c n2 N3 x294 y176 X315 Y767 t0
+# Control Point No 26: 8.106557281807515
+c n2 N3 x613 y119 X615 Y910 t0
+# Control Point No 27: 5.137402038054082
+c n2 N3 x1161 y49 X1151 Y879 t0
+# Control Point No 28: 3.660973908380242
+c n2 N3 x783 y91 X783 Y935 t0
+# Control Point No 29: 4.290351411584529
+c n2 N3 x1308 y266 X1329 Y1031 t0
+# Control Point No 30: 0.5143107431855714
+c n2 N3 x424 y211 X417 Y896 t0
+# Control Point No 31: 1.579080224472098
+c n2 N3 x481 y345 X436 Y1049 t0
+# Control Point No 32: 2.441121188211179
+c n2 N3 x349 y386 X293 Y985 t0
+# Control Point No 33: 8.604684075299765
+c n2 N3 x1629 y261 X1622 Y793 t0
+# Control Point No 34: 7.050004063787647
+c n2 N3 x1409 y368 X1453 Y1057 t0
+# Control Point No 35: 6.1411445842408
+c n2 N3 x1127 y207 X1133 Y1046 t0
+# Control Point No 36: 2.476463979757313
+c n2 N3 x973 y189 X972 Y1056 t0
+# Control Point No 37: 7.020968062338271
+c n2 N3 x726 y215 X716 Y1044 t0
+# Control Point No 38: 2.392730545960729
+c n2 N3 x1360 y131 X1350 Y879 t0
+# Control Point No 39: 2.249345441667959
+c n3 N4 x1124 y133 X1117 Y935 t0
+# Control Point No 40: 14.741834426135
+c n3 N4 x1297 y207 X1299 Y967 t0
+# Control Point No 41: 4.461835058311248
+c n3 N4 x1464 y190 X1453 Y865 t0
+# Control Point No 42: 10.86157064257013
+c n3 N4 x1297 y144 X1287 Y907 t0
+# Control Point No 43: 3.419885340844002
+c n3 N4 x890 y190 X882 Y1018 t0
+# Control Point No 44: 6.21412401202883
+c n3 N4 x1239 y57 X1219 Y844 t0
+# Control Point No 45: 1.808126001754399
+c n3 N4 x999 y233 X995 Y1056 t0
+# Control Point No 46: 8.891178567584959
+c n3 N4 x1026 y186 X1022 Y1008 t0
+# Control Point No 47: 9.261588323631459
+c n3 N4 x263 y314 X248 Y843 t0
+# Control Point No 48: 6.784083075631805
+c n3 N4 x1521 y119 X1477 Y748 t0
+# Control Point No 49: 4.336566860293665
+c n3 N4 x967 y121 X962 Y952 t0
+# Control Point No 50: 5.944748691079451
+c n3 N4 x1220 y209 X1222 Y990 t0
+# Control Point No 51: 5.280848189532168
+c n1 N5 x820 y965 X915 Y104 t0
+# Control Point No 52: 2.245853306201737
+c n1 N5 x612 y1024 X712 Y175 t0
+# Control Point No 53: 16.49897106437751
+c n1 N5 x1516 y905 X1570 Y350 t0
+# Control Point No 54: 4.656929078160486
+c n1 N5 x1023 y879 X1130 Y54 t0
+# Control Point No 55: 7.747010012794282
+c n1 N5 x1061 y852 X1173 Y36 t0
+# Control Point No 56: 5.955235254956558
+c n1 N5 x1542 y966 X1565 Y427 t0
+# Control Point No 57: 5.189129398107521
+c n1 N5 x786 y956 X883 Y99 t0
+# Control Point No 58: 2.562676061791681
+c n1 N5 x1019 y968 X1113 Y130 t0
+# Control Point No 59: 2.040048903516889
+c n1 N5 x908 y1034 X998 Y174 t0
+# Control Point No 60: 2.675764516258327
+c n2 N1 x792 y948 X698 Y102 t0
+# Control Point No 61: 7.409293584191637
+c n2 N1 x840 y950 X746 Y96 t0
+# Control Point No 62: 5.585607969351259
+c n2 N1 x874 y1069 X776 Y210 t0
+# Control Point No 63: 0.2528378847714607
+c n2 N1 x805 y1020 X711 Y177 t0
+# Control Point No 64: 10.98701025940449
+c n2 N1 x1691 y814 X1577 Y362 t0
+# Control Point No 65: 2.74919627602306
+c n2 N1 x1655 y779 X1568 Y299 t0
+# Control Point No 66: 3.386624271444034
+c n2 N1 x1391 y887 X1302 Y173 t0
+# Control Point No 67: 1.836312952307902
+c n2 N1 x1541 y927 X1414 Y322 t0
+# Control Point No 68: 8.758856713976678
+c n2 N1 x1475 y977 X1346 Y314 t0
+# Control Point No 69: 6.800966199039619
+c n2 N1 x1564 y772 X1481 Y215 t0
+# Control Point No 70: 16.93849860686412
+c n2 N1 x1438 y959 X1320 Y271 t0
+# Control Point No 71: 4.904807311049572
+c n2 N1 x1600 y650 X1586 Y143 t0
+# Control Point No 72: 12.14148300341153
+c n2 N1 x1474 y900 X1371 Y243 t0
+# Control Point No 73: 4.809938385368938
+c n2 N1 x1751 y929 X1565 Y526 t0
+# Control Point No 74: 10.87773877986519
+c n2 N1 x1857 y608 X1783 Y445 t0
+# Control Point No 75: 6.303894099302172
+c n2 N1 x1628 y519 X1661 Y101 t0
+# Control Point No 76: 11.86860090919334
+c n2 N1 x1318 y806 X1256 Y60 t0
+# Control Point No 77: 1.988492096782373
+c n2 N1 x1271 y814 X1208 Y43 t0
+# Control Point No 78: 1.244555407793038
+c n2 N1 x1298 y809 X1236 Y52 t0
+# Control Point No 79: 1.468964052984183
+c n2 N1 x1287 y851 X1215 Y82 t0
+# Control Point No 80: 1.287114455681713
+c n2 N1 x1478 y799 X1409 Y162 t0
+# Control Point No 81: 5.516111506586572
+c n2 N1 x1042 y910 X956 Y59 t0
+# Control Point No 82: 0.7168675884015209
+c n2 N1 x993 y921 X904 Y62 t0
+# Control Point No 83: 1.132226020826039
+c n2 N1 x581 y1004 X492 Y191 t0
+# Control Point No 84: 24.58007146808042
+c n5 N1 x398 y290 X285 Y948 t0
+# Control Point No 85: 4.723727738025993
+c n5 N1 x364 y244 X264 Y881 t0
+# Control Point No 86: 1.802439670741286
+c n5 N1 x341 y284 X233 Y898 t0
+# Control Point No 87: 0.8954628444492965
+c n5 N1 x236 y243 X156 Y762 t0
+# Control Point No 88: 4.407702841502269
+c n5 N1 x305 y203 X223 Y794 t0
+# Control Point No 89: 2.649385767838048
+c n5 N1 x305 y138 X242 Y731 t0
+# Control Point No 90: 2.734123167010131
+c n5 N1 x336 y81 X282 Y700 t0
+# Control Point No 91: 4.354426069458909
+c n5 N1 x314 y312 X203 Y900 t0
+# Control Point No 92: 3.646410513679874
+c n5 N1 x332 y257 X232 Y867 t0
+# Control Point No 93: 0.5452126358502685
+c n5 N1 x1336 y296 X1275 Y1018 t0
+# Control Point No 94: 14.60341878105341
+c n5 N1 x1075 y142 X982 Y987 t0
+# Control Point No 95: 1.011783498850433
+c n5 N1 x1173 y24 X1059 Y840 t0
+# Control Point No 96: 6.149283501982507
+c n5 N1 x1277 y212 X1194 Y970 t0
+# Control Point No 97: 17.74226310384983
+c n5 N1 x1600 y296 X1519 Y840 t0
+# Control Point No 98: 8.988985260850338
+c n5 N1 x1571 y277 X1488 Y852 t0
+# Control Point No 99: 9.189466215781833
+c n5 N1 x1425 y375 X1389 Y1027 t0
+# Control Point No 100: 13.75437760570722
+c n2 N3 x723 y94 X723 Y921 t0
+# Control Point No 101: 7.609898439097393
+c n2 N3 x1053 y51 X1046 Y905 t0
+# Control Point No 102: 0.5112170884994388
+c n2 N3 x572 y178 X565 Y944 t0
+# Control Point No 103: 8.488188110236074
+c n2 N3 x1117 y184 X1120 Y1026 t0
+# Control Point No 104: 2.124967273862398
+c n2 N3 x626 y47 X639 Y841 t0
+# Control Point No 105: 8.916250041358511
+c n2 N3 x1385 y147 X1375 Y884 t0
+# Control Point No 106: 4.480789089017938
+c n2 N3 x1264 y23 X1243 Y815 t0
+# Control Point No 107: 6.767723155546076
+c n2 N3 x203 y252 X217 Y746 t0
+# Control Point No 108: 16.52258419532354
+c n2 N3 x828 y202 X819 Y1055 t0
+# Control Point No 109: 2.536289103607347
+c n2 N3 x835 y66 X835 Y918 t0
+# Control Point No 110: 4.612124895247076
+c n4 N5 x575 y283 X568 Y1029 t0
+# Control Point No 111: 7.547604098182534
+c n4 N5 x1483 y119 X1467 Y753 t0
+# Control Point No 112: 6.623431728124025
+c n4 N5 x260 y200 X299 Y752 t0
+# Control Point No 113: 13.92987235497911
+c n4 N5 x1495 y497 X1594 Y1060 t0
+# Control Point No 114: 1.751176894007803
+c n4 N5 x1310 y332 X1360 Y1033 t0
+# Control Point No 115: 13.4041689512373
+c n4 N5 x1779 y409 X1798 Y699 t0
+# Control Point No 116: 2.424121302618609
+c n4 N5 x735 y125 X754 Y925 t0
+# Control Point No 117: 3.732531100066101
+c n4 N5 x1623 y586 X1746 Y997 t0
+# Control Point No 118: 7.730175861428776
+c n4 N5 x239 y403 X213 Y893 t0
+# Control Point No 119: 8.201599426320891
+c n4 N5 x389 y342 X369 Y975 t0
+# Control Point No 120: 9.727823291582523
+c n4 N5 x464 y220 X473 Y916 t0
+# Control Point No 121: 9.476792201802907
+c n4 N5 x1612 y42 X1543 Y588 t0
+# Control Point No 122: 14.52802747279243
+c n1 N2 x882 y160 X980 Y1020 t0
+# Control Point No 123: 1.334448777734647
+c n1 N2 x1015 y81 X1102 Y920 t0
+# Control Point No 124: 0.8804583945832837
+c n1 N2 x1094 y60 X1173 Y879 t0
+# Control Point No 125: 1.547457642543167
+c n1 N2 x791 y182 X889 Y1035 t0
+# Control Point No 126: 7.748082034472144
+c n1 N2 x769 y70 X863 Y944 t0
+# Control Point No 127: 13.30946921682759
+c n1 N2 x1191 y91 X1268 Y870 t0
+# Control Point No 128: 0.8944255231985032
+c n1 N2 x1503 y201 X1568 Y763 t0
+# Control Point No 129: 2.114662742754666
+c n1 N2 x1473 y83 X1497 Y682 t0
+# Control Point No 130: 3.09849032454433
+c n3 N4 x893 y145 X887 Y973 t0
+# Control Point No 131: 7.593074471027682
+c n3 N4 x1265 y261 X1277 Y1032 t0
+# Control Point No 132: 6.023416766287769
+c n3 N4 x1044 y231 X1042 Y1050 t0
+# Control Point No 133: 8.427935815267983
+c n3 N4 x948 y127 X942 Y957 t0
+# Control Point No 134: 7.0836528266005
+c n3 N4 x1012 y162 X1007 Y986 t0
+# Control Point No 135: 9.310132773665631
+c n3 N4 x1566 y90 X1505 Y686 t0
+# Control Point No 136: 5.479981597700368
+c n3 N4 x1211 y139 X1202 Y930 t0
+# Control Point No 137: 2.541726555660349
+c n3 N4 x909 y213 X900 Y1040 t0
+# Control Point No 138: 7.363878693592362
+c n1 N5 x171 y802 X260 Y259 t0
+# Control Point No 139: 3.669588038909398
+c n1 N5 x1014 y940 X1112 Y102 t0
+# Control Point No 140: 2.934152994643563
+c n1 N5 x230 y991 X359 Y374 t0
+# Control Point No 141: 7.293658439476993
+c n1 N5 x891 y1022 X983 Y160 t0
+# Control Point No 142: 3.17240596378625
+c n1 N5 x886 y1052 X976 Y189 t0
+# Control Point No 143: 4.118400947803689
+c n1 N5 x1531 y798 X1625 Y275 t0
+# Control Point No 144: 10.36800952426701
+c n2 N3 x1044 y22 X1039 Y873 t0
+# Control Point No 145: 5.788024763454546
+c n2 N3 x1330 y259 X1349 Y1012 t0
+# Control Point No 146: 1.280808371809086
+c n2 N3 x1127 y171 X1130 Y1010 t0
+# Control Point No 147: 0.6782796495916572
+c n2 N3 x568 y218 X552 Y982 t0
+# Control Point No 148: 5.421988915815371
+c n4 N5 x663 y275 X660 Y1049 t0
+# Control Point No 149: 4.675414707328267
+c n4 N5 x1255 y78 X1253 Y818 t0
+# Control Point No 150: 11.86602959296246
+c n1 N2 x1048 y112 X1139 Y943 t0
+# Control Point No 151: 0.9108743771977871
+c n1 N2 x977 y189 X1081 Y1041 t0
+# Control Point No 152: 6.988362839566406
+c n3 N4 x925 y214 X918 Y1044 t0
+# Control Point No 153: 4.752339426784316
+c n3 N4 x1217 y258 X1226 Y1035 t0
+# Control Point No 154: 6.983935595751563
+c n3 N4 x1286 y49 X1259 Y819 t0
+# Control Point No 155: 2.720060367616028
+c n3 N4 x1195 y68 X1177 Y852 t0
+# Control Point No 156: 15.54401570762526
+c n3 N4 x1250 y51 X1228 Y834 t0
+# Control Point No 157: 1.619916394943686
+c n3 N4 x1745 y487 X1789 Y816 t0
+# Control Point No 158: 8.477465023393533
+c n3 N4 x1559 y148 X1517 Y743 t0
+# Control Point No 159: 5.89906871068002
+c n3 N4 x1748 y545 X1817 Y841 t0
+# Control Point No 160: 9.000314623008997
+c n3 N4 x1759 y195 X1688 Y603 t0
+# Control Point No 161: 9.535800245399695
+c n3 N4 x1832 y238 X1742 Y549 t0
+# Control Point No 162: 4.597264432114609
+c n4 N3 x1657 y620 X1736 Y176 t0
+# Control Point No 163: 8.370241771905658
+c n4 N3 x1642 y525 X1751 Y100 t0
+# Control Point No 164: 9.899330974128061
+c n4 N3 x1516 y644 X1590 Y56 t0
+# Control Point No 165: 4.25710966831261
+c n4 N3 x1622 y634 X1693 Y153 t0
+# Control Point No 166: 2.398466598835523
+c n4 N3 x1748 y874 X1694 Y481 t0
+# Control Point No 167: 6.754539425292261
+c n4 N3 x1621 y734 X1655 Y224 t0
+# Control Point No 168: 4.958493677079525
+c n4 N3 x1780 y916 X1692 Y553 t0
+# Control Point No 169: 5.482170088467963
+c n4 N3 x1286 y925 X1293 Y161 t0
+# Control Point No 170: 3.471827091433819
+c n4 N3 x1482 y1059 X1437 Y394 t0
+# Control Point No 171: 13.25672429950786
+c n4 N3 x1447 y877 X1455 Y195 t0
+# Control Point No 172: 12.74721204488985
+c n4 N3 x1261 y1039 X1250 Y262 t0
+# Control Point No 173: 5.986493764734697
+c n4 N3 x1360 y942 X1359 Y206 t0
+# Control Point No 174: 10.91856450069329
+c n4 N3 x1237 y929 X1244 Y144 t0
+# Control Point No 175: 4.110398096101885
+c n4 N3 x1361 y868 X1377 Y138 t0
+# Control Point No 176: 8.79652523883764
+c n4 N3 x1446 y670 X1513 Y27 t0
+# Control Point No 177: 2.130745788876383
+c n4 N3 x914 y1001 X920 Y170 t0
+# Control Point No 178: 5.303424278869062
+c n4 N3 x420 y949 X441 Y265 t0
+# Control Point No 179: 10.66474688987822
+c n4 N3 x359 y920 X378 Y266 t0
+# Control Point No 180: 24.80578122124447
+c n4 N3 x327 y776 X307 Y166 t0
+# Control Point No 181: 23.23676152072495
+c n4 N3 x354 y894 X367 Y246 t0
+# Control Point No 182: 24.55675231650826
+c n5 N4 x1187 y874 X1179 Y108 t0
+# Control Point No 183: 11.97904485416306
+c n5 N4 x934 y1025 X918 Y201 t0
+# Control Point No 184: 6.395815737394472
+c n5 N4 x1147 y1020 X1122 Y241 t0
+# Control Point No 185: 13.28728739579649
+c n5 N4 x1133 y885 X1122 Y104 t0
+# Control Point No 186: 12.24013859457935
+c n5 N4 x1080 y831 X1073 Y36 t0
+# Control Point No 187: 6.827550930596648
+c n5 N4 x1396 y782 X1408 Y84 t0
+# Control Point No 188: 21.03367919769973
+c n5 N4 x842 y992 X829 Y174 t0
+# Control Point No 189: 5.294409219266722
+c n5 N4 x1809 y926 X1686 Y603 t0
+# Control Point No 190: 11.40262285947445
+c n5 N4 x1579 y697 X1607 Y160 t0
+# Control Point No 191: 10.96759909255303
+c n5 N4 x138 y1005 X233 Y601 t0
+# Control Point No 192: 10.03183554129639
+c n5 N4 x1526 y843 X1512 Y232 t0
+# Control Point No 193: 14.16177903250219
+c n5 N4 x708 y967 X696 Y179 t0
+# Control Point No 194: 0.7399356170735872
+c n5 N4 x665 y843 X637 Y70 t0
+# Control Point No 195: 4.037144588643715
+c n5 N4 x652 y949 X640 Y177 t0
+# Control Point No 196: 2.232199908972326
+c n5 N4 x1493 y1032 X1426 Y390 t0
+# Control Point No 197: 5.576596203545676
+c n5 N4 x791 y880 X766 Y74 t0
+# Control Point No 198: 6.798448438796658
+c n5 N4 x131 y869 X173 Y478 t0
+# Control Point No 199: 5.374277346163901
+c n5 N4 x57 y766 X88 Y504 t0
+# Control Point No 200: 7.007531191504033
+c n5 N4 x57 y828 X114 Y552 t0
+# Control Point No 201: 8.922438804940772
+c n5 N4 x176 y946 X233 Y492 t0
+# Control Point No 202: 6.64130446599757
+c n5 N4 x1206 y1040 X1173 Y277 t0
+# Control Point No 203: 12.91427010787851
+c n5 N4 x1048 y1002 X1028 Y203 t0
+# Control Point No 204: 11.72465112647147
+c n5 N4 x1268 y861 X1262 Y123 t0
+# Control Point No 205: 10.45811432893796
+c n5 N4 x1518 y886 X1491 Y265 t0
+# Control Point No 206: 12.82144557977562
+c n5 N4 x1466 y733 X1490 Y103 t0
+# Control Point No 207: 5.829414530648975
+c n5 N4 x723 y926 X706 Y134 t0
+# Control Point No 208: 1.69729876609551
+c n5 N4 x1551 y1062 X1462 Y462 t0
+# Control Point No 209: 3.703041231156588
+c n3 N2 x1586 y765 X1612 Y216 t0
+# Control Point No 210: 5.895818720121659
+c n3 N2 x1665 y780 X1669 Y312 t0
+# Control Point No 211: 12.69458156861471
+c n3 N2 x1753 y718 X1756 Y354 t0
+# Control Point No 212: 7.100342643466108
+c n3 N2 x1811 y585 X1851 Y363 t0
+# Control Point No 213: 5.435587211758774
+c n3 N2 x1783 y621 X1809 Y334 t0
+# Control Point No 214: 6.915919361216773
+c n3 N2 x1710 y882 X1661 Y424 t0
+# Control Point No 215: 9.14021523266705
+c n2 N2 x704 y333 X1416 Y348 t1
+# Control Point No 216: -1
+c n3 N3 x1238 y503 X856 Y517 t1
+# Control Point No 217: -1
+c n5 N5 x1293 y477 X747 Y459 t1
+# Control Point No 218: -1
+c n4 N5 x1517 y292 X1549 Y888 t0
+# Control Point No 219: 10.51477596838003
+c n4 N5 x1545 y138 X1523 Y729 t0
+# Control Point No 220: 9.898551654639405
+c n4 N5 x1245 y264 X1278 Y1002 t0
+# Control Point No 221: 12.08436556889969
+c n4 N5 x694 y157 X710 Y945 t0
+# Control Point No 222: 1.804392998815467
+c n4 N5 x434 y230 X442 Y909 t0
+# Control Point No 223: 11.57585111549068
+c n4 N5 x992 y236 X1010 Y1039 t0
+# Control Point No 224: 11.27194836056479
+c n2 N3 x1288 y95 X1276 Y881 t0
+# Control Point No 225: 2.497039574067684
+c n2 N3 x877 y197 X871 Y1058 t0
+# Control Point No 226: 3.351673142025542
+c n2 N3 x844 y54 X844 Y906 t0
+# Control Point No 227: 5.630242576543236
+c n2 N3 x567 y238 X547 Y1000 t0
+# Control Point No 228: 5.02414086097037
+c n2 N3 x997 y79 X994 Y942 t0
+# Control Point No 229: 2.416450982271635
+c n2 N3 x1244 y221 X1256 Y1020 t0
+# Control Point No 230: 1.423625534513642
+c n2 N3 x1390 y207 X1396 Y929 t0
+# Control Point No 231: 2.900410669511385
+c n2 N3 x213 y217 X237 Y726 t0
+# Control Point No 232: 13.20702401089008
+c n1 N2 x1103 y99 X1190 Y913 t0
+# Control Point No 233: 0.4140888782446044
+c n1 N2 x1043 y51 X1123 Y886 t0
+# Control Point No 234: 2.127710418330006
+c n1 N2 x692 y103 X787 Y946 t0
+# Control Point No 235: 9.354138321454414
+c n1 N2 x751 y183 X847 Y1032 t0
+# Control Point No 236: 9.106273607311206
+c n1 N2 x1335 y51 X1380 Y746 t0
+# Control Point No 237: 7.909372397816636
+c n1 N5 x1217 y983 X1295 Y235 t0
+# Control Point No 238: 17.56762321894728
+c n1 N5 x261 y718 X321 Y112 t0
+# Control Point No 239: 4.656105842470391
+c n1 N5 x1524 y868 X1592 Y324 t0
+# Control Point No 240: 8.317553795614824
+c n1 N5 x878 y1027 X970 Y164 t0
+# Control Point No 241: 3.236651482368379
+c n1 N5 x750 y1005 X846 Y150 t0
+# Control Point No 242: 2.881188930375305
+c n1 N5 x1495 y987 X1520 Y412 t0
+# Control Point No 243: 7.010042050476825
+c n1 N5 x1014 y851 X1125 Y23 t0
+# Control Point No 244: 6.156178231421728
+c n3 N4 x913 y175 X907 Y1005 t0
+# Control Point No 245: 5.886803013470943
+c n3 N4 x974 y201 X969 Y1031 t0
+# Control Point No 246: 4.608649256593973
+c n3 N4 x1040 y189 X1036 Y1009 t0
+# Control Point No 247: 9.592311270207187
+c n3 N4 x1005 y96 X998 Y914 t0
+# Control Point No 248: 16.89209599584052
+c n3 N4 x1115 y182 X1115 Y989 t0
+# Control Point No 249: 10.2782913406533
+c n3 N4 x1219 y274 X1236 Y1049 t0
+# Control Point No 250: 7.786495246262445
+c n5 N1 x254 y142 X201 Y686 t0
+# Control Point No 251: 4.632056001067168
+c n2 N1 x765 y937 X669 Y72 t0
+# Control Point No 252: 16.73676579668164
+c n3 N4 x164 y150 X235 Y600 t0
+# Control Point No 253: 10.12984120163241
+c n3 N4 x178 y240 X208 Y695 t0
+# Control Point No 254: 1.613768176213464
+c n3 N4 x228 y462 X164 Y912 t0
+# Control Point No 255: 7.87721475725264
+c n3 N4 x85 y465 X58 Y728 t0
+# Control Point No 256: 15.7359006414289
+c n3 N4 x177 y93 X266 Y560 t0
+# Control Point No 257: 14.90547395861886
+c n3 N4 x243 y301 X234 Y814 t0
+# Control Point No 258: 5.677834721180667
+c n3 N4 x225 y333 X208 Y820 t0
+# Control Point No 259: 5.142503692816552
+c n3 N4 x143 y248 X180 Y659 t0
+# Control Point No 260: 6.89610680002091
+c n2 N4 x114 y159 X99 Y920 t0
+# Control Point No 261: 11.6139633051244
+c n2 N4 x161 y51 X179 Y978 t0
+# Control Point No 262: 11.09073620303488
+c n4 N3 x713 y1007 X722 Y157 t0
+# Control Point No 263: 42.78059084273794
+
+# optimizer:
+v v b v1 b1 d1 e1 v2 b2 d2 e2 y2 r2 p2 v3 b3 d3 e3 y3 r3 p3 v4 b4 d4 e4 y4 r4 p4 v5 b5 d5 e5 y5 r5 p5

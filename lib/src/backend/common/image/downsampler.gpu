@@ -1,0 +1,211 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void downsampleMonoKernel(global_mem unsigned char* dst, const global_mem unsigned char* __restrict__ src,
+                                     unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  const unsigned dstX = get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t v = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < factor; ++x) {
+        v += src[(srcY + y) * srcWidth + (srcX + x)];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * srcWidth / factor + dstX] = (unsigned char)(v / div);
+  }
+}
+
+__global__ void downsampleRGBASurfKernel(surface_t dst, const read_only image2d_t src, unsigned dstWidth,
+                                         unsigned dstHeight) {
+  const unsigned x = get_global_id_x();
+  const unsigned y = get_global_id_y();
+  if (x < dstWidth && y < dstHeight) {
+    float4 val = read_texture_vs(src, make_float2(x * 2.0f + 1.0f, y * 2.0f + 1.0f));
+    surface_write_f(val, dst, x, y);
+  }
+}
+
+__global__ void downsampleRGBAKernel(global_mem unsigned char* __restrict__ dst, unsigned dstPitch,
+                                     const global_mem unsigned char* __restrict__ src, unsigned srcPitch,
+                                     unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  const unsigned dstX = get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t r = 0;
+    int32_t g = 0;
+    int32_t b = 0;
+    int32_t a = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < factor; ++x) {
+        unsigned offset = (srcY + y) * srcPitch + 4 * (srcX + x);
+        r += src[offset];
+        g += src[offset + 1];
+        b += src[offset + 2];
+        a += src[offset + 3];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * dstPitch + 4 * dstX] = (unsigned char)(r / div);
+    dst[dstY * dstPitch + 4 * dstX + 1] = (unsigned char)(g / div);
+    dst[dstY * dstPitch + 4 * dstX + 2] = (unsigned char)(b / div);
+    unsigned char alpha = 0;
+    // !!dst (always == 1 if this kernel runs) used to promote the constant 4 * 255 to a variable to work around Intel
+    // compiler error see confluence "OpenCL runtime compilation failure cases"
+    if (a == 4 * 255 * !!dst) {
+      alpha = 255;
+    }
+    dst[dstY * dstPitch + 4 * dstX + 3] = alpha;
+  }
+}
+
+__global__ void downsampleYUV422Kernel(global_mem unsigned char* __restrict__ dst, unsigned dstPitch,
+                                       const global_mem unsigned char* __restrict__ src, unsigned srcPitch,
+                                       unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  // each thread accumulates for 2 (horizontally) consecutive destination pixels
+  // coords are in pixels
+  const unsigned dstX = 2 * get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  // width and height are in bytes, here 2 bytes / pixel
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t u = 0;
+    int32_t y0 = 0;
+    int32_t v = 0;
+    int32_t y1 = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < factor / 2; ++x) {
+        unsigned offset = (srcY + y) * srcPitch + 2 * (srcX + 2 * x);
+        u += src[offset];
+        y0 += src[offset + 1];
+        v += src[offset + 2];
+        y0 += src[offset + 3];
+      }
+      for (unsigned x = factor / 2; x < factor; ++x) {
+        unsigned offset = (srcY + y) * srcPitch + 2 * (srcX + 2 * x);
+        u += src[offset];
+        y1 += src[offset + 1];
+        v += src[offset + 2];
+        y1 += src[offset + 3];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * dstPitch + 2 * dstX] = (unsigned char)(u / div);
+    dst[dstY * dstPitch + 2 * dstX + 1] = (unsigned char)(y0 / div);
+    dst[dstY * dstPitch + 2 * dstX + 2] = (unsigned char)(v / div);
+    dst[dstY * dstPitch + 2 * dstX + 3] = (unsigned char)(y1 / div);
+  }
+}
+
+// This one is pretty bad because accesses are not aligned on word boundaries.
+__global__ void downsampleRGBKernel(global_mem unsigned char* __restrict__ dst, unsigned dstPitch,
+                                    const global_mem unsigned char* __restrict__ src, unsigned srcPitch,
+                                    unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  const unsigned dstX = get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t r = 0;
+    int32_t g = 0;
+    int32_t b = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < factor; ++x) {
+        unsigned offset = (srcY + y) * srcPitch + 3 * (srcX + x);
+        r += src[offset];
+        g += src[offset + 1];
+        b += src[offset + 2];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * dstPitch + 3 * dstX] = (unsigned char)(r / div);
+    dst[dstY * dstPitch + 3 * dstX + 1] = (unsigned char)(g / div);
+    dst[dstY * dstPitch + 3 * dstX + 2] = (unsigned char)(b / div);
+  }
+}
+
+// downsamplePlanarImpl_uint8_t
+#define BufferType uint8_t
+#include "downsampler.gpu.incl"
+#undef BufferType
+
+// downsamplePlanarImpl_uint16_t
+#define BufferType uint16_t
+#include "downsampler.gpu.incl"
+#undef BufferType
+
+__global__ void downsamplePlanarKernel(global_mem unsigned char* __restrict__ dst, unsigned dstPitch,
+                                       const global_mem unsigned char* __restrict__ src, unsigned srcPitch,
+                                       unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  downsamplePlanarImpl_uint8_t(dst, dstPitch, src, srcPitch, srcWidth, srcHeight, factor);
+}
+
+__global__ void downsampleYV12Kernel(global_mem unsigned char* __restrict__ yDst, unsigned yDstPitch,
+                                     global_mem unsigned char* __restrict__ uDst, unsigned uDstPitch,
+                                     global_mem unsigned char* __restrict__ vDst, unsigned vDstPitch,
+                                     const global_mem unsigned char* __restrict__ ySrc, unsigned ySrcPitch,
+                                     const global_mem unsigned char* __restrict__ uSrc, unsigned uSrcPitch,
+                                     const global_mem unsigned char* __restrict__ vSrc, unsigned vSrcPitch,
+                                     unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  downsamplePlanarImpl_uint8_t(yDst, yDstPitch, ySrc, ySrcPitch, srcWidth, srcHeight, factor);
+  downsamplePlanarImpl_uint8_t(uDst, uDstPitch, uSrc, uSrcPitch, srcWidth / 2, srcHeight / 2, factor);
+  downsamplePlanarImpl_uint8_t(vDst, vDstPitch, vSrc, vSrcPitch, srcWidth / 2, srcHeight / 2, factor);
+}
+
+__device__ void downsampleInterleavedUV(global_mem unsigned char* __restrict__ dst, unsigned dstPitch,
+                                        const global_mem unsigned char* __restrict__ src, unsigned srcPitch,
+                                        unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  // two interleaved dimensions, U and V
+  // each thread manages two pixels of the destination
+  const unsigned dstX = 2 * get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t u = 0;
+    int32_t v = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < 2 * factor; x += 2) {
+        unsigned uoffset = (srcY + y) * srcPitch + (srcX + x);
+        unsigned voffset = uoffset + 1;
+        u += src[uoffset];
+        v += src[voffset];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * dstPitch + dstX] = (unsigned char)(u / div);
+    dst[dstY * dstPitch + dstX + 1] = (unsigned char)(v / div);
+  }
+}
+
+__global__ void downsampleNV12Kernel(global_mem unsigned char* __restrict__ yDst, unsigned yDstPitch,
+                                     global_mem unsigned char* __restrict__ uvDst, unsigned uvDstPitch,
+                                     const global_mem unsigned char* __restrict__ ySrc, unsigned ySrcPitch,
+                                     const global_mem unsigned char* __restrict__ uvSrc, unsigned uvSrcPitch,
+                                     unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  downsamplePlanarImpl_uint8_t(yDst, yDstPitch, ySrc, ySrcPitch, srcWidth, srcHeight, factor);
+  downsampleInterleavedUV(uvDst, uvDstPitch, uvSrc, uvSrcPitch, srcWidth, srcHeight / 2, factor);
+}
+
+__global__ void downsampleYUV422P10Kernel(global_mem unsigned char* __restrict__ yDst, unsigned yDstPitch,
+                                          global_mem unsigned char* __restrict__ uDst, unsigned uDstPitch,
+                                          global_mem unsigned char* __restrict__ vDst, unsigned vDstPitch,
+                                          const global_mem unsigned char* __restrict__ ySrc, unsigned ySrcPitch,
+                                          const global_mem unsigned char* __restrict__ uSrc, unsigned uSrcPitch,
+                                          const global_mem unsigned char* __restrict__ vSrc, unsigned vSrcPitch,
+                                          unsigned srcWidth, unsigned srcHeight, unsigned factor) {
+  downsamplePlanarImpl_uint16_t((global_mem uint16_t*)yDst, yDstPitch / 2, (const global_mem uint16_t*)ySrc,
+                                ySrcPitch / 2, srcWidth, srcHeight, factor);
+
+  downsamplePlanarImpl_uint16_t((global_mem uint16_t*)uDst, uDstPitch / 2, (const global_mem uint16_t*)uSrc,
+                                uSrcPitch / 2, srcWidth / 2, srcHeight, factor);
+
+  downsamplePlanarImpl_uint16_t((global_mem uint16_t*)vDst, vDstPitch / 2, (const global_mem uint16_t*)vSrc,
+                                vSrcPitch / 2, srcWidth / 2, srcHeight, factor);
+}

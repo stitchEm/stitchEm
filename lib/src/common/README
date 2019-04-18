@@ -1,0 +1,3 @@
+This is all common c++ stuff. Should not depend on anything in VS-lib, even in include/.
+
+TODO: split in a separate lib.

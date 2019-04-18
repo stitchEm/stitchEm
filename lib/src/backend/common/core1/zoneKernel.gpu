@@ -1,0 +1,14 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#define distortionMetersTransform noopDistortionTransform
+#define distortionPixelsTransform distortionScaled
+#include "zoneKernel_transform_within.gpu.incl"
+#undef distortionMetersTransform
+#undef distortionPixelsTransform
+
+#define distortionMetersTransform distortionScaled
+#define distortionPixelsTransform noopDistortionTransform
+#include "zoneKernel_transform_within.gpu.incl"
+#undef distortionMetersTransform
+#undef distortionPixelsTransform

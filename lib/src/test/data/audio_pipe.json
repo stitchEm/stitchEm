@@ -1,0 +1,44 @@
+{
+  "audio_pipe" : {
+    "sampling_rate":44100,
+    "block_size":512,
+    "debug": "data/snd/",
+    "audio_inputs": [{
+      "name" : "bbb",
+      "layout" : "stereo",
+      "master": true,
+      "sources":[{
+        "reader_id" : 0,
+        "channel" : 0
+      },
+      {
+        "reader_id" : 0,
+        "channel" : 1
+      }]
+    }],
+    "audio_processors": [{
+      "name" : "delay",
+      "params":[{
+        "input" :"bbb",
+        "delay" : 2.5
+      }]
+    },
+    {
+      "name" : "gain",
+      "params":[{
+        "input" :"bbb",
+        "gain" : 20.0,
+        "mute": true,
+        "reverse_polarity": false
+      }]
+   },
+   {
+      "name" : "ambRotator",
+      "params":[{
+        "input" :"bbb",
+        "order" : 1,
+        "offset" : [3.14, 1.57, 0.]
+     }]
+    }]
+  }
+}

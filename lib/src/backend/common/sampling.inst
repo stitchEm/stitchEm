@@ -1,0 +1,20 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+template Status subsample22(GPU::Buffer<uint32_t> dst, GPU::Buffer<const uint32_t> src, std::size_t srcWidth,
+                            std::size_t srcHeight, GPU::Stream stream);
+template Status subsample22(GPU::Buffer<unsigned char> dst, GPU::Buffer<const unsigned char> src, std::size_t srcWidth,
+                            std::size_t srcHeight, GPU::Stream stream);
+template Status subsample22(GPU::Buffer<float> dst, GPU::Buffer<const float> src, std::size_t srcWidth,
+                            std::size_t srcHeight, GPU::Stream stream);
+template Status subsample22(GPU::Buffer<float2> dst, GPU::Buffer<const float2> src, std::size_t srcWidth,
+                            std::size_t srcHeight, GPU::Stream stream);
+
+template Status upsample22(GPU::Buffer<uint32_t> dst, GPU::Buffer<const uint32_t> src, std::size_t dstWidth,
+                           std::size_t dstHeight, bool wrap, GPU::Stream stream);
+template Status upsample22(GPU::Buffer<unsigned char> dst, GPU::Buffer<const unsigned char> src, std::size_t dstWidth,
+                           std::size_t dstHeight, bool wrap, GPU::Stream stream);
+template Status upsample22(GPU::Buffer<float> dst, GPU::Buffer<const float> src, std::size_t dstWidth,
+                           std::size_t dstHeight, bool wrap, GPU::Stream stream);
+template Status upsample22(GPU::Buffer<float2> dst, GPU::Buffer<const float2> src, std::size_t dstWidth,
+                           std::size_t dstHeight, bool wrap, GPU::Stream stream);

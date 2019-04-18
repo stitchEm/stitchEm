@@ -1,0 +1,7 @@
+#define face YPos
+#include "warpFaceKernel_equiangular.gpu.incl"
+#undef face
+
+#define face YNeg
+#include "warpFaceKernel_equiangular.gpu.incl"
+#undef face

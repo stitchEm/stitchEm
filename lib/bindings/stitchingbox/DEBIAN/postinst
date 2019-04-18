@@ -1,0 +1,33 @@
+#!/bin/bash -eu
+
+# $SUDO_USER doesn't exist on debian
+
+PREFIX="/opt/videostitch"
+chown -R "videostitch:videostitch" "${PREFIX}"
+ldconfig
+
+cp /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.backup
+mv /usr/local/nginx/conf/nginx_vs.conf /usr/local/nginx/conf/nginx.conf
+
+# Network configuration for ethernet
+cp /etc/network/interfaces /etc/network/interfaces.old
+mv /etc/network/vs_interfaces /etc/network/interfaces
+
+# This needed for compatibility of nginx config with both deb package and buildroot image
+if [ ! -e /usr/html ]; then
+  ln -s -T /usr/local/nginx/html/ /usr/html
+fi
+
+cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.old
+mv /etc/dhcp/dhcpd_vs.conf /etc/dhcp/dhcpd.conf
+cat /sys/class/net/eth1/address | sed 's/://g' |sed 's/^/ssid=ORAH4i_/' >> /etc/hostapd/hostapd.conf
+
+update-rc.d wifi_cli_ap_conf defaults
+systemctl enable videostitch
+systemctl disable isc-dhcp-server
+
+systemctl enable networking
+systemctl disable NetworkManager
+pip install wifi==0.3.6 rpyc==3.3.0 blinker==1.4 tornado==4.3 transitions==0.4.0 zeroconf==0.17.6 semantic_version==2.5.0
+
+# vi:syntax=sh

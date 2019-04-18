@@ -1,0 +1,7 @@
+{
+  "name": "local-preview-server",
+  "filename": "rtmp://127.0.0.1:1935/live/local",
+  "profile": "high",
+  "level": "5.1",
+  "bitrate": 7500
+}

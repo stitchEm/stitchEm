@@ -1,0 +1,46 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void FUNCTION_NAME_8(warpKernel, face, fromSphereToInput, isWithin, distortionMetersTransform, distortionPixelsTransform, PhotoCorrectionT, equiangular)
+           (global_mem uint32_t* g_odata,
+           read_only image2d_t texture,
+           int texWidth, int texHeight,
+           int oWidth, int oHeight,
+           int oOffsetX, int oOffsetY,
+           int faceDim,
+           int cropLeft, int cropRight, int cropTop, int cropBottom,
+           const vsfloat3x4 transform,
+           const float2 inputScale,
+           const vsDistortion distortion,
+           const float2 centerShift,
+           float3 rgbMult,
+           float photoParam, const global_mem float* floatPtr,
+           float vigCenterX, float vigCenterY,
+           float inverseDemiDiagonalSquared,
+           float vigCoeff0, float vigCoeff1, float vigCoeff2, float vigCoeff3
+         ) {
+
+  /* calculate normalized texture coordinates */
+  const int x = get_global_id_x();
+  const int y = get_global_id_y();
+  const int faceX = x + oOffsetX;
+  const int faceY = y + oOffsetY;
+
+  const lut_ptr float* lutPtr = FUNCTION_NAME_2(PhotoCorrectionT, setup)(floatPtr);
+  if (x < oWidth && y < oHeight) {
+
+    float2 uv = make_float2((float)faceX, (float)faceY);
+
+    uv.x -= (faceDim - 1) / 2.0f;
+    uv.y -= (faceDim - 1) / 2.0f;
+
+    uv = FUNCTION_NAME_6(mapFunctionCubemap, face, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform, equiangular) (uv, faceDim, transform, inputScale, distortion, centerShift);
+
+    /* compensate fetching offset by adding 0.5f */
+    uv.x += texWidth / 2.0f;
+    uv.y += texHeight / 2.0f;
+
+    g_odata[y * oWidth + x] = FUNCTION_NAME_2(photoCorrectionFunction, PhotoCorrectionT)(uv, texture, texWidth, texHeight, rgbMult, photoParam, lutPtr, vigCenterX, vigCenterY, inverseDemiDiagonalSquared, vigCoeff0, vigCoeff1, vigCoeff2, vigCoeff3) *
+                              isWithin(uv, (float)texWidth, (float)texHeight, (float)cropLeft, (float)cropRight, (float)cropTop, (float)cropBottom);
+  }
+}

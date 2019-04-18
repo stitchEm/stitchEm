@@ -1,0 +1,42 @@
+__global__ void FUNCTION_NAME_7(cubemapMapKernel, face, fromSphereToInput, isWithin, distortionMetersTransform, distortionPixelsTransform, equiangular)
+           (global_mem uint32_t* __restrict__ g_odata,
+           global_mem const unsigned char * __restrict__ mask,
+           uint32_t imBit,
+           int inWidth, int inHeight,
+           int length,
+           int cropLeft, int cropRight, int cropTop, int cropBottom,
+           const vsfloat3x4 pose,
+           const float2 inputScale,
+           const vsDistortion distortion,
+           const float2 centerShift
+         ) {
+
+  int x = get_global_id_x();
+  int y = get_global_id_y();
+
+  if (x < length && y < length) {
+
+    float2 uv = make_float2((float)x, (float)y);
+
+    /*To Center coordinates*/
+    uv.x -= (length - 1) / 2.0f;
+    uv.y -= (length - 1) / 2.0f;
+
+    uv = FUNCTION_NAME_6(mapFunctionCubemap, face, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform, equiangular) (uv, length, pose, inputScale, distortion, centerShift);
+
+    /* To Topleft coordinates */
+    /* compensate fetching offset by adding 0.5f */
+    uv.x += inWidth / 2.0f;
+    uv.y += inHeight / 2.0f;
+
+    /* Check if pixel is inside the input */
+    uint32_t v = isWithin(uv, inWidth, inHeight, (float)cropLeft, (float)cropRight, (float)cropTop, (float)cropBottom) * imBit;
+    if (mask) {
+      if ((v != 0) && (mask[(int)uv.y * inWidth + (int)uv.x] == 1)) {
+        v = 0;
+      }
+    }
+
+    g_odata[y * length + x] |= v;
+  }
+}

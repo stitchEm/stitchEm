@@ -1,0 +1,12 @@
+{
+  "algorithms": [
+  {
+    "name" : "motion_synchronization",
+    "config": {
+      "first_frame" : 0,
+      "last_frame" : 50
+    }
+  }
+  ],
+  "output": "motionout.ptv"
+}

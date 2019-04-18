@@ -1,0 +1,3 @@
+This is the VS cuda layer, a thin layer on top of cuda with useful abstractions and utilities.
+
+Only allowed to depend on include/

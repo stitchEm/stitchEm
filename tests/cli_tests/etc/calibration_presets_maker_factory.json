@@ -1,0 +1,24 @@
+{
+  "outputPtv": [
+      {
+        "name" : "output_final_presets.ptv"
+      }
+    ],
+    "algorithms" : [
+    {
+      "name": "calibration_presets_maker",
+      "output": "output_presets.json",
+      "config" : {
+        "name" : "Orah 4i - calibration_presets_maker",
+        "focal_std_dev_value_percentage" : 5.0,
+        "center_std_dev_width_percentage" : 8.0,
+        "distort_std_dev_value_percentage" : 50,
+        "yaw_std_dev" : 1.0,
+        "pitch_std_dev" : 2.0,
+        "roll_std_dev" : 3.0,
+        "translation_x_std_dev" : 0.07,
+        "translation_z_std_dev" : 0.0
+      }
+    }
+  ]
+}

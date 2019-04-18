@@ -1,0 +1,8 @@
+/**
+@mainpage VideoStitch Apps
+
+> VideoStitch is a C++ and CUDA based stitching engine library
+
++ You'll find here the documentation of all the classes and methods of the apps of VideoStitch
+
+*/

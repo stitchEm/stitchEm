@@ -1,0 +1,7 @@
+#define equiangular true
+#include WARPFACEKERNEL_VARIANT_INCLUDE
+#undef equiangular
+
+#define equiangular false
+#include WARPFACEKERNEL_VARIANT_INCLUDE
+#undef equiangular

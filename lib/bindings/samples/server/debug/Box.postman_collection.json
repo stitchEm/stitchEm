@@ -1,0 +1,1052 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Box",
+		"_postman_id": "dbf4355c-1ec3-8e62-4f3d-ce43a392ac6d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Algorithm",
+			"description": "",
+			"item": [
+				{
+					"name": "Reset Calibration",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.reset_calibration\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Calibration",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.start_calibration\", \"parameters\" : { \"incremental\": true } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Exposure compensation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.start_exposure_compensation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Exposure compensation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.stop_exposure_compensation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Exposure compensation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.reset_exposure_compensation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Metadata processing",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.start_metadata_processing\"}"
+						},
+						"description": ""
+					},	
+					"response": []
+				},
+				{
+					"name": "Stop Metadata processing",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.stop_metadata_processing\"}"
+						},
+						"description": ""
+					},	
+					"response": []
+				},
+				{
+					"name": "Start IMU Stabilization",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.start_imu_stabilization\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop IMU Stabilization",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.stop_imu_stabilization\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get IMU Stabilization status",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.is_imu_stabilization_enabled\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set IMU Stabilization low pass filter",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.set_stabilization_low_pass_filter\", \"parameters\": {\"iir_low_pass\":0.3} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set IMU Stabilization fusion factor",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.set_stabilization_fusion_factor\", \"parameters\": {\"fusion_factor\":0.09} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user orientation Quaternion",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.get_user_orientation_quaternion\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user orientation Yaw/Pitch/Roll",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.get_user_orientation_ypr\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set user orientation Quaternion",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.set_user_orientation_quaternion\", \"parameters\": {\"quaternion\":[1.0, 0.0, 0.0, 0.0]} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set user orientation Yaw/Pitch/Roll",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.set_user_orientation_ypr\", \"parameters\": {\"yaw\" : 0.0, \"pitch\" : 0.0, \"roll\" : 0.0 } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update user orientation Quaternion",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.update_user_orientation_quaternion\", \"parameters\": {\"quaternion\":[1.0, 0.0, 0.0, 0.0]} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update user orientation Yaw/Pitch/Roll",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.update_user_orientation_ypr\", \"parameters\": {\"yaw\" : 0.0, \"pitch\" : 0.0, \"roll\" : 0.0 } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Reset user orientation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.reset_user_orientation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Horizon Leveling quaternion",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.get_horizon_leveling_quaternion\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Enable gyroscope bias cancellation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.enable_gyroscope_bias_cancellation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Disable gyroscope bias cancellation",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.disable_gyroscope_bias_cancellation\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get gyroscope bias cancellation simple status",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.is_gyroscope_bias_cancellation_valid\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get gyroscope bias cancellation detailed status",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"algorithm.get_gyroscope_bias_cancellation_detailed_status\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+
+			]
+		},
+		{
+			"name": "Camera",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Camera Info",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"camera.get_info\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Camera",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.disconnect_camera\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Camera",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.connect_camera\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Camera Audio Gain",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"camera.get_audio_gain\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Camera Audio Gain",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"camera.set_audio_gain\", \"parameters\": {\"gain_db\":[0, 1, 2, 3]} }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Debug",
+			"description": "",
+			"item": [
+				{
+					"name": "Reset Server",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.reset_server\", \"parameters\" : { \"resolution\":\"4K DCI\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Send Event Messages",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.send_event\", \"parameters\": { \"name\":\"Toto\", \"payload\": {\"message\": \"MyError\" }} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Send Error Messages",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.send_error\", \"parameters\": { \"message\": \"MyError\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Kill Server",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.stop_server\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Log",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.log\", \"parameters\": { \"message\": \"++++\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Profiling ",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.reset_profiling\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Profiling",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.stop_profiling\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Profiling",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.start_profiling\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profiling",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.get_profiling\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add managed drive",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.add_managed_drive\", \"parameters\": { \"drive_path\": \"/data/videostitch/recordings/\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Firmware",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Firmware List",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.get_firmware_list\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Force Update Firmware",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.force_update_firmware\", \"parameters\": { \"name\":\"firmware.fwupd\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Firmware",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"camera.update_firmware\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Force Firmware",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"debug.force_camera_firmware\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Output",
+			"description": "",
+			"item": [
+				{
+					"name": "Start Preview",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.start_preview\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Preview",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.stop_preview\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Recording",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.start_recording\", \"parameters\" : { \"output_preset\" : null, \"inputs_preset\" :  { \"drive_path\" : \"/data/videostitch/recordings/\"} } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Recording",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.stop_recording\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Broadcasting",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.stop_stream\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Start Broadcasting",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.start_stream\", \"parameters\": { \"preset\":\"default\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Preset",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Preset",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.create_stream_preset\", \"parameters\": { \"name\": \"toto\", \"filename\":\"rtmp://127.0.0.1:1935/live/cdn\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Presets",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.get_stream_presets\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Audio",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Audio Source",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"audio.get_source\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Audio Source",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"audio.set_source\", \"parameters\": { \"source\": \"camera\", \"layout\": \"stereo\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Audio Delay",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"audio.get_delay\", \"parameters\": { \"source\": \"line-in\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Audio Delay",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"audio.set_delay\", \"parameters\": { \"source\": \"line-in\", \"delay\": -0.5} }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Social",
+			"description": "",
+			"item": [
+				{
+					"name": "Make link",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"social.make_link\", \"parameters\": { \"social_network\": \"facebook\", \"token\": \"xxxxxxxxx\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Unmake link",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"social.unmake_link\", \"parameters\": { \"social_network\": \"facebook\"} }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Call",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"social.call\", \"parameters\": { \"social_network\": \"facebook\", \"endpoint\": \"me\", \"parameters\": { \"fields\": \"id,name,link\" } } }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Status",
+			"request": {
+				"url": "http://{{box}}/commands/execute",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\" : \"box.get_status\" }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Configuration",
+			"request": {
+				"url": "http://{{box}}/commands/execute",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\" : \"box.get_configuration\" }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Messages",
+			"request": {
+				"url": "http://{{box}}/commands/execute",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\" : \"box.get_messages\", \"parameters\": { \"count\": 1 } }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Video",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Info",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.get_info\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Available Resolutions",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.list_video_modes\" }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Resolution",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"stitcher.set_video_mode\", \"parameters\" : { \"name\":\"4K DCI\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System",
+			"description": "",
+			"item": [
+				{
+					"name": "Eject Drive",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"box.eject_drive\", \"parameters\": { \"drive_path\" : \"/media/videostitch/SDCARD\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Format Drive",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"box.format_drive\", \"parameters\": { \"drive_path\" : \"/media/videostitch/SDCARD\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wifi conf",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"box.get_wifi_conf\"  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Set Wifi parameters",
+					"request": {
+						"url": "http://{{box}}/commands/execute",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\" : \"box.set_wifi_conf\", \"parameters\": { \"old_password\" : \"0123456789\", \"new_password\" : \"9876543210\", \"ssid\" : \"my360cam\", \"channel\": \"4\" } }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Package Logs",
+			"request": {
+				"url": "http://{{box}}/commands/execute",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\" : \"box.package_logs\" }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Acknowledge Flash",
+			"request": {
+				"url": "http://{{box}}/commands/execute",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\" : \"box.acknowledge_flash\" }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

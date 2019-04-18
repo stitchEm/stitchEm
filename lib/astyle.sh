@@ -1,0 +1,1 @@
+AStyle -r --indent=spaces=2 --style=attach --keep-one-line-statements *.hpp *.cpp

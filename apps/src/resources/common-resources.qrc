@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style/common_style_variables.ini</file>
+        <file>style/vs_common.qss</file>
+        <file>icons/vs/player.ico</file>
+        <file>icons/vs/vahana.ico</file>
+        <file>icons/vs/videostitch.icns</file>
+        <file>icons/vs/videostitch.ico</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>icons/orah4i.ico</file>
+        <file>icons/orah4i_white.ico</file>
+        <file>icons/orah4i.icns</file>
+        <file>icons/orah4i_white.icns</file>
+    </qresource>
+    <qresource prefix="/logos">
+        <file>logos/logo_white.png</file>
+        <file>logos/logo_white@2x.png</file>
+        <file>logos/monogram white.png</file>
+    </qresource>
+</RCC>

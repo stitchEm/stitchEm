@@ -1,0 +1,22 @@
+  {
+    "overlays" : [
+      {
+        "reader_config" : "orah_logo.png", 
+        "width" : 595, 
+        "height" : 801, 
+        "frame_offset" : 0,  
+        "global_orientation_applied" : false, 
+        "scale" : 1.0, 
+        "alpha" : 1, 
+        "transX" : 0, 
+        "transY" : 0, 
+        "transZ" :0.01, 
+        "rotation" : [
+          1,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,77 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+/**
+ * A kernel that maps the input amplitude onto a color range. Only processed pixels are considered.
+ */
+__global__ void amplitudeKernel(global_mem uint32_t* buffer, uint32_t minVal, uint32_t maxVal, unsigned width,
+                                unsigned bufferSize) {
+  const uint32_t i = get_global_id_y() * width + get_global_id_x();
+  if (i < bufferSize) {
+    uint32_t v = buffer[i];
+    if (v & 0x80000000) {
+      v &= 0x3fffffff;
+      v = clamp_vs(v, minVal, maxVal);
+      const int32_t mapped = (255 * (v - minVal)) / (maxVal - minVal);
+      buffer[i] = Image_RGBA_pack(mapped, 255 - mapped, 127, 1);
+    }
+  }
+}
+
+/**
+ * Everything that is not an overlapping area (marked by an earlier kernel with 0x2 alpha value)
+ * is set to 0 / black with alpha 0
+ */
+__global__ void maskOutSingleInput(global_mem uint32_t* buffer, unsigned width, unsigned bufferSize) {
+  const uint32_t i = get_global_id_y() * width + get_global_id_x();
+  if (i < bufferSize) {
+    uint32_t v = buffer[i];
+    if (!(Image_RGBA_a(v) & 0x2)) {
+      buffer[i] = Image_RGBA_pack(0, 0, 0, 0);
+    }
+  }
+}
+
+__global__ void colormapKernel(global_mem uint32_t* buffer, unsigned width, unsigned bufferSize) {
+  uint32_t i = get_global_id_y() * width + get_global_id_x();
+  if (i < bufferSize) {
+    uint32_t v = buffer[i];
+    if (v == 0) {
+      buffer[i] = Image_RGBA_pack(255, 0, 0, 1);
+    } else {
+      buffer[i] = Image_RGBA_pack(Image_clamp8(v * 255 / 32), Image_clamp8(v * 255 / 8), Image_clamp8(v * 255 / 4), 1);
+    }
+  }
+}
+
+__device__ unsigned xIndexWrap(unsigned x, unsigned width) { return (x % width); }
+
+__device__ unsigned xIndexNoWrap(unsigned x, unsigned width) { return x; }
+
+#define checkerInsertKernel checkerInsertKernelWrap
+#define countInputsKernel countInputsKernelWrap
+#define exposureErrorRGBKernel exposureErrorRGBKernelWrap
+#define noblendKernel noblendKernelWrap
+#define stitchingErrorKernel stitchingErrorKernelWrap
+#define xIndex xIndexWrap
+#include "mergerKernel.gpu.incl"
+#undef checkerInsertKernel
+#undef countInputsKernel
+#undef exposureErrorRGBKernel
+#undef noblendKernel
+#undef stitchingErrorKernel
+#undef xIndex
+
+#define checkerInsertKernel checkerInsertKernelNoWrap
+#define countInputsKernel countInputsKernelNoWrap
+#define exposureErrorRGBKernel exposureErrorRGBKernelNoWrap
+#define noblendKernel noblendKernelNoWrap
+#define stitchingErrorKernel stitchingErrorKernelNoWrap
+#define xIndex xIndexNoWrap
+#include "mergerKernel.gpu.incl"
+#undef checkerInsertKernel
+#undef countInputsKernel
+#undef exposureErrorRGBKernel
+#undef noblendKernel
+#undef stitchingErrorKernel
+#undef xIndex

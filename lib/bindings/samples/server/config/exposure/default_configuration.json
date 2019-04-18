@@ -1,0 +1,8 @@
+{
+    "algorithm": "exposure_stabilize",
+    "stabilize_wb": false,
+    "anchor": -1,
+    "run_interval": 0.4,
+    "interpolation_interval_percent": 50,
+    "safety_margin_frames": 5
+}

@@ -1,0 +1,45 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void FUNCTION_NAME_5(warpCoordKernel, fromSphereToInput, isWithin, distortionMetersTransform, distortionPixelsTransform)
+           (surface_t g_odata,
+           const int texWidth, const int texHeight,
+           const int texLeft, const int texRight, const int texTop, const int texBottom,
+           const int oWidth, const int oHeight,
+           const int oOffsetX, const int oOffsetY,
+           const int panoWidth, const int panoHeight,
+           const int cropLeft, const int cropRight, const int cropTop, const int cropBottom,
+           const float2 panoScale,
+           const vsfloat3x4 transform,
+           const float2 inputScale,
+           const vsDistortion distortion,
+           const float2 centerShift
+         ) {
+
+  /* calculate normalized texture coordinates */
+  const int x = get_global_id_x();
+  const int y = get_global_id_y();
+  const int panoX = (x + oOffsetX) % panoWidth;
+  const int panoY = y + oOffsetY;
+
+  if (x < oWidth && y < oHeight) {
+    coord_write(make_float2(INVALID_FLOW_VALUE, INVALID_FLOW_VALUE), g_odata, x, y);
+    if (OutputRectCropper_isPanoPointVisible(panoX, panoY, panoWidth, panoHeight)) {
+      float2 uv = make_float2((float)panoX, (float)panoY);
+      /* compensate fetching offset by adding 0.5f */
+      uv.x -= (panoWidth - 1) / 2.0f;
+      uv.y -= (panoHeight - 1) / 2.0f;
+
+      uv = FUNCTION_NAME_4(mapPanoramaToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform)(uv, panoScale, transform, inputScale, distortion, centerShift);
+      /**
+       * Texture fetches are relative to the upper left, not the center.
+       */
+      uv.x += texWidth / 2.0f;
+      uv.y += texHeight / 2.0f;
+      if (isWithin(uv, (float)texWidth, (float)texHeight, (float)texLeft, (float)texRight, (float)texTop, (float)texBottom)) {
+        coord_write(uv, g_odata, x, y);
+      }
+    }
+  }
+}
+

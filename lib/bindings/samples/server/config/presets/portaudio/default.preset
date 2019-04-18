@@ -1,0 +1,7 @@
+{
+  "type": "portaudio",
+  "filename": "dummy",
+  "sample_format": "flt",
+  "sampling_rate": 44100,
+  "channel_layout": "stereo"
+}

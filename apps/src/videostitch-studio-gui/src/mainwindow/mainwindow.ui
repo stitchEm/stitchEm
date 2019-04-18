@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>480</height>
+   </size>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks</set>
+  </property>
+  <widget class="CentralStackedWidget" name="centralStackedWidget">
+   <widget class="QLabel" name="gpuInfoLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="graphicsCardLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>13</y>
+      <width>67</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graphics Card</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="renderedFrame">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="seekBarDock">
+   <property name="features">
+    <set>QDockWidget::NoDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomDockWidgetArea|Qt::TopDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Timeline</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="SeekBar" name="seekbar"/>
+  </widget>
+  <widget class="QDockWidget" name="logWidgetDock">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Log</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="LogWidget" name="logWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="synchronizationWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Synchronization</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="SynchronizationWidget" name="synchronizationWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="colorCorrectionWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Color correction</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="ExposureWidget" name="exposureWidget"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>640</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpenPTV"/>
+    <addaction name="actionOpen_Media"/>
+    <addaction name="actionOpen_Working_Directory"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_ptv"/>
+    <addaction name="actionSave_Project_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionSupport"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionShortcut"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionPreferences"/>
+    <addaction name="separator"/>
+    <addaction name="actionExtract_stills_to"/>
+    <addaction name="actionExtract_stills"/>
+    <addaction name="actionExtract_output_to"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QDockWidget" name="stabilizationWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Stabilization &amp;&amp; Orientation</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="StabilizationWidget" name="stabilizationWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="calibrationWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Calibration</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="CalibrationWidget" name="calibrationWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="blendingMaskWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Blending mask</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="BlendingMaskWidget" name="blendingMaskWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="advancedBlendingWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Advanced blending</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="AdvancedBlendingWidget" name="advancedBlendingWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="commandWidgetDock">
+   <property name="windowTitle">
+    <string>History</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="commandWidget">
+    <layout class="QHBoxLayout" name="commandLayout">
+     <item>
+      <widget class="QUndoView" name="undoView">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="stereoWidgetDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Stereo configuration</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="StereoConfigurationWidget" name="stereoWidget"/>
+  </widget>
+  <widget class="QDockWidget" name="outputConfigDockWidget">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Output configuration</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="OutputConfigurationWidget" name="outputConfigurationWidget"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Alt+F4</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionOpenPTV">
+   <property name="text">
+    <string>Open project...</string>
+   </property>
+   <property name="iconText">
+    <string>Open project...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open project...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionSave_ptv">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Save project</string>
+   </property>
+   <property name="toolTip">
+    <string>Save project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+,</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionExtract_stills_to">
+   <property name="text">
+    <string>Extract stills to...</string>
+   </property>
+   <property name="iconText">
+    <string>Extract stills to...</string>
+   </property>
+   <property name="toolTip">
+    <string>Choose a working directory and extract current frame from sources videos...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+E</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New project</string>
+   </property>
+   <property name="toolTip">
+    <string>New project</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionSave_Project_As">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Save project as...</string>
+   </property>
+   <property name="iconText">
+    <string>Save project as...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save project as...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionSupport">
+   <property name="text">
+    <string>Get support</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionCheck_For_Update">
+   <property name="text">
+    <string>Check for update</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionOpen_Working_Directory">
+   <property name="text">
+    <string>Open working directory</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionApply_Calibration">
+   <property name="text">
+    <string>Apply calibration</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionNew_Calibration">
+   <property name="text">
+    <string>New calibration</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionExtract_stills">
+   <property name="text">
+    <string>Extract stills</string>
+   </property>
+   <property name="toolTip">
+    <string>Extract current frame from input videos</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+E</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionToggle_Fullscreen">
+   <property name="text">
+    <string>Fullscreen</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">F</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionExtract_output_to">
+   <property name="text">
+    <string>Save current frame as...</string>
+   </property>
+   <property name="iconText">
+    <string>Save current frame as...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current frame as...</string>
+   </property>
+  </action>
+  <action name="actionShortcut">
+   <property name="text">
+    <string>Shortcuts</string>
+   </property>
+  </action>
+  <action name="actionOpen_Media">
+   <property name="text">
+    <string>Open media...</string>
+   </property>
+   <property name="iconText">
+    <string>Open media...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open media...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>LogWidget</class>
+   <extends>QTextEdit</extends>
+   <header>libvideostitch-gui/widgets/logwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CentralStackedWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/centralwidget/centralstackedwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SynchronizationWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/synchronizationwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SeekBar</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/seekbar.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ExposureWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/exposurewidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StabilizationWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/stabilizationwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CalibrationWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/calibrationwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BlendingMaskWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/blendingmaskwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AdvancedBlendingWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/advancedblendingwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StereoConfigurationWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/stereoconfigurationwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutputConfigurationWidget</class>
+   <extends>QWidget</extends>
+   <header>../src/widgets/outputconfigurationwidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QUndoView</class>
+   <extends>QListView</extends>
+   <header location="global">qundoview.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

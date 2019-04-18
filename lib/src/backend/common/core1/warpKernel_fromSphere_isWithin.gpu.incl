@@ -1,0 +1,35 @@
+#define fromSphereToInput SphereToRect
+#define isWithin isWithinCropRect
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin
+
+#define fromSphereToInput SphereToErect
+#define isWithin isWithinCropRect
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin
+
+#define fromSphereToInput SphereToFisheye
+#define isWithin isWithinCropCircle
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin
+
+#define fromSphereToInput SphereToFisheye
+#define isWithin isWithinCropRect
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin
+
+#define fromSphereToInput SphereToExternal
+#define isWithin isWithinCropCircle
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin
+
+#define fromSphereToInput SphereToExternal
+#define isWithin isWithinCropRect
+#include WARPKERNEL_VARIANT_INCLUDE
+#undef fromSphereToInput
+#undef isWithin

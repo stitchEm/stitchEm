@@ -1,0 +1,16 @@
+
+/*
+ * This ptv file uses a Tuple to group variables in a scope.
+ */
+
+a = 1;
+
+d = Tuple {
+  a = 2;
+  b = a; /* refers to d.a == 2*/
+  c = 1.1;
+};
+
+e = a; /* refers to ::a == 1*/
+f = d.b;  /*refers to d.b == 2*/
+

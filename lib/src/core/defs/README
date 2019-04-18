@@ -1,0 +1,3 @@
+These are the pano/input /definitions/, i.e. the objects that represent the layout of the panorama.
+They can be read from PTO/PTS (hugin/PTGui), and read and written from/to PTV.
+They are just data and hold no logic.

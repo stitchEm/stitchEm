@@ -1,0 +1,28 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// templated kernel:
+// need to #define BufferType
+// before including this file
+
+__device__ void FUNCTION_NAME_2(downsamplePlanarImpl, BufferType)(
+    global_mem BufferType* __restrict__ dst, unsigned dstPitch,
+    const global_mem BufferType* __restrict__ src, unsigned srcPitch,
+    unsigned srcWidth, unsigned srcHeight,
+    unsigned factor) {
+  const unsigned dstX = get_global_id_x();
+  const unsigned dstY = get_global_id_y();
+  const unsigned srcX = dstX * factor;
+  const unsigned srcY = dstY * factor;
+  if (srcX < srcWidth && srcY < srcHeight) {
+    int32_t v = 0;
+    for (unsigned y = 0; y < factor; ++y) {
+      for (unsigned x = 0; x < factor; ++x) {
+        unsigned offset = (srcY + y) * srcPitch + (srcX + x);
+        v += src[offset];
+      }
+    }
+    const int div = factor * factor;
+    dst[dstY * dstPitch + dstX] = (BufferType) (v / div);
+  }
+}

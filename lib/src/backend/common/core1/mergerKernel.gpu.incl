@@ -1,0 +1,224 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// templated kernels:
+// need to #define kernel names
+// need to #define xIndex function
+// to wrap and no-wrap variants
+// before including this file
+
+
+/**
+ * A kernel that simply adds one to the output pixel for each non-transparent pixel in the input.
+ */
+__global__ void countInputsKernel(global_mem uint32_t * __restrict__ dst,
+                                  unsigned dstWidth, unsigned dstHeight,
+                                  global_mem const uint32_t * __restrict__ src,
+                                  unsigned srcWidth, unsigned srcHeight,
+                                  unsigned offsetX, unsigned offsetY) {
+  const unsigned srcX = get_global_id_x();
+  const unsigned srcY = get_global_id_y();
+
+  const unsigned dstX = xIndex(srcX + offsetX, dstWidth);
+  const unsigned dstY = srcY + offsetY;
+
+  if (srcX < srcWidth && srcY < srcHeight && dstX < dstWidth && dstY < dstHeight) {
+    if (Image_RGBA_a(src[srcWidth * srcY + srcX])) {
+      ++(dst[dstY * dstWidth + dstX]);
+    }
+  }
+}
+
+
+/**
+* A kernel that computes the stitching error. It ignores pixels with zero alpha and alreday processed pixels.
+* Already processed pixels are identified by a mask 0x80000000.
+*/
+__global__ void stitchingErrorKernel(global_mem uint32_t * __restrict__ dst,
+                                     unsigned dstWidth, unsigned dstHeight,
+                                     global_mem const uint32_t * __restrict__ src,
+                                     unsigned srcWidth, unsigned srcHeight,
+                                     unsigned offsetX, unsigned offsetY) {
+
+  const unsigned srcX = get_global_id_x();
+  const unsigned srcY = get_global_id_y();
+
+  const unsigned dstX = xIndex(srcX + offsetX, dstWidth);
+  const unsigned dstY = srcY + offsetY;
+
+  if (srcX < srcWidth && srcY < srcHeight && dstX < dstWidth && dstY < dstHeight) {
+    const uint32_t inSrc = src[srcWidth * srcY + srcX];
+    // Only consider solid pixels.
+    if (Image_RGBA_a(inSrc)) {
+      const uint32_t inDst = dst[dstY * dstWidth + dstX];
+      // First case: the destination pixel is already processed => skip.
+      if (!(inDst & 0x80000000)) {
+        // Second case: the destination pixel has not yet been seen, just write it.
+        if (!Image_RGBA_a(inDst)) {
+          dst[dstY * dstWidth + dstX] = 0x40ffffff & inSrc;
+        } else {
+          const int32_t rSrc = Image_RGBA_r(inSrc);
+          const int32_t rDst = Image_RGBA_r(inDst);
+          const int32_t gSrc = Image_RGBA_g(inSrc);
+          const int32_t gDst = Image_RGBA_g(inDst);
+          const int32_t bSrc = Image_RGBA_b(inSrc);
+          const int32_t bDst = Image_RGBA_b(inDst);
+          dst[dstY * dstWidth + dstX] = 0xc0000000 | ((rSrc - rDst) * (rSrc - rDst) + (gSrc - gDst) * (gSrc - gDst) + (bSrc - bDst) * (bSrc - bDst));
+        }
+      }
+    }
+  }
+}
+
+/**
+* A kernel that computes the exposure RGB diff by channel. It ignores pixels with zero alpha and alreday processed pixels.
+* Already processed pixels are identified by an alpha mask 0x02.
+*/
+__global__ void exposureErrorRGBKernel(global_mem uint32_t * __restrict__ dst,
+                                       unsigned dstWidth, unsigned dstHeight,
+                                       global_mem const uint32_t * __restrict__ src,
+                                       unsigned srcWidth, unsigned srcHeight,
+                                       unsigned offsetX, unsigned offsetY) {
+
+  const unsigned srcX = get_global_id_x();
+  const unsigned srcY = get_global_id_y();
+
+  const unsigned dstX = xIndex(srcX + offsetX, dstWidth);
+  const unsigned dstY = srcY + offsetY;
+
+  if (srcX < srcWidth && srcY < srcHeight && dstX < dstWidth && dstY < dstHeight) {
+
+    const uint32_t inSrc = src[srcWidth * srcY + srcX];
+
+    // Only consider solid pixels
+    if (Image_RGBA_a(inSrc)) {
+
+      const uint32_t inDst = dst[dstY * dstWidth + dstX];
+
+      // The destination pixel is already processed => skip
+      if (!(Image_RGBA_a(inDst) & 0x2)) {
+
+        // The destination pixel has not yet been seen, just write it.
+        if (!Image_RGBA_a(inDst)) {
+          dst[dstY * dstWidth + dstX] = 0x01ffffff & inSrc;
+        } else {
+          const uint32_t rDiff = abs((int32_t)Image_RGBA_r(inSrc) - (int32_t)Image_RGBA_r(inDst));
+          const uint32_t gDiff = abs((int32_t)Image_RGBA_g(inSrc) - (int32_t)Image_RGBA_g(inDst));
+          const uint32_t bDiff = abs((int32_t)Image_RGBA_b(inSrc) - (int32_t)Image_RGBA_b(inDst));
+          dst[dstY * dstWidth + dstX] = Image_RGBA_pack(rDiff, gDiff, bDiff, 0x3);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * A kernel that creates a checkerboard pattern in overlapping areas, between first and second input.
+ * The first arriving value for any coordinate is always written. It get an alpha value of 0x01.
+ * If a second value is available, it replaces the first value on "black" squares,
+ * while on "white" squares the first value is kept. The second value gets an alpha value of 0x03.
+ * Further values are ignored.
+ */
+__global__ void checkerInsertKernel(global_mem uint32_t * __restrict__ dst,
+                                    unsigned dstWidth, unsigned dstHeight,
+                                    global_mem const uint32_t * __restrict__ src,
+                                    unsigned srcWidth, unsigned srcHeight,
+                                    unsigned offsetX, unsigned offsetY,
+                                    unsigned checkerSize) {
+
+  const unsigned srcX = get_global_id_x();
+  const unsigned srcY = get_global_id_y();
+
+  const unsigned dstX = xIndex(srcX + offsetX, dstWidth);
+  const unsigned dstY = srcY + offsetY;
+
+  if (srcX < srcWidth && srcY < srcHeight && dstX < dstWidth && dstY < dstHeight) {
+
+    const uint32_t inSrc = src[srcWidth * srcY + srcX];
+
+    // Only consider solid pixels
+    if (Image_RGBA_a(inSrc)) {
+
+      const uint32_t inDst = dst[dstY * dstWidth + dstX];
+
+      // The destination pixel is already processed => skip
+      if (!(Image_RGBA_a(inDst) & 0x2)) {
+
+        // The destination pixel has not yet been seen, just write it.
+        if (!(Image_RGBA_a(inDst) & 0x1)) {
+          dst[dstY * dstWidth + dstX] = 0x01ffffff & inSrc;
+        } else {
+          bool useSource = true;
+          if (checkerSize > 1) {
+            unsigned evenRow = ((dstX / checkerSize) & 1);
+            unsigned evenCol = ((dstY / checkerSize) & 1);
+            useSource = evenRow ^ evenCol;
+          }
+          if (useSource) {
+            dst[dstY * dstWidth + dstX] = 0x03ffffff & inSrc;
+          } else {
+            dst[dstY * dstWidth + dstX] = 0x03ffffff & inDst;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+* A kernel that store invidiual input with maps to the given panorama coordinate.
+* It ignores pixels with zero alpha and alreday processed pixels.
+* For each input, the warped pixel is tranformed to grayscale.
+* The first input which maps to a given panorama pixel will be stored in the R component.
+* The second input which maps to the same panorama pixel will be stored in the G component.
+* The alpha bit is set to 1 if and only if two inputs map to a panorama pixel.
+* The B component is used as a counter (0: no mapped input for this pixel, 1: 1 mapped input, 2: one or more mapped inputs)
+*/
+__global__ void noblendKernel(global_mem uint32_t * __restrict__ dst,
+                              unsigned dstWidth, unsigned dstHeight,
+                              global_mem const uint32_t * __restrict__ src,
+                              unsigned srcWidth, unsigned srcHeight,
+                              unsigned offsetX, unsigned offsetY) {
+
+  const unsigned srcX = get_global_id_x();
+  const unsigned srcY = get_global_id_y();
+
+  const unsigned dstX = xIndex(srcX + offsetX, dstWidth);
+  const unsigned dstY = srcY + offsetY;
+
+  if (srcX < srcWidth && srcY < srcHeight && dstX < dstWidth && dstY < dstHeight) {
+    const uint32_t inSrc = src[srcWidth * srcY + srcX];
+
+    int ia = Image_RGBA_a(inSrc);
+
+    // Only consider solid pixels.
+    if (ia) {
+
+      int ir = Image_RGBA_r(inSrc);
+      int ig = Image_RGBA_g(inSrc);
+      int ib = Image_RGBA_b(inSrc);
+
+      const uint32_t inDst = dst[dstY * dstWidth + dstX];
+
+      int gray = 299 * ir + 587 * ig + 114 * ib;
+      gray = gray / 1000;
+
+      int outa = Image_RGBA_a(inDst);
+      int outr = Image_RGBA_r(inDst);
+      int outg = Image_RGBA_g(inDst);
+      int outb = Image_RGBA_b(inDst);
+
+      if (outb == 0) {
+        outb = 1;
+        outr = gray;
+      }
+      else if (outb == 1) {
+        outb = 2;
+        outg = gray;
+        outa = 1;
+      }
+
+      dst[dstY * dstWidth + dstX] = Image_RGBA_pack(outr, outg, outb, outa);
+    }
+  }
+}

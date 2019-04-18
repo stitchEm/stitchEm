@@ -1,0 +1,20 @@
+These are helper droplets to work with VideoStich command line tools.
+Copy these droplets in your VideoStitch install directory.
+
+------------------------------------------------------------------------------
+
+# calibrationimport.bat
+
+This tool converts calibration PTGui (*.pts) or Hugin (*.pto) project files into a bootstraped VideoStitch’s own *.ptv file format. Simply drag and drop the calibration.pts/pto file you on the tool and a corresponding .ptv file will be created.
+
+If the input footage filename in the calibration file matches this pattern : 
+	> 'path/to/videoname.mp4-framenumber.jpg'
+then the '-framenumber.jpg' suffix will automatically get trimmed off, and the created *.ptv project will keep only 'path/to/videoname.mp4'.
+
+The *.ptv file will be bootstrapped with default values. It can be opened with the GUI or edited by hand. If edited by hand, you need to change the 'first_frame' and 'last_frame' global properties to match the length of your footage.
+
+------------------------------------------------------------------------------
+
+# process-ptv.bat
+
+Simply drag and drop a *.ptv file to have it processed by 'videostitch-cmd.exe'.

@@ -1,0 +1,696 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#include "gpu/core1/transform.hpp"
+
+#include <core/geoTransform.hpp>
+#include <core/photoTransform.hpp>
+#include <core/rect.hpp>
+#include <core1/imageMerger.hpp>
+
+#include "libvideostitch/geometryDef.hpp"
+#include "libvideostitch/panoDef.hpp"
+
+#include <string.h>
+
+#define MAP_KERNEL_BLOCK_SIZE_X_EmorPhotoCorrection 32
+#define MAP_KERNEL_BLOCK_SIZE_Y_EmorPhotoCorrection 16
+#define MAP_KERNEL_BLOCK_SIZE_X_LinearPhotoCorrection 16
+#define MAP_KERNEL_BLOCK_SIZE_Y_LinearPhotoCorrection 8
+#define MAP_KERNEL_BLOCK_SIZE_X_GammaPhotoCorrection 16
+#define MAP_KERNEL_BLOCK_SIZE_Y_GammaPhotoCorrection 8
+#define MAP_KERNEL_BLOCK_SIZE_X 16
+#define MAP_KERNEL_BLOCK_SIZE_Y 8
+#define ZONE_KERNEL_BLOCK_SIZE_X 16
+#define ZONE_KERNEL_BLOCK_SIZE_Y 16
+
+namespace VideoStitch {
+namespace Core {
+namespace {
+
+#define MAPBUFFER_PANO2(MERGER, INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                     \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, LinearPhotoCorrection)                                                                                                                                                                                           \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, GammaPhotoCorrection)                                                                                                                                                                                            \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, EmorPhotoCorrection)                                                                                                                                                                                             \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, LinearPhotoCorrection)                                                                                                                                                                                           \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, GammaPhotoCorrection)                                                                                                                                                                                            \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, EmorPhotoCorrection)                                                                                                                                                                                             \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, radialScaled, ISWITHIN, LinearPhotoCorrection)                                                                                                                                                                                               \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, radialScaled, ISWITHIN, GammaPhotoCorrection)                                                                                                                                                                                                \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, noopDistortionTransform, radialScaled, ISWITHIN, EmorPhotoCorrection)                                                                                                                                                                                                 \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, radialScaled, noopDistortionTransform, ISWITHIN, LinearPhotoCorrection)                                                                                                                                                                                               \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, radialScaled, noopDistortionTransform, ISWITHIN, GammaPhotoCorrection)                                                                                                                                                                                                \
+MAPBUFFER_PANO3(MERGER, INPUTPROJECTION, radialScaled, noopDistortionTransform, ISWITHIN, EmorPhotoCorrection)                                                                                                                                                                                                 \
+Status mapBuffer_##MERGER##_##INPUTPROJECTION##_##ISWITHIN(int time, GPU::Buffer<uint32_t> devOut, GPU::Surface& panoSurf, const unsigned char* mask, const Rect& outputBounds, const PanoDefinition& pano, const InputDefinition& im, GPU::Surface& inSurf, GPU::Stream gpuStream) const {                    \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    if (im.getGeometries().at(time).hasNonRadialDistortion() == false) {                                                                                                                                                                                                                                       \
+      switch (photoresponse) {                                                                                                                                                                                                                                                                                 \
+      case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                                                                                                                                                     \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##radialScaled##_##ISWITHIN##_LinearPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                              \
+      case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##radialScaled##_##ISWITHIN##_GammaPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                               \
+      case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                                                                                                                                       \
+      case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                                                                                                                                                    \
+      case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##radialScaled##_##ISWITHIN##_EmorPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                                \
+      default:                                                                                                                                                                                                                                                                                                 \
+        return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                                                                                                                                                     \
+      }                                                                                                                                                                                                                                                                                                        \
+    } else {                                                                                                                                                                                                                                                                                                   \
+      switch (photoresponse) {                                                                                                                                                                                                                                                                                 \
+      case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                                                                                                                                                     \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN##_LinearPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                             \
+      case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN##_GammaPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                           \
+      case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                                                                                                                                       \
+      case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                                                                                                                                                    \
+      case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN##_EmorPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                            \
+      default:                                                                                                                                                                                                                                                                                                 \
+        return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                                                                                                                                                     \
+      }                                                                                                                                                                                                                                                                                                        \
+    }                                                                                                                                                                                                                                                                                                          \
+  }                                                                                                                                                                                                                                                                                                            \
+  else {                                                                                                                                                                                                                                                                                                       \
+    if (im.getGeometries().at(time).hasNonRadialDistortion() == false) {                                                                                                                                                                                                                                       \
+      switch (photoresponse) {                                                                                                                                                                                                                                                                                 \
+      case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                                                                                                                                                     \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##radialScaled##_##noopDistortionTransform##_##ISWITHIN##_LinearPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                              \
+      case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##radialScaled##_##noopDistortionTransform##_##ISWITHIN##_GammaPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                               \
+      case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                                                                                                                                       \
+      case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                                                                                                                                                    \
+      case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##radialScaled##_##noopDistortionTransform##_##ISWITHIN##_EmorPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                                \
+      default:                                                                                                                                                                                                                                                                                                 \
+        return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                                                                                                                                                     \
+      }                                                                                                                                                                                                                                                                                                        \
+    } else {                                                                                                                                                                                                                                                                                                   \
+      switch (photoresponse) {                                                                                                                                                                                                                                                                                 \
+      case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                                                                                                                                                     \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN##_LinearPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                          \
+      case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN##_GammaPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                           \
+      case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                                                                                                                                       \
+      case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                                                                                                                                                    \
+      case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                                                                                                                                      \
+        return mapBuffer_##MERGER##_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN##_EmorPhotoCorrection(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                            \
+      default:                                                                                                                                                                                                                                                                                                 \
+        return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                                                                                                                                                     \
+      }                                                                                                                                                                                                                                                                                                        \
+    }                                                                                                                                                                                                                                                                                                          \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                              \
+                                                                                                                                                                                                                                                                                                               \
+
+#define MAPBUFFER_PANO(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                              \
+MAPBUFFER_PANO2(gradientMerge, INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                      \
+MAPBUFFER_PANO2(noopMerge, INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                          \
+Status mapBuffer_##INPUTPROJECTION##_##ISWITHIN(int time, GPU::Buffer<uint32_t> devOut, GPU::Surface& panoSurf, const unsigned char* mask, const Rect& outputBounds, const PanoDefinition& pano, const InputDefinition& im, GPU::Surface& inSurf, GPU::Stream gpuStream) const {                               \
+  if (mergeformat == ImageMerger::Format::Gradient) {                                                                                                                                                                                                                                                          \
+    if (!mask) return { Origin::Stitcher, ErrType::UnsupportedAction, "Mask was not allocated" };                                                                                                                                                                                                              \
+    return mapBuffer_gradientMerge_##INPUTPROJECTION##_##ISWITHIN(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                                                                                                    \
+  } else {                                                                                                                                                                                                                                                                                                     \
+    return mapBuffer_noopMerge_##INPUTPROJECTION##_##ISWITHIN(time, devOut, panoSurf, mask, outputBounds, pano, im, inSurf, gpuStream);                                                                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                            \
+}
+
+
+#define MAPBUFFERLOOKUP_PANO2(MERGER, ISWITHIN)                                                                                                                                                                                                                                                                \
+MAPBUFFERLOOKUP_PANO3(MERGER, ISWITHIN, LinearPhotoCorrection)                                                                                                                                                                                                                                                 \
+MAPBUFFERLOOKUP_PANO3(MERGER, ISWITHIN, GammaPhotoCorrection)                                                                                                                                                                                                                                                  \
+MAPBUFFERLOOKUP_PANO3(MERGER, ISWITHIN, EmorPhotoCorrection)                                                                                                                                                                                                                                                   \
+Status mapBufferLookup_##MERGER##_##ISWITHIN(int time, GPU::Buffer<uint32_t> devOut, GPU::Surface& panoSurf, const unsigned char* mask, const GPU::Surface& coordIn,                                                                                                                                           \
+                                             const float coordShrinkFactor, const Rect& outputBounds, const PanoDefinition& pano, const InputDefinition& im, GPU::Surface& inSurf, GPU::Stream gpuStream) const {                                                                                              \
+  switch (photoresponse) {                                                                                                                                                                                                                                                                                     \
+  case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                                                                                                                                                         \
+    return mapBufferLookup_##MERGER##_##ISWITHIN##_LinearPhotoCorrection(time, devOut, panoSurf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, inSurf, gpuStream);                                                                                                                                 \
+  case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                                                                                                                                          \
+    return mapBufferLookup_##MERGER##_##ISWITHIN##_GammaPhotoCorrection(time, devOut, panoSurf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, inSurf, gpuStream);                                                                                                                                  \
+  case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                                                                                                                                           \
+  case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                                                                                                                                                        \
+  case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                                                                                                                                          \
+    return mapBufferLookup_##MERGER##_##ISWITHIN##_EmorPhotoCorrection(time, devOut, panoSurf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, inSurf, gpuStream);                                                                                                                                   \
+  default:                                                                                                                                                                                                                                                                                                     \
+    return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                                                                                                                                                         \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                              \
+
+#define MAPBUFFERLOOKUP_PANO                                                                                                                                                                                                                                                                                   \
+MAPBUFFERLOOKUP_PANO2(gradientMerge, isWithinCropRect)                                                                                                                                                                                                                                                         \
+MAPBUFFERLOOKUP_PANO2(gradientMerge, isWithinCropCircle)                                                                                                                                                                                                                                                       \
+MAPBUFFERLOOKUP_PANO2(noopMerge, isWithinCropRect)                                                                                                                                                                                                                                                             \
+MAPBUFFERLOOKUP_PANO2(noopMerge, isWithinCropCircle)                                                                                                                                                                                                                                                           \
+
+
+#define MAPBUFFERCOORD_PANO2(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                        \
+MAPBUFFERCOORD_PANO3(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN)                                                                                                                                                                                                                     \
+MAPBUFFERCOORD_PANO3(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                                     \
+Status mapBufferCoord_##INPUTPROJECTION##_##ISWITHIN(int time, VideoStitch::GPU::Surface& devOut, const Rect& outputBounds, const PanoDefinition& pano, const InputDefinition& im, GPU::Stream gpuStream) const {                                                                                              \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return mapBufferCoord_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN(time, devOut, outputBounds, pano, im, gpuStream);                                                                                                                                                    \
+  }                                                                                                                                                                                                                                                                                                            \
+  else {                                                                                                                                                                                                                                                                                                       \
+    return mapBufferCoord_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN(time, devOut, outputBounds, pano, im, gpuStream);                                                                                                                                                    \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                              \
+
+#define MAPBUFFERCOORD_PANO                                                                                                                                                                                                                                                                                    \
+MAPBUFFERCOORD_PANO2(SphereToRect, isWithinCropRect)                                                                                                                                                                                                                                                           \
+MAPBUFFERCOORD_PANO2(SphereToErect, isWithinCropRect)                                                                                                                                                                                                                                                          \
+MAPBUFFERCOORD_PANO2(SphereToExternal, isWithinCropRect)                                                                                                                                                                                                                                                       \
+MAPBUFFERCOORD_PANO2(SphereToExternal, isWithinCropCircle)                                                                                                                                                                                                                                                     \
+MAPBUFFERCOORD_PANO2(SphereToFisheye, isWithinCropRect)                                                                                                                                                                                                                                                        \
+MAPBUFFERCOORD_PANO2(SphereToFisheye, isWithinCropCircle)
+
+
+#define MAPCOORDINPUT_PANO2(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                         \
+MAPCOORDINPUT_PANO3(INPUTPROJECTION, noopDistortionTransform, inverseDistortionScaled, ISWITHIN)                                                                                                                                                                                                               \
+MAPCOORDINPUT_PANO3(INPUTPROJECTION, inverseDistortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                               \
+Status mapCoordInput_##INPUTPROJECTION##_##ISWITHIN(int time, const int scaleFactor, GPU::Buffer<float2> inputCoord, const PanoDefinition& pano, const InputDefinition& im, GPU::Stream gpuStream) const {                                                                                                     \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return mapCoordInput_##INPUTPROJECTION##_##noopDistortionTransform##_##inverseDistortionScaled##_##ISWITHIN(time, scaleFactor, inputCoord, pano, im, gpuStream);                                                                                                                                           \
+  }                                                                                                                                                                                                                                                                                                            \
+  else {                                                                                                                                                                                                                                                                                                       \
+    return mapCoordInput_##INPUTPROJECTION##_##inverseDistortionScaled##_##noopDistortionTransform##_##ISWITHIN(time, scaleFactor, inputCoord, pano, im, gpuStream);                                                                                                                                           \
+  }                                                                                                                                                                                                                                                                                                            \
+}
+
+#define MAPCOORDINPUT_PANO                                                                                                                                                                                                                                                                                              \
+MAPCOORDINPUT_PANO2(RectToSphere, isWithinCropRect)                                                                                                                                                                                                                                                                     \
+MAPCOORDINPUT_PANO2(ErectToSphere, isWithinCropRect)                                                                                                                                                                                                                                                                    \
+MAPCOORDINPUT_PANO2(ExternalToSphere, isWithinCropRect)                                                                                                                                                                                                                                                                 \
+MAPCOORDINPUT_PANO2(ExternalToSphere, isWithinCropCircle)                                                                                                                                                                                                                                                               \
+MAPCOORDINPUT_PANO2(FisheyeToSphere, isWithinCropRect)                                                                                                                                                                                                                                                                  \
+MAPCOORDINPUT_PANO2(FisheyeToSphere, isWithinCropCircle)
+
+
+
+#define COMPUTEZONE_PANO2(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                           \
+COMPUTEZONE_PANO3(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN)                                                                                                                                                                                                                            \
+COMPUTEZONE_PANO3(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                                            \
+Status computeZone_##INPUTPROJECTION##_##ISWITHIN(GPU::Buffer<uint32_t> devOut, const PanoDefinition& pano, const InputDefinition& im, videoreaderid_t imId, GPU::Buffer<const unsigned char> maskDevBuffer, GPU::Stream stream) const {                                                                       \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return computeZone_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN(devOut, pano, im, imId, maskDevBuffer, stream);                                                                                                                                                             \
+  }                                                                                                                                                                                                                                                                                                            \
+  else {                                                                                                                                                                                                                                                                                                       \
+    return computeZone_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN(devOut, pano, im, imId, maskDevBuffer, stream);                                                                                                                                                             \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                              \
+
+#define COMPUTEZONE_PANO                                                                                                                                                                                                                                                                                       \
+COMPUTEZONE_PANO2(SphereToRect, isWithinCropRect)                                                                                                                                                                                                                                                              \
+COMPUTEZONE_PANO2(SphereToErect, isWithinCropRect)                                                                                                                                                                                                                                                             \
+COMPUTEZONE_PANO2(SphereToExternal, isWithinCropRect)                                                                                                                                                                                                                                                          \
+COMPUTEZONE_PANO2(SphereToExternal, isWithinCropCircle)                                                                                                                                                                                                                                                        \
+COMPUTEZONE_PANO2(SphereToFisheye, isWithinCropRect)                                                                                                                                                                                                                                                           \
+COMPUTEZONE_PANO2(SphereToFisheye, isWithinCropCircle)                                                                                                                                                                                                                                                         \
+
+
+#define CUBEMAPMAP_PANO3(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN)																																																																  \
+CUBEMAPMAP_PANO4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, true)																																																																  \
+CUBEMAPMAP_PANO4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, false)																																																																  \
+Status cubemapMap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN(GPU::Buffer<uint32_t> xPos, GPU::Buffer<uint32_t> xNeg,                                                                                                                                                                                                    \
+                                                                                   GPU::Buffer<uint32_t> yPos, GPU::Buffer<uint32_t> yNeg,																																																	  \
+                                                                                   GPU::Buffer<uint32_t> zPos, GPU::Buffer<uint32_t> zNeg,																																																	  \
+												                                   const PanoDefinition& pano, const InputDefinition& im, videoreaderid_t imId,																																										          \
+												                                   GPU::Buffer<const unsigned char> maskDevBuffer,																																																			  \
+																				   bool equiangular,																																																										  \
+                                                                                   GPU::Stream stream) const {																																																								  \
+  if (equiangular) {																																																																														  \
+    return cubemapMap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##true (xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, stream);																																								  \
+  } else {																																																																																	  \
+    return cubemapMap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##false (xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, stream);                                                                                                                                                                 \
+  }																																																																																			  \
+}
+
+#define CUBEMAPMAP_PANO2(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                           \
+CUBEMAPMAP_PANO3(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN)                                                                                                                                                                                                                                \
+CUBEMAPMAP_PANO3(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                                                \
+Status cubemapMap_##INPUTPROJECTION##_##ISWITHIN(GPU::Buffer<uint32_t> xPos, GPU::Buffer<uint32_t> xNeg,                                                                                                                                                                                                      \
+                                                 GPU::Buffer<uint32_t> yPos, GPU::Buffer<uint32_t> yNeg,																																																	  \
+                                                 GPU::Buffer<uint32_t> zPos, GPU::Buffer<uint32_t> zNeg,																																																	  \
+												 const PanoDefinition& pano, const InputDefinition& im, videoreaderid_t imId,																																										          \
+												 GPU::Buffer<const unsigned char> maskDevBuffer,																																															                  \
+												 bool equiangular,																																																											  \
+                                                 GPU::Stream stream) const {                                                                                                                                                                                                                                  \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                  \
+    return cubemapMap_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                           \
+  else {                                                                                                                                                                                                                                                                                                      \
+    return cubemapMap_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                           \
+}                                                                                                                                                                                                                                                                                                             \
+
+#define CUBEMAPMAP_PANO                                                                                                                                                                                                                                                                                       \
+CUBEMAPMAP_PANO2(SphereToRect, isWithinCropRect)                                                                                                                                                                                                                                                              \
+CUBEMAPMAP_PANO2(SphereToErect, isWithinCropRect)                                                                                                                                                                                                                                                             \
+CUBEMAPMAP_PANO2(SphereToExternal, isWithinCropRect)                                                                                                                                                                                                                                                          \
+CUBEMAPMAP_PANO2(SphereToExternal, isWithinCropCircle)                                                                                                                                                                                                                                                        \
+CUBEMAPMAP_PANO2(SphereToFisheye, isWithinCropRect)                                                                                                                                                                                                                                                           \
+CUBEMAPMAP_PANO2(SphereToFisheye, isWithinCropCircle)
+
+
+#define WARP_CUBEMAP2(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, PHOTORESPONSE)																																																																							 \
+WARP_CUBEMAP3(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, PHOTORESPONSE, true)																																																																							 \
+WARP_CUBEMAP3(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, PHOTORESPONSE, false)																																																																							 \
+Status warpCubemap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##PHOTORESPONSE(int time,                                                                                                                                                                                                                                                                      \
+                                                                                                      GPU::Buffer<uint32_t> xPos, const Rect& xPosBB,                                                                                                                                                                                                                                \
+                                                                                                      GPU::Buffer<uint32_t> xNeg, const Rect& xNegBB,                                                                                                                                                                                                                                \
+                                                                                                      GPU::Buffer<uint32_t> yPos, const Rect& yPosBB,                                                                                                                                                                                                                                \
+                                                                                                      GPU::Buffer<uint32_t> yNeg, const Rect& yNegBB,                                                                                                                                                                                                                                \
+                                                                                                      GPU::Buffer<uint32_t> zPos, const Rect& zPosBB,                                                                                                                                                                                                                                \
+                                                                                                      GPU::Buffer<uint32_t> zNeg, const Rect& zNegBB,                                                                                                                                                                                                                                \
+                                                                                                      const PanoDefinition& pano, const InputDefinition& im,                                                                                                                                                                                                                         \
+                                                                                                      GPU::Surface& surface,																																																														 \
+																									  bool equiangular,																																																															     \
+																									  GPU::Stream stream) const {																																																													 \
+  if (equiangular) {																																																																																								 \
+    return warpCubemap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##PHOTORESPONSE##_##true (time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, stream);                                                                                                                                            \
+  } else {																																																																																										     \
+    return warpCubemap_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##PHOTORESPONSE##_##false (time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, stream);                                                                                                                                           \
+  }																																																																																													 \
+}
+
+#define WARP_CUBEMAP(INPUTPROJECTION, ISWITHIN)																																																			\
+WARP_CUBEMAP2(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, LinearPhotoCorrection)																																						\
+WARP_CUBEMAP2(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, GammaPhotoCorrection)																																						\
+WARP_CUBEMAP2(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN, EmorPhotoCorrection)																																						\
+WARP_CUBEMAP2(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, LinearPhotoCorrection)																																						\
+WARP_CUBEMAP2(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, GammaPhotoCorrection)																																						\
+WARP_CUBEMAP2(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN, EmorPhotoCorrection)																																						\
+Status warpCubemap_##INPUTPROJECTION##_##ISWITHIN(int time,																																																\
+                                                  GPU::Buffer<uint32_t> xPos, const Rect& xPosBB,																																						\
+												  GPU::Buffer<uint32_t> xNeg, const Rect& xNegBB,																																						\
+												  GPU::Buffer<uint32_t> yPos, const Rect& yPosBB,																																						\
+												  GPU::Buffer<uint32_t> yNeg, const Rect& yNegBB,																																						\
+												  GPU::Buffer<uint32_t> zPos, const Rect& zPosBB,																																						\
+												  GPU::Buffer<uint32_t> zNeg, const Rect& zNegBB,																																						\
+												  const PanoDefinition& pano, const InputDefinition& im,																																				\
+												  GPU::Surface& surface,																																												\
+												  bool equiangular,																																														\
+												  GPU::Stream gpuStream) const {																																										\
+  if (im.getUseMeterDistortion() == false) {																																																			\
+    switch (photoresponse) {																																																							\
+    case InputDefinition::PhotoResponse::LinearResponse:																																																\
+      return warpCubemap_##INPUTPROJECTION##_noopDistortionTransform_distortionScaled_##ISWITHIN##_LinearPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    case InputDefinition::PhotoResponse::GammaResponse:																																																	\
+      return warpCubemap_##INPUTPROJECTION##_noopDistortionTransform_distortionScaled_##ISWITHIN##_GammaPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    case InputDefinition::PhotoResponse::EmorResponse:																																																	\
+    case InputDefinition::PhotoResponse::InvEmorResponse:																																																\
+	case InputDefinition::PhotoResponse::CurveResponse:  																																																\
+      return warpCubemap_##INPUTPROJECTION##_noopDistortionTransform_distortionScaled_##ISWITHIN##_EmorPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    default:																																																											\
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };																																								\
+    }																																																													\
+  }																																																														\
+  else {																																																												\
+    switch (photoresponse) {																																																							\
+    case InputDefinition::PhotoResponse::LinearResponse:																																																\
+      return warpCubemap_##INPUTPROJECTION##_distortionScaled_noopDistortionTransform_##ISWITHIN##_LinearPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    case InputDefinition::PhotoResponse::GammaResponse:																																																	\
+      return warpCubemap_##INPUTPROJECTION##_distortionScaled_noopDistortionTransform_##ISWITHIN##_GammaPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    case InputDefinition::PhotoResponse::EmorResponse:																																																	\
+    case InputDefinition::PhotoResponse::InvEmorResponse:																																																\
+	case InputDefinition::PhotoResponse::CurveResponse:																																																	\
+      return warpCubemap_##INPUTPROJECTION##_distortionScaled_noopDistortionTransform_##ISWITHIN##_EmorPhotoCorrection(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);	\
+    default:																																																											\
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };																																								\
+    }																																																													\
+  }																																																														\
+}																																																														\
+
+
+#define MAPDISTORTION_PANO2(INPUTPROJECTION, ISWITHIN)                                                                                                                                                                                                                                                         \
+MAPDISTORTION_PANO3(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN)                                                                                                                                                                                                                          \
+MAPDISTORTION_PANO3(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN)                                                                                                                                                                                                                          \
+Status mapDistortion_##INPUTPROJECTION##_##ISWITHIN(int time, GPU::Buffer<unsigned char> devOut, const Rect& outputBounds, const PanoDefinition& pano, const InputDefinition& im, GPU::Stream gpuStream) const {                                                                                               \
+  if (im.getUseMeterDistortion() == false) {                                                                                                                                                                                                                                                                   \
+    return mapDistortion_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN (time, devOut, outputBounds, pano, im, gpuStream);                                                                                                                                                        \
+  } else {                                                                                                                                                                                                                                                                                                     \
+    return mapDistortion_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN (time, devOut, outputBounds, pano, im, gpuStream);                                                                                                                                                        \
+  }                                                                                                                                                                                                                                                                                                            \
+}                                                                                                                                                                                                                                                                                                              \
+
+#define MAPDISTORTION_PANO                                                                                                                                                                                                                                                                                     \
+MAPDISTORTION_PANO2(SphereToRect, isWithinCropRect)                                                                                                                                                                                                                                                            \
+MAPDISTORTION_PANO2(SphereToErect, isWithinCropRect)                                                                                                                                                                                                                                                           \
+MAPDISTORTION_PANO2(SphereToExternal, isWithinCropCircle)                                                                                                                                                                                                                                                      \
+MAPDISTORTION_PANO2(SphereToExternal, isWithinCropRect)                                                                                                                                                                                                                                                        \
+MAPDISTORTION_PANO2(SphereToFisheye, isWithinCropRect)                                                                                                                                                                                                                                                         \
+MAPDISTORTION_PANO2(SphereToFisheye, isWithinCropCircle)
+
+#define UNDISTORT_INPUT4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, OUTPROJECTION)                                                                               \
+UNDISTORT_INPUT5(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, OUTPROJECTION, LinearPhotoCorrection)                                                                \
+UNDISTORT_INPUT5(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, OUTPROJECTION, GammaPhotoCorrection)                                                                 \
+UNDISTORT_INPUT5(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, OUTPROJECTION, EmorPhotoCorrection)                                                                  \
+Status undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##OUTPROJECTION(int time,                                                           \
+                                                     GPU::Surface& dst, const GPU::Surface& src,                                                                                     \
+                                                     const PanoDefinition& pano,                                                                                                     \
+                                                     const InputDefinition& in, const InputDefinition& out,                                                                          \
+                                                     GPU::Stream& stream) const {                                                                                                    \
+  switch (photoresponse) {                                                                                                                                                           \
+  case InputDefinition::PhotoResponse::LinearResponse:                                                                                                                               \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##OUTPROJECTION##_LinearPhotoCorrection(time, dst, src, pano, in, out, stream); \
+  case InputDefinition::PhotoResponse::GammaResponse:                                                                                                                                \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##OUTPROJECTION##_GammaPhotoCorrection(time, dst, src, pano, in, out, stream);  \
+  case InputDefinition::PhotoResponse::EmorResponse:                                                                                                                                 \
+  case InputDefinition::PhotoResponse::InvEmorResponse:                                                                                                                              \
+  case InputDefinition::PhotoResponse::CurveResponse:                                                                                                                                \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##OUTPROJECTION##_EmorPhotoCorrection(time, dst, src, pano, in, out, stream);   \
+  default:                                                                                                                                                                           \
+    return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid photo response" };                                                                                               \
+  }                                                                                                                                                                                  \
+}
+
+#define UNDISTORT_INPUT3(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN)                                                                         \
+UNDISTORT_INPUT4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, RectToSphere)                                                                   \
+UNDISTORT_INPUT4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, ErectToSphere)                                                                  \
+UNDISTORT_INPUT4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, ExternalToSphere)                                                               \
+UNDISTORT_INPUT4(INPUTPROJECTION, DISTORTIONMETERS, DISTORTIONPIXELS, ISWITHIN, FisheyeToSphere)                                                                \
+Status undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN(int time,                                                        \
+                                                     GPU::Surface& dst, const GPU::Surface& src,                                                                \
+                                                     const PanoDefinition& pano,                                                                                \
+                                                     const InputDefinition& in, const InputDefinition& out,                                                     \
+                                                     GPU::Stream& stream) const {                                                                               \
+  switch (out.getFormat()) {                                                                                                                                    \
+  case InputDefinition::Format::Rectilinear:                                                                                                                    \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##RectToSphere(time, dst, src, pano, in, out, stream);     \
+  case InputDefinition::Format::Equirectangular:                                                                                                                \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##ErectToSphere(time, dst, src, pano, in, out, stream);    \
+  case InputDefinition::Format::CircularFisheye_Opt:                                                                                                            \
+  case InputDefinition::Format::FullFrameFisheye_Opt:                                                                                                           \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##ExternalToSphere(time, dst, src, pano, in, out, stream); \
+  case InputDefinition::Format::CircularFisheye:                                                                                                                \
+  case InputDefinition::Format::FullFrameFisheye:                                                                                                               \
+    return undistortInput_##INPUTPROJECTION##_##DISTORTIONMETERS##_##DISTORTIONPIXELS##_##ISWITHIN##_##FisheyeToSphere(time, dst, src, pano, in, out, stream);  \
+  default:                                                                                                                                                      \
+    return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };                                                                        \
+  };                                                                                                                                                            \
+}
+
+
+#define UNDISTORT_INPUT2(INPUTPROJECTION, ISWITHIN)                                                                                               \
+UNDISTORT_INPUT3(INPUTPROJECTION, noopDistortionTransform, distortionScaled, ISWITHIN)                                                            \
+UNDISTORT_INPUT3(INPUTPROJECTION, distortionScaled, noopDistortionTransform, ISWITHIN)                                                            \
+Status undistortInput_##INPUTPROJECTION##_##ISWITHIN(int time,                                                                                    \
+                                                     GPU::Surface& dst, const GPU::Surface& src,                                                  \
+                                                     const PanoDefinition& pano,                                                                  \
+                                                     const InputDefinition& in, const InputDefinition& out,                                       \
+                                                     GPU::Stream& stream) const {                                                                 \
+  if (in.getUseMeterDistortion() == false) {                                                                                                      \
+    return undistortInput_##INPUTPROJECTION##_##noopDistortionTransform##_##distortionScaled##_##ISWITHIN(time, dst, src, pano, in, out, stream); \
+  } else {                                                                                                                                        \
+    return undistortInput_##INPUTPROJECTION##_##distortionScaled##_##noopDistortionTransform##_##ISWITHIN(time, dst, src, pano, in, out, stream); \
+  }                                                                                                                                               \
+}
+
+#define UNDISTORT_INPUT                                \
+UNDISTORT_INPUT2(SphereToRect, isWithinCropRect)       \
+UNDISTORT_INPUT2(SphereToErect, isWithinCropRect)      \
+UNDISTORT_INPUT2(SphereToExternal, isWithinCropCircle) \
+UNDISTORT_INPUT2(SphereToExternal, isWithinCropRect)   \
+UNDISTORT_INPUT2(SphereToFisheye, isWithinCropRect)    \
+UNDISTORT_INPUT2(SphereToFisheye, isWithinCropCircle)
+
+/**
+*Transform final implementation.
+*The factory is here since we need explicit access to the transform stack for template instantiation
+*/
+class TransformImpl : public Transform {
+public:
+  TransformImpl(DevicePhotoTransform* p,
+                const InputDefinition::Format & inputf,
+                const InputDefinition::PhotoResponse & presponse,
+                const ImageMerger::Format & type)
+    : photo(p),
+      inputformat(inputf),
+      photoresponse(presponse),
+      mergeformat(type) {
+  }
+
+  virtual ~TransformImpl() {
+    delete photo;
+  }
+
+  Status mapBuffer(int time, GPU::Buffer<uint32_t> devOut, GPU::Surface& surf, const unsigned char* mask, const Rect& outputBounds,
+                   const PanoDefinition& pano, const InputDefinition& im,
+                   GPU::Surface& surface, GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapBuffer_SphereToRect_isWithinCropRect(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapBuffer_SphereToErect_isWithinCropRect(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapBuffer_SphereToExternal_isWithinCropCircle(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapBuffer_SphereToExternal_isWithinCropRect(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapBuffer_SphereToFisheye_isWithinCropCircle(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapBuffer_SphereToFisheye_isWithinCropRect(time, devOut, surf, mask, outputBounds, pano, im, surface, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    }
+  }
+
+  Status warpCubemap(int time,
+				   	 GPU::Buffer<uint32_t> xPos, const Rect& xPosBB,
+					 GPU::Buffer<uint32_t> xNeg, const Rect& xNegBB,
+					 GPU::Buffer<uint32_t> yPos, const Rect& yPosBB,
+					 GPU::Buffer<uint32_t> yNeg, const Rect& yNegBB,
+					 GPU::Buffer<uint32_t> zPos, const Rect& zPosBB,
+					 GPU::Buffer<uint32_t> zNeg, const Rect& zNegBB,
+                     const PanoDefinition& pano, const InputDefinition& im,
+				     GPU::Surface& surface,
+					 bool equiangular,
+					 GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return warpCubemap_SphereToRect_isWithinCropRect(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return warpCubemap_SphereToErect_isWithinCropRect(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return warpCubemap_SphereToExternal_isWithinCropCircle(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return warpCubemap_SphereToExternal_isWithinCropRect(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return warpCubemap_SphereToFisheye_isWithinCropCircle(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return warpCubemap_SphereToFisheye_isWithinCropRect(time, xPos, xPosBB, xNeg, xNegBB, yPos, yPosBB, yNeg, yNegBB, zPos, zPosBB, zNeg, zNegBB, pano, im, surface, equiangular, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    }
+  }
+
+  Status mapBufferLookup(int time, GPU::Buffer<uint32_t> devOut, GPU::Surface& surf, const unsigned char* mask,
+                         const GPU::Surface& coordIn, const float coordShrinkFactor, const Rect& outputBounds,
+                         const PanoDefinition& pano, const InputDefinition& im,
+                         GPU::Surface& surface, GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+    case InputDefinition::Format::Equirectangular:
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+    case InputDefinition::Format::FullFrameFisheye:
+      if (mergeformat == ImageMerger::Format::Gradient) {
+        if (!mask) return { Origin::Stitcher, ErrType::UnsupportedAction, "Mask was not allocated" };
+        return mapBufferLookup_gradientMerge_isWithinCropRect(time, devOut, surf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, surface, gpuStream);
+      } else {
+        return mapBufferLookup_noopMerge_isWithinCropRect(time, devOut, surf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, surface, gpuStream);
+      }
+    case InputDefinition::Format::CircularFisheye_Opt:
+    case InputDefinition::Format::CircularFisheye:
+      if (mergeformat == ImageMerger::Format::Gradient) {
+        if (!mask) return { Origin::Stitcher, ErrType::UnsupportedAction, "Mask was not allocated" };
+        return mapBufferLookup_gradientMerge_isWithinCropCircle(time, devOut, surf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, surface, gpuStream);
+      } else {
+        return mapBufferLookup_noopMerge_isWithinCropCircle(time, devOut, surf, mask, coordIn, coordShrinkFactor, outputBounds, pano, im, surface, gpuStream);
+      }
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+
+  }
+
+  Status mapBufferCoord(int time,
+                        GPU::Surface& devOut, const Rect& outputBounds,
+                        const PanoDefinition& pano, const InputDefinition& im,
+                        GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapBufferCoord_SphereToRect_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapBufferCoord_SphereToErect_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapBufferCoord_SphereToExternal_isWithinCropCircle(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapBufferCoord_SphereToExternal_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapBufferCoord_SphereToFisheye_isWithinCropCircle(time, devOut, outputBounds, pano, im,  gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapBufferCoord_SphereToFisheye_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+  Status mapCoordInput(int time, const int scaleFactor,
+                       GPU::Buffer<float2> inputCoord,
+					   const PanoDefinition& pano, const InputDefinition& im,
+					   GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapCoordInput_RectToSphere_isWithinCropRect(time, scaleFactor, inputCoord, pano, im, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapCoordInput_ErectToSphere_isWithinCropRect(time, scaleFactor, inputCoord, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapCoordInput_ExternalToSphere_isWithinCropCircle(time, scaleFactor, inputCoord, pano, im, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapCoordInput_ExternalToSphere_isWithinCropRect(time, scaleFactor, inputCoord, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapCoordInput_FisheyeToSphere_isWithinCropCircle(time, scaleFactor, inputCoord, pano, im,  gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapCoordInput_FisheyeToSphere_isWithinCropRect(time, scaleFactor, inputCoord, pano, im, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+  Status computeZone(GPU::Buffer<uint32_t> devOut,
+                     const PanoDefinition& pano, const InputDefinition& im, videoreaderid_t imId,
+					 GPU::Buffer<const unsigned char> maskDevBuffer, GPU::Stream stream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return computeZone_SphereToRect_isWithinCropRect(devOut, pano, im, imId, maskDevBuffer, stream);
+    case InputDefinition::Format::Equirectangular:
+      return computeZone_SphereToErect_isWithinCropRect(devOut, pano, im, imId, maskDevBuffer, stream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return computeZone_SphereToExternal_isWithinCropCircle(devOut, pano, im, imId, maskDevBuffer, stream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return computeZone_SphereToExternal_isWithinCropRect(devOut, pano, im, imId, maskDevBuffer, stream);
+    case InputDefinition::Format::CircularFisheye:
+      return computeZone_SphereToFisheye_isWithinCropCircle(devOut, pano, im, imId, maskDevBuffer, stream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return computeZone_SphereToFisheye_isWithinCropRect(devOut, pano, im, imId, maskDevBuffer, stream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+  Status cubemapMap(GPU::Buffer<uint32_t> xPos, GPU::Buffer<uint32_t> xNeg,
+                    GPU::Buffer<uint32_t> yPos, GPU::Buffer<uint32_t> yNeg,
+				    GPU::Buffer<uint32_t> zPos, GPU::Buffer<uint32_t> zNeg,
+                    const PanoDefinition& pano, const InputDefinition& im, videoreaderid_t imId,
+					GPU::Buffer<const unsigned char> maskDevBuffer,
+					bool equiangular,
+					GPU::Stream stream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return cubemapMap_SphereToRect_isWithinCropRect(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    case InputDefinition::Format::Equirectangular:
+      return cubemapMap_SphereToErect_isWithinCropRect(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return cubemapMap_SphereToExternal_isWithinCropCircle(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return cubemapMap_SphereToExternal_isWithinCropRect(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    case InputDefinition::Format::CircularFisheye:
+      return cubemapMap_SphereToFisheye_isWithinCropCircle(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return cubemapMap_SphereToFisheye_isWithinCropRect(xPos, xNeg, yPos, yNeg, zPos, zNeg, pano, im, imId, maskDevBuffer, equiangular, stream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+  Status mapDistortion(int time, GPU::Buffer<unsigned char> devOut, const Rect& outputBounds,
+                       const PanoDefinition& pano, const InputDefinition& im,
+					    GPU::Stream gpuStream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return mapDistortion_SphereToRect_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::Equirectangular:
+      return mapDistortion_SphereToErect_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return mapDistortion_SphereToExternal_isWithinCropCircle(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return mapDistortion_SphereToExternal_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::CircularFisheye:
+      return mapDistortion_SphereToFisheye_isWithinCropCircle(time, devOut, outputBounds, pano, im, gpuStream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return mapDistortion_SphereToFisheye_isWithinCropRect(time, devOut, outputBounds, pano, im, gpuStream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+  virtual Status undistortInput(int time,
+                                GPU::Surface& dst, const GPU::Surface& src,
+                                const PanoDefinition& pano,
+                                const InputDefinition& in,
+                                const InputDefinition& out,
+                                GPU::Stream& stream) const {
+    switch (inputformat) {
+    case InputDefinition::Format::Rectilinear:
+      return undistortInput_SphereToRect_isWithinCropRect(time, dst, src, pano, in, out, stream);
+    case InputDefinition::Format::Equirectangular:
+      return undistortInput_SphereToErect_isWithinCropRect(time, dst, src, pano, in, out, stream);
+    case InputDefinition::Format::CircularFisheye_Opt:
+      return undistortInput_SphereToExternal_isWithinCropCircle(time, dst, src, pano, in, out, stream);
+    case InputDefinition::Format::FullFrameFisheye_Opt:
+      return undistortInput_SphereToExternal_isWithinCropRect(time, dst, src, pano, in, out, stream);
+    case InputDefinition::Format::CircularFisheye:
+      return undistortInput_SphereToFisheye_isWithinCropCircle(time, dst, src, pano, in, out, stream);
+    case InputDefinition::Format::FullFrameFisheye:
+      return undistortInput_SphereToFisheye_isWithinCropRect(time, dst, src, pano, in, out, stream);
+    default:
+      return { Origin::Stitcher, ErrType::UnsupportedAction, "Invalid input projection" };
+    };
+  }
+
+private:
+  MAPBUFFER_PANO(SphereToRect, isWithinCropRect)
+  MAPBUFFER_PANO(SphereToErect, isWithinCropRect)
+  MAPBUFFER_PANO(SphereToExternal, isWithinCropRect)
+  MAPBUFFER_PANO(SphereToExternal, isWithinCropCircle)
+  MAPBUFFER_PANO(SphereToFisheye, isWithinCropRect)
+  MAPBUFFER_PANO(SphereToFisheye, isWithinCropCircle)
+
+  WARP_CUBEMAP(SphereToRect, isWithinCropRect)
+  WARP_CUBEMAP(SphereToErect, isWithinCropRect)
+  WARP_CUBEMAP(SphereToExternal, isWithinCropRect)
+  WARP_CUBEMAP(SphereToExternal, isWithinCropCircle)
+  WARP_CUBEMAP(SphereToFisheye, isWithinCropRect)
+  WARP_CUBEMAP(SphereToFisheye, isWithinCropCircle)
+
+  MAPBUFFERLOOKUP_PANO
+
+  MAPBUFFERCOORD_PANO
+
+  MAPCOORDINPUT_PANO
+
+  COMPUTEZONE_PANO
+
+  CUBEMAPMAP_PANO
+
+  MAPDISTORTION_PANO
+
+  UNDISTORT_INPUT
+
+private:
+  DevicePhotoTransform * const photo;
+  InputDefinition::Format inputformat;
+  InputDefinition::PhotoResponse photoresponse;
+  ImageMerger::Format mergeformat;
+};
+
+
+Transform* createTransform(const InputDefinition& im, const ImageMerger::Format type) {
+  DevicePhotoTransform * photo = DevicePhotoTransform::create(im);
+  if (!photo) {
+    return nullptr;
+  }
+  return new TransformImpl(photo, im.getFormat(), im.getPhotoResponse(), type);
+}
+}
+}
+}

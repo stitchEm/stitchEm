@@ -1,0 +1,12 @@
+[Unit]
+Description=VideoStitch network configuration service
+Requires=nginx.service
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/opt/videostitch/bin/network/vs_network_service.py -p 18862
+User=root
+
+[Install]
+WantedBy=multi-user.target

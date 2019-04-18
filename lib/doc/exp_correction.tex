@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\part {Sampled stabilization}
+
+\section{Definitions}
+
+Let $I_1, \dots, I_K$ be the $K$ inputs, and $B_k$ the set of points that are in input $I_k$.
+
+We denote the geometric transformation between input and panorama space by $T_{I_k \rightarrow P} = T_{S \rightarrow P} \circ T_{I_k \rightarrow S}$,
+where $S$ is the intermediate spheric space. Note that $T_{S \rightarrow P}$ does not depend on $k$, which we use in the following.
+
+Let $r_k$ be the input sensor's inverse response for input $k$. Typical responses are:
+\begin{itemize}
+  \item Linear: $r_k(r, g, b) = (r, g, b)$
+  \item Gamma: $r_k(r, g, b) = (r^\gamma, g^\gamma, b^\gamma)$
+  \item (Inverse) Emor: $r_k(r, g, b) = (f(r), f(g), f(b))$ where $f(x) = f_0 + \sum_{i=1}^{5}{\mu_i h_i}$ and the $\mu_i$ are called \em{emor coefficients}.
+\end{itemize}
+
+Similary, the panorama output has a inverse response $R(r, g, b)$.
+
+In addition, photometric correction happens in between $r_k$ and $R$.
+This is linear transformation of the colors weighted by a vignetting function $v$ that depends on the distance from $p$ to the vignetting center $c_k$ of the input.
+$d_k(p,r,g,b) = v_k(p) M_k (r,g,b)^\top$ . In our implementation $M_k$ is diagonal, and $v(p)$ is an inverse polynomial of degree $6$ with zero even coefficients.
+
+\begin{equation}
+  M_k = diag({m^r}_k 2^{e_k - e_P}, {m^g}_k 2^{e_k - e_P}, {m^b}_k 2^{e_k - e_P})
+\end{equation}
+
+\begin{equation}
+  v_k(p) = \frac{1}{\nu_3 \rho_k^3 + \nu_2 \rho_k^2 + \nu_1 \rho_k + \nu_0}, \rho_k(p) = {\| p - c_k\|}^2
+\end{equation}
+
+Where the $e_k$ and $e_P$ are the exposure values of the inputs and the panorama respectively, and $\mathbf{m^r}$, $\mathbf{m^g}$ and $\mathbf{m^b}$ and the color correction coefficients.
+
+If a point $p$ in input $k$ has a color $C_k(p) = (r(p), g(p), b(p))$, then the color of its image in the panorama just before blending
+is
+\begin{equation}
+ C_P(T_{I_k \rightarrow P}(p)) = C_P(T_{I_k \rightarrow S}(p)) = R^{-1} \circ d_k(p) \circ r_k (C_k(p))
+\end{equation}
+ 
+Note that all $r_k$ and $R$ are monotonic of same direction along all components.
+
+\section{Sampling}
+
+For each input $k$, we draw points $p_{1,k}, p_{i,k}, \dots$ with a probability distribution $P$. 
+
+$P$ should be chosen such that there are more points around the image borders (where images have most chanches to overlap).
+
+Let $p_{i,l}$ the projection of $p_{i,k}$ into input $l$. This is computable implicitly without doing explicit panorama
+transformations $T_{I_k \rightarrow P}$ and $T_{I_l \rightarrow P}$ by applying only the input
+space to spheric space transformation $T_{I_k \rightarrow S}$ followed by the spheric space to input space transformation $T^{-1}_{I_l \rightarrow S}$.
+
+For each drawn point $p_{i,k}$, we compute $p_{i,l} = T^{-1}_{I_l \rightarrow S} \circ T_{I_k \rightarrow S} (p_{i,k})$ for all $l \in {1,\dots,K}$.
+Note that by definition:
+
+\begin{equation}
+  T_{I_k \rightarrow P}(p_{i,k}) = T_{I_l \rightarrow P}(p_{i,l})
+\end{equation}
+
+Doing the computations implicitly in the input space instead of explicitly in the output space has a lot of advantages:
+
+\begin{enumerate}
+  \item {\bf Less computation:} No need to apply the pano transform transform, we only need to sample from the inputs.
+  \item {\bf Smaller memory footprint:} No need to allocate output and mapping buffers, only the reader buffers are needed.
+  \item {\bf Independant on the output projection:} Zero cases to handle instead of {\em equirect}, {\em stereographic},...
+  \item {\bf Independant on the output transformation:} we don't care about any global tranformation since the formulation is independant of the output. Therefore we need to sample input points {\bf only once for the whole duration of the video}. This is the most important part.
+\end{enumerate}
+
+The {\em multipoint} $p_i$ is the set of images of $p_{i,1}$ in all inputs:
+
+\begin{equation}
+  p_i = \{p_{i,k} \mid  p_{i,k} \in B_k\}
+\end{equation}
+
+We use as sample points for computing exposure correction the points $p_i$ that link at least two images together:
+
+\begin{equation}
+  S = \{p_i \mid \#p_i >= 2\}
+\end{equation}
+
+To simplify notations, we reorder the $p_i$ such that $\forall 1 <= i <= N$, $p_i \in S$.
+
+
+\section{Spacial exposure correction}
+
+We're trying to minimize the spacial photometric error for each frame at time $t$:
+
+\begin{align}
+  E_S(\mathbf{e}_t) &= \sum_{i=1}^{N}{ \sum_{(p_{i,k}, p_{i,l}) \in p_i} { {\| C_P(T_{I_l \rightarrow S}(p_{i,k})) - C_P(T_{I_l \rightarrow S}(p_{i,l})) \|}^2 } } \\
+                  &= \sum_{i=1}^{N}{ \sum_{(p_{i,k}, p_{i,l}) \in p_i} { {\| R^{-1} \circ d_k(p_{i,k}) \circ r_k (C_k(p_{i,k})) - R^{-1} \circ d_l(p_{i,l}) \circ r_l (C_l(p_{i,l})) \|}^2 } }
+\end{align}
+
+Where $C_P$ stands for the color in panorama space (e.g. the $(r, b, g)$ triple).
+
+\section{Penalization}
+
+There are more degrees of freedom that this minimization can impose, so we add a penalization term to that the sum of exposure values does not drift too far from their base state.
+
+The classical penalization term:
+\begin{equation}
+  E_P(\mathbf{e}_t) = \sum_k{e_k^2}
+\end{equation}
+does not work here since the exposure values will just go down (less light, less error) until the penalization term above stops them at an arbitrary equilibrium value.
+
+The following term is a lot better:
+\begin{equation}
+  E_P(\mathbf{e}_t) = {\frac{\sum_k{e_k}}{K}}^2
+\end{equation}
+
+The idea is to make sure that the average exposure value does not float away from zero, but individual exposures can.
+
+\part {Histogram stabilization}
+
+The idea is to compute histograms for each of the inputs of overlapping zones, and trying to make sure that histograms match.
+The interesting property is that it's possible to compute these histograms with a specific merger.
+
+The relationship between the color parameters and the histograms is non-linear (gamma or emor), so we need to compute the histogram in linear space and then,
+for each optimization iteration, use the emor lookup table to convert the linear histogram into the final histogram.
+
+\section{Definitions}
+
+We call $\mathbf{{h^r}_{k,l}}$, $\mathbf{{h^g}_{k,l}}$, $\mathbf{{h^b}_{k,l}}$ the histogram of pixels in input $k$ that
+overlap with pixels in output $l$ for color components $r$, $g$, and $b$ respectively:
+
+\begin{equation}
+  {h^r}_{k,l,i} = \sum_{(p, q) \in (I_k, I_l), T_{I_k \rightarrow P}(p) = T_{I_l \rightarrow P}(q)}{C_P(T_{I_k \rightarrow P}(p)) == i)}
+\end{equation}
+
+We're trying to find the exposure correction parameter values that minimize the discrepancies between histograms of overlapping inputs:
+
+\begin{equation}
+  E(\mathbf{e}_t) = \sum_{k,l}{\sum_c{d(\mathbf{{h^c}_{k,l}}, \mathbf{{h^c}_{l,k}})}}
+\end{equation}
+
+where $d$ is a histogram distance metric.
+
+Note that since $R^{-1}$ is non-linear in the photometric transform $C_P$, the histogram is not simply translated by changes in the components of $\mathbf{e}_t$,
+since each bin moves at a different rate. Therefore me must compute the histogram with $R^{-1}(c) = c$ and then integrate the histogram transformation in $d$.
+$d$ then becomes a function of a pair of (histogram, transform) $(\mathbf{{h^r}_{k,l}}, {R_k}^{-1})$ and $(\mathbf{{h^r}_{l,k}}, {R_l}^{-1})$ instead of simply a pair of histograms.
+
+
+\end{document}

@@ -1,0 +1,79 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#pragma once
+
+// Procedure used to generate the inverse warping function
+// Terminologies:
+// - Input : image captured by the camera
+// - Intermediate : projection of "Input" to an intermediate sphere of radius = 1
+// - Output: an equi-rectangular projection of the Intermediate sphere onto a cylinder
+
+#define WARPCOORD_OUTPUT_TO_INPUT_KERNEL(fromSphereToInput, isWithin, distortionMetersTransform,                                 \
+                                         distortionPixelsTransform)                                                              \
+  __global__ void                                                                                                                \
+      warpCoordOutputToInputKernel_##fromSphereToInput##_##isWithin##_##distortionMetersTransform##_##distortionPixelsTransform( \
+          float2* g_odata, uint32_t* g_mask, int id, int offsetX, int offsetY, int croppedWidth, int croppedHeight,              \
+          int panoWidth, int panoHeight, int inputWidth, int inputHeight, int cropLeft, int cropRight, int cropTop,              \
+          int cropBottom, const float2 panoScale, const vsfloat3x4 perspectiveMatrix, const float2 inputScale,                   \
+          const vsDistortion distortion, const float2 centerShift) {                                                             \
+    /* Calculate the normalized texture coordinates */                                                                           \
+    const int x = blockIdx.x * blockDim.x + threadIdx.x;                                                                         \
+    const int y = blockIdx.y * blockDim.y + threadIdx.y;                                                                         \
+                                                                                                                                 \
+    if (x < croppedWidth && y < croppedHeight) {                                                                                 \
+      float2 uv = make_float2((x + offsetX) % panoWidth, y + offsetY);                                                           \
+                                                                                                                                 \
+      /*To Center coordinates*/                                                                                                  \
+      uv.x -= panoWidth / 2.0f;                                                                                                  \
+      uv.y -= panoHeight / 2.0f;                                                                                                 \
+                                                                                                                                 \
+      uv = mapPanoramaToInput_##fromSphereToInput##_##distortionMetersTransform##_##distortionPixelsTransform(                   \
+          uv, panoScale, perspectiveMatrix, inputScale, distortion, centerShift);                                                \
+                                                                                                                                 \
+      /**                                                                                                                        \
+       * Move to center-based coordinate                                                                                         \
+       */                                                                                                                        \
+      uv.x += inputWidth / 2.0f;                                                                                                 \
+      uv.y += inputHeight / 2.0f;                                                                                                \
+                                                                                                                                 \
+      /* check if uv stay inside of the input buffer coordinate */                                                               \
+      if (isWithin(uv, (float)inputWidth, (float)inputHeight, (float)cropLeft, (float)cropRight, (float)cropTop,                 \
+                   (float)cropBottom)) {                                                                                         \
+        g_odata[y * croppedWidth + x] = uv - make_float2(0.5, 0.5);                                                              \
+        g_mask[y * croppedWidth + x] = 1 << id;                                                                                  \
+      } else if (g_mask[y * croppedWidth + x] == 0) {                                                                            \
+        /* This is a hack to solve the discretization problem when smaller map is used for coordinate lookup                     \
+         * When it is just a bit outside of the mask, search around its neighbor and set the first valid coord to the            \
+         * lookup mask                                                                                                           \
+         * @TODO: Find a proper way to deal with this                                                                            \
+         */                                                                                                                      \
+        const float dir[2] = {1, -1};                                                                                            \
+        for (float r = 0; r <= 3; r += 0.5) {                                                                                    \
+          for (float j = 0; j <= r; j += 0.1) {                                                                                  \
+            float i = sqrt(r * r - j * j);                                                                                       \
+            for (int dirX = 0; dirX < 2; dirX++)                                                                                 \
+              for (int dirY = 0; dirY < 2; dirY++) {                                                                             \
+                if (isWithin(uv + make_float2(dir[dirX] * i, dir[dirY] * j), (float)inputWidth, (float)inputHeight,              \
+                             (float)cropLeft, (float)cropRight, (float)cropTop, (float)cropBottom)) {                            \
+                  g_odata[y * croppedWidth + x] =                                                                                \
+                      uv - make_float2(0.5, 0.5) + make_float2(dir[dirX] * i, dir[dirY] * j);                                    \
+                  g_mask[y * croppedWidth + x] = 1 << id;                                                                        \
+                  return;                                                                                                        \
+                }                                                                                                                \
+              }                                                                                                                  \
+          }                                                                                                                      \
+        }                                                                                                                        \
+        g_odata[y * croppedWidth + x] = make_float2(INVALID_FLOW_VALUE, INVALID_FLOW_VALUE);                                     \
+        g_mask[y * croppedWidth + x] = 0;                                                                                        \
+      }                                                                                                                          \
+    }                                                                                                                            \
+  }
+
+#define WARPCOORD_OUTPUT_TO_INPUT_KERNEL2(RADIAL1, RADIAL2)                                \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToRect, isWithinCropRect, RADIAL1, RADIAL2)       \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToErect, isWithinCropRect, RADIAL1, RADIAL2)      \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToFisheye, isWithinCropCircle, RADIAL1, RADIAL2)  \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToFisheye, isWithinCropRect, RADIAL1, RADIAL2)    \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToExternal, isWithinCropCircle, RADIAL1, RADIAL2) \
+  WARPCOORD_OUTPUT_TO_INPUT_KERNEL(SphereToExternal, isWithinCropRect, RADIAL1, RADIAL2)

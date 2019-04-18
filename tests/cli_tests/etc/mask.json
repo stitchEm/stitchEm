@@ -1,0 +1,23 @@
+{
+  "algorithms" : [
+    {
+      "name": "mask",
+      "config" : {
+        "list_frames" : [0],
+        "distortion_threshold" : 50,
+        "kernelSize" : 1,
+        "size_threshold" : 1024,
+        "blending_order" : true
+      }
+    }
+  ],
+  "outputPtv": [
+	{
+      "name" : "outputFinal.ptv",
+      "outputFile": {
+	    "name" : "out-vs",
+		"type" : "jpg"
+	  }
+	}
+  ]
+}

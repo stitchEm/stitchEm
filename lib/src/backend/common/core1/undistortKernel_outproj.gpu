@@ -1,0 +1,22 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#define WARPKERNEL_VARIANT_INCLUDE "undistortKernel.gpu.incl"
+
+#define fromInputToSphere RectToSphere
+#include "warpKernelSphere_distortion.gpu"
+#undef fromInputToSphere
+
+#define fromInputToSphere ErectToSphere
+#include "warpKernelSphere_distortion.gpu"
+#undef fromInputToSphere
+
+#define fromInputToSphere FisheyeToSphere
+#include "warpKernelSphere_distortion.gpu"
+#undef fromInputToSphere
+
+#define fromInputToSphere ExternalToSphere
+#include "warpKernelSphere_distortion.gpu"
+#undef fromInputToSphere
+
+#undef WARPKERNEL_VARIANT_INCLUDE

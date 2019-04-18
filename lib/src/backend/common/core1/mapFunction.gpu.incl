@@ -1,0 +1,42 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__device__ float2
+FUNCTION_NAME_4(mapRigSphericalToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform)(
+  float3 pt,
+  const vsfloat3x4 pose,
+  const float2 inputScale,
+  const vsDistortion distortion,
+  const float2 centerShift) const_member {
+
+  /** transform the point to be in the camera space*/
+  pt = transformSphere(pt, pose);
+
+  /** From Spherical space to input space */
+  float2 uv = fromSphereToInput(pt);
+
+  uv = FUNCTION_NAME_3(distort, distortionMetersTransform, distortionPixelsTransform)(uv, inputScale, distortion, centerShift);
+
+  return uv;
+}
+
+/**
+* Mapping functions that hold all the transform stack logic.
+* For a pixel coordinates in the panorama (output) space, compute the pixel coordinates in the given input space
+*/
+__device__ float2
+FUNCTION_NAME_4(mapPanoramaToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform)(
+  float2 uv,
+  const float2 panoScale,
+  const vsfloat3x4 pose,
+  const float2 inputScale,
+  const vsDistortion distortion,
+  const float2 centerShift) const_member {
+
+  /* Coordinates are in pixels, transform to the unit space (eg. in radians) */
+  uv /= panoScale;
+
+  /** From panorama to unit-sphere */
+  const float3 pt = fromOutputToSphere(uv);
+  return FUNCTION_NAME_4(mapRigSphericalToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform)(pt, pose, inputScale, distortion, centerShift);
+}

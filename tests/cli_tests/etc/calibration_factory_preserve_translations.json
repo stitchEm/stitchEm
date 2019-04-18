@@ -1,0 +1,176 @@
+{
+  "algorithms" : [
+    {
+      "name": "calibration",
+      "config" : {
+        "software_version": "factory_calibration_1.0",
+        "rig" : {
+          "serial_number": "AQ1610012234",
+          "name": "Orah 4i - preserve translations",
+          "rigcameras" : [
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 0,
+              "pitch_mean" : -18,
+              "roll_mean" : -90,
+              "yaw_variance" : 100,
+              "pitch_variance" : 100,
+              "roll_variance" : 5,
+              "translation_unit" : "meters",
+              "translation_x_mean" : 0.0101374,
+              "translation_y_mean" : 0.00856777,
+              "translation_z_mean" : 0.0314584,
+              "translation_x_variance" : 0,
+              "translation_y_variance" : 0,
+              "translation_z_variance" : 0,
+              "camera" : "0_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 179.035,
+              "pitch_mean" : -18.4137,
+              "roll_mean" : -90.2615,
+              "yaw_variance" : 100,
+              "pitch_variance" : 100,
+              "roll_variance" : 5,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.0325656,
+              "translation_y_mean" : -0.00719623,
+              "translation_z_mean" : -0.0941205,
+              "translation_x_variance" : 0,
+              "translation_y_variance" : 0,
+              "translation_z_variance" : 0,
+              "camera" : "0_1"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -90.4074,
+              "pitch_mean" : 18.1767,
+              "roll_mean" : 89.6146,
+              "yaw_variance" : 100,
+              "pitch_variance" : 100,
+              "roll_variance" : 5,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00759928,
+              "translation_y_mean" : -0.0681975,
+              "translation_z_mean" : -0.0414114,
+              "translation_x_variance" : 0,
+              "translation_y_variance" : 0,
+              "translation_z_variance" : 0,
+              "camera" : "1_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 90.6207,
+              "pitch_mean" : 17.7534,
+              "roll_mean" : 90.3752,
+              "yaw_variance" : 100,
+              "pitch_variance" : 100,
+              "roll_variance" : 5,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00418505,
+              "translation_y_mean" : 0.0660206,
+              "translation_z_mean" : -0.0284606,
+              "translation_x_variance" : 0,
+              "translation_y_variance" : 0,
+              "translation_z_variance" : 0,
+              "camera" : "1_1"
+            }
+          ]
+        },
+        "cameras" : [
+          {
+            "name" : "0_0",
+            "format" : "circular_fisheye_opt",
+            "width": 1920,
+            "height": 1440,
+            "fu_mean": 1067.34,
+            "fu_variance": 100,
+            "fv_mean": 1059.89,
+            "fv_variance": 100,
+            "cu_mean": 968.786,
+            "cu_variance": 0,
+            "cv_mean": 722.485,
+            "cv_variance": 0,
+            "distorta_mean": 0.183553,
+            "distorta_variance": 0.0,
+            "distortb_mean": -0.545303,
+            "distortb_variance": 0.0,
+            "distortc_mean": -0.0270879,
+            "distortc_variance": 0.0
+          },
+          {
+            "name" : "0_1",
+            "format" : "circular_fisheye_opt",
+            "width": 1920,
+            "height": 1440,
+            "fu_mean": 1063.89,
+            "fu_variance": 100,
+            "fv_mean": 1056.56,
+            "fv_variance": 100,
+            "cu_mean": 955.587,
+            "cu_variance": 0,
+            "cv_mean": 753.057,
+            "cv_variance": 0,
+            "distorta_mean": 0.203824,
+            "distorta_variance": 0.0,
+            "distortb_mean": -0.575517,
+            "distortb_variance": 0.0,
+            "distortc_mean": -0.029835,
+            "distortc_variance": 0.0
+          },
+          {
+            "name" : "1_0",
+            "format" : "circular_fisheye_opt",
+            "width": 1920,
+            "height": 1440,
+            "fu_mean": 1063.46,
+            "fu_variance": 100,
+            "fv_mean": 1056.27,
+            "fv_variance": 100,
+            "cu_mean": 931.21,
+            "cu_variance": 0,
+            "cv_mean": 689.069,
+            "cv_variance": 0,
+            "distorta_mean": 0.204562,
+            "distorta_variance": 0.0,
+            "distortb_mean": -0.579478,
+            "distortb_variance": 0.0,
+            "distortc_mean": -0.0125655,
+            "distortc_variance": 0.0
+          },
+          {
+            "name" : "1_1",
+            "format" : "circular_fisheye_opt",
+            "width": 1920,
+            "height": 1440,
+            "fu_mean": 1068.35,
+            "fu_variance": 100,
+            "fv_mean": 1060.87,
+            "fv_variance": 100,
+            "cu_mean": 951.979,
+            "cu_variance": 0,
+            "cv_mean": 700.116,
+            "cv_variance": 0,
+            "distorta_mean": 0.208798,
+            "distorta_variance": 0.0,
+            "distortb_mean": -0.576778,
+            "distortb_variance": 0.0,
+            "distortc_mean": -0.0173616,
+            "distortc_variance": 0.0
+          }
+        ],
+        "list_frames" : [0]
+      }
+    },
+    {
+      "name": "scoring",
+      "output": "output_scoring.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+    }
+  }
+],
+"output": "output_calibration.ptv"
+}

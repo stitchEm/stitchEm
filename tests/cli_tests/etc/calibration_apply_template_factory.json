@@ -1,0 +1,147 @@
+{
+  "algorithms" : [
+    {
+      "name": "calibration",
+      "config" : {
+        "apply_presets_only" : true,
+        "cameras" : [
+          {
+            "name" : "camera_0",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1035.6,
+            "fu_variance" : 2681.17,
+            "fv_mean" : 1046.15,
+            "fv_variance" : 2736.07,
+            "cu_mean" : 840.214,
+            "cu_variance" : 23593,
+            "cv_mean" : 825.362,
+            "cv_variance" : 23593,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : -0.401758,
+            "distortb_variance" : 0.0403524,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_1",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1035.6,
+            "fu_variance" : 2681.17,
+            "fv_mean" : 1046.15,
+            "fv_variance" : 2736.07,
+            "cu_mean" : 850.865,
+            "cu_variance" : 23593,
+            "cv_mean" : 646.693,
+            "cv_variance" : 23593,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : -0.381561,
+            "distortb_variance" : 0.0363972,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_2",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1035.6,
+            "fu_variance" : 2681.17,
+            "fv_mean" : 1046.15,
+            "fv_variance" : 2736.07,
+            "cu_mean" : 1051.77,
+            "cu_variance" : 23593,
+            "cv_mean" : 670.026,
+            "cv_variance" : 23593,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : -0.438728,
+            "distortb_variance" : 0.0481206,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          },
+          {
+            "name" : "camera_3",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1035.6,
+            "fu_variance" : 2681.17,
+            "fv_mean" : 1046.15,
+            "fv_variance" : 2736.07,
+            "cu_mean" : 1006.67,
+            "cu_variance" : 23593,
+            "cv_mean" : 720.774,
+            "cv_variance" : 23593,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : -0.311981,
+            "distortb_variance" : 0.024333,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          }
+        ],
+        "rig" : {
+          "name" : "Orah 4i",
+          "rigcameras" : [
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 9.78323,
+              "pitch_mean" : -21.6645,
+              "roll_mean" : -90.5353,
+              "yaw_variance" : 1,
+              "pitch_variance" : 4,
+              "roll_variance" : 9,
+              "camera" : "camera_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -175.222,
+              "pitch_mean" : -25.8992,
+              "roll_mean" : -92.0216,
+              "yaw_variance" : 1,
+              "pitch_variance" : 4,
+              "roll_variance" : 9,
+              "camera" : "camera_1"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -91.8441,
+              "pitch_mean" : 25.7108,
+              "roll_mean" : -92.363,
+              "yaw_variance" : 1,
+              "pitch_variance" : 4,
+              "roll_variance" : 9,
+              "camera" : "camera_2"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 91.9556,
+              "pitch_mean" : 21.9601,
+              "roll_mean" : -88.3403,
+              "yaw_variance" : 1,
+              "pitch_variance" : 4,
+              "roll_variance" : 9,
+              "camera" : "camera_3"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "output": "output_template.json",
+  "outputPtv": [
+    {
+      "name" : "output_template.ptv",
+      "outputFile": {
+        "name" : "out-vs",
+        "type" : "jpg"
+      }
+    }
+  ]
+}

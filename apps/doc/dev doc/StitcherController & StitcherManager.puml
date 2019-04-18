@@ -1,0 +1,35 @@
+@startuml
+
+class QObject
+
+package Common {
+  abstract StitcherControllerSignalSlots
+  abstract "StitcherController<Controller, Implementation>"
+  class "MonoStitcherController<VideoStitch::Core::Controller, MonoStitcherController>" as MonoStitcherController
+  class "StereoStitcherController<VideoStitch::Core::StereoController, StereoStitcherController>" as StereoStitcherController
+
+  QObject <|-- StitcherControllerSignalSlots
+  StitcherControllerSignalSlots <|-- "StitcherController<Controller, Implementation>"
+  "StitcherController<Controller, Implementation>" <|-- MonoStitcherController
+  "StitcherController<Controller, Implementation>" <|-- StereoStitcherController
+}
+
+package Vahana {
+  abstract LiveStitcherControllerSignalSlots
+  QObject <|-- LiveStitcherControllerSignalSlots
+  LiveStitcherControllerSignalSlots <|-- LiveMonoStitcherController
+  MonoStitcherController <|-- LiveMonoStitcherController
+  LiveStitcherControllerSignalSlots <|-- LiveStereoStitcherController
+  StereoStitcherController <|-- LiveStereoStitcherController
+}
+
+package Studio {
+  abstract PostProdStitcherControllerSignalSlots
+  QObject <|-- PostProdStitcherControllerSignalSlots
+  PostProdStitcherControllerSignalSlots <|-- PostProdMonoStitcherController
+  MonoStitcherController <|-- PostProdMonoStitcherController
+  PostProdStitcherControllerSignalSlots <|-- PostProdStereoStitcherController
+  StereoStitcherController <|-- PostProdStereoStitcherController
+}
+
+@enduml

@@ -1,0 +1,22 @@
+{ 
+  "first_frame" : 0, 
+  "last_frame" : -1, 
+  "buffer_frames" : 1, 
+  "merger" : {
+    "type" : "gradient", 
+    "blend_radius" : -1
+  }, 
+  "pano" : {
+    "calibrated": false,
+    "width" : 2048,
+    "height" : 1024,
+    "pad_top" : 0, 
+    "pad_bottom" : 0, 
+    "hfov" : 360, 
+    "blend_zenith" : true, 
+    "blend_nadir" : true, 
+    "proj" : "equirectangular", 
+    "inputs" : [
+    ]
+  }
+}

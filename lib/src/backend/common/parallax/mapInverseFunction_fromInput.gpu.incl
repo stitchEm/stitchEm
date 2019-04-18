@@ -1,0 +1,23 @@
+#define fromSphereToOutput SphereToErect
+
+#define fromInputToSphere RectToSphere
+#include "mapInverseFunction.gpu.incl"
+#undef fromInputToSphere
+
+#define fromInputToSphere ErectToSphere
+#include "mapInverseFunction.gpu.incl"
+#undef fromInputToSphere
+
+#define fromInputToSphere FisheyeToSphere
+#include "mapInverseFunction.gpu.incl"
+#undef fromInputToSphere
+
+#define fromInputToSphere ExternalToSphere
+#include "mapInverseFunction.gpu.incl"
+#undef fromInputToSphere
+
+#define fromInputToSphere StereoToSphere
+#include "mapInverseFunction.gpu.incl"
+#undef fromInputToSphere
+
+#undef fromSphereToOutput

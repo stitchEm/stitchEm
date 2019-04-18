@@ -1,0 +1,60 @@
+#define fromInputToSphere RectToSphere
+#define isWithin isWithinCropRect
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere ErectToSphere
+#define isWithin isWithinCropRect
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere FisheyeToSphere
+#define isWithin isWithinCropRect
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere ExternalToSphere
+#define isWithin isWithinCropRect
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere StereoToSphere
+#define isWithin isWithinCropRect
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere RectToSphere
+#define isWithin isWithinCropCircle
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere ErectToSphere
+#define isWithin isWithinCropCircle
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere FisheyeToSphere
+#define isWithin isWithinCropCircle
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere ExternalToSphere
+#define isWithin isWithinCropCircle
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+
+#define fromInputToSphere StereoToSphere
+#define isWithin isWithinCropCircle
+#include "warpCoordInputKernel.gpu.incl"
+#undef fromInputToSphere
+#undef isWithin
+

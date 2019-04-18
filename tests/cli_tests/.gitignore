@@ -1,0 +1,6 @@
+pictures
+reports
+etc/data
+etc/assets_ptv/*/gen-rtmp-*.ptv
+etc/assets_ptv/videoformat01/test_audio_output.ptv
+

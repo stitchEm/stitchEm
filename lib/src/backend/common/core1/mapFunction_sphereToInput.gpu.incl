@@ -1,0 +1,19 @@
+#define fromSphereToInput SphereToRect
+#include "mapFunction.gpu.incl"
+#include "mapFunctionCubemap_equiangular.gpu.incl"
+#undef fromSphereToInput
+
+#define fromSphereToInput SphereToErect
+#include "mapFunction.gpu.incl"
+#include "mapFunctionCubemap_equiangular.gpu.incl"
+#undef fromSphereToInput
+
+#define fromSphereToInput SphereToFisheye
+#include "mapFunction.gpu.incl"
+#include "mapFunctionCubemap_equiangular.gpu.incl"
+#undef fromSphereToInput
+
+#define fromSphereToInput SphereToExternal
+#include "mapFunction.gpu.incl"
+#include "mapFunctionCubemap_equiangular.gpu.incl"
+#undef fromSphereToInput

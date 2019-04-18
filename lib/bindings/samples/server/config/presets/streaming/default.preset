@@ -1,0 +1,22 @@
+{
+  "name": "default",
+  "type": "rtmp",
+  "pub_user": "",
+  "pub_passwd": "",
+  "video_codec": "h264_nvenc",
+  "profile": "high",
+  "level": "5.1",
+  "bitrate_mode": "VBR",
+  "preset": "hq",
+  "bitrate": 7500,
+  "b_frames": 2,
+  "gop": 60,
+  "fps": 30,
+  "num_slice": 0,
+  "downsampling_factor": 1,
+  "audio_codec": "aac",
+  "sample_format": "flt",
+  "sampling_rate": 44100,
+  "audio_bitrate": 384,
+  "ambisonic_audio_bitrate": 512
+}

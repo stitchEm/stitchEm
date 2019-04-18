@@ -1,0 +1,6 @@
+# these issues are in libstdc++, not in our code?
+unsigned-integer-overflow:include/c++/v1/memory
+unsigned-integer-overflow:include/c++/v1/__hash_table
+
+# OpenCV's shared ptr seems to rely on undefined pointer casting
+vptr:opencv2/core/ptr.inl.hpp

@@ -1,0 +1,37 @@
+/*******************************************************************************
+  Specific styles
+********************************************************************************/
+
+AutoElideLabel {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+VSListWidget#deviceList {
+  border: none;
+}
+
+LogDialog#LogDialog {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+TaskTable QLabel:hover {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+TaskTable QProgressBar {
+  border: none;
+}
+
+TaskTable:item:selected {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  outline: none;
+}
+
+TaskTable:item {
+  border:none;
+}
+
+BatcherTask {
+  height: 24px;
+}

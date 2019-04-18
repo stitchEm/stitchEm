@@ -1,0 +1,18 @@
+{
+    "inputs": [
+        {},
+        {},
+        {},
+        {},
+        {
+          "group": 1,
+          "reader_config": {
+            "type": "portaudio",
+            "name": "HDA Intel PCH: ALC892 Analog (hw:1,0) ALSA",
+            "audio_sample_rate": 44100
+          },
+          "video_enabled": false,
+          "audio_enabled": true
+        }
+    ]
+}

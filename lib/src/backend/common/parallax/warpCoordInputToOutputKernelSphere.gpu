@@ -1,0 +1,8 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// don't have too many kernel definitions (recursive macros!) in a single file
+// or the GPU compiler runs out of heap or randomly dies (both AMD OpenCL and Nvidia CUDA)
+
+WARPCOORD_INPUT_TO_OUTPUT_KERNEL2(noopDistortionTransform, inverseDistortionScaled)
+WARPCOORD_INPUT_TO_OUTPUT_KERNEL2(inverseDistortionScaled, noopDistortionTransform)

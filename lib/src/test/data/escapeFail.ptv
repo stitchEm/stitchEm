@@ -1,0 +1,8 @@
+
+/*
+ * This ptv file is invalid, the user has failed to escape a string.
+ */
+
+my_txt_var = "bon b\ein fail";
+
+

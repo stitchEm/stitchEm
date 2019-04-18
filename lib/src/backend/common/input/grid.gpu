@@ -1,0 +1,38 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+/**
+ * A kernel that creates a grid pattern
+ */
+__global__ void gridKernel(global_mem uint32_t* dst, unsigned width, unsigned height, unsigned size, unsigned lineWidth,
+                           uint32_t color, uint32_t bgColor) {
+  unsigned x = (unsigned)get_global_id_x();
+  unsigned y = (unsigned)get_global_id_y();
+  if (x < width && y < height) {
+    dst[y * width + x] = ((x % size) < lineWidth || (y % size) < lineWidth) ? color : bgColor;
+  }
+}
+
+/**
+ * A kernel that creates a grid pattern with a transparent BG
+ */
+__global__ void transparentBGGridKernel(global_mem uint32_t* dst, unsigned width, unsigned height, unsigned size,
+                                        unsigned lineWidth, uint32_t color) {
+  unsigned x = (unsigned)get_global_id_x();
+  unsigned y = (unsigned)get_global_id_y();
+  if (x < width && y < height && ((x % size) < lineWidth || (y % size) < lineWidth)) {
+    dst[y * width + x] = color;
+  }
+}
+
+/**
+ * A kernel that creates a grid pattern with a transparent grid and a solid BG.
+ */
+__global__ void transparentFGGridKernel(global_mem uint32_t* dst, unsigned width, unsigned height, unsigned size,
+                                        unsigned lineWidth, uint32_t bgColor) {
+  unsigned x = (unsigned)get_global_id_x();
+  unsigned y = (unsigned)get_global_id_y();
+  if (x < width && y < height && !((x % size) < lineWidth || (y % size) < lineWidth)) {
+    dst[y * width + x] = bgColor;
+  }
+}

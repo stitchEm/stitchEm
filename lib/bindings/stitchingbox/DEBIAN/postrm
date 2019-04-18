@@ -1,0 +1,3 @@
+if [ ! -e /usr/html ]; then
+    ln -s -T /usr/local/nginx/html/ /usr/html
+fi

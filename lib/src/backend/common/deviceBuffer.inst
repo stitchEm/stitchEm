@@ -1,0 +1,44 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// template instantiations for Buffer<T> and its pimpl
+// valid for all backends
+
+#define BUFFER_T_INSTANTIATION(BufferType)       \
+  template class DeviceBuffer<BufferType>;       \
+  template class DeviceBuffer<const BufferType>; \
+  template class Buffer<BufferType>;             \
+  template class Buffer<const BufferType>;       \
+  template Buffer<const BufferType>::Buffer(DeviceBuffer<BufferType> *pimpl, size_t num);
+
+BUFFER_T_INSTANTIATION(char);
+BUFFER_T_INSTANTIATION(unsigned char);
+BUFFER_T_INSTANTIATION(uchar3);
+BUFFER_T_INSTANTIATION(int16_t);
+BUFFER_T_INSTANTIATION(uint16_t);
+BUFFER_T_INSTANTIATION(int);
+BUFFER_T_INSTANTIATION(int2);
+BUFFER_T_INSTANTIATION(unsigned int);
+BUFFER_T_INSTANTIATION(float);
+BUFFER_T_INSTANTIATION(float2);
+BUFFER_T_INSTANTIATION(float4);
+
+// Buffer type conversions to arbitrary types
+// add manually as needed
+template Buffer<unsigned char>::Buffer(DeviceBuffer<unsigned int> *pimpl, size_t num);
+template Buffer<unsigned short>::Buffer(DeviceBuffer<unsigned char> *pimpl, size_t num);
+template Buffer<uchar3>::Buffer(DeviceBuffer<unsigned char> *pimpl, size_t num);
+template Buffer<unsigned int>::Buffer(DeviceBuffer<char> *pimpl, size_t num);
+template Buffer<unsigned int>::Buffer(DeviceBuffer<unsigned char> *pimpl, size_t num);
+template Buffer<unsigned int>::Buffer(DeviceBuffer<float> *pimpl, size_t num);
+template Buffer<float>::Buffer(DeviceBuffer<unsigned int> *pimpl, size_t num);
+template Buffer<float2>::Buffer(DeviceBuffer<float> *pimpl, size_t num);
+
+template Buffer<const unsigned char>::Buffer(DeviceBuffer<unsigned int> *pimpl, size_t num);
+template Buffer<const unsigned short>::Buffer(DeviceBuffer<const unsigned char> *pimpl, size_t num);
+template Buffer<const uchar3>::Buffer(DeviceBuffer<const unsigned char> *pimpl, size_t num);
+template Buffer<const uchar3>::Buffer(DeviceBuffer<unsigned char> *pimpl, size_t num);
+template Buffer<const uchar3>::Buffer(DeviceBuffer<unsigned int> *pimpl, size_t num);
+template Buffer<const unsigned int>::Buffer(DeviceBuffer<uchar3> *pimpl, size_t num);
+template Buffer<const unsigned int>::Buffer(DeviceBuffer<unsigned char> *pimpl, size_t num);
+template Buffer<const unsigned int>::Buffer(DeviceBuffer<const unsigned char> *pimpl, size_t num);

@@ -1,0 +1,35 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void checkerBoardKernel(global_mem uint32_t* dst, unsigned width, unsigned height, unsigned checkerSize,
+                                   uint32_t color1, uint32_t color2, uint32_t color3) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  float xF = (float)x / (float)width;
+  float yF = (float)y / (float)height;
+  float xyR = 1.0f - xF * yF;
+
+  uint32_t source_r = Image_RGBA_r(color2);
+  uint32_t source_g = Image_RGBA_g(color2);
+  uint32_t source_b = Image_RGBA_b(color2);
+  uint32_t source_a = Image_RGBA_a(color2);
+
+  uint32_t target_r = Image_RGBA_r(color3);
+  uint32_t target_g = Image_RGBA_g(color3);
+  uint32_t target_b = Image_RGBA_b(color3);
+  uint32_t target_a = Image_RGBA_a(color3);
+
+  if (x < width && y < height) {
+    unsigned evenRow = ((x / checkerSize) & 1);
+    unsigned evenCol = ((y / checkerSize) & 1);
+
+    uint32_t mixR = (uint32_t)((1.0f - xF) * (float)source_r + xF * (float)target_r);
+    uint32_t mixG = (uint32_t)((1.0f - yF) * (float)source_g + yF * (float)target_g);
+    uint32_t mixB = (uint32_t)((1.0f - xyR) * (float)source_b + xyR * (float)target_b);
+    uint32_t mixA = (uint32_t)((1.0f - xyR) * (float)source_a + xyR * (float)target_a);
+
+    uint32_t colorSet = Image_RGBA_pack(mixR, mixG, mixB, mixA);
+    dst[y * width + x] = (evenRow ^ evenCol) ? color1 : colorSet;
+  }
+}

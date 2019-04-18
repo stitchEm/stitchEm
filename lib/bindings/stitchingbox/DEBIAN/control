@@ -1,0 +1,8 @@
+Package: stitchingbox
+Priority: optional
+Architecture: amd64
+Depends: python-psutil, python-netifaces, python-futures, python-configobj, python-pip, hostapd, isc-dhcp-server, libjpeg62, libx264-146, libmp3lame0, nvidia-driver (>= 358.0)
+Conflicts: python-tornado  
+Maintainer: VideoStitch <support@video-stitch.com>
+Description: videostitch stitching box
+ one-step installer for stitching box

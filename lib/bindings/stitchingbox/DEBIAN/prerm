@@ -1,0 +1,12 @@
+#!/bin/bash -eu
+
+PREFIX="/opt/videostitch"
+BIN="${PREFIX}/bin"
+LIB="${PREFIX}/lib"
+
+for FOLDER in ${BIN} ${LIB}
+do
+    rm -f "${FOLDER}/"*".pyc"
+done
+
+# vi:syntax=sh

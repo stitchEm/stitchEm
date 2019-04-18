@@ -1,0 +1,20 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+#define inverseDistortionMetersTransform inverseDistortionScaled
+#define inverseRadialPixelsTransform noopDistortionTransform
+#include "mapInverseFunction_fromInput.gpu.incl"
+#undef inverseDistortionMetersTransform
+#undef inverseRadialPixelsTransform
+
+#define inverseDistortionMetersTransform noopDistortionTransform
+#define inverseRadialPixelsTransform inverseDistortionScaled
+#include "mapInverseFunction_fromInput.gpu.incl"
+#undef inverseDistortionMetersTransform
+#undef inverseRadialPixelsTransform
+
+#define inverseDistortionMetersTransform noopDistortionTransform
+#define inverseRadialPixelsTransform noopDistortionTransform
+#include "mapInverseFunction_fromInput.gpu.incl"
+#undef inverseDistortionMetersTransform
+#undef inverseRadialPixelsTransform

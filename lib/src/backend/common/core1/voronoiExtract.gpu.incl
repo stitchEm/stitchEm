@@ -1,0 +1,21 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+// These are templated functions
+// Need to `#define DistFn` to a distance function
+
+#define DIST_FN(fn) FUNCTION_NAME_2(fn, DistFn)
+
+__device__ float DIST_FN(extractDist_NoWrap)(int32_t x, int32_t y,
+                                             uint32_t v,
+                                             PanoRegion region) {
+  if (!(v & 0x80000000)) {
+    return MAX_FLOAT_DISTANCE; // max dist
+  } else {
+    int32_t sy = (v & 0x3fffffff) / region.viewWidth;
+    int32_t sx = (v & 0x3fffffff) - region.viewWidth * sy;
+    return DIST_FN(compute)(x, y, sx, sy, region);
+  }
+}
+
+#undef DIST_FN

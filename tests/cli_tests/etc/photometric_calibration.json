@@ -1,0 +1,28 @@
+{
+  "algorithms" : [
+    {
+      "name": "exposure_scoring",
+      "output": "expo_score.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    },
+    {
+      "name": "photometric_calibration",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    },
+    {
+      "name": "exposure_scoring",
+      "output": "expo_score_post_photo_calib.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    }
+  ],
+  "output": "output_photo_calib.ptv"
+}

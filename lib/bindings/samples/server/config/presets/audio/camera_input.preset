@@ -1,0 +1,20 @@
+{
+    "inputs": [
+        {
+          "reader_config": {
+            "audio_samplerate": 44100,
+            "audio_channels": 2,
+            "audio_sample_depth": "s16"
+          }
+        },
+        {},
+        {
+          "reader_config": {
+            "audio_samplerate": 44100,
+            "audio_channels": 2,
+            "audio_sample_depth": "s16"
+          }
+        },
+        {}
+    ]
+}

@@ -1,0 +1,33 @@
+/*
+ * This is an actually useful PTV file.
+ */
+
+input1 = Input {
+  width = 312;
+  height = 123;
+  hfov = 60.0;
+  filename = "C:\\Mes documents\\ta mère.jpg";
+  proj = "rectilinear";
+  yaw = 1.3;
+  pitch = 22;
+  roll = 0.0;
+};
+
+input2 = Input {
+  width = 540;
+  height = 128;
+  hfov = 60;
+  filename = "C:\\Mes documents\\ton père.jpg";
+  proj = "rectilinear";
+  yaw = 1.5;
+  pitch = 23;
+  roll = 0.1;
+};
+
+output = Pano {
+  width = 1024;
+  height = 256;
+  hfov = 90.0;
+  proj = "equirectangular";
+  inputs = [input1, input2];
+};

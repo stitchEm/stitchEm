@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/shaders">
+    <file alias="sphereVertexShader">shaders/sphereVertexShader.glsl</file>
+    <file alias="sphereFragmentShader">shaders/sphereFragmentShader.glsl</file>
+	  <file alias="skyboxVertexShader">shaders/skyboxVertexShader.glsl</file>
+    <file alias="skyboxFragmentShader">shaders/skyboxFragmentShader.glsl</file>
+    <file alias="equiangularSkyboxFragmentShader">shaders/equiangularSkyboxFragmentShader.glsl</file>
+  </qresource>
+</RCC>

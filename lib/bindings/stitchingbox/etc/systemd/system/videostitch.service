@@ -1,0 +1,18 @@
+[Unit]
+Description=Service to start VideoStitch server.
+Requires=nginx.service VSNetworkManager.service
+After=nginx.service VSNetworkManager.service
+
+[Service]
+ExecStart=/opt/videostitch/bin/server/vs_server.py /opt/videostitch/bin/server/config/atlas360.ptv -l 4
+User=videostitch
+
+#This will retry to restart on crash.
+Restart=on-failure
+#Default values for time interval and limit burst
+#StartLimitInterval=10s
+#StartLimitBurst=5
+#StartLimitAction=reboot
+
+[Install]
+WantedBy=multi-user.target

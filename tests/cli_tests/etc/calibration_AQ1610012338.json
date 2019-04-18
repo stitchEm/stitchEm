@@ -1,0 +1,187 @@
+{
+  "proceed" : true,
+  "outputPtv": [
+    {
+      "name" : "output_calibration.ptv",
+      "outputFile": {
+        "name" : "out-calib",
+        "type" : "jpg"
+      }
+    }
+  ],
+  "algorithms" : [
+    {
+      "name" : "calibration",
+      "config" : {
+        "software_version" : "factory_calibration_1.4",
+        "dump_calibration_snapshots" : false,
+        "rig" : {
+          "serial_number" : "DVT2AQ16080038",
+          "name" : "Orah 4i",
+          "rigcameras" : [
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -2.09015e-16,
+              "pitch_mean" : -18,
+              "roll_mean" : -90,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00930608,
+              "translation_y_mean" : 0.000379372,
+              "translation_z_mean" : -0.032816,
+              "translation_x_variance" : 0.0001,
+              "translation_y_variance" : 0.0001,
+              "translation_z_variance" : 0.0001,
+              "camera" : "0_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -179.926,
+              "pitch_mean" : -18.4996,
+              "roll_mean" : -90.0611,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00966483,
+              "translation_y_mean" : -0.000197035,
+              "translation_z_mean" : -0.0335714,
+              "translation_x_variance" : 0.0001,
+              "translation_y_variance" : 0.0001,
+              "translation_z_variance" : 0.0001,
+              "camera" : "0_1"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : -90.1965,
+              "pitch_mean" : 18.2074,
+              "roll_mean" : 89.7344,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00920334,
+              "translation_y_mean" : 0.00103165,
+              "translation_z_mean" : -0.0334851,
+              "translation_x_variance" : 0.0001,
+              "translation_y_variance" : 0.0001,
+              "translation_z_variance" : 0.0001,
+              "camera" : "1_0"
+            },
+            {
+              "angle_unit" : "degrees",
+              "yaw_mean" : 90.0049,
+              "pitch_mean" : 17.9028,
+              "roll_mean" : 90.4069,
+              "yaw_variance" : 1,
+              "pitch_variance" : 1,
+              "roll_variance" : 1,
+              "translation_unit" : "meters",
+              "translation_x_mean" : -0.00984838,
+              "translation_y_mean" : 0.000204825,
+              "translation_z_mean" : -0.0339117,
+              "translation_x_variance" : 0.0001,
+              "translation_y_variance" : 0.0001,
+              "translation_z_variance" : 0.0001,
+              "camera" : "1_1"
+            }
+          ]
+        },
+        "cameras" : [
+          {
+            "name" : "0_0",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1073.66,
+            "fu_variance" : 40000,
+            "fv_mean" : 1071.38,
+            "fv_variance" : 40000,
+            "cu_mean" : 947.825,
+            "cu_variance" : 22500,
+            "cv_mean" : 741.094,
+            "cv_variance" : 22500,
+            "distorta_mean" : 0.247723,
+            "distorta_variance" : 0.0625,
+            "distortb_mean" : -0.632887,
+            "distortb_variance" : 0.0625,
+            "distortc_mean" : -0.0101786,
+            "distortc_variance" : 0.0625
+          },
+          {
+            "name" : "0_1",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1073.49,
+            "fu_variance" : 40000,
+            "fv_mean" : 1071.32,
+            "fv_variance" : 40000,
+            "cu_mean" : 954.985,
+            "cu_variance" : 22500,
+            "cv_mean" : 720.388,
+            "cv_variance" : 22500,
+            "distorta_mean" : 0.251926,
+            "distorta_variance" : 0.0625,
+            "distortb_mean" : -0.6388,
+            "distortb_variance" : 0.0625,
+            "distortc_mean" : -0.00395059,
+            "distortc_variance" : 0.0625
+          },
+          {
+            "name" : "1_0",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1067.01,
+            "fu_variance" : 40000,
+            "fv_mean" : 1064.29,
+            "fv_variance" : 40000,
+            "cu_mean" : 993.708,
+            "cu_variance" : 22500,
+            "cv_mean" : 656.173,
+            "cv_variance" : 22500,
+            "distorta_mean" : 0.223421,
+            "distorta_variance" : 0.0625,
+            "distortb_mean" : -0.610396,
+            "distortb_variance" : 0.0625,
+            "distortc_mean" : -0.0160192,
+            "distortc_variance" : 0.0625
+          },
+          {
+            "name" : "1_1",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1073.06,
+            "fu_variance" : 40000,
+            "fv_mean" : 1070.22,
+            "fv_variance" : 40000,
+            "cu_mean" : 967.951,
+            "cu_variance" : 22500,
+            "cv_mean" : 721.585,
+            "cv_variance" : 22500,
+            "distorta_mean" : 0.233787,
+            "distorta_variance" : 0.0625,
+            "distortb_mean" : -0.618143,
+            "distortb_variance" : 0.0625,
+            "distortc_mean" : -0.00697106,
+            "distortc_variance" : 0.0625
+          }
+        ],
+        "list_frames" : [0]
+      }
+    },
+	{
+      "name": "scoring",
+      "output": "output_scoring.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0,
+        "list_frames" : [0]
+       }
+     }
+  ]
+}

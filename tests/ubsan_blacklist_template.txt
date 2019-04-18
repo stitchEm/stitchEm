@@ -1,0 +1,8 @@
+# Caution: only use function blacklisting in tests/ubsan_blacklist_template.txt
+# It is copied to CMake build dir, relative paths will change
+
+# Reminder for functions: use mangled names (or wildcarding)
+
+fun:*polylineEncodeValue*
+
+# === END OF ubsan_blacklist_template.txt ===

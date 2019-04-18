@@ -1,0 +1,35 @@
+Stitching box:
+
+Dependencies:
+Python2.7
+Python lib dev
+Python tornado
+SCons builder 2.6
+Swig 3.0.6
+Virtualenv
+
+Build:
+build VS
+> scons -j 4
+
+build VS IO
+run virtualenv .
+run source bin/activate
+copy libs and dependencies to lib folder
+copy scripts and webapp into bin folder
+
+Deploy debian package
+> scons -j 4 --box-package
+
+Install package:
+> sudo dpkg -i stitchingbox_debian.deb
+
+Run:
+> python vs_server.py -P PATH_TO_PLUGINS PTV_FILE
+
+Arguments:
+-v Verbose method
+-P Plugins path
+-p Set port number (8877 is the default)
+
+On a web browser open 127.0.0.1:8877

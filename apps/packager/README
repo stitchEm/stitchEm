@@ -1,0 +1,68 @@
+Welcome to VideoStitch Studio for Linux
+=======================================
+
+Table of contents
+-----------------
+
+1. Introduction
+2. Conditions of use
+3. How to install
+4. How to use
+5. Links
+
+
+1. Introduction
+---------------
+
+Thank you for choosing VideoStitch Studio, the missing tool for high resolution
+panoramic video! This file aims to help you understand how to install, use,
+and get the most enjoyment from this software.
+
+
+2. Conditions of use
+--------------------
+
+Please ensure you have read and agreed with the EULA file content present
+in this directory.
+
+
+3. How to install
+-----------------
+
+Please ensure you have these libraries installed on your system (they may
+have different names depending on your system):
+- The nVidia proprietary driver and the latest CUDA 6.5 runtime:
+  http://www.nvidia.com/Download/index.aspx
+  VideoStitch won't work with any other drivers, including the "Nouveau"
+  open-source driver.
+- Qt >= 5.3.0 (libQt5Core, libQt5Gui, libQt5Widgets, libQt5OpenGL, libQt5DBus)
+- freetype 6 (libfreetype6)
+- Xcb (libx11-xcb1)
+- Xdmcp (libxdmcp6)
+
+That's all!
+
+
+4. How to use
+-------------
+
+Unzip the .zip into the folder of your choice (it already contains a
+videostitch/ folder).
+
+This folder now contains the videostitch tools:
+- videostitch-studio is the graphical interface for VideoStitch. It gathers many
+  steps and information from your workflow in an intuitive way.
+- videostitch-cmd is the command-line version of our stitcher engine.
+- 'calibrationimport' is a .pts (PTGui) or .pto (PTGui) file converter to the
+  VideoStitch PTV format.
+
+See the documentation for more detailed explanations and examples!
+
+
+5. Links
+--------
+
+Website:
+
+https://github.com/stitchEm
+

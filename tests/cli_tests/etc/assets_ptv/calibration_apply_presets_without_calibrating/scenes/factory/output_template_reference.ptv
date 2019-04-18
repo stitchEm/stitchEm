@@ -1,0 +1,287 @@
+{
+  "lib_version" : "v2.3.0-22570-gb0189d7", 
+  "buffer_frames" : 1, 
+  "merger" : {
+    "type" : "gradient", 
+    "feather" : 100, 
+    "mask_merger" : 0
+  }, 
+  "warper" : {
+    "type" : "no"
+  }, 
+  "flow" : {
+    "type" : "no"
+  }, 
+  "pano" : {
+    "width" : 2048, 
+    "height" : 1024, 
+    "hfov" : 360, 
+    "proj" : "equirectangular", 
+    "global_orientation" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "stabilization" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "ev" : 0, 
+    "red_corr" : 1, 
+    "green_corr" : 1, 
+    "blue_corr" : 1, 
+    "calibration_cost" : -1, 
+    "inputs" : [
+      {
+        "reader_config" : "/Users/valente/GitHub/VideoStitch-assets/calibration_apply_presets_without_calibrating/scenes/factory/input-00.jpg", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -105, 
+        "crop_right" : 1935, 
+        "crop_top" : -289, 
+        "crop_bottom" : 1751, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : {
+          "yaw" : 9.7832299999999996, 
+          "pitch" : -21.664500000000004, 
+          "roll" : -90.535300000000007, 
+          "center_x" : -74.785999999999945, 
+          "center_y" : 94.361999999999966, 
+          "distort_a" : 0, 
+          "distort_b" : -0.401758, 
+          "distort_c" : 0, 
+          "horizontalFocal" : 1035.5999999999999, 
+          "verticalFocal" : 1046.1500000000001
+        }
+      },
+      {
+        "reader_config" : "/Users/valente/GitHub/VideoStitch-assets/calibration_apply_presets_without_calibrating/scenes/factory/input-01.jpg", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -78, 
+        "crop_right" : 1962, 
+        "crop_top" : -354, 
+        "crop_bottom" : 1686, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : {
+          "yaw" : -175.22200000000001, 
+          "pitch" : -25.899199999999997, 
+          "roll" : -92.021600000000007, 
+          "center_x" : -91.134999999999991, 
+          "center_y" : -19.307000000000016, 
+          "distort_a" : 0, 
+          "distort_b" : -0.38156099999999998, 
+          "distort_c" : 0, 
+          "horizontalFocal" : 1035.5999999999999, 
+          "verticalFocal" : 1046.1500000000001
+        }
+      },
+      {
+        "reader_config" : "/Users/valente/GitHub/VideoStitch-assets/calibration_apply_presets_without_calibrating/scenes/factory/input-02.jpg", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -7, 
+        "crop_right" : 2033, 
+        "crop_top" : -289, 
+        "crop_bottom" : 1751, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : {
+          "yaw" : -91.844099999999997, 
+          "pitch" : 25.710799999999995, 
+          "roll" : -92.363, 
+          "center_x" : 38.769999999999982, 
+          "center_y" : -60.974000000000046, 
+          "distort_a" : 0, 
+          "distort_b" : -0.43872800000000001, 
+          "distort_c" : 0, 
+          "horizontalFocal" : 1035.5999999999999, 
+          "verticalFocal" : 1046.1500000000001
+        }
+      },
+      {
+        "reader_config" : "/Users/valente/GitHub/VideoStitch-assets/calibration_apply_presets_without_calibrating/scenes/factory/input-03.jpg", 
+        "width" : 1920, 
+        "height" : 1440, 
+        "frame_offset" : 0, 
+        "video_enabled" : true, 
+        "audio_enabled" : false, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -28, 
+        "crop_right" : 2012, 
+        "crop_top" : -270, 
+        "crop_bottom" : 1770, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "green_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : {
+          "yaw" : 91.955600000000018, 
+          "pitch" : 21.960099999999994, 
+          "roll" : -88.340299999999999, 
+          "center_x" : 14.669999999999959, 
+          "center_y" : -29.225999999999999, 
+          "distort_a" : 0, 
+          "distort_b" : -0.31198100000000001, 
+          "distort_c" : 0, 
+          "horizontalFocal" : 1035.5999999999999, 
+          "verticalFocal" : 1046.1500000000001
+        }
+      }
+    ], 
+    "merger_mask" : {
+      "width" : 0, 
+      "height" : 0, 
+      "enable" : false, 
+      "interpolationEnabled" : false, 
+      "inputScaleFactor" : 2, 
+      "masks" : []
+    }, 
+    "calibration_control_points" : {}
+  }, 
+  "audio_pipe" : {
+    "sampling_rate" : 44100, 
+    "block_size" : 512, 
+    "audio_selected" : "", 
+    "vumeter" : true, 
+    "audio_inputs" : [
+      {
+        "name" : "input-00.jpg", 
+        "sources" : [
+          {
+            "reader_id" : 0, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "input-01.jpg", 
+        "sources" : [
+          {
+            "reader_id" : 1, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "input-02.jpg", 
+        "sources" : [
+          {
+            "reader_id" : 2, 
+            "channel" : -1
+          }
+        ]
+      },
+      {
+        "name" : "input-03.jpg", 
+        "sources" : [
+          {
+            "reader_id" : 3, 
+            "channel" : -1
+          }
+        ]
+      }
+    ]
+  }, 
+  "first_frame" : 0, 
+  "last_frame" : 2147483646, 
+  "output" : {
+    "type" : "jpg", 
+    "filename" : "out-vs"
+  }
+}

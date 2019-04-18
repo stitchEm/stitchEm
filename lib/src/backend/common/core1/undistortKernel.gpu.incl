@@ -1,0 +1,65 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void FUNCTION_NAME_7(warpInputKernel, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform, isWithin, fromInputToSphere, PhotoCorrectionT)
+           (surface_t dst, read_only image2d_t src,
+           int inWidth, int inHeight,
+           int outWidth, int outHeight,
+           int inCropLeft, int inCropRight, int inCropTop, int inCropBottom,
+
+           // TODO merge on CPU side into single transform
+           const vsfloat3x4 inPose,
+           const vsfloat3x4 outPose,
+
+           const vsDistortion inDistortion,
+           const float2 inCenterShift,
+
+           const float2 inScale,
+           const float2 outScale,
+
+           float3 rgbMult,
+           float photoParam, const global_mem float* floatPtr,
+           float vigCenterX, float vigCenterY,
+           float inverseDemiDiagonalSquared,
+           float vigCoeff0, float vigCoeff1, float vigCoeff2, float vigCoeff3
+         ) {
+
+  const int x = get_global_id_x();
+  const int y = get_global_id_y();
+
+  const float2 coords = make_float2(x, y);
+  const int2 coordsInt = make_int2(x, y);
+
+  const lut_ptr float* lutPtr = FUNCTION_NAME_2(PhotoCorrectionT, setup)(floatPtr);
+
+  if (x < outWidth && y < outHeight) {
+
+    float2 uv = coords;
+
+    // sample at pixel center (half-pixel offset from top left coordinate)
+    uv.x -= (outWidth - 1) / 2.0f;
+    uv.y -= (outHeight - 1) / 2.0f;
+
+    uv /= outScale;
+
+    const float3 onOutCameraSphere = fromInputToSphere(uv);
+    const float3 onRigSphere = transformSphere(onOutCameraSphere, outPose);
+
+    // map coods rigspherical to input with input params
+    uv = FUNCTION_NAME_4(mapRigSphericalToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform)(onRigSphere, inPose, inScale, inDistortion, inCenterShift);
+
+    uv.x += inWidth / 2.0f;
+    uv.y += inHeight / 2.0f;
+
+    float4 color = FUNCTION_NAME_2(photoCorrectionFunction4, PhotoCorrectionT)(uv, src, inWidth, inHeight, rgbMult, photoParam, lutPtr, vigCenterX, vigCenterY, inverseDemiDiagonalSquared, vigCoeff0, vigCoeff1, vigCoeff2, vigCoeff3);
+    color /= 255.f;
+
+    if (!isWithin(uv, (float)inWidth, (float)inHeight, (float)inCropLeft, (float)inCropRight, (float)inCropTop, (float)inCropBottom)) {
+      color = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
+    }
+
+    surface_write_f(color, dst, coordsInt.x, coordsInt.y);
+  }
+}
+
+

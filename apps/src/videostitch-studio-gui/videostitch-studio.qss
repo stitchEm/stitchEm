@@ -1,0 +1,198 @@
+/*******************************************************************************
+  Specific styles
+********************************************************************************/
+
+ProcessTabWidget,
+ProcessTabWidget QScrollArea {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+ProcessTabWidget QFrame#content {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+AudioProcess QLabel#labelWarningIcon {
+  qProperty-pixmap: url(:/assets/icon/common/warning.png);
+}
+
+AudioProcess QFrame#frameNoAudio {
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  margin-top: 10px;
+}
+
+MainWindow QTabBar {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+MainWindow QTabBar#mainTabs::tab {
+  width: 100px;
+  padding: 0px 0px 0px 0px;
+  border-left: none;
+  border-right:none;
+}
+
+MainWindow QTabBar#mainTabs::tab:selected {
+  width: 100px;
+  padding: 0px 0px 0px 0px;
+  border-left: none;
+  border-right:none;
+}
+
+/****************************************************/
+CalibrationWidget {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+CalibrationWidget QWidget#scrollAreaWidgetContents,
+CalibrationWidget QScrollArea {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+CalibrationWidget QWidget#automaticCalibrationTab,
+CalibrationWidget QWidget#calibrationFileTab {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+CalibrationWidget QListWidget#listFrames {
+  border:1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+CalibrationWidget QFrame#lineHeader {
+  color:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+SynchronizationWidget QWidget#automaticSyncTab,
+SynchronizationWidget QWidget#manualSyncTab,
+SynchronizationWidget {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+ExposureWidget {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+StabilizationWidget {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+OutputConfigurationWidget {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+TimelineContainer QPushButton#prevKeyFrameButton,
+TimelineContainer QPushButton#nextKeyFrameButton,
+TimelineContainer QPushButton#minusButton,
+TimelineContainer QPushButton#plusButton {
+  width: 24px;
+  height: 24px;
+}
+
+TimelineContainer {
+  border-left:1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+TimeWidget QLineEdit{
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+  border:none;
+}
+
+SeekBar QPushButton#toStartButton,
+SeekBar QPushButton#toStopButton {
+  background:transparent;
+  border:none;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 0px;
+}
+
+SeekBar QPushButton#toStartButton {
+  margin-left: 12px;
+}
+
+SeekBar QPushButton#toStopButton {
+  margin-right: 12px;
+}
+
+SeekBar QPushButton#playButton {
+  background:transparent;
+  border: none;
+}
+
+SeekBar QPushButton#playButton:checked {
+  border: none;
+}
+
+SeekBar QPushButton#toStartButton:hover,
+SeekBar QPushButton#toStopButton:hover,
+SeekBar QPushButton#playButton:hover {
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+}
+
+SeekBar QPushButton#toStartButton:pressed,
+SeekBar QPushButton#toStopButton:pressed,
+SeekBar QPushButton#playButton:pressed {
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+}
+
+SeekBar #line_h1,
+SeekBar #line_h2,
+SeekBar #line_v1 {
+  color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+SeekBar QTreeWidget {
+  border: none;
+  padding-top: 10px;
+}
+
+/******************** Timeline ********************/
+
+Timeline {
+  qproperty-cursorLineColor: VS_COMMON_HIGHLIGHT_COLOR_NORMAL;
+  qproperty-workingZoneColor: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+  background: VS_COMMON_BORDER_COLOR_3;
+}
+
+TimelineTicks {
+  qproperty-tickColor: VS_TICK_COLOR;
+  qproperty-boundHandleColor: VS_TICK_COLOR;
+  qproperty-handleSize: 15;
+  qproperty-boundHandleSize: 15;
+  qproperty-tickLength: 6;
+  qproperty-subTickLength: 2;
+  qproperty-frameLabelMargin: 12; /* timeline's timecode margin-top */
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+#timelineToolbar {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+TimeSequenceWidget QFrame#frameBackgound {
+  background-image: url(:/assets/images/dots.png);
+}
+
+/******************** Codecs ********************/
+
+
+BasicMpegCodec QSlider#bitrateSlider {
+  margin-right: 9px;
+}
+
+BasicMpegCodec QLineEdit {
+  border:none;
+  margin-right: 10px;
+}
+
+CropWidget  {
+  margin: 10px;
+  padding-bottom: 10px;
+}
+
+/******************** Preferences ********************/
+
+PreferencesDialog QFrame#line {
+  color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}

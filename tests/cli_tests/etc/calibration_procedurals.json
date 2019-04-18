@@ -1,0 +1,111 @@
+{
+  "algorithms" : [
+    {
+      "name": "calibration",
+      "config" : {
+        "cp_extractor" : {
+          "extractor" : "AKAZE",
+          "matcher_norm" : "HAMMING",
+          "octaves" : 2,
+          "sublevels" : 2,
+          "threshold" : 0.001,
+          "nndr_ratio" : 0.6
+        },
+        "cp_filter" : {
+          "angle_threshold" : 2,
+          "min_ratio_inliers" : 0.7,
+          "min_samples_for_fit" : 3,
+          "ratio_outliers" : 0.5,
+          "proba_draw_outlier_free_samples" : 0.99,
+          "decimating_grid_size" : 0.02
+        },
+        "optimizer" : {
+          "bundle_adjustment" : [
+            {
+              "vars" : "y# p# r#",
+              "num_iterations" : 2000
+            },
+            {
+              "vars" : "y# p# r# f b",
+              "num_iterations" : 2000
+            }
+          ]
+        },
+        "improve_mode" : false,
+        "rig" : {
+          "name" : "default",
+          "rigcameras" : [
+            {
+              "yaw_mean" : 0,
+              "pitch_mean" : 0,
+              "roll_mean" : 0,
+              "yaw_variance" : 1.79769e+308,
+              "pitch_variance" : 1.79769e+308,
+              "roll_variance" : 1.79769e+308,
+              "camera" : "default"
+            },
+            {
+              "yaw_mean" : 0,
+              "pitch_mean" : 0,
+              "roll_mean" : 0,
+              "yaw_variance" : 1.79769e+308,
+              "pitch_variance" : 1.79769e+308,
+              "roll_variance" : 1.79769e+308,
+              "camera" : "default"
+            },
+            {
+              "yaw_mean" : 0,
+              "pitch_mean" : 0,
+              "roll_mean" : 0,
+              "yaw_variance" : 1.79769e+308,
+              "pitch_variance" : 1.79769e+308,
+              "roll_variance" : 1.79769e+308,
+              "camera" : "default"
+            },
+            {
+              "yaw_mean" : 0,
+              "pitch_mean" : 0,
+              "roll_mean" : 0,
+              "yaw_variance" : 1.79769e+308,
+              "pitch_variance" : 1.79769e+308,
+              "roll_variance" : 1.79769e+308,
+              "camera" : "default"
+            }
+          ]
+        },
+        "cameras" : [
+          {
+            "name" : "default",
+            "format" : "circular_fisheye_opt",
+            "width" : 1920,
+            "height" : 1440,
+            "fu_mean" : 1250,
+            "fu_variance" : 1.79769e+308,
+            "fv_mean" : 1250,
+            "fv_variance" : 1.79769e+308,
+            "cu_mean" : 960,
+            "cu_variance" : 1.79769e+308,
+            "cv_mean" : 720,
+            "cv_variance" : 1.79769e+308,
+            "distorta_mean" : 0,
+            "distorta_variance" : 0,
+            "distortb_mean" : 0,
+            "distortb_variance" : 1.79769e+308,
+            "distortc_mean" : 0,
+            "distortc_variance" : 0
+          }
+        ],
+        "list_frames" : [0]
+      }
+    },
+    {
+      "name": "scoring",
+      "output": "output_scoring.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    }
+  ],
+  "output": "output_calibration.ptv"
+}

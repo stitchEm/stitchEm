@@ -1,0 +1,13 @@
+if(APPLE)
+  find_package(PNG REQUIRED)
+  find_library(CORE_FOUNDATION CoreFoundation REQUIRED)
+elseif(LINUX OR ANDROID)
+  if(LINUX_PKG)
+    find_library(PNG_LIBRARY libpng.so)
+  else(LINUX_PKG)
+    find_library(PNG_LIBRARY libpng.so PATHS ${CMAKE_EXTERNAL_LIB} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+  endif(LINUX_PKG)
+elseif(WINDOWS)
+  find_debug_and_optimized_library(PNG_LIBRARY "libpng/debug" "libpng" "libpng/release" "libpng")
+endif(APPLE)
+

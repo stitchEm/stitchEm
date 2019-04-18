@@ -1,0 +1,22 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+/*
+ * Coefficients given by Illusonic
+ *
+ */
+#ifdef ADD_EQ_COEFF
+// Low shelf, 100Hz, +4dB
+ADD_EQ_COEFF(
+    BqCoeff({
+      { 0.719317196456893, -1.294191880271084, 0.588109173715772}, /* a0, a1, a2 */
+      {-1.830824482812988, 0.844058972714571}                      /* b1, b2     */
+    })
+)
+ADD_EQ_COEFF(
+    BqCoeff({
+      { 0.960030907840577, -1.811473758554312, 0.879712198776076}, /* a0, a1, a2 */
+      {-1.811473758554312, 0.839743106616653}                      /* b1, b2     */
+    })
+)
+#endif

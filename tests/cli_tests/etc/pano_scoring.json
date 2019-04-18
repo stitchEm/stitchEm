@@ -1,0 +1,12 @@
+{
+  "algorithms" : [
+    {
+      "name": "scoring",
+      "output": "output_scoring.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    }
+  ]
+}

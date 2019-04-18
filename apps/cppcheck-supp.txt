@@ -1,0 +1,16 @@
+*:src/libvideostitch-base/matrices.hpp
+*:src/libvideostitch-base/vectors.hpp
+*:src/tests/common/crashHandlerTest.cpp
+*:src/videostitch-gui/src/mainwindow/crasher.hpp
+ConfigurationNotChecked:src/plugins/av/src/libav.cpp
+missingInclude:src/videostitch-gui/src/mainwindow/mainwindow.cpp
+nullPointer:src/videostitch-studio-gui/src/mainwindow/crasher.hpp
+publicAllocationError:src/libvideostitch-base/textureuploader.cpp
+uninitMemberVar:src/libvideostitch-base/steamvrrenderer.cpp
+unsafeClassCanLeak:src/videostitch-live-gui/src/videostitcher/liveoutputrtmp.hpp
+unusedFunction:src/batchstitcher/batchwindow.cpp
+unusedFunction:src/libvideostitch-gui/mainwindow/cudadevicehandler.cpp
+unusedFunction:src/libvideostitch-gui/mainwindow/file.cpp
+unusedFunction:src/libvideostitch-gui/mainwindow/vssettings.cpp
+unusedFunction:src/plugins/decklink/decklink_reader.cpp
+unusedFunction:src/tests/*

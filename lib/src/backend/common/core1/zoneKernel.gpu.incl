@@ -1,0 +1,45 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void FUNCTION_NAME_5(zoneKernel, fromSphereToInput, isWithin, distortionMetersTransform, distortionPixelsTransform)
+           (global_mem uint32_t* __restrict__ g_odata,
+           global_mem const unsigned char * __restrict__ mask,
+           uint32_t imBit,
+           int texWidth, int texHeight,
+           int panoWidth, int panoHeight,
+           int cropLeft, int cropRight, int cropTop, int cropBottom,
+           const float2 panoScale,
+           const vsfloat3x4 pose,
+           const float2 inputScale,
+           const vsDistortion distortion,
+           const float2 centerShift
+         ) {
+
+  int x = get_global_id_x();
+  int y = get_global_id_y();
+
+  if (x < panoWidth && y < panoHeight) {
+
+    float2 uv = make_float2((float)x, (float)y);
+
+    /*To Center coordinates*/
+    uv.x -= panoWidth / 2.0f;
+    uv.y -= panoHeight / 2.0f;
+
+    uv = FUNCTION_NAME_4(mapPanoramaToInput, fromSphereToInput, distortionMetersTransform, distortionPixelsTransform) (uv, panoScale, pose, inputScale, distortion, centerShift);
+
+    /* To Topleft coordinates */
+    uv.x += texWidth / 2.0f;
+    uv.y += texHeight / 2.0f;
+
+    /* Check if pixel is inside the input */
+    uint32_t v = isWithin(uv, texWidth, texHeight, (float)cropLeft, (float)cropRight, (float)cropTop, (float)cropBottom) * imBit;
+    if (mask) {
+      if ((v != 0) && (mask[(int)uv.y * texWidth + (int)uv.x] == 1)) {
+        v = 0;
+      }
+    }
+
+    g_odata[y * panoWidth + x] |= v;
+  }
+}

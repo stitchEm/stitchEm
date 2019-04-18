@@ -1,0 +1,12 @@
+{
+    "algorithms" : [
+      {
+        "name" : "sound_offset_align",
+        "config" : {
+          "first_frame" : 0,
+	        "last_frame" : 2012
+        }
+      }
+    ],
+    "output" : "audio_sync_out.ptv"
+}

@@ -1,0 +1,22 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+template Status subtractRaw(GPU::Buffer<unsigned char> dst, GPU::Buffer<const unsigned char> toSubtract,
+                            std::size_t size, GPU::Stream stream);
+template Status subtractRaw(GPU::Buffer<uint32_t> dst, GPU::Buffer<const uint32_t> toSubtract, std::size_t size,
+                            GPU::Stream stream);
+template Status subtractRaw(GPU::Buffer<float2> dst, GPU::Buffer<const float2> toSubtract, std::size_t size,
+                            GPU::Stream stream);
+
+template Status addRaw(GPU::Buffer<unsigned char> dst, GPU::Buffer<const unsigned char> toAdd, std::size_t size,
+                       GPU::Stream stream);
+template Status addRaw(GPU::Buffer<uint32_t> dst, GPU::Buffer<const uint32_t> toAdd, std::size_t size,
+                       GPU::Stream stream);
+template Status addRaw(GPU::Buffer<float2> dst, GPU::Buffer<const float2> toAdd, std::size_t size, GPU::Stream stream);
+
+template Status addRaw(GPU::Buffer<unsigned char> dst, GPU::Buffer<const unsigned char> toAdd0,
+                       GPU::Buffer<const unsigned char> toAdd1, std::size_t size, GPU::Stream stream);
+template Status addRaw(GPU::Buffer<uint32_t> dst, GPU::Buffer<const uint32_t> toAdd0,
+                       GPU::Buffer<const uint32_t> toAdd1, std::size_t size, GPU::Stream stream);
+template Status addRaw(GPU::Buffer<float2> dst, GPU::Buffer<const float2> toAdd0, GPU::Buffer<const float2> toAdd1,
+                       std::size_t size, GPU::Stream stream);

@@ -1,0 +1,28 @@
+{
+  "output": "res.ptv", 
+  "algorithms": [
+    {
+      "config": {
+        "stabilize_wb": true, 
+        "last_frame": 20, 
+        "first_frame": 10, 
+        "min_points_per_input": 80, 
+        "time_step": 1, 
+        "neighbourhood_size": 5, 
+        "anchor": 2, 
+        "penalization_weight": 0.5, 
+        "max_sampled_points": 100000
+      }, 
+      "name": "exposure_stabilize"
+    },
+    {
+      "name": "exposure_scoring",
+      "output": "output_exposure_scoring.ptv",
+      "config" : {
+        "first_frame" : 0,
+        "last_frame" : 0
+      }
+    }
+  ], 
+  "proceed": false
+}

@@ -1,0 +1,34 @@
+// Copyright (c) 2012-2017 VideoStitch SAS
+// Copyright (c) 2018 stitchEm
+
+__global__ void splitNoBlendImageMergerChannelsKernel(global_mem float* __restrict__ dest_r,
+                                                      global_mem float* __restrict__ dest_g,
+                                                      global_mem unsigned char* __restrict__ dest_b,
+                                                      global_mem const uint32_t* __restrict__ source,
+                                                      const unsigned width, const unsigned height) {
+  unsigned x = get_global_id_x();
+  unsigned y = get_global_id_y();
+
+  if (!(x >= width || y >= height)) {
+    uint32_t cc = source[y * width + x];
+
+    int32_t m = Image_RGBA_a(cc);
+
+    if (m) {
+      int32_t val_r = Image_RGBA_r(cc);
+      int32_t val_g = Image_RGBA_g(cc);
+
+      dest_r[y * width + x] = val_r;
+      dest_g[y * width + x] = val_g;
+    } else {
+      dest_r[y * width + x] = -1.0f;
+      dest_g[y * width + x] = -1.0f;
+    }
+
+    // do not care about the alpha channel to get the blue channel
+    int32_t val_b = Image_RGBA_b(cc);
+    bool uncovered = (val_b == 0);
+
+    dest_b[y * width + x] = (unsigned char)uncovered;
+  }
+}

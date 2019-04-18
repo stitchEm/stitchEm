@@ -1,0 +1,71 @@
+{
+  "lib_version" : "v0.2.3-268-g23f35dd", 
+  "first_frame" : 0, 
+  "last_frame" : 10, 
+  "buffer_frames" : 1, 
+  "merger" : {
+    "type" : "gradient",
+    "feather" : 0,
+    "maskMergerType" : 0
+  }, 
+  "output" : {
+    "type" : "mp4", 
+    "filename" : "output",
+    "audio_codec" : [audio_codec], 
+    "sampling_rate" : [sampling_rate], 
+    "sample_format" : [sample_format], 
+    "channel_layout" : [channel_layout], 
+    "audio_bitrate" : [audio_bitrate]
+  }, 
+  "pano" : {
+    "width" : 4,
+    "height" : 2,
+    "pad_top" : 0, 
+    "pad_bottom" : 0, 
+    "hfov" : 360, 
+    "blend_zenith" : true, 
+    "blend_nadir" : true, 
+    "proj" : "equirectangular", 
+    "inputs" : [
+      {
+        "width" : 1280, 
+        "height" : 960, 
+        "hfov" : 116.57, 
+        "filename" : "source/GOPR0008A.MP4", 
+        "proj" : "ff_fisheye", 
+        "yaw" : 22.3008, 
+        "pitch" : 32.3672, 
+        "roll" : 11.2938, 
+        "viewpoint_model" : "hugin", 
+        "translation_x" : 0, 
+        "translation_y" : 0, 
+        "translation_z" : 0, 
+        "viewpoint_pan" : 0, 
+        "viewpoint_tilt" : 0, 
+        "ev" : 0, 
+        "red_corr" : 1, 
+        "blue_corr" : 1, 
+        "response" : "emor", 
+        "emor_a" : 0, 
+        "emor_b" : 0, 
+        "emor_c" : 0, 
+        "emor_d" : 0, 
+        "emor_e" : 0, 
+        "gamma" : 1, 
+        "lens_dist_a" : 0, 
+        "lens_dist_b" : -0.0375658, 
+        "lens_dist_c" : 0, 
+        "dist_center_x" : 0, 
+        "dist_center_y" : 0, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "frame_offset" : 0,
+        "audio_enabled" : true
+      }
+    ]
+  }
+}

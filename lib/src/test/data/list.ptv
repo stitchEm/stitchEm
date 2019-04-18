@@ -1,0 +1,11 @@
+
+/*
+ * This ptv file uses a list.
+ */
+
+a = 1;
+
+l = [
+  a, 2,
+  3.5
+];

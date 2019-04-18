@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/batchstitcher.qss</file>
+    </qresource>
+</RCC>

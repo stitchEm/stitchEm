@@ -1,0 +1,956 @@
+/*******************************************************************************
+  Generic styles
+********************************************************************************/
+
+/******************** Global styles ********************/
+
+* {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+*:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QPushButton:hover {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/*******************************************************************************
+  Generic styles using dynamic properties
+********************************************************************************/
+
+/******************** vs-blue-button ********************/
+
+QAbstractButton[vs-blue-button="true"] {
+  background-color: VS_BUTTON_COLOR;
+  border: none;
+}
+
+QAbstractButton:hover[vs-blue-button="true"] {
+  background-color: VS_BUTTON_HOVER_COLOR;
+}
+
+/******************** vs-button-medium ********************/
+
+QAbstractButton[vs-button-medium="true"] {
+  background-color: VS_BUTTON_COLOR;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  padding: 0px;
+}
+
+QAbstractButton:hover[vs-button-medium="true"] {
+  background-color: VS_BUTTON_HOVER_COLOR;
+  border: none;
+}
+
+QAbstractButton:checked[vs-button-medium="true"] {
+  background-color: VS_BUTTON_CHECKED_COLOR;
+}
+
+QAbstractButton:checked:hover[vs-button-medium="true"] {
+  background-color: VS_BUTTON_HOVER_CHECKED_COLOR;
+}
+
+QAbstractButton:disabled[vs-button-medium="true"] {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background-color: VS_BUTTON_DISABLED_COLOR;
+}
+
+/******************** vs-button-small ********************/
+
+QAbstractButton[vs-button-small="true"] {
+  background-color: VS_BUTTON_COLOR;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  border-radius: 25px;
+  padding: 0px;
+}
+
+QAbstractButton:hover[vs-button-small="true"] {
+  background-color: VS_BUTTON_HOVER_COLOR;
+  border: none;
+}
+
+/******************** vs-textbutton-small ********************/
+
+QAbstractButton[vs-textbutton-small="true"] {
+  background: none;
+  border: none;
+  text-align: center;
+}
+
+QAbstractButton:hover[vs-textbutton-small="true"] {
+  background-color: VS_COMMON_COLOR_HOVER;
+  border: none;
+  text-align: center;
+}
+
+/******************** vs-section ********************/
+
+QAbstractItemView[vs-section-container="true"] {
+  border:none;
+  background-color: transparent;
+}
+
+QAbstractItemView::item[vs-section-container="true"],
+*[vs-section-contained-widget="true"] {
+  background-color: VS_SECTION_COLOR;
+  border-radius: 0px;
+  font-size: VS_COMMON_FONT_SIZE_TITLE;
+  text-align: left;
+  border: 4px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  border-left: none;
+  border-right: none;
+  height: 62px;
+}
+
+QAbstractItemView::item[vs-section-container="true"] {
+  padding-left: 12px;
+}
+
+*[vs-section-contained-widget="true"] {
+  padding-left: 0px;
+}
+
+QPushButton[vs-section-add-button="true"] {
+  text-align: left;
+  border:none;
+  qproperty-iconSize: 62px 62px;
+  qProperty-icon: url(:/live/icons/assets/icon/live/add.png);
+  width: 62px;
+  height: 62px;
+}
+
+QAbstractItemView::item:selected[vs-section-container="true"],
+QAbstractItemView::item:hover[vs-section-container="true"],
+*:hover[vs-section-contained-widget="true"],
+QPushButton:hover[vs-section-add-button="true"] {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background-color: VS_SECTION_HOVER_COLOR;
+}
+
+QAbstractItemView::item:disabled[vs-section-container="true"],
+QPushButton:disabled[vs-section-add-button="true"] {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background-color: VS_BUTTON_DISABLED_COLOR;
+}
+
+QPushButton[vs-section-delete-button="true"] {
+  image: url(:/live/icons/assets/icon/live/close.png);
+  qProperty-text:"";
+  background-color: transparent;
+  border-radius: 0px;
+  border:none;
+  width: 62px; /* item height - border top - border bottom = 70 - 4 - 4 */
+  height: 62px;
+}
+
+QPushButton:hover[vs-section-delete-button="true"]{
+  background-color: transparent;
+}
+
+/******************** vs-title and vs-message ********************/
+
+QLabel[vs-title1="true"] {
+  font-size: VS_COMMON_FONT_SIZE_HUGE;
+  height: 42px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-left: -2px;
+}
+
+QLabel[vs-title2="true"] {
+  font-size: VS_COMMON_FONT_SIZE_BIGGER;
+}
+
+QLabel[vs-message="true"] {
+  font-size: VS_COMMON_FONT_SIZE_BIGGER;
+}
+
+/******************** vs-button-bar ********************/
+
+*[vs-button-bar="true"] QLabel {
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+}
+
+/********************** General ****************************/
+
+QComboBox,
+QCheckBox,
+QSpinBox,
+QDoubleSpinBox,
+QLabel,
+QSlider,
+QLineEdit {
+  height: 30px;
+  background: transparent;
+}
+
+QGroupBox {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  qProperty-flat:true;
+}
+
+/*******************************************************************************
+  Specific styles
+********************************************************************************/
+
+/******************** Main tabs ********************/
+
+MainTabWidget QTabBar {
+  border:none;
+}
+
+MainTabWidget QTabBar::tab {
+  margin: 0px;
+  height:100px;
+  width: 100px;
+  padding: 0px 0px 0px 0px;
+}
+
+MainTabWidget QTabBar::tab:!selected:hover {
+  background: VS_COMMON_BORDER_COLOR_2;
+}
+
+MainTabWidget QTabBar::tab:selected {
+  border: none;
+  border-left: 6px solid VS_COMMON_FONT_COLOR_NORMAL;
+  height:100px;
+  width: 96px;
+  padding: 0px 0px 0px 0px;
+}
+
+MainTabWidget::pane {
+  border: none;
+}
+
+MainTabWidget QLabel#tabTitle {
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+
+MainTabWidget QLabel#tabIcon {
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+}
+
+#pageProjectTabs,
+SourcesTabWidget QFrame#buttonsBackground {
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+ProjectWorkWidget QWidget#pageProjectTabs{
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+ProjectWorkWidget QStackedWidget#stackedWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+/******************** CropWidget ********************/
+
+CropWidget QTabBar::tab:first {
+  border-left: 2px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+CropWidget QTabBar::tab:last {
+  border-right: 2px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+CropWidget QTabBar QToolButton { /* the scroll buttons are tool buttons */
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  border:none;
+}
+
+CropWidget QTabBar QToolButton:hover {
+  background-color: VS_COMMON_BORDER_COLOR_2;
+}
+
+CropWidget QTabBar::scroller {
+  width:50px;
+}
+
+CropWidget QTabBar QToolButton::right-arrow { /* the arrow mark in the tool buttons */
+  image: url(:/live/icons/assets/icon/live/next.png);
+  width:10px;
+  height:10px;
+}
+
+CropWidget QTabBar QToolButton::left-arrow {
+  image: url(:/live/icons/assets/icon/live/back.png);
+  width:10px;
+  height:10px;
+}
+
+CropWidget QTabBar QToolButton::right-arrow:disabled { /* the arrow mark in the tool buttons */
+  image: url(:/live/icons/assets/icon/live/next-disabled.png);
+}
+
+CropWidget QTabBar QToolButton::left-arrow:disabled {
+  image: url(:/live/icons/assets/icon/live/back-disabled.png);
+}
+
+CropWidget QCheckBox::indicator:checked {
+  image: url(:/live/icons/assets/icon/live/lock-closed.png);
+}
+
+CropWidget QCheckBox::indicator:unchecked {
+  image: url(:/live/icons/assets/icon/live/lock-open.png);
+}
+
+CropWidget QCheckBox::indicator:unchecked:disabled {
+  image: url(:/live/icons/assets/icon/live/lock-open-disabled.png);
+}
+
+CropWidget QCheckBox::indicator {
+  width: 30px;
+  height: 30px;
+}
+
+/******************** GenericLoader ********************/
+
+GenericLoader QLabel {
+  font-size: VS_COMMON_FONT_SIZE_HUGE;
+}
+
+GenericLoader QLabel#labelLoading {
+  background-color: transparent;
+}
+
+GenericLoader {
+  background-color: VS_BACKGROUND_TRANSPARENT;
+}
+
+/******************** GenericDialog ********************/
+
+GenericDialog {
+  border: 4px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+GenericDialog QPushButton#buttonNext {
+  border-image: url(:/live/icons/assets/icon/live/next.png);
+  qProperty-text:"";
+}
+
+GenericDialog QLabel#labelDialogTitle {
+  font-size: VS_COMMON_FONT_SIZE_TITLE;
+  background-color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+DialogBackground {
+  background-color: VS_BACKGROUND_TRANSPARENT;
+}
+
+/******************** TopInformationBarWidget ********************/
+
+TopInformationBarWidget {
+  background-color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+TopInformationBarWidget QLabel#labelTimeText {
+  margin-right: 10px;
+}
+
+TopInformationBarWidget QLabel#labelVSLogo {
+  qProperty-pixmap: url(:/logos/logos/logo_white.png);
+}
+
+TopInformationBarWidget QLabel#labelProjectTitle {
+  font-size: VS_COMMON_FONT_SIZE_BIGGER;
+}
+
+TopInformationBarWidget QPushButton#buttonQuitProject {
+  border: none;
+  background: transparent;
+}
+
+TopInformationBarWidget QPushButton#buttonQuitProject:hover {
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+/******************** Status bar ********************/
+
+MainWindow QWidget#centralWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+MainWindow QWidget#statusBarWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+MainWindow QPushButton#buttonLog {
+  border-image: url(:/live/icons/assets/icon/live/log.png);
+  qProperty-text: "";
+  background: transparent;
+}
+
+MainWindow QPushButton#buttonUpdate {
+  border-image: url(:/live/icons/assets/icon/live/new-version.png);
+  qProperty-text: "";
+  background: transparent;
+}
+
+MainWindow QPushButton#buttonAbout {
+  border-image: url(:/live/icons/assets/icon/live/about.png);
+  qProperty-text: "";
+  background: transparent;
+}
+
+MainWindow QPushButton#buttonSettings {
+  border-image: url(:/live/icons/assets/icon/live/configure.png);
+  qProperty-text:"";
+  background: transparent;
+}
+
+MainWindow QPushButton#credentialButton {
+  border-image: url(:/live/icons/assets/icon/live/credential.png);
+  qProperty-text:"";
+  background: transparent;
+}
+MainWindow QPushButton#credentialButton:hover,
+MainWindow QPushButton#buttonSettings:hover,
+MainWindow QPushButton#buttonUpdate:hover,
+MainWindow QPushButton#buttonAbout:hover,
+MainWindow QPushButton#buttonLog:hover {
+  background: VS_COMMON_BORDER_COLOR_2
+}
+
+/******************** Tools bar (on the right) ********************/
+
+OutputControlsPanel QPushButton#buttonScrollUp,
+OutputControlsPanel QPushButton#buttonScrollDown,
+OutputControlsPanel QScrollArea#scrollArea QWidget#scrollAreaWidgetContents,
+OutputControlsPanel #pageMain,
+OutputControlsPanel #pageCalibration,
+OutputControlsPanel #pageExposure {
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+OutputControlsPanel QPushButton#buttonScrollUp:hover,
+OutputControlsPanel QPushButton#buttonScrollDown:hover {
+  background-color: VS_COMMON_BORDER_COLOR_2;
+}
+
+SourcesTabWidget QFrame#buttonsBackground,
+OutputControlsPanel {
+  padding-top: 15px;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+OutputControlsPanel QFrame#line {
+  color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+SourcesTabWidget QPushButton#buttonEditVideo {
+  border-image: url(:/live/icons/assets/icon/live/camera.png);
+  qProperty-text:"";
+}
+
+SourcesTabWidget QPushButton#buttonEditAudio {
+  border-image: url(:/live/icons/assets/icon/live/microphone.png);
+  qProperty-text:"";
+}
+
+SourcesTabWidget QPushButton#buttonEdit3DRig {
+  border-image: url(:/live/icons/assets/icon/live/rig.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonPanorama {
+  border-image: url(:/live/icons/assets/icon/live/panorama_icon_stretch.png);
+  qProperty-text:"";
+}
+
+SourcesTabWidget QPushButton#buttonSnapshot,
+OutputControlsPanel QPushButton#buttonSnapshot {
+  border-image: url(:/live/icons/assets/icon/live/snapshot.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonScrollUp {
+  border-image: url(:/live/icons/assets/icon/live/up.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonScrollDown {
+  border-image: url(:/live/icons/assets/icon/live/dorpdown.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonNewOutput {
+  border-image: url(:/live/icons/assets/icon/live/add.png);
+  qProperty-text: "";
+}
+
+OutputControlsPanel QPushButton#buttonCalibration {
+  border-image: url(:/live/icons/assets/icon/live/calibration.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonExposure {
+  border-image: url(:/live/icons/assets/icon/live/exposure.png);
+  qProperty-text: "";
+}
+
+OutputControlsPanel QPushButton#buttonOrientation {
+  border-image: url(:/live/icons/assets/icon/live/orientation.png);
+  qProperty-text: "";
+}
+
+OutputControlsPanel QPushButton#buttonCalibrationImprove {
+  border-image: url(:/live/icons/assets/icon/live/reapply-calibration.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonCalibrationCreate {
+  border-image: url(:/live/icons/assets/icon/live/new.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonCropInputs {
+  border-image: url(:/live/icons/assets/icon/live/crop.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonCalibrationToggleControlPoints {
+  border-image: url(:/live/icons/assets/icon/live/displaycp.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonExposureApply {
+  border-image: url(:/live/icons/assets/icon/live/apply.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonExposureSettings {
+  border-image: url(:/live/icons/assets/icon/live/configure.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonCalibrationClear,
+OutputControlsPanel QPushButton#buttonExposureClear {
+  border-image: url(:/live/icons/assets/icon/live/clear.png);
+  qProperty-text:"";
+}
+
+ConfigurationTabWidget,
+InteractiveTabWidget,
+OutPutTabWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+OutputControlsPanel QPushButton#buttonAudioProcessors {
+  border-image: url(:/live/icons/assets/icon/live/filter.png);
+  qProperty-text:"";
+}
+
+OutputConfigurationWidget QLabel {
+  height: 30px;
+}
+
+/******************** Settings ********************/
+
+GeneralSettingsWidget QLabel#labelWarningMessage {
+  color: VS_COMMON_FONT_WARNING_COLOR;
+}
+
+GeneralSettingsWidget QLabel#labelWarningIcon {
+  qProperty-pixmap: url(":/live/icons/assets/icon/live/warning.png");
+  qProperty-text:"";
+}
+
+SettingGPU QLabel#labelGPUIcon {
+  qProperty-pixmap: url(":/live/icons/assets/icon/live/gpu.png");
+}
+
+GeneralSettingsWidget QFrame#line,
+GeneralSettingsWidget QFrame#line_1,
+GeneralSettingsWidget QFrame#line_2 {
+  color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+ConfigCalibrationWidget QLabel#labelSnapshotIcon {
+  qProperty-pixmap: url(":/live/icons/assets/icon/live/calibration.png");
+}
+
+OculusSettingsWidget QLabel#oculusLabel {
+  qProperty-pixmap: url(":/live/icons/assets/icon/live/oculus.png");
+  padding-left: -5px;
+}
+
+/******************** Dialogs: BackgroundContainer, AboutWidget, LogDialog ********************/
+
+BackgroundContainer QPushButton#buttonCloseWidget,
+AboutWidget QPushButton#buttonClose,
+LogDialog QPushButton#buttonClose,
+
+BackgroundContainer QPushButton#buttonCloseWidget:hover,
+AboutWidget QPushButton#buttonClose:hover,
+LogDialog QPushButton#buttonClose:hover,
+
+
+BackgroundContainer QFrame#centralFrame,
+LogDialog QFrame#background {
+  border: 4px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+AboutWidget QLabel#labelTitle,
+LogDialog QLabel#labelTitle {
+  padding-left: 10px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  font-size: VS_COMMON_FONT_SIZE_TITLE;
+}
+
+AboutWidget,
+
+AboutWidget QLabel#labelAppVersion,
+AboutWidget QLabel#labelVSName {
+ font-size: VS_COMMON_FONT_SIZE_BIGGER;
+}
+
+AboutWidget QLabel#labelThirdParty {
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+}
+
+LogDialog,
+BackgroundContainer {
+  background: VS_BACKGROUND_TRANSPARENT;
+}
+
+BackgroundContainer QFrame#topBackground {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  padding-left: 10px;
+}
+
+BackgroundContainer QLabel#labelContainerTitle {
+  font-size: VS_COMMON_FONT_SIZE_TITLE;
+}
+
+/******************** RigConfigurationWidget ********************/
+
+RigConfigurationWidget QFrame#line,
+RigConfigurationWidget QFrame#line2,
+RigConfigurationWidget QFrame#line3 {
+  color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+RigConfigurationWidget QListWidget {
+  background: transparent;
+}
+
+RigConfigurationWidget QPushButton#buttonCircular,
+RigConfigurationWidget QPushButton#buttonPolygonal,
+RigConfigurationWidget QPushButton#buttonLandscape,
+RigConfigurationWidget QPushButton#buttonPortrait {
+  qProperty-text: "";
+  border: none;
+}
+
+RigConfigurationWidget QPushButton#buttonCircular:checked,
+RigConfigurationWidget QPushButton#buttonPolygonal:checked,
+RigConfigurationWidget QPushButton#buttonLandscape:checked,
+RigConfigurationWidget QPushButton#buttonPortrait:checked {
+  color: VS_BUTTON_HOVER_COLOR;
+  qProperty-text: "";
+}
+
+RigConfigurationWidget QPushButton#buttonCircular {
+  border-image: url(:/live/icons/assets/icon/live/circular.png);
+}
+
+RigConfigurationWidget QPushButton#buttonPolygonal {
+  border-image: url(:/live/icons/assets/icon/live/polygonal.png);
+}
+
+RigConfigurationWidget QPushButton#buttonLandscape {
+  border-image:url(:/live/icons/assets/icon/live/lands.png);
+}
+
+RigConfigurationWidget QPushButton#buttonPortrait {
+  border-image: url(:/live/icons/assets/icon/live/portrait.png);
+}
+
+RigConfigurationWidget QPushButton#buttonCircular:checked {
+  border-image: url(:/live/icons/assets/icon/live/circular-selected.png);
+}
+
+RigConfigurationWidget QPushButton#buttonPolygonal:checked {
+  border-image: url(:/live/icons/assets/icon/live/polygonal-selected.png);
+}
+
+RigConfigurationWidget QPushButton#buttonLandscape:checked {
+  border-image: url(:/live/icons/assets/icon/live/lands-selected.png);
+}
+
+RigConfigurationWidget QPushButton#buttonPortrait:checked {
+  border-image: url(:/live/icons/assets/icon/live/portrait-selected.png);
+}
+
+InputEyeSelector QPushButton {
+  border-radius: 15px;
+  background-color: VS_BUTTON_DISABLED_COLOR;
+}
+
+InputEyeSelector QPushButton#buttonLeft:checked {
+  background-color: VS_BUTTON_HOVER_COLOR;
+}
+
+InputEyeSelector QPushButton#buttonRight:checked {
+  background-color: VS_BUTTON_CHECKED_COLOR;
+}
+
+
+/******************** Network inputs ********************/
+
+MultiInputConfiguration QFrame#line {
+  color: VS_COMMON_BORDER_COLOR_2;
+  height: 40px;
+  padding-top:5px;
+}
+
+MultiInputConfiguration QLabel#labelErrorConnection {
+  qProperty-pixmap: url(:/assets/icon/common/error.png);
+}
+
+MultiInputConfiguration QListWidget#listInputs {
+  border: none;
+}
+
+/******************** Configuration page ********************/
+
+GenericTableWidget#configSectionTable {
+  background-color: transparent;
+  border: none;
+}
+
+GenericTableWidget#configSectionTable::item:selected {
+  background-color: transparent;
+}
+
+GenericTableWidget#configSectionTable::item:hover {
+  background-color: VS_COMMON_BORDER_COLOR_2;
+}
+
+ConfigurationTableWidget QLabel#labelItemTitle {
+  font-size: VS_COMMON_FONT_SIZE_HUGE;
+  background-color: VS_SECTION_COLOR;
+}
+
+ConfigurationTableWidget QFrame#frame {
+  background-color: VS_SECTION_HOVER_COLOR;
+}
+
+ConfigurationTableWidget QLabel#iconOUTPUTS {
+  qProperty-pixmap: url(:/live/icons/assets/icon/live/output.png);
+}
+
+ConfigurationTableWidget QLabel#iconEXPOSURE {
+  qProperty-pixmap: url(:/live/icons/assets/icon/live/exposure.png);
+}
+
+ConfigurationTableWidget QLabel#iconCALIBRATION {
+  qProperty-pixmap: url(:/live/icons/assets/icon/live/calibration.png);
+}
+
+ConfigurationTableWidget QLabel#iconPANORAMA {
+  qProperty-pixmap: url(:/live/icons/assets/icon/live/pano-conf.png);
+}
+
+
+/******************** Configuration: panorama, calibration and exposure pages ********************/
+
+ConfigCalibrationWidget QPushButton#buttonImport {
+  width: 200px;
+  height: 40px;
+}
+
+/******************** Configuration: outputs page ********************/
+
+ConfigOutputsWidget QLabel#labelNoOutputsMessage {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+OutputDetailWidget QFrame#frame {
+  border:none;
+}
+
+OutputDetailWidget QLabel#labelDetailedName {
+  color: VS_COMMON_FONT_SUBSECTION;
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+}
+
+ConfigOutputsWidget QLabel#labelNoOutputsMessage {
+  color: VS_COMMON_COLOR_HOVER;
+  font-size: VS_COMMON_FONT_SIZE_HUGE;
+}
+
+
+/******************** HDD and RTMP outputs ********************/
+
+ConfigurationOutputStreaming QWidget#scrollAreaContainer,
+ConfigurationOutputHDD QWidget#scrollAreaContainer {
+  background-color: transparent;
+}
+
+ConfigurationOutputStreaming QGroupBox#advancedModeBox::indicator:checked {
+  image: url(:/assets/images/arrow-down.png);
+}
+
+ConfigurationOutputStreaming QGroupBox#advancedModeBox::indicator:unchecked {
+  image: url(:/assets/images/arrow-right.png);
+}
+
+/******************** Youtube output ********************/
+
+YoutubeConfiguration QPushButton#updateButton {
+  border-image: url(:/live/icons/assets/icon/live/refresh.png);
+}
+
+YoutubeBaseConfiguration QPushButton#configurationButton,
+YoutubeConfiguration QPushButton#changeAccountButton {
+  qProperty-icon: url(:assets/icon/live/user.png);
+  icon-size: 42px;
+}
+
+YoutubeConfiguration QFrame#accountInfoFrame {
+  border: none;
+}
+
+YoutubeTableView {
+  selection-background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  selection-color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/******************** Other button images ********************/
+
+ConfigCalibrationWidget QPushButton#buttonBrowse,
+ConfigurationOutputHDD QPushButton#buttonSelectPath,
+QToolButton#toolButtonBrowseRigPresets {
+  border-image: url(:/assets/icon/common/folder.png);
+  qProperty-text:"";
+}
+
+OutputControlsPanel QPushButton#buttonCalibrationBack,
+OutputControlsPanel QPushButton#buttonExposureBack,
+WorkflowDialog QPushButton#buttonBack,
+NewOutputWidget QPushButton#buttonBack,
+IConfigurationCategory QPushButton#buttonBack {
+  border-image: url(:/live/icons/assets/icon/live/back.png);
+  qProperty-text:"";
+}
+
+YoutubeConfiguration QPushButton#saveButton,
+ConfigExposureWidget QPushButton#buttonSave,
+GeneralSettingsWidget QPushButton#buttonSave,
+IConfigurationCategory QPushButton#buttonSave {
+  border-image: url(:/live/icons/assets/icon/live/save.png);
+  qProperty-text:"";
+}
+
+RigConfigurationWidget QPushButton#buttonAccept,
+CropWindow QPushButton#buttonApply,
+WorkflowDialog QPushButton#buttonApply,
+GenericDialog QPushButton#buttonAccept {
+  border-image: url(:/live/icons/assets/icon/live/check.png);
+  qProperty-text:"";
+}
+
+GenericDialog QPushButton#buttonCancel,
+CalibrationActionPanel QPushButton#buttonCancel,
+CropWindow QPushButton#buttonCancel,
+WorkflowDialog QPushButton#buttonCancel,
+SimpleThumbnailWidget QPushButton#buttonRemove,
+BackgroundContainer QPushButton#buttonCloseWidget,
+AboutWidget QPushButton#buttonClose,
+LogDialog QPushButton#buttonClose,
+
+CropInputTab QPushButton#buttonRestore,
+LogWidget QPushButton#clearLogButton {
+  border-image: url(:/live/icons/assets/icon/live/clear.png);
+  qProperty-text:"";
+}
+
+/******************** RigWorkflowPage ********************/
+
+RigWorkflowPage QFrame#line {
+  color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+RigWorkflowPage QPushButton#buttonBrowseTemplate {
+  border-image: url(:/assets/icon/common/folder.png);
+  qProperty-text:"";
+  height:30px;
+  width:30px;
+}
+
+/******************** Various ********************/
+
+CalibrationSnapCounter {
+  background-color: VS_BACKGROUND_TRANSPARENT;
+}
+
+CalibrationSnapCounter QLabel#labelCounterValue {
+  font-size: VS_COMMON_FONT_SIZE_COUNTER;
+}
+
+NewProjectNameDialog QLineEdit#lineName {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+WorkflowDialog QLabel#errorLabel {
+  color: VS_COMMON_FONT_WARNING_COLOR;
+}
+
+
+/************** CaptureCardInputConfiguration **************/
+ConfigurationInputMedia QLabel#labelNofiles,
+AjaInputConfiguration QLabel#noDeviceLabel,
+CaptureCardInputConfiguration QLabel#noDeviceLabel {
+  color: VS_COMMON_COLOR_HOVER;
+  font-size: VS_COMMON_FONT_SIZE_HUGE;
+}
+
+
+/************** ConfigurationInputMedia **************/
+ConfigurationInputMedia QListWidget#listFiles {
+  border:none;
+}
+
+ConfigurationInputMedia QFrame#line {
+  color: VS_COMMON_BORDER_COLOR_2;
+}
+
+/**************** Audio Processors ********************/
+AudioProcessDetailWidget QLabel#labelDetailedName {
+  color: VS_COMMON_FONT_SUBSECTION;
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+}
+
+AudioProcessDetailWidget QFrame#frame {
+  border:none;
+}
+
+LevelMeter,
+LevelIndicator,
+VuMeterWidget {
+  border: 2px solid VS_COMMON_FONT_SUBSECTION;
+}
+
+VuMeterWidget QLabel {
+  color: VS_COMMON_FONT_SUBSECTION;
+}

@@ -1,0 +1,19 @@
+{
+  "algorithms" : [
+    {
+      "name": "autocrop",
+      "config" : {        
+        "neighborThreshold" : 40,        
+        "differenceThreshold" : 500,
+        "fineTuneMarginSize" : 100,
+        "circleImage" : true,
+        "scaleRadius" : 1.0
+      }
+    }
+  ],
+  "outputPtv": [
+    {
+      "name" : "outputFinal.ptv"
+    }
+  ]
+}

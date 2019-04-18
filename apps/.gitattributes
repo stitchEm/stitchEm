@@ -1,0 +1,5 @@
+*.sh            eol=lf
+*.pro           eol=native
+*.txt           eol=crlf
+*.cpp           eol=lf
+*.hpp           eol=lf

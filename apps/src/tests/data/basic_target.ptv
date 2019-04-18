@@ -1,0 +1,6 @@
+{
+  "type" : "laplacian", 
+  "levels" : 5, 
+  "hf_blend_radius" : 1, 
+  "filter_passes" : 3
+ }

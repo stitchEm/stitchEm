@@ -1,0 +1,37 @@
+{
+    "algorithms" : [
+    {
+      "name": "epipolar",
+      "output": "output_epipolar.json",
+      "config" : {
+        "auto_point_matching" : true,
+        "spherical_grid_radius" : 3.0,
+        "single_points" : [
+          {
+            "input_index" : 0,
+            "x" : 1000,
+            "y" : 720
+          },
+          {
+            "input_index" : 1,
+            "x" : 600,
+            "y" : 600
+          }
+        ],
+        "matched_points" : [
+          {
+            "input_index0" : 3,
+            "x0" : 144,
+            "y0" : 445,
+            "input_index1" : 2,
+            "x1" : 76,
+            "y1" : 931
+          }
+        ],
+        "list_frames" : [
+          0
+        ]
+      }
+    }
+  ]
+}

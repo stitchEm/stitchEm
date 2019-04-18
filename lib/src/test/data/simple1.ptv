@@ -1,0 +1,15 @@
+
+/*
+ * This is a very simple
+ * valid ptv file.
+ */
+
+a = 1;
+b = -3.5;
+c = 4.567e-6;
+
+my_var = -3 ;
+;
+
+my_txt_var = "\"hello\"\t360\\ !";
+

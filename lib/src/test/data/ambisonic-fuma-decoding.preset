@@ -1,0 +1,57 @@
+{
+	"order": "first order",
+	"coefficients": {
+		"stereo": {
+		 "front left": {
+		   "amb w": 0.7071,
+		   "amb x": 0,
+		   "amb y": 0.5,
+		   "amb z": 0
+		   },
+		 "front right": {
+		   "amb w": 0.7071,
+		   "amb x": 0,
+		   "amb y": -0.5,
+		   "amb z": 0
+		 }
+		},
+		"5.1(side)": {
+		  "front left": {
+		    "amb w": 0.1690,
+		    "amb x": 0.0797,
+		    "amb y": 0.0891,
+		    "amb z": 0
+		    },
+		  "front center": {
+		    "amb w": 0.1635,
+		    "amb x": 0.0923,
+		    "amb y": 0,
+		    "amb z": 0
+		    },
+		  "front right": {
+		    "amb w": 0.1690,
+		    "amb x": 0.0797,
+		    "amb y":-0.0891,
+		    "amb z": 0
+		    },
+		  "side left": {
+		    "amb w": 0.4563,
+		    "amb x":-0.1259,
+		    "amb y": 0.1543,
+		    "amb z": 0
+		    },
+		  "side right": {
+		    "amb w": 0.4563,
+		    "amb x": -0.1259,
+		    "amb y": -0.1543,
+		    "amb z": 0
+		    },
+		  "front low frequency": {
+		    "amb w": 1.,
+		    "amb x": 0,
+		    "amb y": 0,
+		    "amb z": 0
+		    }		    
+		}
+	}
+}

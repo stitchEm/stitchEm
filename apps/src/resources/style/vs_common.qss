@@ -1,0 +1,927 @@
+/********************* QMainWindow ********************/
+
+QMainWindow {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/******************** QGroupBox ********************/
+
+QGroupBox {
+  margin-top: 12px;
+  padding: 6px;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background: transparent;
+}
+
+QGroupBox[flat="true"] {
+  border: none;
+  border-top: 1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+QGroupBox[flat="false"] {
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+QGroupBox::title {
+  subcontrol-origin: margin;
+  margin: 4px 8px 4px 0px;
+  subcontrol-position: left top;
+}
+
+QGroupBox::title:focus,
+QGroupBox::title:hover {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QGroupBox::title:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+/******************** QLabel ***********************/
+
+QLabel {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+QLabel:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+/******************** QToolTip ********************/
+
+QToolTip {
+  border: 1px solid VS_COMMON_BORDER_COLOR_1;
+  background: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/******************** QCheckBox *******************/
+
+QCheckBox {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  height:24px;
+}
+
+QCheckBox:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QCheckBox:hover {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QCheckBox:focus {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+QGroupBox::indicator,
+QCheckBox::indicator {
+  width:16px;
+  height:16px;
+  border-radius: 3px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  margin-right: 3px;
+}
+
+QGroupBox::indicator:checked,
+QCheckBox::indicator:checked {
+  image: url(:/assets/icon/common/check-indicator.png);
+}
+
+QGroupBox::indicator:hover,
+QCheckBox::indicator:hover {
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QGroupBox::indicator:checked:disabled,
+QCheckBox::indicator:checked:disabled {
+  image: url(:/assets/icon/common/check-indicator-grey.png);
+}
+
+/***************** QRadioButton *************************/
+
+QRadioButton {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  height:24px;
+}
+
+QRadioButton:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QRadioButton:hover {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QRadioButton:focus {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+QRadioButton::indicator {
+  width:14px;
+  height:14px;
+  border-radius: 9px;
+  border:2px solid VS_COMMON_BORDER_COLOR_2;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  margin-right: 3px;
+}
+
+QRadioButton::indicator:hover {
+  border:2px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QRadioButton::indicator:checked {
+  image: url(:/assets/icon/common/radio-normal.png);
+}
+
+QRadioButton::indicator:checked:disabled {
+  image: url(:/assets/icon/common/radio-grey.png);
+}
+
+/***************** QPushButton and QToolButton ****************************/
+
+QPushButton,
+QToolButton {
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  height:24px;
+  border-radius:3px;
+}
+
+QPushButton:disabled,
+QToolButton:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QPushButton:hover,
+QToolButton:hover {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QPushButton:focus,
+QToolButton:focus {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+QPushButton:pressed,
+QToolButton:pressed {
+  background: VS_COMMON_BUTTON_COLOR_PRESSED;
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QPushButton:checked,
+QToolButton:checked {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border: 1px solid VS_COMMON_BORDER_COLOR_1;
+}
+
+QPushButton::menu-indicator {
+  image: url(:/assets/icon/common/dropdown-normal.png);
+  subcontrol-origin: padding;
+  subcontrol-position: center right;
+  padding-right: 5px;
+}
+
+QPushButton::menu-indicator:hover {
+  image: url(:/assets/icon/common/dropdown-hover.png);
+}
+
+QPushButton::menu-indicator:disabled {
+  image: url(:/assets/icon/common/dropdown-disabled.png);
+}
+
+/***************** QPushButton **************************/
+
+QPushButton[vs-button-action = "true"] {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  background: #262626;
+  border: none;
+}
+
+QPushButton[vs-button-action = "true"]:hover {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border:1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QPushButton[vs-button-action = "true"]:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+/**************** QLineEdit ***********************/
+
+QLineEdit {
+  background: transparent;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  height:24px;
+}
+
+QLineEdit:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QLineEdit:hover {
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QLineEdit:focus {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+/***************** QComboBox ************************/
+
+QComboBox {
+  background: transparent;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  padding-left: 2px;
+  height:24px;
+}
+
+QComboBox:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QComboBox:focus {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+QComboBox:hover {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QComboBox::down-arrow {
+  image: url(:/assets/icon/common/dropdown-normal.png);
+}
+
+QComboBox::down-arrow:hover {
+  image: url(:/assets/icon/common/dropdown-hover.png);
+}
+
+QComboBox::down-arrow:disabled {
+  image: url(:/assets/icon/common/dropdown-grey.png);
+}
+
+QComboBox::drop-down {
+  border: none;
+  padding-right: 2px;
+}
+
+QComboBox QAbstractItemView {
+  color:VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  selection-background-color: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  selection-color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  outline:none;
+  height: 24px;
+}
+
+/******************* QSlider ***********************/
+
+QSlider {
+  height:24px;
+}
+
+QSlider::groove:horizontal {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  height: 6px;
+}
+
+QSlider::handle:horizontal {
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_1;
+  width: 12px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+  border-radius: 6px;
+}
+
+QSlider::handle:hover {
+  background:VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QSlider::handle:disabled {
+  background: VS_COMMON_COLOR_DISABLE;
+}
+
+QSlider:focus {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  outline:none;
+}
+
+/****************** QSPinBox and QDoubleSpinBox ********************/
+QAbstractSpinBox {
+  text-align: right;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background: transparent; /* Needed for the arrows to be well displayed */
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  margin: 0px;
+  height: 24px;
+  padding-left: 2px;
+}
+
+QAbstractSpinBox:focus,
+QAbstractSpinBox:hover {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+}
+
+QAbstractSpinBox:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QAbstractSpinBox::down-button {
+  subcontrol-origin: border;
+  subcontrol-position: bottom right;
+  padding-bottom: 3px;
+}
+
+QAbstractSpinBox::up-button {
+  subcontrol-origin: border;
+  subcontrol-position: top right;
+  padding-top: 3px;
+}
+
+/*********************** QTabWidget and QTabBar ************************/
+
+QTabWidget::pane {
+  background: transparent;
+  border:1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  top:-1px;
+}
+
+QTabBar {
+  border:1px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+QTabBar::tab {
+  background:VS_COMMON_BACKGROUND_COLOR_DARKER;
+  height:30px;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  padding: 0px 15px 0px 15px;
+}
+
+QTabBar::tab:selected {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border-left: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border-right: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border-top: 4px solid VS_COMMON_FONT_COLOR_NORMAL;
+  border-bottom-color:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  padding: 0px 14px 0px 14px;
+  height: 26px;
+}
+
+QTabBar::tab:!selected:hover {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QTabBar::tab:disabled {
+ color:VS_COMMON_COLOR_DISABLE;
+}
+
+QTabBar::tab:selected:disabled {
+ border-top: 5px solid VS_COMMON_COLOR_DISABLE;
+ color:VS_COMMON_COLOR_DISABLE;
+}
+
+/********************  QListWidget ****************************/
+
+QListWidget {
+  background: transparent;
+  border:1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+QListWidget:item {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+  border:none;
+}
+
+QListWidget:item:hover {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+  border:none;
+}
+
+QListWidget:item:selected {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+  border:none;
+}
+
+QListWidget:item:focus {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+  outline:none;
+  background: none;
+  border:none;
+}
+
+QListWidget:item:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+/********************** QTreeWidget ****************************/
+
+QTreeWidget {
+  background: transparent;
+  border:1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+QTreeWidget:item {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background: transparent;
+}
+
+QTreeWidget:item:hover {
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QTreeView {
+  selection-background-color: transparent;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+QTreeView:item,
+QTreeView {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/******************** QTableView and QTableWidget ********************/
+
+QTableView {
+  min-width: 24px;
+  min-height: 24px;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  alternate-background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+QTableView::item {
+  border: none;
+  padding: 2px;
+  selection-color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  margin-top: 1px;
+}
+
+QTableView::item:focus,
+QTableView::item:selected {
+  color: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  background: VS_COMMON_COLOR_DISABLE;
+}
+
+QTableView QWidget:hover,
+QTableView QWidget {
+  background: transparent;
+}
+
+/********************* QDialog *****************************/
+
+QDialog {
+  background:VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+QDialog QPushButton {
+  padding-left:10px;
+  padding-right: 10px;
+}
+
+/********************* QDockWidget *****************************/
+
+QDockWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+QDockWidget::title {
+  text-align: left;
+  border: 0px;
+  border-bottom: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  margin: 0px;
+  padding-left: 12px;
+  padding-right: 0px;
+}
+
+QDockWidget:!disabled::title {
+  color:transparent;
+}
+
+QDockWidget::close-button,
+QDockWidget::float-button {
+  background: transparent;
+  border: none;
+  color:red;
+}
+
+QDockWidget::close-button:hover,
+QDockWidget::float-button:hover,
+QDockWidget::close-button:pressed,
+QDockWidget::float-button:pressed {
+  background: VS_COMMON_HIGHLIGHT_COLOR_NORMAL;
+}
+
+QMainWindow::separator:horizontal {
+  height: 3px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+QMainWindow::separator:vertical {
+   width: 3px;
+   background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+/********************** QMenu ******************************/
+
+QMenu {
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  padding: 2px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+QMenu::item {
+  padding: 4px 25px;
+  margin: 1px 0px;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+QMenu::item:selected {
+  background: VS_BORDER_COLOR1;
+  color:VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QMenu::item:disabled {
+  color: VS_COMMON_COLOR_DISABLE;
+}
+
+QMenu::item:selected:disabled {
+  background: transparent;
+}
+
+QMenu::separator {
+  height: 1px;
+  border-bottom: 1px solid VS_COMMON_BORDER_COLOR_1;
+  border-style: outset;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  margin: 2px 0px;
+}
+
+/******************** QMenuBar ********************/
+
+QMenuBar {
+  spacing: 3px;
+  border-bottom: 1px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+QMenuBar::item {
+  padding: 3px 8px;
+  margin: 4px 1px;
+  border-radius: 2px;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+QMenuBar::item:selected {
+  border: 1px solid VS_BORDER_COLOR1;
+}
+
+QMenuBar::item:hover {
+  color:red;
+}
+
+/***************** QTableWidget ************************/
+
+QTableWidget {
+  background: transparent;
+}
+
+QTableWidget:item {
+  color:VS_COMMON_FONT_COLOR_NORMAL;
+}
+
+/********************** QPlainTextEdit *********************/
+
+QPlainTextEdit {
+  background: transparent;
+  color:VS_COMMON_FONT_COLOR_NORMAL;
+  border:1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+/*********************** QUndoView ***********************/
+
+QUndoView {
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  border:1px solid VS_COMMON_BORDER_COLOR_2;
+}
+
+/******************** QStatusBar ********************/
+
+QStatusBar {
+  border-top: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  margin: 0px;
+  padding: 0px;
+  color:VS_COMMON_FONT_COLOR_NORMAL;
+  background: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+QStatusBar Qitem {
+  margin: 0px;
+  padding: 0px 10px;
+  border-left: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+QStatusBar::item {
+  border-right: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  margin: 0px;
+  padding: 0px 25px 0px 15px;
+}
+
+QStatusBar QLabel {
+  padding: 0px 10px 0px 10px;
+}
+
+/******************** QProgressBar ********************/
+
+QProgressBar {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  text-align: center;
+  max-height: 32px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border: 1px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+QProgressBar::chunk {
+  background: VS_COMMON_CONTRAST_COLOR_NORMAL;
+  padding: 0px;
+  margin: 0px;
+}
+
+QProgressBar::chunk[error="false"] {
+  background: VS_COMMON_CONTRAST_COLOR_NORMAL;
+}
+
+QProgressBar::chunk[error="true"] {
+  background: VS_COMMON_FONT_ERROR_COLOR;
+}
+
+/******************** QToolBar ********************/
+
+QToolBar {
+  border: 0px;
+  margin: 0px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border-bottom: 1px solid VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+/******************** QScrollBar ********************/
+
+QScrollBar::handle {
+}
+
+QScrollBar::add-page, QScrollBar::sub-page,
+QScrollBar::add-line, QScrollBar::sub-line {
+  width: 14px;
+  height: 14px;
+  border: none;
+}
+
+QScrollBar::add-line:horizontal {
+  subcontrol-position: right;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-line:vertical {
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar:left-arrow, QScrollBar::right-arrow,
+QScrollBar::up-arrow, QScrollBar::down-arrow {
+  width: 0px;
+  height: 0px;
+  background: VS_COMMON_BORDER_COLOR_1;
+}
+
+QScrollBar::handle:vertical:hover,
+QScrollBar::handle:horizontal:hover,
+QScrollBar:left-arrow:hover, QScrollBar::right-arrow:hover,
+QScrollBar::up-arrow:hover, QScrollBar::down-arrow:hover {
+  background: VS_COMMON_COLOR_HOVER;
+}
+
+/* Orientation dependent styles */
+QScrollBar:vertical {
+  width: 14px;
+  margin: 0px;
+  background: VS_COMMON_BORDER_COLOR_1;
+}
+
+QScrollBar::handle:vertical {
+  min-height: 25px;
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_2;
+}
+
+QScrollBar:horizontal {
+  height: 14px;
+  margin: 0px;
+  background: VS_COMMON_BORDER_COLOR_1;
+}
+
+QScrollBar::handle:horizontal {
+  min-width: 25px;
+  background: VS_COMMON_BUTTON_COLOR_NORMAL_2;
+}
+
+/******************** QHeaderView ********************/
+
+QHeaderView {
+  color: VS_COMMON_FONT_COLOR_NORMAL;
+  height: 24px;
+}
+
+QHeaderView::section:first {
+  border-left: 1px solid VS_BORDER_COLOR2;
+}
+
+QHeaderView::section {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+  padding-left: 4px;
+  border: 0px;
+  border-right: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  border-bottom: 1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  height:24px;
+}
+
+QHeaderView::section:first {
+  border-left: 1px solid VS_BORDER_COLOR2;
+}
+
+/******************* QTextEdit **********************/
+
+QTextEdit {
+  color:VS_COMMON_FONT_COLOR_NORMAL;
+  border: 1px solid VS_COMMON_BORDER_COLOR_2;
+  background: transparent;
+}
+
+/****************************************************
+*      Common widgets
+****************************************************/
+
+/************** WelcomeScreenWidget  **************/
+
+WelcomeScreenWidget {
+  background: transparent;
+}
+
+WelcomeScreenWidget QWidget#centralWidget {
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+WelcomeScreenWidget QFrame#frameBackground {
+  padding:50px;
+  padding-top:80px;
+  background: VS_COMMON_BACKGROUND_COLOR_DARKER;
+}
+
+WelcomeScreenWidget QLabel#labelLogo {
+  qProperty-pixmap: url(:/logos/logos/logo_white.png);
+  qProperty-text:"";
+}
+
+WelcomeScreenWidget QLabel#labelProductName {
+  font-size: 16px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+ProjectSelectionWidget QLabel#labelGetStartedIcon {
+  qProperty-pixmap: url(:/assets/icon/common/start.png);
+}
+
+ProjectSelectionWidget QLabel#labelDragIcon {
+  qProperty-pixmap: url(:/assets/icon/common/drop-grey.png);
+}
+
+ProjectSelectionWidget QLabel#labelDropIcon {
+  qProperty-pixmap: url(:/assets/icon/common/drop.png);
+}
+
+ProjectSelectionWidget QFrame#dropArea {
+  border:1px solid VS_COMMON_BACKGROUND_COLOR_DARKER;
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+ProjectSelectionWidget QListWidget {
+  border:none;
+}
+
+SoftwareHelpWidget QLabel#labelGetHelpIcon {
+  qProperty-pixmap: url(:/assets/icon/common/help.png);
+}
+
+SoftwareHelpWidget QLabel#labelFAQ {
+  qProperty-pixmap: url(:/assets/icon/common/help-grey.png);
+}
+
+SoftwareHelpWidget QLabel#labelYoutubeTutorial {
+  qProperty-pixmap: url(:/assets/icon/common/play-grey.png);
+}
+
+SoftwareHelpWidget QLabel#labelUserGuide {
+  qProperty-pixmap: url(:/assets/icon/common/book-grey.png);
+}
+
+SoftwareHelpWidget QLabel#labelSampleProjects {
+  qProperty-pixmap: url(:/assets/icon/common/samples-grey.png);
+}
+
+ProjectSelectionWidget QPushButton {
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+}
+
+ProjectSelectionWidget,
+SoftwareHelpWidget {
+  min-width: 400px;
+  padding: 20px;
+  padding-top: 10px;
+  border:1px solid #212121;
+  background-color: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+}
+
+ProjectSelectionWidget QLabel,
+SoftwareHelpWidget QLabel {
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+}
+
+ProjectSelectionWidget QLineEdit,
+SoftwareHelpWidget QLineEdit {
+  font-size: VS_COMMON_FONT_SIZE_NORMAL;
+}
+
+ProjectSelectionWidget QLabel#labelTitle,
+SoftwareHelpWidget QLabel#labelTitle {
+  font-size: VS_COMMON_FONT_SIZE_BIG;
+}
+
+/************  About Widget  ************/
+
+AboutWidget QLabel#labelLogo {
+  qProperty-pixmap: url(:/logos/logos/logo_white.png);
+}
+
+AboutWidget QLabel#labelAppVersion,
+AboutWidget QLabel#labelVSName {
+ font-size: 16px;
+}
+
+AboutWidget QLabel#labelThirdParty {
+  font-size: 12px;
+}
+
+/*************** Crop shape color *********************/
+CropShapeEditor {
+  qproperty-lineColor: VS_COMMON_HIGHLIGHT_COLOR_NORMAL;
+  qproperty-fillColor: VS_COMMON_HIGHLIGHT_COLOR_NORMAL;
+  qproperty-disableColor: VS_COMMON_BACKGROUND_COLOR_LIGHTER;
+}
+
+/*************** Grid color *********************/
+VideoWidget {
+  qproperty-gridColor: VS_COMMON_HIGHLIGHT_COLOR_DARKER;
+  qproperty-gridColorHighlight: VS_COMMON_HIGHLIGHT_COLOR_NORMAL;
+  qproperty-gridSizeX: 8;
+  qproperty-gridSizeY: 4;
+}
+

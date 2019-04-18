@@ -1,0 +1,334 @@
+{
+  "lib_version" : "v2.3.0-29682-g9d60981a4e", 
+  "buffer_frames" : 1, 
+  "merger" : {
+    "type" : "noblendv1"
+  }, 
+  "warper" : {
+    "type" : "no"
+  }, 
+  "flow" : {
+    "type" : "no"
+  }, 
+  "pano" : {
+    "width" : 2048, 
+    "height" : 1024, 
+    "hfov" : 360, 
+    "proj" : "equirectangular", 
+    "global_orientation" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "stabilization" : [
+      1,
+      0,
+      0,
+      0
+    ], 
+    "ev" : 0, 
+    "red_corr" : 1, 
+    "green_corr" : 1, 
+    "blue_corr" : 1, 
+    "calibration_cost" : -1, 
+    "spherescale" : 1.75, 
+    "inputs" : [
+      {
+        "reader_config" : "0_0.png", 
+        "group" : 0, 
+        "width" : 1920, 
+        "height" : 1440, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -56, 
+        "crop_right" : 2008, 
+        "crop_top" : -304, 
+        "crop_bottom" : 1760, 
+        "ev" : [
+          0,
+          0,
+          -0.309538,
+          3,
+          1,
+          -0.297039
+        ], 
+        "red_corr" : [
+          0,
+          0,
+          0.964143
+        ], 
+        "green_corr" : 1, 
+        "blue_corr" : [
+          0,
+          0,
+          1.03063
+        ], 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : -1.0353, 
+        "emor_b" : 1.36196, 
+        "emor_c" : 0.647458, 
+        "emor_d" : -0.262592, 
+        "emor_e" : 0.0643925, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "frame_offset" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 0, 
+            "pitch" : -18, 
+            "roll" : -90, 
+            "center_x" : -3.15, 
+            "center_y" : -4.66, 
+            "distort_a" : 0.2125, 
+            "distort_b" : -0.5864, 
+            "distort_c" : -0.0197, 
+            "horizontalFocal" : 1056.49, 
+            "verticalFocal" : 1056.08, 
+            "translation_x" : 0.011, 
+            "translation_y" : 0.0095, 
+            "translation_z" : 0.0328
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "0_1.png", 
+        "group" : 0, 
+        "width" : 1920, 
+        "height" : 1440, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -29, 
+        "crop_right" : 2007, 
+        "crop_top" : -315, 
+        "crop_bottom" : 1721, 
+        "ev" : [
+          0,
+          0,
+          -0.53106,
+          3,
+          1,
+          -0.514207
+        ], 
+        "red_corr" : [
+          0,
+          0,
+          0.977074
+        ], 
+        "green_corr" : 1, 
+        "blue_corr" : [
+          0,
+          0,
+          1.00837
+        ], 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : -1.0353, 
+        "emor_b" : 1.36196, 
+        "emor_c" : 0.647458, 
+        "emor_d" : -0.262592, 
+        "emor_e" : 0.0643925, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "frame_offset" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -179.84, 
+            "pitch" : -18.01, 
+            "roll" : -90.11, 
+            "center_x" : -0.18, 
+            "center_y" : 4.02, 
+            "distort_a" : 0.2293, 
+            "distort_b" : -0.6062, 
+            "distort_c" : -0.0074, 
+            "horizontalFocal" : 1063.93, 
+            "verticalFocal" : 1063.39, 
+            "translation_x" : -0.0323, 
+            "translation_y" : -0.0082, 
+            "translation_z" : -0.1013
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "1_0.png", 
+        "group" : 0, 
+        "width" : 1920, 
+        "height" : 1440, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -55, 
+        "crop_right" : 2023, 
+        "crop_top" : -322, 
+        "crop_bottom" : 1756, 
+        "ev" : [
+          0,
+          0,
+          0.42404,
+          3,
+          1,
+          0.420347
+        ], 
+        "red_corr" : [
+          0,
+          0,
+          1.04191
+        ], 
+        "green_corr" : 1, 
+        "blue_corr" : [
+          0,
+          0,
+          0.971409
+        ], 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : -1.0353, 
+        "emor_b" : 1.36196, 
+        "emor_c" : 0.647458, 
+        "emor_d" : -0.262592, 
+        "emor_e" : 0.0643925, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "frame_offset" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : -89.65, 
+            "pitch" : 17.99, 
+            "roll" : 90.05, 
+            "center_x" : 3.04, 
+            "center_y" : -2.41, 
+            "distort_a" : 0.2456, 
+            "distort_b" : -0.627, 
+            "distort_c" : -0.004, 
+            "horizontalFocal" : 1069.23, 
+            "verticalFocal" : 1068.78, 
+            "translation_x" : -0.0115, 
+            "translation_y" : -0.0709, 
+            "translation_z" : -0.0423
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      },
+      {
+        "reader_config" : "1_1.png", 
+        "group" : 0, 
+        "width" : 1920, 
+        "height" : 1440, 
+        "mask_data" : "", 
+        "no_delete_masked_pixels" : false, 
+        "proj" : "circular_fisheye_opt", 
+        "crop_left" : -63, 
+        "crop_right" : 1973, 
+        "crop_top" : -318, 
+        "crop_bottom" : 1718, 
+        "ev" : [
+          0,
+          0,
+          0.416558,
+          3,
+          1,
+          0.390898
+        ], 
+        "red_corr" : [
+          0,
+          0,
+          1.01883
+        ], 
+        "green_corr" : 1, 
+        "blue_corr" : [
+          0,
+          0,
+          0.990551
+        ], 
+        "response" : "emor", 
+        "useMeterDistortion" : true, 
+        "emor_a" : -1.0353, 
+        "emor_b" : 1.36196, 
+        "emor_c" : 0.647458, 
+        "emor_d" : -0.262592, 
+        "emor_e" : 0.0643925, 
+        "gamma" : 1, 
+        "vign_a" : 1, 
+        "vign_b" : 0, 
+        "vign_c" : 0, 
+        "vign_d" : 0, 
+        "vign_x" : 0, 
+        "vign_y" : 0, 
+        "frame_offset" : 0, 
+        "synchro_cost" : -1, 
+        "stack_order" : 0, 
+        "geometries" : [
+          0,
+          0,
+          {
+            "yaw" : 90.15, 
+            "pitch" : 18.2, 
+            "roll" : 90.02, 
+            "center_x" : 4.66, 
+            "center_y" : 0.79, 
+            "distort_a" : 0.2319, 
+            "distort_b" : -0.6121, 
+            "distort_c" : -0.0075, 
+            "horizontalFocal" : 1059.25, 
+            "verticalFocal" : 1058.86, 
+            "translation_x" : -0.0057, 
+            "translation_y" : 0.0703, 
+            "translation_z" : -0.0266
+          }
+        ], 
+        "video_enabled" : true, 
+        "audio_enabled" : false
+      }
+    ], 
+    "merger_mask" : {
+      "width" : 0, 
+      "height" : 0, 
+      "enable" : false, 
+      "interpolationEnabled" : false, 
+      "inputScaleFactor" : 2, 
+      "masks" : []
+    }, 
+    "calibration_control_points" : {}
+  }, 
+  "first_frame" : 0, 
+  "last_frame" : 2147483646, 
+  "output" : {
+    "type" : "jpg", 
+    "filename" : "noblend-out"
+  }
+}

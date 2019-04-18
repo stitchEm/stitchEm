@@ -1,0 +1,111 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             wifi_cli_ap_conf
+# Required-Start:       
+# Required-Stop:        
+# Should-Start:         
+# Should-Stop:
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Script for configuring wifi in client and ap mode 
+# Description:          Script for configuring wifi in client and ap mode
+#                       for the VS stitching box
+### END INIT INFO
+
+
+#Manage iface
+check_iface(){
+	EXIST= `grep wlan0_cli /proc/net/dev`
+	if [ -z $EXIST ]
+	then
+		iw dev wlan0 interface add wlan0_cli type station
+		iw dev wlan0 interface add wlan0_ap type __ap
+	fi
+	ip link set wlan0 down
+}
+
+start_client(){
+	WPA_EXIST= pidof wpa_supplicant
+	if [ -z $WPA_EXIST ]
+	then
+		/sbin/wpa_supplicant -B -i wlan0_cli -c "${1:-/etc/wpa_supplicant/wpa_supplicant.conf}"
+	fi
+
+	DHC_EXIT= pidof dhclient
+	if [ -z $DH_EXIST ]
+	then
+		/sbin/dhclient wlan0_cli
+	fi
+}
+
+
+stop_client(){
+	pidof dhclient | xargs kill
+	pidof wpa_supplicant | xargs kill
+	iw dev wlan0_cli del
+}
+
+start_ap(){
+	HOSTAP_EXIST= pidof hostapd
+	if [ -z $HOSTAP_EXIST ]
+	then
+		/usr/sbin/hostapd -B "${1:-/etc/hostapd/hostapd.conf}"
+	fi
+	ip addr add 10.0.6.1/24 dev wlan0_ap
+	/etc/init.d/isc-dhcp-server start
+}
+
+stop_ap(){
+	/etc/init.d/isc-dhcp-server stop
+	pidof hostapd | xargs kill
+	iw dev wlan0_ap del
+}
+
+enable_routing(){
+	echo "1" > /proc/sys/net/ipv4/ip_forward
+	/sbin/iptables -t nat -A POSTROUTING -o wlan0_cli -j MASQUERADE
+	/sbin/iptables -A FORWARD -i wlan0_ap -j ACCEPT
+}
+
+case "$1" in
+  start)
+	check_iface        
+	start_ap "$2"
+	#start_client "$3"
+	#enable_routing
+        ;;
+  stop)
+        stop_ap
+	stop_client
+        ;;
+  restart | force-reload)
+	;;
+
+   start-client)
+	check_iface
+	start_client "$2"
+	;;
+   stop-client)
+	stop_client
+	;;
+   start-ap)
+	check_iface
+	start_ap "$2"
+	;;
+   stop-ap)
+	stop_ap
+	;;
+   enable-routing)
+	check_iface
+	start_client
+	start_ap
+	enable_routing
+	;;
+  *)
+        echo "Usage: bootlogs [start|stop|restart|force-reload|start-client|stop-client|start-ap|stop-ap|enable-routing]" >&2
+        exit 3
+        ;;
+esac
+
+

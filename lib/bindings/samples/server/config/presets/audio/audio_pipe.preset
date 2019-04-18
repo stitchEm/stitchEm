@@ -1,0 +1,84 @@
+{
+  "audio_pipe": {
+    "sampling_rate": 44100,
+    "block_size": 512,
+    "audio_inputs": [
+      {
+        "name": "camera",
+        "master": true,
+        "sources": [
+          {
+            "reader_id": 0,
+            "channel": 0
+          },
+          {
+            "reader_id": 0,
+            "channel": 1
+          },
+          {
+            "reader_id": 2,
+            "channel": 0
+          },
+          {
+            "reader_id": 2,
+            "channel": 1
+          }
+        ]
+      },
+      {
+        "name": "portaudio",
+        "sources": [
+          {
+            "reader_id": 4,
+            "channel" : 0
+          },
+          {
+            "reader_id": 4,
+            "channel" : 1
+          }
+        ]
+      }
+    ],
+    "audio_mixes": [
+      {
+        "name": "camera",
+        "inputs": [
+           "camera"
+        ]
+      },
+      {
+        "name": "portaudio",
+        "inputs": [
+           "portaudio"
+        ]
+      }
+    ],
+    "audio_processors": [
+      {
+        "name": "delay",
+        "params": [
+          {
+            "input": "portaudio",
+            "delay": 0
+          }
+        ]
+      },
+      {
+        "name": "orah2b",
+        "params": [
+          {
+            "input": "camera"
+          }
+        ]
+      },
+      {
+        "name": "ambRotator",
+        "params": [
+          {
+            "input": "camera"
+          }
+        ]
+      }
+    ]
+  }
+}
