@@ -29,15 +29,33 @@ cmake -DCREATE_BOX_PACKAGE=OFF \
 
 ```
 # Installing the dependencies on Ubuntu:
-sudo apt install bison clang-tools cmake doxygen flex \
-                 libceres-dev libeigen3-dev libglm-dev \
-                 libfaac-dev libfaad-dev \
-                 libglew-dev libglfw3-dev \
-                 libmp3lame-dev libopencv-dev libopenexr-dev \
-                 libportaudio-ocaml-dev librtmp-dev libturbojpeg0-dev \
-                 libx264-dev ninja-build portaudio19-dev \
-                 qt5-default qtmultimedia5-dev qttools5-dev libpng-dev \
-                 libmp3lame-dev libx264-dev libportaudio-ocaml-dev libfaad-dev swig
+sudo apt install
+  bison \
+  clang-tools \
+  cmake \
+  doxygen \
+  flex \
+  libceres-dev \
+  libeigen3-dev \
+  libfaac-dev \
+  libfaad-dev \
+  libglew-dev \
+  libglfw3-dev \
+  libglm-dev \
+  libmp3lame-dev \
+  libopencv-dev \
+  libopenexr-dev \
+  libpng-dev \
+  libportaudio-ocaml-dev \
+  librtmp-dev \
+  libturbojpeg0-dev \
+  libx264-dev \
+  ninja-build \
+  portaudio19-dev \
+  qt5-default \
+  qtmultimedia5-dev \
+  qttools5-dev \
+  swig
 
 # Set up gcc-6 and g++-6 as your compiler
 sudo apt-get install gcc-6 g++-6

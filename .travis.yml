@@ -1,0 +1,16 @@
+dist: xenial
+
+services:
+  - docker
+
+matrix:
+  include:
+    - name: CUDA 8
+      script:
+        - docker build --tag stitchem-cuda8:latest --file docker/ci.dockerfile --build-arg version=8 .
+    - name: CUDA 9
+      script:
+        - docker build --tag stitchem-cuda9:latest --file docker/ci.dockerfile --build-arg version=9 .
+    - name: CUDA 10
+      script:
+        - docker build --tag stitchem-cuda10:latest --file docker/ci.dockerfile --build-arg version=10 .
