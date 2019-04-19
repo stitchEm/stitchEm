@@ -36,7 +36,7 @@ sudo apt install bison clang-tools cmake doxygen flex \
                  libmp3lame-dev libopencv-dev libopenexr-dev \
                  libportaudio-ocaml-dev librtmp-dev libturbojpeg0-dev \
                  libx264-dev ninja-build portaudio19-dev \
-                 qt5-default qtmultimedia5-dev qttools5-dev \
+                 qt5-default qtmultimedia5-dev qttools5-dev libpng-dev \
                  libmp3lame-dev libx264-dev libportaudio-ocaml-dev libfaad-dev swig
 
 # Set up gcc-6 and g++-6 as your compiler
