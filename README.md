@@ -1,3 +1,12 @@
+[license-badge]: https://img.shields.io/badge/license-MIT-green.svg
+[license-link]: https://opensource.org/licenses/MIT
+
+[travis-badge]: https://img.shields.io/travis/stitchEm/stitchEm/master.svg?label=Build
+[travis-link]: https://travis-ci.org/stitchEm/stitchEm
+
+[![License][license-badge]][license-link]
+[![Build][travis-badge]][travis-link]
+
 Vahana VR & VideoStitch Studio: software to create immersive 360° VR video, live and in post-production.
 
 The software was originally developed by VideoStitch SAS. After the company folded in early 2018, the source code was acquired by the newly founded non-profit organization stitchEm, to publish it under a free software license.
