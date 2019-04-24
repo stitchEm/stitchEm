@@ -1,6 +1,6 @@
 if(DISABLE_JPEG)
   return()
-endif(DISABLE_JPEG)
+endif()
 
 set(SOURCE_FILES
     src/export.cpp
@@ -14,9 +14,9 @@ set(HEADER_FILES
 
 if(WINDOWS)
   set(PLUGIN_NAME jpg)
-else(WINDOWS)
+else()
   set(PLUGIN_NAME jpgPlugin)
-endif(WINDOWS)
+endif()
 
 vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET_OBJECTS:common>)
 
@@ -37,21 +37,24 @@ if(LINUX)
   endif()
 elseif(APPLE_MACPORTS)
   find_library(JPEG NAMES jpeg PATHS /opt/local/lib)
+elseif(APPLE_BREW)
+  find_library(JPEG NAMES jpeg PATHS /usr/local/lib)
 else()
   find_library(TURBO_JPEG NAMES turbojpeg turbojpeg.0 PATHS "${CMAKE_EXTERNAL_DEPS}/lib/libjpeg-turbo" NO_DEFAULT_PATH)
   find_library(JPEG NAMES jpeg jpeg.62 PATHS "${CMAKE_EXTERNAL_DEPS}/lib/libjpeg-turbo" NO_DEFAULT_PATH)
-endif(LINUX)
+endif()
 
 if(APPLE_MACPORTS)
   target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE /opt/local/include)
+elseif(APPLE_BREW)
+  target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE /usr/local/include)
 else()
   target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/libjpeg-turbo")
 endif()
 
-if(APPLE_MACPORTS OR LINUX_PKG)
+if(APPLE_MACPORTS OR LINUX_PKG OR APPLE_BREW)
   target_link_libraries(${PLUGIN_NAME} PRIVATE ${JPEG} ${VS_DISCOVERY})
 else()
   target_link_libraries(${PLUGIN_NAME} PRIVATE ${TURBO_JPEG} ${JPEG} ${VS_DISCOVERY})
 endif()
 link_target_to_libvideostitch(${PLUGIN_NAME})
-

@@ -67,15 +67,13 @@ set(CL_BACKEND_SOURCES
 
 if(NOT ANDROID)
   find_package(OpenCL REQUIRED)
-
   if(WINDOWS)
     find_library(GLEW NAMES glew32s PATHS ${CMAKE_EXTERNAL_DEPS}/lib/GL NO_DEFAULT_PATH)
-  else(WINDOWS)
+  else()
     find_package(GLEW REQUIRED)
-  endif(WINDOWS)
-
+  endif()
   find_package(OpenGL REQUIRED)
-endif(NOT ANDROID)
+endif()
 
 message(STATUS "--- OpenCL GPU backend ---")
 message(STATUS "OpenCL version: ${OpenCL_VERSION_STRING}")

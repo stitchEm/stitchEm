@@ -1,6 +1,6 @@
 if(DISABLE_AV)
   return()
-endif(DISABLE_AV)
+endif()
 
 set(SOURCE_FILES
     src/avWriter.cpp
@@ -37,8 +37,8 @@ function(setup_av_plugin PLUGIN_NAME BACKEND_NAME USE_CUDA)
       set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP} ${VS_GPU_PLUGIN_DIR_${OUTPUTCONFIG_UP}})
       set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP} ${VS_GPU_PLUGIN_DIR_${OUTPUTCONFIG_UP}})
       set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP} ${VS_GPU_PLUGIN_DIR_${OUTPUTCONFIG_UP}})
-    endforeach(OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES)
-  endif(WINDOWS)
+    endforeach()
+  endif()
 
   vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET_OBJECTS:common> $<TARGET_OBJECTS:format_cuda_${USE_CUDA}>)
   include_lib_vs_headers(${PLUGIN_NAME})
@@ -61,6 +61,8 @@ function(setup_av_plugin PLUGIN_NAME BACKEND_NAME USE_CUDA)
   set(FFMPEG_INCLUDE_PATH ${CMAKE_EXTERNAL_DEPS}/include/ffmpeg)
   if(APPLE_MACPORTS)
     set(FFMPEG_INCLUDE_PATH /opt/local/include)
+  elseif(APPLE_BREW)
+    set(FFMPEG_INCLUDE_PATH /usr/local/include)
   endif()
 
   target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE ${FFMPEG_INCLUDE_PATH})
@@ -105,10 +107,9 @@ if(WINDOWS)
   if(GPU_BACKEND_OPENCL)
     setup_av_plugin("av_opencl" "opencl" "OFF")
   endif()
-else(WINDOWS)
+else()
   setup_av_plugin("avPlugin" "" ${GPU_BACKEND_CUDA})
-endif(WINDOWS)
+endif()
 
 # make I/O plugin list available to parent CMake project
 set(VS_IO_LIBRARIES ${VS_IO_LIBRARIES} PARENT_SCOPE)
-

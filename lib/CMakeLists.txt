@@ -362,17 +362,17 @@ set(CORE_LIB_SOURCES
     )
 
 if(NOT ANDROID)
-set(CORE_LIB_SOURCES
-    ${CORE_LIB_SOURCES}
-    src/overlay/overlayer.cpp
-)
-if(NOT DISABLE_EXR)
-set(CORE_LIB_SOURCES
-    ${CORE_LIB_SOURCES}
-    src/util/exrutil.cpp
-    )
+  set(CORE_LIB_SOURCES
+      ${CORE_LIB_SOURCES}
+      src/overlay/overlayer.cpp
+  )
+  if(NOT DISABLE_EXR)
+    set(CORE_LIB_SOURCES
+        ${CORE_LIB_SOURCES}
+        src/util/exrutil.cpp
+        )
+  endif()
 endif()
-endif(NOT ANDROID)
 
 set(CORE_LIB_HEADERS
     src/audio/asrc.hpp
