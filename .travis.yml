@@ -1,16 +1,52 @@
-dist: xenial
-
-services:
-  - docker
+language: cpp
 
 matrix:
   include:
-    - name: CUDA 8
+    - name: OpenCL macOS
+      os: osx
+      addons:
+        homebrew:
+          update: true
+          packages:
+            - bison
+            - ceres-solver
+            - CMake
+            - doxygen
+            - faac
+            - faad2
+            - ffmpeg
+            - glew
+            - glfw
+            - glm
+            - jpeg
+            - libpng
+            - libtiff
+            - ninja
+            - opencv@3
+            - qt
+            - yasm
+      before_install:
+        - export PATH="/usr/local/opt/bison/bin:${PATH}"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -DCREATE_BOX_PACKAGE=OFF -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DAPPLE_BREW=ON -DQt5_DIR=/usr/local/opt/qt/lib/cmake/Qt5 -G Ninja ..
+        - ninja
+    - name: CUDA 8 Linux
+      dist: xenial
+      services:
+        - docker
       script:
         - docker build --tag stitchem-cuda8:latest --file docker/ci.dockerfile --build-arg version=8 .
-    - name: CUDA 9
+    - name: CUDA 9 Linux
+      dist: xenial
+      services:
+        - docker
       script:
         - docker build --tag stitchem-cuda9:latest --file docker/ci.dockerfile --build-arg version=9 .
-    - name: CUDA 10
+    - name: CUDA 10 Linux
+      dist: xenial
+      services:
+        - docker
       script:
         - docker build --tag stitchem-cuda10:latest --file docker/ci.dockerfile --build-arg version=10 .
