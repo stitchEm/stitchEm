@@ -84,18 +84,13 @@ if(APPLE)
 endif(APPLE)
 
 if(LINUX)
-  if(LINUX_PKG)
-    if(NOT EXISTS ${CMAKE_SOURCE_DIR}/external_deps/include/clangcl/opencl_spir.h)
-      file (DOWNLOAD https://raw.githubusercontent.com/KhronosGroup/SPIR-Tools/9c498a665a08db583c61fd34b9e2486978c2431b/headers/opencl_spir.h ${CMAKE_SOURCE_DIR}/external_deps/include/clangcl/opencl_spir.h)
-    endif()
-    find_program(OPENCL_OFFLINE_COMPILER clang
-                 DOC "OpenCL offline compiler to build spir files from kernel sources")
-    if(NOT OPENCL_OFFLINE_COMPILER)
-      message(FATAL_ERROR "openCL compiler (CLANG) not found")
-    endif()
-  else()
-	  find_program(OPENCL_OFFLINE_COMPILER ${CMAKE_EXTERNAL_DEPS}/lib/clang
-                       DOC "OpenCL offline compiler to build spir files from kernel sources")
+  if(NOT EXISTS ${CMAKE_SOURCE_DIR}/external_deps/include/clangcl/opencl_spir.h)
+    file (DOWNLOAD https://raw.githubusercontent.com/KhronosGroup/SPIR-Tools/9c498a665a08db583c61fd34b9e2486978c2431b/headers/opencl_spir.h ${CMAKE_SOURCE_DIR}/external_deps/include/clangcl/opencl_spir.h)
+  endif()
+  find_program(OPENCL_OFFLINE_COMPILER clang
+               DOC "OpenCL offline compiler to build spir files from kernel sources")
+  if(NOT OPENCL_OFFLINE_COMPILER)
+    message(FATAL_ERROR "openCL compiler (CLANG) not found")
   endif()
 elseif(ANDROID)
   find_program(OPENCL_OFFLINE_COMPILER ${ANDROID_CLANG_TOOLCHAIN_ROOT}/bin/clang
