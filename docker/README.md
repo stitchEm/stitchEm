@@ -16,7 +16,7 @@ To avoid rebuilding an entire docker container at each build, we use base images
 
 * Push your changes, create PR and merge it in master
 * Ask for the rights to https://hub.docker.com/r/stitchem/stitchem-base-cudax
-* Build the image locally: `docker build --tag stitchem/stitchem-base-cudax:latest --file docker/base.dockerfile .`
+* Build the image locally: `docker build --tag stitchem/stitchem-base-cudax:latest --file docker/base_cuda_x.dockerfile .`
 * Push the image: `docker push stitchem/stitchem-base-cudax:latest`
 
 ## Modifying CI image (ci.dockerfile)
