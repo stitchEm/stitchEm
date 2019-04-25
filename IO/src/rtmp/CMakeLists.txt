@@ -105,6 +105,21 @@ endif(RTMP_QUICKSYNC)
 
 
 if(RTMP_NVENC)
+
+  include(FetchContent)
+  FetchContent_Declare(
+    nvenc_api
+    GIT_REPOSITORY https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+  )
+
+
+  FetchContent_GetProperties(nvenc_api)
+  if(NOT nvenc_api_POPULATED)
+    FetchContent_Populate(nvenc_api)
+    include_directories(${nvenc_api_SOURCE_DIR}/include/ffnvcodec/)
+  endif()
+
+
   set(SOURCE_FILES
       ${SOURCE_FILES}
       src/cuvid.cpp
