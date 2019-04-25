@@ -106,6 +106,7 @@ endif(RTMP_QUICKSYNC)
 
 if(RTMP_NVENC)
 
+if(LINUX)
   include(FetchContent)
   FetchContent_Declare(
     nvenc_api
@@ -119,7 +120,7 @@ if(RTMP_NVENC)
     FetchContent_Populate(nvenc_api)
     include_directories(${nvenc_api_SOURCE_DIR}/include/ffnvcodec/)
   endif()
-
+endif()
 
   set(SOURCE_FILES
       ${SOURCE_FILES}
