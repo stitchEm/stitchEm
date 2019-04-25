@@ -59,9 +59,9 @@ function(setup_av_plugin PLUGIN_NAME BACKEND_NAME USE_CUDA)
   set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
   set(FFMPEG_INCLUDE_PATH ${CMAKE_EXTERNAL_DEPS}/include/ffmpeg)
-  if(APPLE_MACPORTS)
+  if(MACPORTS)
     set(FFMPEG_INCLUDE_PATH /opt/local/include)
-  elseif(APPLE_BREW)
+  else()
     set(FFMPEG_INCLUDE_PATH /usr/local/include)
   endif()
 

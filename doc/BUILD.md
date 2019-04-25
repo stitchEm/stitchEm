@@ -18,7 +18,6 @@ sudo port install opencv glew gsed jpeg libpng openal \
 ```
 cmake -DCREATE_BOX_PACKAGE=OFF \
       -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
-      -DAPPLE_MACPORTS=ON \
       -DQt5_DIR=~/Qt/5.9.6/clang_64/lib/cmake/Qt5 \
       -G Ninja \
       stitchEm
@@ -117,4 +116,7 @@ cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
 | Option               | Default   | Usage                                                                                                                |
 |:---------------------|:----------|:---------------------------------------------------------------------------------------------------------------------|
 | Qt5_DIR              | undefined | Qt5 install path                                                                                                |
-
+### macOS
+| Option               | Default   | Usage                                                                                                                |
+|:---------------------|:----------|:---------------------------------------------------------------------------------------------------------------------|
+| MACPORTS       | ON | ON if you want to use MacPorts, OFF to use Homebrew |
