@@ -90,6 +90,7 @@ endif( NOT NO_CCACHE )
 # ----------------------------------------------------------------------------
 if(APPLE)
   message(STATUS "System: APPLE")
+  option(MACPORTS "Use MacPorts, OFF uses Homebrew" ON)
 endif(APPLE)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Android")
