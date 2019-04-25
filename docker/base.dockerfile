@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -y \
   bison \
+  ccache \
   doxygen \
   flex \
   git \

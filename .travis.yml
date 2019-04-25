@@ -1,4 +1,5 @@
 language: cpp
+cache: ccache
 
 matrix:
   include:
@@ -9,6 +10,7 @@ matrix:
           update: true
           packages:
             - bison
+            - ccache
             - ceres-solver
             - CMake
             - doxygen
@@ -26,7 +28,7 @@ matrix:
             - qt
             - yasm
       before_install:
-        - export PATH="/usr/local/opt/bison/bin:${PATH}"
+        - export PATH="/usr/local/opt/bison/bin:/usr/local/opt/ccache/libexec:${PATH}"
       script:
         - mkdir build
         - cd build
@@ -36,17 +38,26 @@ matrix:
       dist: xenial
       services:
         - docker
-      script:
+      before_script:
         - docker build --tag stitchem-cuda8:latest --file docker/ci.dockerfile --build-arg version=8 .
+        - docker create -v ${HOME}/.ccache:/ccache --name ccache stitchem-cuda8:latest
+      script:
+        - docker run --env CCACHE_DIR=/ccache --volumes-from ccache stitchem-cuda8:latest
     - name: CUDA 9 Linux
       dist: xenial
       services:
         - docker
-      script:
+      before_script:
         - docker build --tag stitchem-cuda9:latest --file docker/ci.dockerfile --build-arg version=9 .
+        - docker create -v ${HOME}/.ccache:/ccache --name ccache stitchem-cuda9:latest
+      script:
+        - docker run --env CCACHE_DIR=/ccache --volumes-from ccache stitchem-cuda9:latest
     - name: CUDA 10 Linux
       dist: xenial
       services:
         - docker
-      script:
+      before_script:
         - docker build --tag stitchem-cuda10:latest --file docker/ci.dockerfile --build-arg version=10 .
+        - docker create -v ${HOME}/.ccache:/ccache --name ccache stitchem-cuda10:latest
+      script:
+        - docker run --env CCACHE_DIR=/ccache --volumes-from ccache stitchem-cuda10:latest
