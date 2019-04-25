@@ -6,4 +6,4 @@ WORKDIR stitchEm
 RUN echo ${CUDA_SHORT} > cuda.version
 WORKDIR build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DLINUX_PKG=ON -DRTMP_NVENC=OFF -DCUDA_TARGET_ARCH="50" -G Ninja ..
-RUN ninja
+CMD ninja
