@@ -159,7 +159,7 @@ else(STAGING)
   endif()
 
   # removes the cache dir which is used by other tests
-  add_vs_test_arg(DirUtilsTest dirutilstest.cpp "cmd" "")
+  add_vs_test_arg(DirUtilsTest dirutilstest.cpp "lib" "")
 
   #unit tests that doesn't link with the lib but compiles needed parts of it
 
@@ -174,10 +174,10 @@ else(STAGING)
   endif(WINDOWS)
 
   # loads large images, not fast enough to be unit test
-  add_vs_test_arg(CompressionTest compressionTest.cpp "cmd" "")
+  add_vs_test_arg(CompressionTest compressionTest.cpp "lib" "")
 
   # can't run in parallel
-  add_vs_test_arg(ReaderControllerAsyncTest readerControllerAsyncTest.cpp "cmd gpu" "")
+  add_vs_test_arg(ReaderControllerAsyncTest readerControllerAsyncTest.cpp "lib slow gpu" "")
 
   if(NOT LINUX OR ${GPU_BACKEND_DEFAULT} STREQUAL CUDA)
     # VSA-7248
@@ -209,15 +209,15 @@ else(STAGING)
     add_vs_lib_gpu_test(SpaceTransformTest spaceTransformTest.cpp)
     add_vs_lib_gpu_test(ProcessorsTest processorsTest.cpp)
 
-    add_vs_test_arg(ContourMatchingTest contourMatchingTest.cpp "cmd gpu" "" ${OpenCV_LIBRARIES})
-    add_vs_test_arg(CoordTransformTest coordTransformTest.cpp "cmd gpu" "")
-    add_vs_test_arg(MaskInterpolationTest maskInterpolationTest.cpp "cmd gpu" "")
+    add_vs_test_arg(ContourMatchingTest contourMatchingTest.cpp "lib slow gpu" "" ${OpenCV_LIBRARIES})
+    add_vs_test_arg(CoordTransformTest coordTransformTest.cpp "lib slow gpu" "")
+    add_vs_test_arg(MaskInterpolationTest maskInterpolationTest.cpp "lib slow gpu" "")
 
   endif(${GPU_BACKEND_DEFAULT} STREQUAL CUDA)
 
   set(OrahAudioSyncTest_Example ${VS_ASSETS}/orah_audio/test.wav)
   if(EXISTS ${OrahAudioSyncTest_Example})
-    add_vs_test_arg(OrahAudioSyncTest orahAudioSyncTest.cpp "unit" ${OrahAudioSyncTest_Example})
+    add_vs_test_arg(OrahAudioSyncTest orahAudioSyncTest.cpp "lib" ${OrahAudioSyncTest_Example})
   endif()
 
 endif(STAGING)
