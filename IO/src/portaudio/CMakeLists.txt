@@ -14,9 +14,9 @@ set(HEADER_FILES
 
 if(WINDOWS)
   set(PLUGIN_NAME portaudio)
-else(WINDOWS)
+else()
   set(PLUGIN_NAME portaudioPlugin)
-endif(WINDOWS)
+endif()
 
 vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET_OBJECTS:common>)
 
@@ -28,15 +28,11 @@ target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/portaudio)
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
-if (WINDOWS)
+if(WINDOWS)
   find_library(PORTAUDIO NAMES "portaudio_x64" PATHS ${CMAKE_EXTERNAL_DEPS}/lib/portaudio REQUIRED)
-else(WINDOWS)
-  if(LINUX_PKG)
-    find_library(PORTAUDIO NAMES "portaudio" REQUIRED)
-  else(LINUX_PKG)
-    find_library(PORTAUDIO NAMES "portaudio" PATHS ${CMAKE_EXTERNAL_DEPS}/lib REQUIRED NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
-  endif(LINUX_PKG)
-endif(WINDOWS)
+else()
+  find_library(PORTAUDIO NAMES "portaudio" REQUIRED)
+endif()
 
 # FIXME: portAudioReader.cpp
 if(COMPILER_GCC)

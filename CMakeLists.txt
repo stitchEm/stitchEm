@@ -212,8 +212,8 @@ endif(NOT CMAKE_EXTERNAL_DEPS)
 set(CMAKE_EXTERNAL_LIB "${CMAKE_EXTERNAL_DEPS}/lib")
 set(CMAKE_EXTERNAL_INCLUDE "${CMAKE_EXTERNAL_DEPS}/include")
 
-if(NOT EXISTS ${CMAKE_EXTERNAL_DEPS} AND NOT APPLE_MACPORTS AND NOT APPLE_BREW AND NOT LINUX_PKG)
-  message(FATAL_ERROR "external_deps folder not found and no system package manager set")
+if(NOT EXISTS ${CMAKE_EXTERNAL_DEPS} AND WINDOWS)
+  message(FATAL_ERROR "external_deps folder not found")
 endif()
 
 # ----------------------------------------------------------------------------

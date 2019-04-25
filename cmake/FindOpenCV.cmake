@@ -12,7 +12,7 @@ endif()
 
 
 if(LINUX OR ANDROID)
-  if(LINUX_PKG)
+  if(LINUX)
     find_library(OpenCV_CORE_LIBS NAMES "opencv_core")
     find_library(OpenCV_CALIB_LIBS NAMES "opencv_calib3d")
     find_library(OpenCV_FEATURES_LIBS NAMES "opencv_features2d")

@@ -215,7 +215,7 @@ set(CMAKE_SWIG_FLAGS "${SWIG_FLAGS}" "-modern" "-builtin")
 if(APPLE)
   # using MacPorts glfw for now
   find_library(glfw glfw HINTS "/opt/local/lib" REQUIRED NO_DEFAULT_PATH)
-elseif(LINUX_PKG)
+elseif(LINUX)
   find_library(glfw glfw REQUIRED)
 else()
   find_library(glfw glfw HINTS "${CMAKE_EXTERNAL_LIB}" REQUIRED NO_DEFAULT_PATH)

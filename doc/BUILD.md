@@ -72,7 +72,6 @@ export CXX=g++-6
 # Install CUDA: https://developer.nvidia.com/cuda-90-download-archive
 
 cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
-      -DLINUX_PKG=ON \
       -G Ninja \
       stitchEm
 ```
