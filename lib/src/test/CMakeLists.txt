@@ -37,13 +37,6 @@ function(add_vs_unit_test test_name test_file)
   add_vs_test_arg(${test_name} ${test_file} "unit" "" ${ARGN})
 endfunction()
 
-#unit test compiling parts of the lib
-function(add_vs_unit_test_independant test_name test_file)
-  set(ADDITIONAL_SOURCES ${ARGN})
-  set(NO_VS_LIB_LINK YES)
-  add_vs_test_arg(${test_name} ${test_file} "unit" "")
-endfunction()
-
 # All trailing arguments are libs to link
 function(add_vs_test_arg test_name test_file test_labels test_args)
   add_executable (${test_name} ${test_file} ${ADDITIONAL_SOURCES})
