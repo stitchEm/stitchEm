@@ -1,15 +1,13 @@
 option(DISABLE_OPENCL_SPIR "Skip OpenCL offline compilation and ship kernel sources")
 option(CL_ARGS_WORKAROUND "Redefining functions to support OpenCL limitation in parameters format")
 
-if(DISABLE_OPENCL_SPIR)
-  message(WARNING "Careful: OpenCL offline compilation disabled. Binary will contain all OpenCL kernel sources as plain text!")
-else(DISABLE_OPENCL_SPIR)
+if(NOT DISABLE_OPENCL_SPIR)
   if (LINUX OR ANDROID)
     message("No Alternative OpenCL SPIR compiler for Linux")
-  else(LINUX OR ANDROID)
+  else()
     option(ALTERNATIVE_OPENCL_SPIR "GENERATE an alternative SPIR that will be used if something goes wrong with the main SPIR" ON)
-  endif(LINUX OR ANDROID)
-endif(DISABLE_OPENCL_SPIR)
+  endif()
+endif()
 
 set(CL_BACKEND_SOURCES
     src/backend/cl/bilateral/bilateral.cpp
@@ -92,7 +90,6 @@ add_cppcheck(${VS_LIB_OBJECTS_OPENCL} VS)
 # Add compile definitions
 # ----------------------------------------------------------------------------
 if(DISABLE_OPENCL_SPIR)
-  message(WARNING "Careful: OpenCL offline compilation disabled. Binary will contain all OpenCL kernel sources as plain text!")
   target_compile_definitions(${VS_LIB_OBJECTS_OPENCL} PRIVATE "DISABLE_OPENCL_SPIR")
 endif()
 if(CL_ARGS_WORKAROUND)

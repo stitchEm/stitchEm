@@ -58,11 +58,15 @@ sudo apt install
   libturbojpeg0-dev \
   libx264-dev \
   ninja-build \
+  ocl-icd-opencl-dev \
+  opencl-headers \
   portaudio19-dev \
   qt5-default \
   qtmultimedia5-dev \
   qttools5-dev \
-  swig
+  swig \
+  wget \
+  xxd
 
 # Set up gcc-6 and g++-6 as your compiler
 sudo apt-get install gcc-6 g++-6
