@@ -127,12 +127,12 @@ void OutputsController::outputConnectionTimerExpired(const QString& outputId, bo
             GenericDialog::DialogMode::ACCEPT_CANCEL, WidgetsManager::getInstance()->getMainWindowRef()),
         [](GenericDialog* dataPtr) { dataPtr->close(); });
 
-    connect(connectionDialog.get(), &GenericDialog::notifyAcceptClicked, this, [this, outputId, reconnectionMode]() {
+    connect(connectionDialog.get(), &GenericDialog::notifyAcceptClicked, this, [this, outputId]() {
       connectionDialog.reset();
       startingOutputs[outputId]->start(LiveSettings::getLiveSettings()->getOutputConnectionTimeout());
     });
 
-    connect(connectionDialog.get(), &GenericDialog::notifyCancelClicked, this, [this, outputId, reconnectionMode]() {
+    connect(connectionDialog.get(), &GenericDialog::notifyCancelClicked, this, [this, outputId]() {
       emit reqToggleOutput(outputId);
 
       startingOutputs.remove(outputId);
