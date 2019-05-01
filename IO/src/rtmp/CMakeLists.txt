@@ -67,8 +67,10 @@ set(HEADER_FILES
     include/rtmpDiscovery.hpp
     )
 
-if(RTMP_QUICKSYNC)
 
+
+
+if(RTMP_QUICKSYNC)
 
   include(FetchContent)
   FetchContent_Declare(
@@ -160,6 +162,7 @@ if(RTMP_QUICKSYNC)
         )
   endif(LINUX)
 endif(RTMP_QUICKSYNC)
+
 
 
 if(RTMP_NVENC)
