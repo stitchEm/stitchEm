@@ -18,10 +18,10 @@ FILE *MockEncoder::fp_send;
 MockEncoder::MockEncoder() {
   fp_send = fopen("C:\\Users\\nlz\\Videos\\edhec.h264", "rb");
   nalhead_pos = 0;
-  m_nFileBufSize = BUFFER_SIZE;
-  m_pFileBuf = (unsigned char *)malloc(BUFFER_SIZE);
-  m_pFileBuf_tmp = (unsigned char *)malloc(BUFFER_SIZE);
-  std::memset(m_pFileBuf, 0, BUFFER_SIZE);
+  m_nFileBufSize = ENC_BUFFER_SIZE;
+  m_pFileBuf = (unsigned char *)malloc(ENC_BUFFER_SIZE);
+  m_pFileBuf_tmp = (unsigned char *)malloc(ENC_BUFFER_SIZE);
+  std::memset(m_pFileBuf, 0, ENC_BUFFER_SIZE);
   read_buffer(m_pFileBuf, m_nFileBufSize);
 }
 
@@ -122,7 +122,7 @@ int MockEncoder::read_buffer(uint8_t *buf, int buf_size) {
 
 int MockEncoder::readFirstNaluFromBuf(NaluUnit &nalu) {
   unsigned int naltail_pos;
-  std::memset(m_pFileBuf_tmp, 0, BUFFER_SIZE);
+  std::memset(m_pFileBuf_tmp, 0, ENC_BUFFER_SIZE);
   while (nalhead_pos < m_nFileBufSize) {
     // search for nal header
     if (m_pFileBuf[nalhead_pos++] == 0x00 && m_pFileBuf[nalhead_pos++] == 0x00) {
@@ -171,7 +171,7 @@ int MockEncoder::readOneNaluFromBuf(NaluUnit &nalu, int (*read_buffer)(uint8_t *
   unsigned int naltail_pos = nalhead_pos;
   int ret;
   int nalustart;
-  std::memset(m_pFileBuf_tmp, 0, BUFFER_SIZE);
+  std::memset(m_pFileBuf_tmp, 0, ENC_BUFFER_SIZE);
   nalu.size = 0;
   for (;;) {
     if (nalhead_pos == NO_MORE_BUFFER_TO_READ) return FALSE;
@@ -197,7 +197,7 @@ int MockEncoder::readOneNaluFromBuf(NaluUnit &nalu, int (*read_buffer)(uint8_t *
       // again to get the rest part of this nal
       if (nalhead_pos == GOT_A_NAL_CROSS_BUFFER || nalhead_pos == GOT_A_NAL_INCLUDE_A_BUFFER) {
         nalu.size = nalu.size + naltail_pos - nalustart;
-        if (nalu.size > BUFFER_SIZE) {
+        if (nalu.size > ENC_BUFFER_SIZE) {
           m_pFileBuf_tmp_old = m_pFileBuf_tmp;  //// save pointer in case realloc fails
           if ((m_pFileBuf_tmp = (unsigned char *)realloc(m_pFileBuf_tmp, nalu.size)) == NULL) {
             free(m_pFileBuf_tmp_old);  // free original block
@@ -226,10 +226,10 @@ int MockEncoder::readOneNaluFromBuf(NaluUnit &nalu, int (*read_buffer)(uint8_t *
 
     if (naltail_pos >= m_nFileBufSize && nalhead_pos != GOT_A_NAL_CROSS_BUFFER &&
         nalhead_pos != GOT_A_NAL_INCLUDE_A_BUFFER) {
-      nalu.size = BUFFER_SIZE - nalhead_pos;
+      nalu.size = ENC_BUFFER_SIZE - nalhead_pos;
       nalu.type = m_pFileBuf[nalhead_pos] & 0x1f;
       std::memcpy(m_pFileBuf_tmp, m_pFileBuf + nalhead_pos, nalu.size);
-      if ((ret = read_buffer(m_pFileBuf, m_nFileBufSize)) < BUFFER_SIZE) {
+      if ((ret = read_buffer(m_pFileBuf, m_nFileBufSize)) < ENC_BUFFER_SIZE) {
         std::memcpy(m_pFileBuf_tmp + nalu.size, m_pFileBuf, ret);
         nalu.size = nalu.size + ret;
         nalu.data = m_pFileBuf_tmp;
@@ -241,7 +241,7 @@ int MockEncoder::readOneNaluFromBuf(NaluUnit &nalu, int (*read_buffer)(uint8_t *
       continue;
     }
     if (nalhead_pos == GOT_A_NAL_CROSS_BUFFER || nalhead_pos == GOT_A_NAL_INCLUDE_A_BUFFER) {
-      nalu.size = BUFFER_SIZE + nalu.size;
+      nalu.size = ENC_BUFFER_SIZE + nalu.size;
 
       m_pFileBuf_tmp_old = m_pFileBuf_tmp;  //// save pointer in case realloc fails
       if ((m_pFileBuf_tmp = (unsigned char *)realloc(m_pFileBuf_tmp, nalu.size)) == NULL) {
@@ -249,9 +249,9 @@ int MockEncoder::readOneNaluFromBuf(NaluUnit &nalu, int (*read_buffer)(uint8_t *
         return FALSE;
       }
 
-      std::memcpy(m_pFileBuf_tmp + nalu.size - BUFFER_SIZE, m_pFileBuf, BUFFER_SIZE);
+      std::memcpy(m_pFileBuf_tmp + nalu.size - ENC_BUFFER_SIZE, m_pFileBuf, ENC_BUFFER_SIZE);
 
-      if ((ret = read_buffer(m_pFileBuf, m_nFileBufSize)) < BUFFER_SIZE) {
+      if ((ret = read_buffer(m_pFileBuf, m_nFileBufSize)) < ENC_BUFFER_SIZE) {
         std::memcpy(m_pFileBuf_tmp + nalu.size, m_pFileBuf, ret);
         nalu.size = nalu.size + ret;
         nalu.data = m_pFileBuf_tmp;
