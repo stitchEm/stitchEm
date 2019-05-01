@@ -2,12 +2,17 @@ if(DISABLE_RTMP)
   return()
 endif(DISABLE_RTMP)
 
+if(NOT RTMP_QUICKSYNC)
+    set(RTMP_QUICKSYNC OFF)
+endif()
+
+
 option(RTMP_QUICKSYNC "RTMP quicksync support" ${NANDROID})
 option(RTMP_NVENC "RTMP NVidia Encode/Decode support" ON)
 option(RTMP_NVENC_M "RTMP NVidia Encode/Decode support on Mobile Platform (TEGRA)" OFF)
 option(USE_AVFORMAT "USE avformat to record RTMP" OFF)
 
-if(APPLE OR TEGRA_DEMO OR LINUX)
+if(APPLE OR TEGRA_DEMO)
   set(RTMP_QUICKSYNC OFF CACHE BOOL "" FORCE)
 endif()
 
@@ -63,42 +68,95 @@ set(HEADER_FILES
     )
 
 if(RTMP_QUICKSYNC)
+
+
+  include(FetchContent)
+  FetchContent_Declare(
+    intel_media_sdk
+    GIT_REPOSITORY https://github.com/Intel-Media-SDK/MediaSDK.git
+    GIT_TAG        intel-mediasdk-19.1.pre3
+  )
+
+
+  FetchContent_GetProperties(intel_media_sdk)
+  if(NOT intel_media_sdk_POPULATED)
+    FetchContent_Populate(intel_media_sdk)
+    set(CMAKE_HOME_DIRECTORY_SAVED "${CMAKE_HOME_DIRECTORY}")
+    set(CMAKE_BINARY_DIR_SAVED "${CMAKE_BINARY_DIR}")
+    set(CMAKE_HOME_DIRECTORY ${intel_media_sdk_SOURCE_DIR})
+    set(CMAKE_BINARY_DIR ${intel_media_sdk_BINARY_DIR})
+    add_subdirectory(${intel_media_sdk_SOURCE_DIR} ${intel_media_sdk_BINARY_DIR})
+    set(CMAKE_HOME_DIRECTORY "${CMAKE_HOME_DIRECTORY_SAVED}")
+    set(CMAKE_BINARY_DIR "${CMAKE_BINARY_DIR_SAVED}")
+    file(COPY ${intel_media_sdk_SOURCE_DIR}/samples/sample_common/ DESTINATION ./Intel/) 
+  endif()
+
+
+  include_directories(${intel_media_sdk_SOURCE_DIR}/api/include)
+  include_directories(${intel_media_sdk_SOURCE_DIR}/samples/sample_common/include/)
+
+
   set(SOURCE_FILES
       ${SOURCE_FILES}
-      Intel/src/baseAllocator.cpp
-      Intel/src/buffering.cpp
-      Intel/src/d3dAllocator.cpp
-      Intel/src/d3dDevice.cpp
-      Intel/src/d3d11Allocator.cpp
-      Intel/src/d3d11Device.cpp
-      Intel/src/sysMemAllocator.cpp
+      Intel/src/base_allocator.cpp
+      Intel/src/mfx_buffering.cpp
+      Intel/src/d3d_allocator.cpp
+      Intel/src/d3d_device.cpp
+      Intel/src/d3d11_allocator.cpp
+      Intel/src/d3d11_device.cpp
+      Intel/src/sysmem_allocator.cpp
+      Intel/src/vm/atomic.cpp
+      Intel/src/vm/atomic_linux.cpp
+      Intel/src/vm/shared_object.cpp
+      Intel/src/vm/shared_object_linux.cpp
+      Intel/src/vm/thread.cpp
+      Intel/src/vm/thread_linux.cpp
+      Intel/src/vm/time.cpp
+      Intel/src/vm/time_linux.cpp
+      Intel/src/sample_utils.cpp
+      Intel/src/plugin_utils.cpp
       src/qsvDecoder.cpp
       src/qsvEncoder.cpp
       )
 
   set(HEADER_FILES
       ${HEADER_FILES}
-      Intel/include/baseAllocator.hpp
-      Intel/include/buffering.hpp
-      Intel/include/d3dAllocator.hpp
-      Intel/include/d3dDevice.hpp
-      Intel/include/d3d11Allocator.hpp
-      Intel/include/d3d11Device.hpp
-      Intel/include/sysMemAllocator.hpp
+      Intel/include/base_allocator.h
+      Intel/include/mfx_buffering.h
+      Intel/include/d3d_allocator.h
+      Intel/include/d3d_device.h
+      Intel/include/d3d11_allocator.h
+      Intel/include/d3d11_device.h
+      Intel/include/sysmem_allocator.h
+      Intel/include/vm/atomic_defs.h
+      Intel/include/vm/file_defs.h
+      Intel/include/vm/so_defs.h
+      Intel/include/vm/strings_defs.h
+      Intel/include/vm/thread_defs.h
+      Intel/include/vm/time_defs.h
+      Intel/include/sample_utils.h
+      Intel/include/plugin_utils.h
       include/qsvEncoder.hpp
       )
 
   if(LINUX)
+    add_definitions(-DLIBVA_SUPPORT  -DLIBVA_X11_SUPPORT)
     set(SOURCE_FILES
         ${SOURCE_FILES}
-        Intel/src/vaapiAllocator.cpp
-        Intel/src/vaapiDevice.cpp
+        Intel/src/vaapi_allocator.cpp
+        Intel/src/vaapi_device.cpp
+        Intel/src/vaapi_utils.cpp
+        Intel/src/vaapi_utils_drm.cpp
+        Intel/src/vaapi_utils_x11.cpp
         )
 
     set(HEADER_FILES
         ${HEADER_FILES}
-        Intel/include/vaapiAllocator.hpp
-        Intel/include/vaapiDevice.hpp
+        Intel/include/vaapi_allocator.h
+        Intel/include/vaapi_device.h
+        Intel/include/vaapi_utils.h
+        Intel/include/vaapi_utils_drm.h
+        Intel/include/vaapi_utils_x11.h
         )
   endif(LINUX)
 endif(RTMP_QUICKSYNC)
@@ -251,9 +309,10 @@ if(LINUX OR ANDROID)
     find_library(libmfxhw64 mfxhw64 HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_DEFAULT_PATH)
     find_library(libva va HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_SYSTEM_ENVIRONMENT_PATH)
     find_library(libva_drm va-drm HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_SYSTEM_ENVIRONMENT_PATH)
-target_link_libraries(${PLUGIN_NAME} PRIVATE ${libmfxhw64} ${libva} ${libva_drm})
-  endif()
-endif()
+    target_link_libraries(${PLUGIN_NAME} PRIVATE ${libva} ${libva_drm})
+    target_link_libraries(${PLUGIN_NAME} PRIVATE mfx)
+  endif(RTMP_QUICKSYNC)
+endif(LINUX OR ANDROID)
 
 if(APPLE)
   find_library(librtmp rtmp REQUIRED)
