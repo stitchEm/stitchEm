@@ -111,7 +111,7 @@ if(LINUX)
   FetchContent_Declare(
     nvenc_api
     GIT_REPOSITORY https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
-    GIT_TAG 106d84a2c1960d1ccac7fa2646f0adc52d2d4ff2
+    GIT_TAG n8.2.15.8
   )
 
 
