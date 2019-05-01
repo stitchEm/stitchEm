@@ -11,7 +11,7 @@
 #include "qsvEncoder.hpp"
 #include "ptvMacro.hpp"
 
-#define MSDK_CHECK_RESULT(P, X, ERR)                                                                           \
+#define IMSDK_CHECK_RESULT(P, X, ERR)                                                                           \
   {                                                                                                            \
     if ((X) > (P)) {                                                                                           \
       std::stringstream msg;                                                                                   \
@@ -133,7 +133,7 @@ mfxStatus QSVEncoder::init(int width, int height, FrameRate framerate, mfxU16 pr
   encoder = new MFXVideoENCODE(*session);
 
   sts = allocFrames();
-  MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+  IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
   sts = encoder->Init(&params);
   if (sts == MFX_WRN_INCOMPATIBLE_VIDEO_PARAM) {
@@ -168,7 +168,7 @@ mfxStatus QSVEncoder::init(int width, int height, FrameRate framerate, mfxU16 pr
   videoParams.NumExtParam = 1;
 
   sts = encoder->GetVideoParam(&videoParams);
-  MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+  IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
   if (sts == MFX_ERR_NONE) {
     memcpy(extSPSPPS.SPSBuffer + extSPSPPS.SPSBufSize, extSPSPPS.PPSBuffer, extSPSPPS.PPSBufSize);
     headPkt.resize(extSPSPPS.SPSBufSize + extSPSPPS.PPSBufSize);
@@ -193,7 +193,7 @@ bool QSVEncoder::encode(const Frame& videoFrame, std::vector<VideoStitch::IO::Da
   if (externalAlloc) {
     // if we share allocator with Media SDK we need to call Lock to access surface data
     sts = allocator->Lock(allocator->pthis, surf->Data.MemId, &(surf->Data));
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, false);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, false);
   }
   mfxFrameInfo& pInfo = surf->Info;
   mfxFrameData& pData = surf->Data;
@@ -228,7 +228,7 @@ bool QSVEncoder::encode(const Frame& videoFrame, std::vector<VideoStitch::IO::Da
   }
   if (externalAlloc) {
     sts = allocator->Unlock(allocator->pthis, surf->Data.MemId, &(surf->Data));
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, false);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, false);
   }
 
   sts = encoder->EncodeFrameAsync(nullptr, surf, &bits, &syncp);
@@ -454,7 +454,7 @@ mfxStatus QSVEncoder::createAllocator() {
   if (D3D9_MEMORY == memType || D3D11_MEMORY == memType) {
 #if D3D_SURFACES_SUPPORT
     sts = createHWDevice();
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     mfxHDL hdl = NULL;
     mfxHandleType hdl_t =
@@ -464,14 +464,14 @@ mfxStatus QSVEncoder::createAllocator() {
                                 MFX_HANDLE_D3D9_DEVICE_MANAGER;
 
     sts = hwdev->GetHandle(hdl_t, &hdl);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     // handle is needed for HW library only
     mfxIMPL impl = 0;
     session->QueryIMPL(&impl);
     if (impl != MFX_IMPL_SOFTWARE) {
       sts = session->SetHandle(hdl_t, hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
     }
 
     // create D3D allocator
@@ -502,22 +502,22 @@ mfxStatus QSVEncoder::createAllocator() {
     thus we demonstrate "external allocator" usage model.
     Call SetAllocator to pass allocator to Media SDK */
     sts = session->SetFrameAllocator(allocator);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     externalAlloc = true;
 #endif
 #ifdef LIBVA_SUPPORT
     sts = createHWDevice();
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
     /* It's possible to skip failed result here and switch to SW implementation,
     but we don't process this way */
 
     mfxHDL hdl = nullptr;
     sts = hwdev->GetHandle(MFX_HANDLE_VA_DISPLAY, &hdl);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
     // provide device manager to MediaSDK
     sts = session->SetHandle(MFX_HANDLE_VA_DISPLAY, hdl);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     // create VAAPI allocator
     allocator = new vaapiFrameAllocator;
@@ -533,7 +533,7 @@ mfxStatus QSVEncoder::createAllocator() {
     thus we demonstrate "external allocator" usage model.
     Call SetAllocator to pass allocator to mediasdk */
     sts = session->SetFrameAllocator(allocator);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     externalAlloc = true;
 #endif
@@ -545,14 +545,14 @@ mfxStatus QSVEncoder::createAllocator() {
 
     if (MFX_IMPL_HARDWARE == MFX_IMPL_BASETYPE(impl)) {
       sts = createHWDevice();
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
       mfxHDL hdl = NULL;
       sts = hwdev->GetHandle(MFX_HANDLE_VA_DISPLAY, &hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       // provide device manager to MediaSDK
       sts = session->SetHandle(MFX_HANDLE_VA_DISPLAY, hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
     }
 #endif
 
@@ -567,7 +567,7 @@ mfxStatus QSVEncoder::createAllocator() {
 
   // initialize memory allocator
   sts = allocator->Init(allocatorParams);
-  MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+  IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
   return MFX_ERR_NONE;
 }
@@ -589,7 +589,7 @@ mfxStatus QSVEncoder::allocFrames() {
   // To achieve better performance we provide extra surfaces.
   // 1 extra surface at input allows to get 1 extra output.
   mfxStatus sts = encoder->QueryIOSurf(&params, &req);
-  MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+  IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
   if (req.NumFrameSuggested < params.AsyncDepth) return MFX_ERR_MEMORY_ALLOC;
 
@@ -606,7 +606,7 @@ mfxStatus QSVEncoder::allocFrames() {
 
   // alloc frames for encoder
   sts = allocator->Alloc(allocator->pthis, &req, &resp);
-  MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+  IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
   // prepare mfxFrameSurface1 array for encoder
   encSurfaces = new mfxFrameSurface1[resp.NumFrameActual];
@@ -625,7 +625,7 @@ mfxStatus QSVEncoder::allocFrames() {
     } else {
       // get YUV pointers
       sts = allocator->Lock(allocator->pthis, resp.mids[i], &(encSurfaces[i].Data));
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
     }
   }
   return MFX_ERR_NONE;

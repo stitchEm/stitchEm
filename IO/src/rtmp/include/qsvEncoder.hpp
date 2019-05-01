@@ -22,7 +22,7 @@ extern "C" {
 #endif
 }
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 #define MFX_IMPL_VIA_MASK(x) (0x0f00 & (x))
 #define MSDK_ALIGN16(value) (((value + 15) >> 4) << 4)  // round up to a multiple of 16
@@ -45,19 +45,22 @@ extern "C" {
 #endif  // #if defined(WIN32) || defined(WIN64)
 
 #if D3D_SURFACES_SUPPORT
-#include "d3dAllocator.hpp"
-#include "d3d11Allocator.hpp"
+#include "d3d_allocator.h"
+#include "d3d11_allocator.h"
 
-#include "d3dDevice.hpp"
-#include "d3d11Device.hpp"
+
+#include "d3d_device.h"
+#include "d3d11_device.h"
 #endif
 
 #ifdef LIBVA_SUPPORT
-#include "vaapiAllocator.hpp"
-#include "vaapiDevice.hpp"
+#include "vaapi_allocator.h"
+#include "vaapi_device.h"
+#undef Status
+#undef None
 #endif
 
-#include "sysMemAllocator.hpp"
+#include "sysmem_allocator.h"
 
 namespace VideoStitch {
 namespace Output {

@@ -3,7 +3,7 @@
 
 #include "videoDecoder.hpp"
 
-#include "buffering.hpp"
+#include "mfx_buffering.h"
 
 #include "libvideostitch/logging.hpp"
 
@@ -20,7 +20,7 @@ extern "C" {
 #endif
 }
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 #include <thread>
 
@@ -31,7 +31,7 @@ static const std::string QSVtag("QSV Decoder");
 #define MFX_IMPL_VIA_MASK(x) (0x0f00 & (x))
 #define MSDK_ALIGN16(value) (((value + 15) >> 4) << 4)  // round up to a multiple of 16
 #define MSDK_ALIGN32(value) (((value + 31) >> 5) << 5)  // round up to a multiple of 32
-#define MSDK_CHECK_RESULT(P, X, ERR)                                                                       \
+#define IMSDK_CHECK_RESULT(P, X, ERR)                                                                       \
   {                                                                                                        \
     if ((X) > (P)) {                                                                                       \
       Logger::warning(QSVtag) << __FUNCTION__ << " line " << __LINE__ << "return with error code " << ERR; \
@@ -56,19 +56,20 @@ static const std::string QSVtag("QSV Decoder");
 #endif  // #if defined(WIN32) || defined(WIN64)
 
 #if D3D_SURFACES_SUPPORT
-#include "d3dAllocator.hpp"
-#include "d3d11Allocator.hpp"
+#include "d3d_allocator.h"
+#include "d3d11_allocator.h"
 
-#include "d3dDevice.hpp"
-#include "d3d11Device.hpp"
+#include "d3d_device.h"
+#include "d3d11_device.h"
 #endif
 
 #ifdef LIBVA_SUPPORT
-#include "vaapiAllocator.hpp"
-#include "vaapiDevice.hpp"
+#include "vaapi_allocator.h"
+#include "vaapi_device.h"
 #endif
 
-#include "sysMemAllocator.hpp"
+#include "sysmem_allocator.h"
+
 
 const static mfxU8 start_seq[] = {0, 0, 0, 1};
 
@@ -590,7 +591,7 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
     if (SYSTEM_MEMORY != memType) {
 #if D3D_SURFACES_SUPPORT
       sts = createHWDevice();
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
       mfxHDL hdl = NULL;
       mfxHandleType hdl_t =
@@ -600,14 +601,14 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
                                   MFX_HANDLE_D3D9_DEVICE_MANAGER;
 
       sts = hwdev->GetHandle(hdl_t, &hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
       // handle is needed for HW library only
       mfxIMPL impl = 0;
       session->QueryIMPL(&impl);
       if (impl != MFX_IMPL_SOFTWARE) {
         sts = session->SetHandle(hdl_t, hdl);
-        MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+        IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       }
 
       // create D3D allocator
@@ -638,21 +639,21 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
       thus we demonstrate "external allocator" usage model.
       Call SetAllocator to pass allocator to Media SDK */
       sts = session->SetFrameAllocator(allocator);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
       externalAlloc = true;
 #endif
 #ifdef LIBVA_SUPPORT
       sts = createHWDevice();
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       /* It's possible to skip failed result here and switch to SW implementation,
       but we don't process this way */
       mfxHDL hdl = nullptr;
       sts = hwdev->GetHandle(MFX_HANDLE_VA_DISPLAY, &hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       // provide device manager to MediaSDK
       sts = session->SetHandle(MFX_HANDLE_VA_DISPLAY, hdl);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       // create VAAPI allocator
       allocator = new vaapiFrameAllocator;
       MSDK_CHECK_POINTER(allocator, MFX_ERR_MEMORY_ALLOC);
@@ -667,7 +668,7 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
       thus we demonstrate "external allocator" usage model.
       Call SetAllocator to pass allocator to mediasdk */
       sts = session->SetFrameAllocator(allocator);
-      MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+      IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
       externalAlloc = true;
 #endif
@@ -679,14 +680,14 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
 
       if (MFX_IMPL_HARDWARE == MFX_IMPL_BASETYPE(impl)) {
         sts = createHWDevice();
-        MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+        IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
         mfxHDL hdl = NULL;
         sts = hwdev->GetHandle(MFX_HANDLE_VA_DISPLAY, &hdl);
-        MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+        IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
         // provide device manager to MediaSDK
         sts = session->SetHandle(MFX_HANDLE_VA_DISPLAY, hdl);
-        MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+        IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       }
 #endif
 
@@ -703,7 +704,7 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
 
     // initialize memory allocator
     sts = allocator->Init(allocatorParams);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     return MFX_ERR_NONE;
   }
@@ -752,7 +753,7 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
 
     // prepare mfxFrameSurface1 array for decoder
     sts = AllocBuffers(nSurfNum);
-    MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+    IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
 
     for (int i = 0; i < nSurfNum; i++) {
       // initating each frame:
@@ -766,7 +767,7 @@ class QSVDecoder : public VideoDecoder, private CBuffering {
         m_pSurfaces[i].frame.Data.MemId = resp.mids[i];
       } else {
         sts = allocator->Lock(allocator->pthis, resp.mids[i], &(m_pSurfaces[i].frame.Data));
-        MSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
+        IMSDK_CHECK_RESULT(sts, MFX_ERR_NONE, sts);
       }
     }
     return MFX_ERR_NONE;
