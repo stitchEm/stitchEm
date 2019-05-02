@@ -4,7 +4,10 @@ ENV CUDA=10.1.105-1
 ENV CUDA_APT=10-1
 ENV CUDA_SHORT=10.1
 ENV CUDA_INSTALLER=cuda-repo-ubuntu1804_${CUDA}_amd64.deb
+ENV NVIDIA_LIB=libnvidia-compute-418_418.40.04-0ubuntu1_amd64.deb
 
+RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${NVIDIA_LIB}
+RUN dpkg -i ${NVIDIA_LIB}
 RUN wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_INSTALLER}
 RUN dpkg -i ${CUDA_INSTALLER}
 RUN apt update -qq && apt install -y \
