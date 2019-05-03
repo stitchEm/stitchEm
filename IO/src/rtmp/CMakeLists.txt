@@ -106,21 +106,21 @@ endif(RTMP_QUICKSYNC)
 
 if(RTMP_NVENC)
 
-if(LINUX)
-  include(FetchContent)
-  FetchContent_Declare(
-    nvenc_api
-    GIT_REPOSITORY https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
-    GIT_TAG n8.2.15.8
-  )
+  if(LINUX)
+    include(FetchContent)
+    FetchContent_Declare(
+      nvenc_api
+      GIT_REPOSITORY https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+      GIT_TAG n8.2.15.8
+    )
 
 
-  FetchContent_GetProperties(nvenc_api)
-  if(NOT nvenc_api_POPULATED)
-    FetchContent_Populate(nvenc_api)
-    include_directories(${nvenc_api_SOURCE_DIR}/include/ffnvcodec/)
+    FetchContent_GetProperties(nvenc_api)
+    if(NOT nvenc_api_POPULATED)
+      FetchContent_Populate(nvenc_api)
+      include_directories(${nvenc_api_SOURCE_DIR}/include/ffnvcodec/)
+    endif()
   endif()
-endif()
 
   set(SOURCE_FILES
       ${SOURCE_FILES}
@@ -134,6 +134,8 @@ endif()
       include/nvenc.hpp
       )
   find_package(CUDA REQUIRED)
+
+
 elseif(RTMP_NVENC_M)
   set(SOURCE_FILES
       ${SOURCE_FILES}
