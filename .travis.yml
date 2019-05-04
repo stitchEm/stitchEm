@@ -17,7 +17,6 @@ matrix:
             - bison
             - ccache
             - ceres-solver
-            - CMake
             - doxygen
             - faac
             - faad2
