@@ -30,7 +30,6 @@ matrix:
             - ninja
             - opencv@3
             - qt
-            - yasm
       before_install:
         - export PATH="/usr/local/opt/bison/bin:/usr/local/opt/ccache/libexec:${PATH}"
       script:
