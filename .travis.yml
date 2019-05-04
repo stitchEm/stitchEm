@@ -5,6 +5,11 @@ matrix:
   include:
     - name: OpenCL macOS
       os: osx
+      cache:
+        directories:
+          - $HOME/Library/Caches/Homebrew
+      before_cache:
+        - brew cleanup
       addons:
         homebrew:
           update: true
