@@ -27,10 +27,6 @@ if(LINUX OR APPLE)
   find_package(Threads REQUIRED)
 endif(LINUX OR APPLE)
 
-if(WINDOWS)
-  find_package(Kernel32 REQUIRED)
-endif(WINDOWS)
-
 set(R8B_SOURCES
     r8bbase.cpp)
 
