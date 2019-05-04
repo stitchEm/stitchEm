@@ -34,7 +34,7 @@ matrix:
         - cd build
         - cmake -DCREATE_BOX_PACKAGE=OFF -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DMACPORTS=OFF -DQt5_DIR=/usr/local/opt/qt/lib/cmake/Qt5 -G Ninja ..
         - ninja
-        - ctest -LE cmd --output-on-failure
+        - ctest --label-exclude "cmd|gpu" --output-on-failure
     - name: CUDA 8 Linux
       dist: xenial
       services:
