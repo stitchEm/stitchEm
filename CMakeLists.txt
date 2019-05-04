@@ -213,10 +213,6 @@ endif(NOT CMAKE_EXTERNAL_DEPS)
 set(CMAKE_EXTERNAL_LIB "${CMAKE_EXTERNAL_DEPS}/lib")
 set(CMAKE_EXTERNAL_INCLUDE "${CMAKE_EXTERNAL_DEPS}/include")
 
-if(NOT EXISTS ${CMAKE_EXTERNAL_DEPS} AND WINDOWS)
-  message(FATAL_ERROR "external_deps folder not found")
-endif()
-
 # ----------------------------------------------------------------------------
 # Set binary directory structure manually
 # to get bin/Debug/CorePlugins/libav.dylib instead of bin/CorePlugins/Debug/libav.dylib
