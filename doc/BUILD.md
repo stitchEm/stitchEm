@@ -4,6 +4,35 @@ Several 3rd party libraries are required to build the project. On Linux and macO
 
 Using ccache to speed up recompilation is recommended, but not required, on Linux and macOS. Using ninja as the build system for quick builds is recommended, but not recquired. A list of IDEs including Qt Creator, Xcode and Visual Studio are supported through their CMake support or CMake generators.
 
+## Building with Windows:
+
+```
+# Build tools
+
+- Install Visual Studio 2013
+- run cmd.exe as admin
+- install chocolatey (https://chocolatey.org/install)
+
+- choco install cmake -y
+- choco install ninja -y
+
+- choco install winflexbison -y
+
+# Install conan package manager?
+- choco install conan -y
+
+# problem: installs OpenCV 4 vc14_vc15 - we need vc12?
+- choco install opencv -y
+
+
+
+
+- mkdir build
+- cd build
+- "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
+- cmake -G Ninja -DDISABLE_EXR=ON -DWIN_CHOCO=ON -DBUILD_IO_PLUGINS=OFF -DBUILD_APPS=OFF ../stitchEm
+```
+
 ##  Building with macOS:
 
 ```
