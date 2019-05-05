@@ -29,7 +29,14 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 
 - mkdir build
 - cd build
+
+# Visual Studio 2013
 - "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x64
+
+# Visual Studio 2017
+- "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+
+
 - cmake -G Ninja -DDISABLE_EXR=ON -DWIN_CHOCO=ON -DBUILD_IO_PLUGINS=OFF -DBUILD_APPS=OFF ../stitchEm
 ```
 
