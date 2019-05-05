@@ -16,7 +16,7 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 - choco install cmake -y
 - choco install ninja -y
 
-- choco install winflexbison -y
+- choco install winflexbison3 -y
 
 # Install conan package manager?
 - choco install conan -y
