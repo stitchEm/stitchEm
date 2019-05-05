@@ -16,7 +16,7 @@ elseif(APPLE)
     target_include_directories(${CMD_NAME} PRIVATE /usr/local/include)
   endif()
 elseif(WINDOWS)
-  find_library(GLFW glfw3 HINTS "${CMAKE_EXTERNAL_LIB}/glfw" REQUIRED NO_DEFAULT_PATH)
+  find_library(GLFW glfw3 HINTS "${CMAKE_EXTERNAL_LIB}/glfw" REQUIRED)
 endif()
 
 target_include_directories(${CMD_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include")

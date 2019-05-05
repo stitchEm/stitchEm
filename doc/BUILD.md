@@ -18,6 +18,10 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 
 - choco install winflexbison3 -y
 
+# TODO doesn't work - mscv10/12 only - msvc version mismatch?
+- choco install glfw3 -y
+
+
 # Install conan package manager?
 - choco install conan -y
 
