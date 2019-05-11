@@ -116,13 +116,20 @@ if(WIN32)
       message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
       file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
                     "${CMAKE_BINARY_DIR}/conan.cmake")
-
-      conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
-      conan_cmake_run(REQUIRES libpng/1.6.37@bincrafters/stable
-                               glfw/3.3@bincrafters/stable
-                               )
-
     endif()
+    include(${CMAKE_BINARY_DIR}/conan.cmake)
+
+    conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+    conan_cmake_run(REQUIRES
+                             libpng/1.6.37@bincrafters/stable
+                             glew/2.1.0@bincrafters/stable
+                             glfw/3.3@bincrafters/stable
+                             #ceres-solver/1.12.0@jmdaly/testing
+                    BUILD missing
+                    )
+
+    message(STATUS "CONAN_LIBS: ${CONAN_LIBS}")
+
   endif()
 
 endif(WIN32)
