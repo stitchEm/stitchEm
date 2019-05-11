@@ -6,6 +6,7 @@
 #include "genericDeviceInfo.hpp"
 
 #include <atomic>
+#include <cassert>
 #include <string>
 
 #ifdef _MSC_VER
