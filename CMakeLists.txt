@@ -118,7 +118,9 @@ if(WIN32)
                     "${CMAKE_BINARY_DIR}/conan.cmake")
 
       conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
-      conan_cmake_run(REQUIRES libpng/1.6.37@bincrafters/stable)
+      conan_cmake_run(REQUIRES libpng/1.6.37@bincrafters/stable
+                               glfw/3.3@bincrafters/stable
+                               )
 
     endif()
   endif()
