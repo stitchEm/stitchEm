@@ -121,10 +121,11 @@ if(WIN32)
 
     conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
     conan_cmake_run(REQUIRES
+                             eigen/3.3.7@conan/stable
                              libpng/1.6.37@bincrafters/stable
                              glew/2.1.0@bincrafters/stable
                              glfw/3.3@bincrafters/stable
-                             #ceres-solver/1.12.0@jmdaly/testing
+                             # ceres-solver/1.12.0@jmdaly/testing
                     BUILD missing
                     )
 

@@ -20,7 +20,11 @@ endif (NOT CUDA_FOUND)
 # TODO: extract find_library + find_package
 
 if (WINDOWS)
-  find_library(GLEW NAMES glew32s PATHS ${CMAKE_EXTERNAL_DEPS}/lib/GL NO_DEFAULT_PATH)
+  if(WIN_CHOCO)
+    find_library(GLEW NAMES ${CONAN_LIBS})
+  else()
+    find_library(GLEW NAMES glew32s PATHS ${CMAKE_EXTERNAL_DEPS}/lib/GL NO_DEFAULT_PATH)
+  endif()
   include_directories(${OPENGL_INCLUDE_DIRS})
   include_directories(${OPENCV_INCLUDE_DIRS})
   find_library(CUDA cuda PATHS "${CUDA_TOOLKIT_ROOT_DIR}/lib/x64" NO_DEFAULT_PATH)
