@@ -21,7 +21,7 @@ endif (NOT CUDA_FOUND)
 
 if (WINDOWS)
   if(WIN_CHOCO)
-    find_library(GLEW NAMES ${CONAN_LIBS})
+    find_library(GLEW NAMES ${CONAN_LIBS_GLEW})
   else()
     find_library(GLEW NAMES glew32s PATHS ${CMAKE_EXTERNAL_DEPS}/lib/GL NO_DEFAULT_PATH)
   endif()
