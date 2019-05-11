@@ -110,6 +110,19 @@ if(WIN32)
   set(WINDOWS True)
   set(PLATFORM_SHORTHAND win)
   message(STATUS "System: WINDOWS")
+
+  if (WIN_CHOCO)
+    if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+      message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+      file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/v0.14/conan.cmake"
+                    "${CMAKE_BINARY_DIR}/conan.cmake")
+
+      conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
+      conan_cmake_run(REQUIRES libpng/1.6.37@bincrafters/stable)
+
+    endif()
+  endif()
+
 endif(WIN32)
 
 # ----------------------------------------------------------------------------
