@@ -233,8 +233,10 @@ FrameworkStatus DevicesInfo::getFrameworkStatus(Framework framework) const {
 
 DevicesInfo::DevicesInfo() {
 #ifdef _MSC_VER
+  #if _MSC_VER < 1910
   PfnDliHook currentFailHook = __pfnDliFailureHook2;
   __pfnDliFailureHook2 = failDelayHook;
+  #endif
   try {
     collectOpenCLDeviceInfo();
   } catch (std::exception& e) {
@@ -244,7 +246,9 @@ DevicesInfo::DevicesInfo() {
     openCLStatus = FrameworkStatus::MissingDriver;
     std::cerr << "Failed to detect OpenCL devices!" << std::endl;
   }
+  #if _MSC_VER < 1910
   __pfnDliFailureHook2 = currentFailHook;
+  #endif
 #else
   collectOpenCLDeviceInfo();
 #endif

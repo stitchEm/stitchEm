@@ -125,6 +125,7 @@ if(WIN32)
                              libpng/1.6.37@bincrafters/stable
                              glew/2.1.0@bincrafters/stable
                              glfw/3.3@bincrafters/stable
+                             opencv/3.4.5@conan/stable
                              # ceres-solver/1.12.0@jmdaly/testing
                     BUILD missing
                     )
@@ -133,9 +134,11 @@ if(WIN32)
     message(STATUS "CONAN_LIBS_LIBPNG: ${CONAN_LIBS_LIBPNG}")
     message(STATUS "CONAN_LIBS_GLEW: ${CONAN_LIBS_GLEW}")
     message(STATUS "CONAN_LIBS_GLFW: ${CONAN_LIBS_GLFW}")
+    message(STATUS "CONAN_LIBS_OPENCV: ${CONAN_LIBS_OPENCV}")
 
     message(STATUS "CONAN_INCLUDE_DIRS: ${CONAN_INCLUDE_DIRS}")
     message(STATUS "CONAN_INCLUDE_DIRS_EIGEN: ${CONAN_INCLUDE_DIRS_EIGEN}")
+    message(STATUS "CONAN_INCLUDE_DIRS_OPENCV: ${CONAN_INCLUDE_DIRS_OPENCV}")
 
 
   endif()

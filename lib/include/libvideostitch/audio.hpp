@@ -327,7 +327,7 @@ class VS_EXPORT Samples {
    * @brief Copy constructor with move semantics
    * @param s The object to copy
    */
-  Samples(Samples&& s) noexcept;
+  Samples(Samples&& s);
 
   /**
    * @brief Copying audio samples is undefined
@@ -343,7 +343,7 @@ class VS_EXPORT Samples {
    * @brief Assign operator with move semantics
    * @param s The object to assign
    */
-  Samples& operator=(Samples&& s);
+  Samples& operator=(Samples&& s) ;
 
   /**
    * @brief Assign operator with move semantics
