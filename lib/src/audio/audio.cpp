@@ -53,7 +53,7 @@ Samples::Samples(const SamplingRate r, const SamplingDepth d, const ChannelLayou
 
 Samples::~Samples() { delete_(samples); }
 
-Samples::Samples(Samples&& o) : depth(o.depth), rate(o.rate), layout(o.layout) {
+Samples::Samples(Samples&& o) noexcept : depth(o.depth), rate(o.rate), layout(o.layout) {
   // steal that music
   nbSamples = o.nbSamples;
   timestamp = o.timestamp;
