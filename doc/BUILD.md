@@ -6,6 +6,8 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 
 ##  Building with macOS:
 
+### Using MacPorts
+
 ```
 # Build tools
 sudo port install CMake bison doxygen yasm ninja ccache
@@ -19,9 +21,14 @@ sudo port install opencv glew gsed jpeg libpng openal \
 cmake -DCREATE_BOX_PACKAGE=OFF \
       -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -DQt5_DIR=~/Qt/5.9.6/clang_64/lib/cmake/Qt5 \
+      -DMACPORTS=ON \
       -G Ninja \
       stitchEm
 ```
+
+### Using Homebrew
+
+See [../.travis.yml](../.travis.yml)
 
 
 ##  Building with Linux:
