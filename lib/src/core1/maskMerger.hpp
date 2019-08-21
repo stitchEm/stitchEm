@@ -33,7 +33,7 @@ class MaskMerger {
 
   static MaskMerger* factor(const MaskMergerType maskMergerType);
 
-  ~MaskMerger();
+  virtual ~MaskMerger();
 
   virtual Status setParameters(const std::vector<double>& params) = 0;
 

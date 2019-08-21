@@ -14,7 +14,7 @@ namespace Core {
 class VoronoiMaskMerger : public MaskMerger {
  public:
   VoronoiMaskMerger() : feather(0) {}
-  ~VoronoiMaskMerger() {}
+  virtual ~VoronoiMaskMerger() override {}
 
   Status setup(const PanoDefinition&, GPU::Buffer<const uint32_t> inputsMask, const ImageMapping& fromIm,
                const ImageMerger* const to, GPU::Stream) override;
