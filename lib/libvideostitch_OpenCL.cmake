@@ -117,6 +117,6 @@ endif(DISABLE_OPENCL_SPIR)
 
 # different names on different implementations of find_package(OpenCL)
 vs_lib_link_libraries("PUBLIC_OPENCL" ${OpenCL_LIBRARIES})
-vs_lib_link_libraries("OPENCL" ${OpenGL_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLEW})
+vs_lib_link_libraries("OPENCL" ${OpenGL_LIBRARIES} ${OPENGL_LIBRARIES} GLEW::GLEW)
 
 set(BACKEND_OBJECTS_OPENCL )
