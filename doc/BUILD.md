@@ -18,12 +18,19 @@ sudo port install opencv glew gsed jpeg libpng openal \
 ```
 
 ```
+git clone git@github.com:stitchEm/stitchEm.git
+
+mkdir build; cd build;
+
 cmake -DCREATE_BOX_PACKAGE=OFF \
       -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -DQt5_DIR=~/Qt/5.9.6/clang_64/lib/cmake/Qt5 \
       -DMACPORTS=ON \
+      -DCMAKE_BUILD_TYPE=Release \
       -G Ninja \
-      stitchEm
+      ../stitchEm
+
+ninja
 ```
 
 ### Using Homebrew
@@ -77,9 +84,16 @@ export CXX=g++-6
 
 # Install CUDA: https://developer.nvidia.com/cuda-90-download-archive
 
+git clone git@github.com:stitchEm/stitchEm.git
+
+mkdir build; cd build;
+
 cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -G Ninja \
-      stitchEm
+      -DCMAKE_BUILD_TYPE=Release \
+      ../stitchEm
+
+ninja
 ```
 
 ## CMake flags
