@@ -22,6 +22,7 @@
 #include <lmerr.h>
 #include <PathCch.h>
 
+#define DELAYIMP_INSECURE_WRITABLE_HOOKS
 #include "delayimp.h"
 #include "winerror.h"
 

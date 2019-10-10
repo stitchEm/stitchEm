@@ -21,12 +21,12 @@ vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET
 include_lib_vs_headers(${PLUGIN_NAME})
 include_discovery_vs_headers(${PLUGIN_NAME})
 
-target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/ximea")
+target_include_directories(${PLUGIN_NAME} PRIVATE ${XIMEA_PATH})
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
-find_library(XIMEA_LIB NAMES "xiapi64" PATHS ${CMAKE_EXTERNAL_DEPS}/lib/Ximea/release/ REQUIRED NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+find_library(XIMEA_LIB NAMES "xiapi64" HINTS "${XIMEA_PATH}\\x64" REQUIRED)
 
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${VS_DISCOVERY} ${XIMEA_LIB})
 link_target_to_libvideostitch(${PLUGIN_NAME})

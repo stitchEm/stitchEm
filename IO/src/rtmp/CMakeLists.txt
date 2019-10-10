@@ -220,15 +220,15 @@ endif(LINUX)
 
 target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
+target_include_directories(${PLUGIN_NAME} PRIVATE "${INTEL_MEDIA_SDK_PATH}\\include")
 if(USE_AVFORMAT)
   target_include_directories(${PLUGIN_NAME} PRIVATE ../common/format/include)
 endif(USE_AVFORMAT)
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
 if(WINDOWS)
-  find_library(librtmp librtmp HINTS "${CMAKE_EXTERNAL_LIB}/librtmp" REQUIRED NO_DEFAULT_PATH)
-  find_library(libx264 libx264-148 HINTS "${CMAKE_EXTERNAL_LIB}/x264" REQUIRED NO_DEFAULT_PATH)
-  find_library(libmp3lame libmp3lame-0 HINTS "${CMAKE_EXTERNAL_LIB}/lame" REQUIRED NO_DEFAULT_PATH)
+  find_library(librtmp librtmp REQUIRED)
+  find_package(mp3lame CONFIG REQUIRED)
   find_library(libmpghip libmpghip-static HINTS "${CMAKE_EXTERNAL_LIB}/lame" REQUIRED NO_DEFAULT_PATH)
   find_library(libfaac libfaac HINTS "${CMAKE_EXTERNAL_LIB}/faac" REQUIRED NO_DEFAULT_PATH)
   find_library(libmfxhw64 libmfx HINTS "${CMAKE_EXTERNAL_LIB}/Intel_Media_SDK" REQUIRED NO_DEFAULT_PATH)
@@ -240,7 +240,7 @@ if(WINDOWS)
       d3d11
       Ws2_32
       Winmm)
-  target_link_libraries(${PLUGIN_NAME} PRIVATE ${librtmp} ${libx264} ${libmp3lame} ${libfaac} ${libmfxhw64} ${libvfaad} ${libmpghip} ${DirectX_LIB})
+  target_link_libraries(${PLUGIN_NAME} PRIVATE ${librtmp} ${libx264} mp3lame:mp3lame ${libmfxhw64} ${DirectX_LIB})
   set_property(TARGET ${PLUGIN_NAME} APPEND_STRING PROPERTY LINK_FLAGS "/NODEFAULTLIB:libcmt /NODEFAULTLIB:libcmtd")
 endif()
 

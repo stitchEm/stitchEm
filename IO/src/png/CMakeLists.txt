@@ -25,9 +25,7 @@ target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
 if(APPLE)
     target_include_directories(${PLUGIN_NAME} PRIVATE "/opt/local/include")
-else(APPLE)
-    target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/libpng")
-endif(APPLE)
+endif()
 
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${PNG_LIBRARY} ${VS_DISCOVERY})

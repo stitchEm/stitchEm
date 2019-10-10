@@ -1,3 +1,7 @@
+if(WINDOWS)
+  return()
+endif()
+
 if(APPLE)
   if(MACPORTS)
     find_path(OpenEXR_ROOT_DIR include/openexr/half.h HINTS /opt/local)

@@ -1,6 +1,8 @@
 // Copyright (c) 2012-2017 VideoStitch SAS
 // Copyright (c) 2018 stitchEm
 // VideoStitch BackendLibHelper
+#include <cassert>
+
 #include "libgpudiscovery/backendLibHelper.hpp"
 #include "backendLibLoader.hpp"
 
