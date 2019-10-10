@@ -1,15 +1,3 @@
-if(WINDOWS)
-  find_debug_and_optimized_library(OpenCV_CORE_LIBS      "opencv2/Debug" "opencv_core310d"       "opencv2/Release" "opencv_core310")
-  find_debug_and_optimized_library(OpenCV_CALIB_LIBS     "opencv2/Debug" "opencv_calib3d310d"    "opencv2/Release" "opencv_calib3d310")
-  find_debug_and_optimized_library(OpenCV_FEATURES_LIBS  "opencv2/Debug" "opencv_features2d310d" "opencv2/Release" "opencv_features2d310")
-  find_debug_and_optimized_library(OpenCV_IMGCODECS_LIBS "opencv2/Debug" "opencv_imgcodecs310d" "opencv2/Release" "opencv_imgcodecs310")
-  find_debug_and_optimized_library(OpenCV_IMGPROC_LIBS   "opencv2/Debug" "opencv_imgproc310d"    "opencv2/Release" "opencv_imgproc310")
-  find_debug_and_optimized_library(OpenCV_FLANN_LIBS     "opencv2/Debug" "opencv_flann310d"      "opencv2/Release" "opencv_flann310")
-  find_debug_and_optimized_library(OpenCV_VIDEO_LIBS     "opencv2/Debug" "opencv_video310d"      "opencv2/Release" "opencv_video310")
-  set(OpenCV_LIBRARIES ${OpenCV_CORE_LIBS} ${OpenCV_CALIB_LIBS} ${OpenCV_FEATURES_LIBS} ${OpenCV_IMGPROC_LIBS} ${OpenCV_FLANN_LIBS} ${OpenCV_VIDEO_LIBS})
-  set(OpenCV_INCLUDE_DIRS ${CMAKE_EXTERNAL_DEPS}/include/opencv2)
-endif()
-
 
 if(LINUX OR ANDROID)
   if(LINUX)

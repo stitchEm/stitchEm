@@ -157,6 +157,10 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Platform dependent names for lib and output directories
 # ----------------------------------------------------------------------------
 if(WINDOWS)
+  set(VCPKG_PATH "${VCPKG_ROOT}\\installed")
+  include_directories("${VCPKG_PATH}\\${VCPKG_TARGET_TRIPLET}\\include")
+  list(INSERT CMAKE_MODULE_PATH 0 "${VCPKG_ROOT}/ports/openexr" "${VCPKG_ROOT}/ports/opencv")
+
   set(VS_LIB_CUDA libvideostitch_cuda)
   set(VS_LIB_OPENCL libvideostitch_opencl)
   set(VS_DISCOVERY libvideostitch-gpudiscovery)
@@ -212,10 +216,6 @@ if(NOT CMAKE_EXTERNAL_DEPS)
 endif(NOT CMAKE_EXTERNAL_DEPS)
 set(CMAKE_EXTERNAL_LIB "${CMAKE_EXTERNAL_DEPS}/lib")
 set(CMAKE_EXTERNAL_INCLUDE "${CMAKE_EXTERNAL_DEPS}/include")
-
-if(NOT EXISTS ${CMAKE_EXTERNAL_DEPS} AND WINDOWS)
-  message(FATAL_ERROR "external_deps folder not found")
-endif()
 
 # ----------------------------------------------------------------------------
 # Set binary directory structure manually
