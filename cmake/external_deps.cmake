@@ -6,6 +6,6 @@ elseif(LINUX)
 elseif(ANDROID)
   find_library(PNG_LIBRARY png PATHS ${CMAKE_EXTERNAL_LIB} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
 elseif(WINDOWS)
-  find_debug_and_optimized_library(PNG_LIBRARY "libpng/debug" "libpng" "libpng/release" "libpng")
+  find_package(PNG REQUIRED)
 endif()
 

@@ -33,9 +33,7 @@ function(setup_format BACKEND_NAME USE_CUDA)
   include_lib_vs_headers(${LIST_NAME})
   target_include_directories(${LIST_NAME} PRIVATE include)
   target_include_directories(${LIST_NAME} PRIVATE ../include)
-  set(FFMPEG_INCLUDE_PATH ${CMAKE_EXTERNAL_DEPS}/include/ffmpeg)
 
-  target_include_directories(${LIST_NAME} PRIVATE ${FFMPEG_INCLUDE_PATH})
   if(LINUX OR APPLE)
     # VSA-5342: we're using functionality that has been deprecated in ffmpeg 3
     target_compile_options(${LIST_NAME} PRIVATE -Wno-deprecated-declarations)
@@ -52,10 +50,9 @@ function(setup_format BACKEND_NAME USE_CUDA)
   endif()
 
   if(WINDOWS)
-    set(FFMPEG_LIB_PATH ${CMAKE_EXTERNAL_DEPS}/lib/ffmpeg)
-    find_library(FFMPEG_avcodec NAMES avcodec PATHS ${FFMPEG_LIB_PATH} NO_DEFAULT_PATH)
-    find_library(FFMPEG_avformat NAMES avformat PATHS ${FFMPEG_LIB_PATH} NO_DEFAULT_PATH)
-    find_library(FFMPEG_avutil NAMES avutil PATHS ${FFMPEG_LIB_PATH} NO_DEFAULT_PATH)
+    find_library(FFMPEG_avcodec NAMES avcodec REQUIRED)
+    find_library(FFMPEG_avformat NAMES avformat REQUIRED)
+    find_library(FFMPEG_avutil NAMES avutil REQUIRED)
   endif(WINDOWS)
 
   if(APPLE)
