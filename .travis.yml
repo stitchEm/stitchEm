@@ -61,3 +61,13 @@ matrix:
         - docker create -v ${HOME}/.ccache:/ccache --name ccache stitchem-cuda10:latest
       script:
         - docker run --env CCACHE_DIR=/ccache --volumes-from ccache stitchem-cuda10:latest
+    - name: windows
+      os: windows
+      script:
+        - choco install -vy cuda
+        - cat "C:\ProgramData\chocolatey\logs\chocolatey.log"
+        - git clone https://github.com/microsoft/vcpkg.git
+        - cd vcpkg
+        - ./bootstrap-vcpkg.bat
+        - ./vcpkg --triplet x64-windows install ceres eigen3 ffmpeg[avresample,core,gpl,x264,opencl] gflags glfw3 glog libjpeg-turbo liblzma libpng librtmp libwebp mp3lame opencl opencv3 openexr opengl openssl openvr portaudio protobuf tiff x264 zlib glm
+        - ./vcpkg install glew:x64-windows-static
