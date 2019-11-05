@@ -619,7 +619,7 @@ template <typename VideoPipeline>
 ControllerStatus ControllerImpl<VideoPipeline>::extract(ExtractOutput* extract, bool readFrame) {
   // load the acquisition data
   std::map<readerid_t, Input::PotentialFrame> inputBuffers;
-  std::vector<Audio::audioBlockGroupMap_t> audioBlocks;
+  std::list<Audio::audioBlockGroupMap_t> audioBlocks;
   Input::MetadataChunk metadata;
 
   mtime_t date;
@@ -644,7 +644,7 @@ ControllerStatus ControllerImpl<VideoPipeline>::extract(std::vector<ExtractOutpu
                                                         bool readFrame) {
   // load the acquisition data
   std::map<readerid_t, Input::PotentialFrame> inputBuffers;
-  std::vector<Audio::audioBlockGroupMap_t> audioBlocks;
+  std::list<Audio::audioBlockGroupMap_t> audioBlocks;
   Input::MetadataChunk metadata;
 
   mtime_t date;
@@ -734,7 +734,7 @@ ControllerStatus ControllerImpl<VideoPipeline>::stitchAndExtract(Output* output,
   // load the acquisition data
   std::map<readerid_t, Input::PotentialFrame> inputBuffers;
   mtime_t date;
-  std::vector<Audio::audioBlockGroupMap_t> audioBlocks;
+  std::list<Audio::audioBlockGroupMap_t> audioBlocks;
   Input::MetadataChunk metadata;
 
   if (readFrame) {
