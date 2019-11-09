@@ -117,7 +117,7 @@ void testLoadedDate() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   readerController->load(date, frames, audio, metadata);
@@ -125,7 +125,7 @@ void testLoadedDate() {
   ENSURE_EQ(date, (mtime_t)5 * 1000 * 1000, "ReaderController should take timing information from audio reader");
   ENSURE_EQ(audio.empty(), false, "audio should not be empty");
   for (auto &audioGr : audio) {
-    for (auto &blockmap : audioGr) {
+    for (auto &blockmap : audioGr.second) {
       ENSURE_EQ((int)blockmap.second.size(), 2, "Should return a block with two inputs");
       ENSURE_EQ((int)blockmap.second.begin()->first, 3, "Check first input id audio");
       ENSURE_EQ((int)blockmap.second.rbegin()->first, 4, "Check second input id audio");
@@ -198,7 +198,7 @@ void testLoadedDateWithAudioReader() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   readerController->load(date, frames, audio, metadata);
@@ -240,7 +240,7 @@ void testSeekWithImage() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   readerController->load(date, frames, audio, metadata);
@@ -294,7 +294,7 @@ void testEOSAudio() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> status =
@@ -326,7 +326,7 @@ void testTryAgainAudio() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> status =
@@ -357,7 +357,7 @@ void testAudioVideoResync() {
 
   std::map<readerid_t, Input::PotentialFrame> frames;
   Input::MetadataChunk metadata;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
 
   std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> status =
@@ -370,7 +370,7 @@ void testAudioVideoResync() {
   auto sr = Audio::getDefaultSamplingRate();
   mtime_t blockDuration = (mtime_t)std::round((blockSize * 1000000. / sr));
   for (auto &grMap : audio) {
-    for (auto &readerMap : grMap) {
+    for (auto &readerMap : grMap.second) {
       for (auto &kv : readerMap.second) {
         mtime_t tmp = (blockDuration * iBlk);
         ENSURE_EQ((mtime_t)(date + tmp), kv.second.getTimestamp(), "test audio video synchro");
@@ -378,7 +378,7 @@ void testAudioVideoResync() {
     }
     iBlk++;
   }
-  ENSURE_EQ(date, audio.front()[0][0].getTimestamp(), "audio and video should be synchro");
+  ENSURE_EQ(date, audio[0][0][0].getTimestamp(), "audio and video should be synchro");
   readerController->releaseBuffer(frames);
 }
 
@@ -421,7 +421,7 @@ void testInputGroups(int fps, ReaderClockResolution clockResolution) {
     }
 
     std::map<readerid_t, Input::PotentialFrame> frames;
-    std::list<Audio::audioBlockGroupMap_t> audio;
+    Audio::audioBlocks_t audio;
     mtime_t date;
     Input::MetadataChunk metadata;
 
@@ -536,7 +536,7 @@ void testCurrentFrame() {
   ENSURE(readerController.status());
 
   std::map<readerid_t, Input::PotentialFrame> frames;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t date;
   Input::MetadataChunk metadata;
 
@@ -660,7 +660,7 @@ void testAudioVideoSynchro() {
   auto readerController = Core::ReaderController::create(*panoDef, *audioPipe, readerFactory);
   ENSURE(readerController.status());
   std::map<readerid_t, Input::PotentialFrame> frames;
-  std::list<Audio::audioBlockGroupMap_t> audio;
+  Audio::audioBlocks_t audio;
   mtime_t videoDate;
   Input::MetadataChunk metadata;
 
@@ -675,15 +675,16 @@ void testAudioVideoSynchro() {
                    1.5);
       ENSURE_EQ(nbAudioBlocksExpected, audio.size(), "Check number of audio blocks at the first load");
       // Check that the first audio frame of the audio video group are well synchronized
-      ENSURE_EQ(videoDate, audio.front().at(audioVideoGrId).at(0).getTimestamp(),
+      ENSURE_EQ(videoDate, audio.at(0).at(audioVideoGrId).at(0).getTimestamp(),
                 "Check audio video synchronization of the audio video group");
-      ENSURE_EQ(videoDate, audio.front().at(audioVideoGrId).at(1).getTimestamp(),
+      ENSURE_EQ(videoDate, audio.at(0).at(audioVideoGrId).at(1).getTimestamp(),
                 "Check audio video synchronization of the audio video group");
-      ENSURE_EQ(videoDate, audio.front().at(audioOnlyGrId).at(2).getTimestamp(),
+      ENSURE_EQ(videoDate, audio.at(0).at(audioOnlyGrId).at(2).getTimestamp(),
                 "Check audio video synchronization of the audio video group");
     }
 
-    for (const Audio::audioBlockGroupMap_t &audioPerGroup : audio) {
+    for (const auto& pair : audio) {
+      const Audio::audioBlockGroupMap_t &audioPerGroup = pair.second;
       ENSURE_EQ((size_t)2, audioPerGroup.size(), "Check number of groups loaded");
       mtime_t timestampAudioVideo = -1;
       mtime_t timestampAudioOnly = -1;
