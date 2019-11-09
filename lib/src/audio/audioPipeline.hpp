@@ -25,6 +25,11 @@ namespace Audio {
 typedef std::map<readerid_t, AudioBlock> audioBlockReaderMap_t;
 typedef std::map<groupid_t, audioBlockReaderMap_t> audioBlockGroupMap_t;
 
+// originally a vector<audioBlockGroupMap_t>, but this doesn't compile in MSVC
+// (https://stackoverflow.com/questions/58700780/vector-of-maps-of-non-copyable-objects-fails-to-compile-in-msvc)
+// -> using std::map, where key is audio block index and can be disregarded
+typedef std::map<int64_t, audioBlockGroupMap_t> audioBlocks_t;
+
 static const std::string kAudioPipeTag{"audiopipeline"};
 
 class AudioPipeline {

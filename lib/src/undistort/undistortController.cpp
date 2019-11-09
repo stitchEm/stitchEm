@@ -59,7 +59,7 @@ ControllerStatus UndistortControllerImpl::undistort(std::vector<ExtractOutput*> 
   // load the acquisition data
   std::map<readerid_t, Input::PotentialFrame> inputBuffers;
   mtime_t date;
-  std::list<Audio::audioBlockGroupMap_t> audioBlocks;
+  Audio::audioBlocks_t audioBlocks;
   Input::MetadataChunk metadata;
 
   std::tie(statusVideo, statusAudio, statusMetadata) =

@@ -186,7 +186,7 @@ ReaderController::~ReaderController() {
 
 std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> ReaderController::load(
     mtime_t& date, std::map<readerid_t, Input::PotentialFrame>& frames,
-    std::list<Audio::audioBlockGroupMap_t>& audioBlocks, Input::MetadataChunk& metadata) {
+    Audio::audioBlocks_t& audioBlocks, Input::MetadataChunk& metadata) {
   // protect from concurrent seeks
   std::lock_guard<std::mutex> lock(inputMutex);
 
@@ -370,7 +370,7 @@ Input::ReadStatus ReaderController::loadVideo(mtime_t& date, std::map<readerid_t
 /// \param audioBlocks First dimension is the block, second index the input
 ///                    (e.g. audioIn[1][0] => second block of the input 0)
 /// \return Code::Ok on success, else an error code
-Input::ReadStatus ReaderController::loadAudio(std::list<Audio::audioBlockGroupMap_t>& audioBlocks, groupid_t gr) {
+Input::ReadStatus ReaderController::loadAudio(Audio::audioBlocks_t& audioBlocks, groupid_t gr) {
   std::list<std::map<readerid_t, Audio::Samples>> audioIn;
 
   size_t nbSamples = audioPipeDef->getBlockSize();
@@ -489,6 +489,7 @@ Input::ReadStatus ReaderController::loadAudio(std::list<Audio::audioBlockGroupMa
 
   Audio::AudioBlock blk;
   // First dimension is the block, second dimension the input (e.g. audioIn[1][0] => second block of the first input)
+  int64_t audioInIdx = 0;
   for (auto& samplesByReader : audioIn) {  // for each block
     Audio::audioBlockReaderMap_t audioBlockPerReader;
     for (auto& readerData : samplesByReader) {  // for each reader
@@ -503,9 +504,15 @@ Input::ReadStatus ReaderController::loadAudio(std::list<Audio::audioBlockGroupMa
       audioBlockPerReader[readerData.first] = std::move(blk);
     }
 
-    Audio::audioBlockGroupMap_t audioBlockPerGroup;
-    audioBlockPerGroup[gr] = std::move(audioBlockPerReader);
-    audioBlocks.push_back(std::move(audioBlockPerGroup));
+    if (audioBlocks.find(audioInIdx) != audioBlocks.end()) {
+      audioBlocks[audioInIdx][gr] = std::move(audioBlockPerReader);
+    } else {
+      Audio::audioBlockGroupMap_t audioBlockPerGroup;
+      audioBlockPerGroup[gr] = std::move(audioBlockPerReader);
+      audioBlocks[audioInIdx] = std::move(audioBlockPerGroup);
+    }
+
+    audioInIdx++;
   }
 
   Logger::verbose(CTRLtag) << "read group " << gr << " " << audioIn.size() << " audio blocks starting at timestamp "
