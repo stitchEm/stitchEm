@@ -113,7 +113,7 @@ void testAsyncLoading() {
   ENSURE(preloadedFrames >= numReaders, "Controller init should start pre-loading at least one frame per reader");
 
   std::map<readerid_t, Input::PotentialFrame> frames;
-  std::vector<Audio::audioBlockGroupMap_t> audio;
+  std::list<Audio::audioBlockGroupMap_t> audio;
   Input::MetadataChunk metadata;
   mtime_t date;
 
