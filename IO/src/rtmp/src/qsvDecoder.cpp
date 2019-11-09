@@ -20,7 +20,7 @@ extern "C" {
 #endif
 }
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 #include <thread>
 

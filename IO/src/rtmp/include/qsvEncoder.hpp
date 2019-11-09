@@ -22,7 +22,7 @@ extern "C" {
 #endif
 }
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 #define MFX_IMPL_VIA_MASK(x) (0x0f00 & (x))
 #define MSDK_ALIGN16(value) (((value + 15) >> 4) << 4)  // round up to a multiple of 16

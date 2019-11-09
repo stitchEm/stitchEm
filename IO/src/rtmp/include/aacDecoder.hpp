@@ -7,7 +7,7 @@
 #include "audioDecoder.hpp"
 
 #if defined(_WIN32)
-#include "faad/faad.h"
+#include "faad.h"
 #else
 #include <neaacdec.h>
 #endif

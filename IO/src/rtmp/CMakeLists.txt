@@ -227,12 +227,10 @@ endif(USE_AVFORMAT)
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
 if(WINDOWS)
+  find_library(libx264 libx264 REQUIRED)
   find_library(librtmp librtmp REQUIRED)
   find_package(mp3lame CONFIG REQUIRED)
   find_library(libmpghip libmpghip-static HINTS "${CMAKE_EXTERNAL_LIB}/lame" REQUIRED NO_DEFAULT_PATH)
-  find_library(libfaac libfaac HINTS "${CMAKE_EXTERNAL_LIB}/faac" REQUIRED NO_DEFAULT_PATH)
-  find_library(libmfxhw64 libmfx HINTS "${CMAKE_EXTERNAL_LIB}/Intel_Media_SDK" REQUIRED NO_DEFAULT_PATH)
-  find_library(libvfaad libfaad2 HINTS "${CMAKE_EXTERNAL_LIB}/faad" REQUIRED NO_DEFAULT_PATH)
   set(DirectX_LIB
       dxva2
       d3d9
@@ -240,8 +238,50 @@ if(WINDOWS)
       d3d11
       Ws2_32
       Winmm)
-  target_link_libraries(${PLUGIN_NAME} PRIVATE ${librtmp} ${libx264} mp3lame:mp3lame ${libmfxhw64} ${DirectX_LIB})
+  target_link_libraries(${PLUGIN_NAME} PRIVATE ${librtmp} ${libx264} mp3lame::mp3lame ${libmfxhw64} ${DirectX_LIB})
   set_property(TARGET ${PLUGIN_NAME} APPEND_STRING PROPERTY LINK_FLAGS "/NODEFAULTLIB:libcmt /NODEFAULTLIB:libcmtd")
+
+  find_package(Git)
+  include(ExternalProject)
+  ############################################################
+  ## Build FAAC
+  ############################################################
+  ExternalProject_Add(faac
+    GIT_REPOSITORY https://github.com/stitchEm/faac.git
+    GIT_TAG master
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND echo "Configure faac..."
+    BUILD_COMMAND msbuild
+        /p:Configuration=Release,Platform=x64
+        /m <SOURCE_DIR>/libfaac/libfaac_dll.sln
+    INSTALL_COMMAND echo "..."
+    LICENSE_FILES COPYING
+  )
+  ExternalProject_Get_Property(faac SOURCE_DIR)
+
+  target_include_directories(${PLUGIN_NAME} PRIVATE ${SOURCE_DIR}/include)
+  set(Faac_LIBRARY ${SOURCE_DIR}/libfaac/ReleaseDLL/libfaac.lib)
+
+  ############################################################
+  ## Build FAAD2
+  ############################################################
+  ExternalProject_Add(faad2
+    GIT_REPOSITORY https://github.com/stitchEm/faad2.git
+    GIT_TAG xmms2
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND echo "Configure faad2..."
+    BUILD_COMMAND msbuild
+        /p:Configuration=Release,Platform=x64
+        /m <SOURCE_DIR>/libfaad/libfaad2_dll.sln
+    INSTALL_COMMAND echo "..."
+    LICENSE_FILES COPYING
+  )
+  ExternalProject_Get_Property(faad2 SOURCE_DIR)
+  add_dependencies(${PLUGIN_NAME} faad2 faac)
+
+  set(libfaad ${SOURCE_DIR}/libfaad/ReleaseDLL/libfaad2.lib)
+  target_include_directories(${PLUGIN_NAME} PRIVATE ${SOURCE_DIR}/include)
+  target_link_libraries(${PLUGIN_NAME} PRIVATE ${Faac_LIBRARY} ${libfaad} ${CUVID})
 endif()
 
 if(LINUX OR ANDROID)
@@ -267,10 +307,10 @@ if(LINUX OR ANDROID)
   endif()
   target_link_libraries(${PLUGIN_NAME} PRIVATE ${librtmp} ${libx264} ${libmp3lame} ${libfaac} ${libvfaad})
   if(RTMP_QUICKSYNC)
-    find_library(libmfxhw64 mfxhw64 HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_DEFAULT_PATH)
+    find_library(igfx_s3dcontrol igfx_s3dcontrol PATH "${INTEL_MEDIA_SDK_PATH}\\igfx_s3dcontrol\\lib\\x64" REQUIRED)
     find_library(libva va HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_SYSTEM_ENVIRONMENT_PATH)
     find_library(libva_drm va-drm HINTS ${CMAKE_EXTERNAL_LIB} REQUIRED NO_SYSTEM_ENVIRONMENT_PATH)
-target_link_libraries(${PLUGIN_NAME} PRIVATE ${libmfxhw64} ${libva} ${libva_drm})
+    target_link_libraries(${PLUGIN_NAME} PRIVATE ${libmfxhw64} ${libva} ${libva_drm} ${igfx_s3dcontrol})
   endif()
 endif()
 
