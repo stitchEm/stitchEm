@@ -421,7 +421,7 @@ char* NvEncoder::metadata(char* enc, char* pend) {
 
 extern "C" {
 #if defined(_WIN32)
-#include "x264/x264.h"
+#include "x264.h"
 #else
 #include <unistd.h>
 #include <inttypes.h>

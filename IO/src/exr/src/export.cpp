@@ -15,9 +15,9 @@
 #include "libvideostitch/ptv.hpp"
 #include <ostream>
 
-#ifdef _MSC_VER
+#ifdef DELAY_LOAD_ENABLED
 SET_DELAY_LOAD_HOOK
-#endif  // _MSC_VER
+#endif  // DELAY_LOAD_ENABLED
 
 /** \name Services for reader plugin. */
 //\{

@@ -29,7 +29,7 @@ Copyright(c) 2008-2013 Intel Corporation. All Rights Reserved.
 #include <string.h>
 #include <functional>
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 struct mfxAllocatorParams {
   virtual ~mfxAllocatorParams(){};

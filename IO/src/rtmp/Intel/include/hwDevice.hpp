@@ -10,7 +10,7 @@ Copyright(c) 2013 Intel Corporation. All Rights Reserved.
 
 #pragma once
 
-#include "mfx/mfxvideo++.h"
+#include "mfxvideo++.h"
 
 #if defined(WIN32) || defined(WIN64)
 #ifndef D3D_SURFACES_SUPPORT

@@ -9,7 +9,7 @@
 #include "librtmpIncludes.hpp"
 
 #if defined(_WIN32)
-#include "faac/faac.h"
+#include "faac.h"
 #else
 #include <faac.h>
 #endif

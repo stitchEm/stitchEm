@@ -22,7 +22,7 @@ Copyright(c) 2011-2015 Intel Corporation. All Rights Reserved.
 
 #include "d3dDevice.hpp"
 #include "d3dAllocator.hpp"
-#include "mfx/igfx_s3dcontrol.h"
+#include "igfx_s3dcontrol.h"
 
 #include "atlbase.h"
 
