@@ -95,7 +95,7 @@ bool readVsSymLink(std::string& targetLib) {
 }
 
 bool BackendLibLoader::updateVsSymlink() {
-#ifdef DELAY_LOAD_ENABLED
+#ifdef SYMLINK_UPDATE_ENABLED
   std::string pathToLibs;
   if (!getPathToLibs(pathToLibs)) {
     return false;
@@ -119,7 +119,7 @@ bool BackendLibLoader::updateVsSymlink() {
     std::cerr << "Error creating symlink to " << pathToSymlink << std::endl;
     return false;
   }
-#endif  // DELAY_LOAD_ENABLED
+#endif  // SYMLINK_UPDATE_ENABLED
   return true;
 }
 #endif  // __APPLE__
@@ -182,10 +182,8 @@ bool BackendLibLoader::selectBackend(const Discovery::Framework& framework, bool
   if (needToRestart) {
     *needToRestart = false;
   }
-#ifndef DELAY_LOAD_ENABLED
-  (void)framework;
-  return true;
-#else
+
+#if defined(SYMLINK_UPDATE_ENABLED) || defined(DELAY_LOAD_ENABLED)
   if (framework == Discovery::Framework::Unknown) {
     return false;
   }
@@ -193,6 +191,7 @@ bool BackendLibLoader::selectBackend(const Discovery::Framework& framework, bool
     return true;
   }
   currentVsFramework = framework;
+
 #if _MSC_VER
   if (getBackendHandler() != NULL) {
     if (needToRestart) {
@@ -210,7 +209,10 @@ bool BackendLibLoader::selectBackend(const Discovery::Framework& framework, bool
 #else
   return true;
 #endif  // _MSC_VER
-#endif  // DELAY_LOAD_ENABLED
+#else
+  (void)framework;
+  return true;
+#endif // defined(SYMLINK_UPDATE_ENABLED) || defined(DELAY_LOAD_ENABLED)
 }
 
 #ifdef __APPLE__

@@ -109,8 +109,15 @@ set (DISCOVERY_SRC_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 include_discovery_vs_headers(${VS_DISCOVERY})
 
 if(USE_DELAY_LOAD)
-  target_compile_definitions(${VS_DISCOVERY} PRIVATE DELAY_LOAD_ENABLED=1)
+  if(MSVC)
+    target_compile_definitions(${VS_DISCOVERY} PRIVATE DELAY_LOAD_ENABLED=1)
+  elseif(APPLE)
+    target_compile_definitions(${VS_DISCOVERY} PRIVATE SYMLINK_UPDATE_ENABLED=1)
+  endif()
 endif()
+
+
+
 
 # ----------------------------------------------------------------------------
 # Unit tests
