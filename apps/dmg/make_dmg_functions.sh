@@ -232,9 +232,6 @@ function make_dmg {
   mkdir "${DMG_MOUNT}/.background"
   cp "dmg/logo_background.png" "${DMG_MOUNT}/.background/"
 
-  #copy the link to the nVidia website
-  cp "dmg/List of supported graphics cards.webloc" "${DMG_MOUNT}/List of supported graphics cards.webloc"
-
   #create an alias to Applications
   ln -sf /Applications "${DMG_MOUNT}/Applications"
 
@@ -265,7 +262,6 @@ function make_dmg {
              set background picture of theViewOptions to file ".background:'logo_background.png'"
              set position of item "'${APPLICATION_BUNDLE}.app'" of container window to {120, 125}
              set position of item "'Applications'" of container window to {385, 125}
-             set position of item "'List of supported graphics cards.webloc'" of container window to {260, 300}
              close
              open
              update without registering applications
