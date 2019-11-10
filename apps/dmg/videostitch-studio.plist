@@ -76,7 +76,7 @@
 	<key>CFBundleName</key>
 	<string>VideoStitch Studio</string>
 	<key>CFBundleIconFile</key>
-	<string>videostitch-studio.icns</string>
+	<string>videostitch.icns</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleGetInfoString</key>
