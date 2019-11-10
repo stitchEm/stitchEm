@@ -207,8 +207,8 @@ function make_dmg {
 
   # give all users read and execute access to the .app, recursively
   chmod -R og+rx "${PACKAGE}"
-  codesign --deep --force --verify --verbose=4 --sign "VIDEOSTITCH" "${PACKAGE}"
-  codesign --deep --verify --verbose=4 "${PACKAGE}"
+  # codesign --deep --force --verify --verbose=4 --sign "VIDEOSTITCH" "${PACKAGE}"
+  # codesign --deep --verify --verbose=4 "${PACKAGE}"
 
   TMP="dmg/videostitch_tmp.dmg"
   hdiutil create "${TMP}" -volname "${TARGET}" -srcfolder "${PACKAGE}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" -format UDRW -ov
