@@ -432,7 +432,7 @@ else()
                       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP}}
                       -P ${CMAKE_SOURCE_DIR}/lib/generateFakeLibvideostitch.cmake
                       DEPENDS ${VS_LIB_DEFAULT})
-    if(USE_DELAY_LOAD)
+    if(USE_DELAY_LOAD AND MSVC)
       add_dependencies(generateFakeLibvideostitch_${OUTPUTCONFIG_UP} ${VS_LIB_FAKE})
     endif()
   endforeach()
@@ -463,7 +463,13 @@ function(link_target_to_libvideostitch TARGET_NAME)
       set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS ${new_link_flags})
     endif()
   elseif(APPLE)
-    target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
+
+    if (USE_DELAY_LOAD)
+      target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
+    else()
+      target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_DEFAULT})
+    endif()
+
     # ensure the non-fake backend libs are built
     if(GPU_BACKEND_CUDA)
       add_dependencies(${TARGET_NAME} ${VS_LIB_CUDA})
