@@ -233,7 +233,7 @@ FrameworkStatus DevicesInfo::getFrameworkStatus(Framework framework) const {
 }
 
 DevicesInfo::DevicesInfo() {
-#ifdef _MSC_VER
+#ifdef DELAY_LOAD_ENABLED
   PfnDliHook currentFailHook = __pfnDliFailureHook2;
   __pfnDliFailureHook2 = failDelayHook;
   try {

@@ -27,7 +27,7 @@ if (WINDOWS)
   include_directories("${NVIDIA_VIDEO_CODEC}\\include")
   find_library(CUDA cuda PATHS "${CUDA_TOOLKIT_ROOT_DIR}/lib/x64" NO_DEFAULT_PATH)
   find_library(CUDART cudart PATHS "${CUDA_TOOLKIT_ROOT_DIR}/lib/x64" NO_DEFAULT_PATH)
-  find_library(CUVID nvcuvid PATHS "${NVIDIA_VIDEO_CODEC}\\Lib\\Win32")
+  find_library(CUVID nvcuvid PATHS "${NVIDIA_VIDEO_CODEC}\\Lib\\x64")
   find_library(NVML nvml PATHS "${CUDA_TOOLKIT_ROOT_DIR}/lib/x64" NO_DEFAULT_PATH)
 endif(WINDOWS)
 

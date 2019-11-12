@@ -27,7 +27,9 @@
 
 #ifdef _MSC_VER
 #include <libgpudiscovery/delayLoad.hpp>
+#ifdef DELAY_LOAD_ENABLED
 SET_DELAY_LOAD_HOOK
+#endif  // DELAY_LOAD_ENABLED
 FARPROC WINAPI delayFailureHook(unsigned dliNotify, PDelayLoadInfo pdli) {
   switch (dliNotify) {
     case dliFailLoadLib:
