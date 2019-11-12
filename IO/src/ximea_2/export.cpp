@@ -12,9 +12,9 @@
 #include "ximeaDiscovery.hpp"
 #include "ximeaReader.hpp"
 
-#ifdef _MSC_VER
+#ifdef DELAY_LOAD_ENABLED
 SET_DELAY_LOAD_HOOK
-#endif  // _MSC_VER
+#endif  // DELAY_LOAD_ENABLED
 
 extern "C" VS_PLUGINS_EXPORT VideoStitch::Potential<VideoStitch::Input::Reader>* __cdecl createReaderFn(
     const VideoStitch::Ptv::Value* config, VideoStitch::Plugin::VSReaderPlugin::Config runtime) {
