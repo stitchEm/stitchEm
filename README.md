@@ -1,11 +1,11 @@
 [license-badge]: https://img.shields.io/badge/license-MIT-green.svg
 [license-link]: https://opensource.org/licenses/MIT
 
-[travis-badge]: https://img.shields.io/travis/stitchEm/stitchEm/master.svg?label=Build
-[travis-link]: https://travis-ci.org/stitchEm/stitchEm
+[actions-badge]: https://github.com/stitchEm/stitchEm/workflows/Build/badge.svg
+[actions-link]: https://github.com/stitchEm/stitchEm/actions
 
 [![License][license-badge]][license-link]
-[![Build][travis-badge]][travis-link]
+[![Build][actions-badge]][actions-link]
 
 Vahana VR & VideoStitch Studio: software to create immersive 360° VR video, live and in post-production.
 

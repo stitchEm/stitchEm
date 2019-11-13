@@ -1,0 +1,48 @@
+name: Build
+
+on: [push]
+
+jobs:
+
+  LinuxCuda8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda8:latest --build-arg version=8
+    - name: Build
+      run: docker run stitchem-cuda8:latest
+
+  LinuxCuda9:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda9:latest --build-arg version=9
+    - name: Build
+      run: docker run stitchem-cuda9:latest
+
+  LinuxCuda10:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda10:latest --build-arg version=10
+    - name: Build
+      run: docker run stitchem-cuda10:latest
+
+  MacOpenCL:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Deps
+      run: brew install bison ceres-solver CMake doxygen faac faad2 ffmpeg glew glfw glm jpeg libpng libtiff ninja opencv@3 qt yasm
+    - name: CMake
+      run: mkdir build && cd build && PATH="/usr/local/opt/bison/bin:${PATH}" cmake -DCREATE_BOX_PACKAGE=OFF -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DMACPORTS=OFF -DQt5_DIR=/usr/local/opt/qt/lib/cmake/Qt5 -G Ninja ..
+    - name: Build
+      run: cd build && ninja
+
+  WindowsCuda:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
