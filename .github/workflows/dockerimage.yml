@@ -1,0 +1,35 @@
+name: Docker Image CI (Linux)
+
+on: [push]
+
+jobs:
+
+  cuda8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      name: Sources checkout
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda8:latest --build-arg version=8
+    - name: Build
+      run: docker run stitchem-cuda8:latest
+
+  cuda9:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      name: Sources checkout
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda9:latest --build-arg version=9
+    - name: Build
+      run: docker run stitchem-cuda9:latest
+
+  cuda10:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      name: Sources checkout
+    - name: CMake
+      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda10:latest --build-arg version=10
+    - name: Build
+      run: docker run stitchem-cuda10:latest

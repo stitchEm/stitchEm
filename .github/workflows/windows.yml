@@ -1,0 +1,16 @@
+name: windows
+
+on: [push]
+
+jobs:
+    build:
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v1
+          name: Sources checkout
+        - name: Deps x64
+          run: vcpkg --triplet x64-windows install ceres eigen3 ffmpeg[avresample,core,gpl,x264,opencl] gflags glfw3 glog libjpeg-turbo liblzma libpng librtmp libwebp mp3lame opencl opencv3 openexr opengl openssl openvr portaudio protobuf tiff x264 zlib glm
+        - name: Deps static
+          run: vcpkg install glew:x64-windows-static
+        - name: CMake
+          run: cmake -G "Visual Studio 16 2019" -DCMAKE_TOOLCHAIN_FILE=$Env:VCPKG_INSTALLATION_ROOT\scripts\buildsystems\vcpkg.cmake .
