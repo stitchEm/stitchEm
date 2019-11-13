@@ -126,6 +126,10 @@ endif()
 # Use definitions from the cmake folder for find_package
 # ----------------------------------------------------------------------------
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+if(APPLE)
+  list(APPEND CMAKE_PREFIX_PATH /usr/local/opt/opencv@3/share/OpenCV)
+  include_directories("/usr/local/include")
+endif()
 
 
 # ----------------------------------------------------------------------------
