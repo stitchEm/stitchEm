@@ -1,3 +1,5 @@
+The stitchEm software uses code from these third-party libraries:
+
 | Library | Homepage | License | Source Code |
 |---------|----------|---------|-------------|
 | ceres solver | http://ceres-solver.org | [BSD](http://ceres-solver.org/license.html) | [ceres-solver.org](http://ceres-solver.org/installation.html) |
