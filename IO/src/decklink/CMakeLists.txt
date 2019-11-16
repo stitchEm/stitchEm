@@ -7,7 +7,7 @@ set(PLUGIN_NAME decklink)
 
 add_custom_command(
   OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/include/DeckLinkAPI_h.h" "${CMAKE_CURRENT_SOURCE_DIR}/DeckLinkAPI_i.c"
-  COMMAND midl.exe /D _DEBUG /W1 /nologo /char signed /env x64 /iid ${CMAKE_CURRENT_SOURCE_DIR}/DeckLinkAPI_i.c /h "${DECKLINK_PATH}/DeckLinkAPI_h.h" /tlb "${VS_VAHANA_PLUGIN_DIR}/decklink.tlb" "${DECKLINK_PATH}\\DeckLinkAPI.idl"
+  COMMAND midl.exe /D _DEBUG /W1 /nologo /char signed /env x64 /iid ${CMAKE_CURRENT_SOURCE_DIR}/DeckLinkAPI_i.c /h "${CMAKE_CURRENT_SOURCE_DIR}/DeckLinkAPI_h.h" /tlb "${VS_VAHANA_PLUGIN_DIR}/decklink.tlb" "${DECKLINK_PATH}\\DeckLinkAPI.idl"
   )
 
 set(SOURCE_FILES
