@@ -36,4 +36,6 @@ The software can be built on Windows, macOS and Linux. Not all features are avai
 
 The stitchEm project is licensed under the terms of the [MIT License](LICENSE.md).
 
-The repository includes several third-party open source files, which are licensed under their own respective licenses. They are listed in [doc/LICENSE-3RD-PARTY.md](doc/LICENSE-3RD-PARTY.md).
+The repository includes several third-party open source files, which are licensed under their own respective licenses. They are listed in [doc/LICENSE-3RD-PARTY-SOURCES.md](doc/LICENSE-3RD-PARTY-SOURCES.md).
+
+The stitchEm software uses code from third-party libraries, listed in [doc/LICENSE-3RD-PARTY-LIBRARIES.md](doc/LICENSE-3RD-PARTY-LIBRARIES.md).
