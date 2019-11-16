@@ -109,7 +109,7 @@ DeckLinkWriter* DeckLinkWriter::create(const Ptv::Value* config, const std::stri
     }
     std::shared_ptr<IDeckLinkConfiguration> configuration(tempConfiguration,
                                                           VideoStitch::DeckLink::getDefaultDeleter());
-    configuration->SetFlag(bmdDeckLinkConfigUse1080pNotPsF, true);
+    configuration->SetFlag(bmdDeckLinkConfigCapture1080pAsPsF, false);
 
     // Retrieve the configuration for duplex mode, could be different from the previous configuration object
     // We need it before to enable video output

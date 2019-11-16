@@ -96,7 +96,7 @@ Then installs all of this:
 * install manually [Intel SDK 2017](https://software.intel.com/en-us/media-sdk)
 * install manually [Magewell SDK](http://www.magewell.com/files/sdk/Magewell_Capture_SDK_3.3.1.1004.zip)
 * install manually [Oculus SDK (1.4.0)](https://developer.oculus.com/downloads/package/oculus-sdk-for-windows/1.4.0)
-* install manually [Decklink SDK](https://www.blackmagicdesign.com/developer/product/capture-and-playback)
+* install manually [Decklink SDK](https://www.blackmagicdesign.com/developer/product/capture-and-playback) v10.9.12
 * install manually [XIMEA SDK](https://www.ximea.com/support/documents/4)
 
 clone the repo and create a directory next to it, and configure with cmake:
