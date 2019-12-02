@@ -20,6 +20,7 @@
 #define VIDEOSTITCH_YOUTUBE_VAHANA_URL "https://www.youtube.com/playlist?list=PLE5eSxUoYnqgv4S8ayQ5_YsPP8x_MCvvM"
 #define VIDEOSTITCH_URL "https://github.com/stitchEm"
 #define VIDEOSTITCH_SUPPORT_URL "https://github.com/stitchEm"
+#define VIDEOSTITCH_LIBRARIES_URL "https://github.com/stitchEm/stitchEm/blob/master/doc/LICENSE-3RD-PARTY-LIBRARIES.md"
 
 // Color
 #define ORAH_COLOR "FF9E00";

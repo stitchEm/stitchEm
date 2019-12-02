@@ -6,9 +6,12 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QDesktopServices>
+
 #include "aboutwindow.hpp"
 #include "version.hpp"
 #include "common.hpp"
+
+#include "libvideostitch-base/linkhelpers.hpp"
 
 AboutWidget::AboutWidget(QString version, QWidget* const parent) : QWidget(parent) {
   setupUi(this);
@@ -18,6 +21,11 @@ AboutWidget::AboutWidget(QString version, QWidget* const parent) : QWidget(paren
                            .arg(QCoreApplication::applicationName())
                            .arg(QCoreApplication::organizationName())
                            .arg(QDate::currentDate().year()));
+
+  labelLibraries->setText(labelLibraries->text()
+                          .arg(QCoreApplication::applicationName())
+                          .arg(formatLink(VIDEOSTITCH_LIBRARIES_URL, "open source libraries.")));
+
   connect(buttonWebSite, &QPushButton::clicked, this, &AboutWidget::onButtonWebSiteClicked);
   labelAppVersion->setText(version);
   QIcon webIcon(":/live/icons/assets/icon/live/web.png");
