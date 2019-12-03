@@ -13,8 +13,9 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 sudo port install CMake bison doxygen yasm ninja ccache
 
 # Libraries
-sudo port install opencv glew gsed jpeg libpng \ 
-          tiff faac faad2 ceres-solver glfw ffmpeg glm OpenEXR
+sudo port install opencv glew gsed jpeg libpng \
+          tiff faac faad2 ceres-solver glfw glm OpenEXR \
+          ffmpeg +gpl2 +librtmp +nonfree
 ```
 
 ```
