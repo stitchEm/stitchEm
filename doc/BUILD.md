@@ -89,7 +89,7 @@ You need visual studio 2017, QT >= 5.9 and CUDA 10
 Install [vcpkg](https://github.com/microsoft/vcpkg)
 Then installs all of this:
 ```
-./vcpkg install ceres eigen3 ffmpeg[avresample,core,gpl,x264,opencl] gflags glfw3 glog libjpeg-turbo liblzma libpng librtmp libwebp mp3lame opencl opencv3 openexr opengl openssl openvr portaudio protobuf tiff x264 zlib glm
+./vcpkg install --triplet x64 ceres eigen3 ffmpeg[avresample,core,gpl,x264,opencl] gflags glfw3 glog libjpeg-turbo liblzma libpng librtmp libwebp mp3lame opencl opencv3 openexr opengl openssl openvr portaudio protobuf tiff x264 zlib glm
 ./vcpkg install glew:x64-windows-static
 ```
 * install manually [bison/flex](https://sourceforge.net/projects/winflexbison/files) and put the executables in the PATH
