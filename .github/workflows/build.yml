@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda8:latest --build-arg version=8
+      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda8:latest --build-arg version=8
     - name: Build
       run: docker run stitchem-cuda8:latest
 
@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda9:latest --build-arg version=9
+      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda9:latest --build-arg version=9
     - name: Build
       run: docker run stitchem-cuda9:latest
 
@@ -27,9 +27,18 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: docker build . --file docker/ci.dockerfile --tag stitchem-cuda10:latest --build-arg version=10
+      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda10:latest --build-arg version=10
     - name: Build
       run: docker run stitchem-cuda10:latest
+
+  LinuxOpenCL:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: docker build . --file docker/ci-opencl.dockerfile --tag stitchem-opencl:latest
+    - name: Build
+      run: docker run stitchem-opencl:latest
 
   MacOpenCL:
     runs-on: macos-latest
