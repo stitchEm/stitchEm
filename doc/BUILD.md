@@ -25,6 +25,8 @@ cmake -DCREATE_BOX_PACKAGE=OFF \
       -DMACPORTS=ON \
       -G Ninja \
       stitchEm
+
+ninja
 ```
 
 ### Using Homebrew
@@ -85,6 +87,8 @@ export CXX=g++-6
 cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -G Ninja \
       stitchEm
+
+ninja
 ```
 
 ## Building on windows
@@ -122,6 +126,8 @@ cmake -G "Visual Studio 15 2017 Win64" \
     -DINTEL_MEDIA_SDK_PATH="PATH_TO_INTEL_SDK" \
     ..\stitchEm\
 ```
+
+Then open the generated project with visual studio and build it.
 
 ## CMake flags
 
