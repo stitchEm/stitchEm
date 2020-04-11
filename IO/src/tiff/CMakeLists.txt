@@ -9,11 +9,7 @@ set(SOURCE_FILES
 set(HEADER_FILES
     include/tiffOutput.hpp)
 
-if(WINDOWS)
-  set(PLUGIN_NAME tiff)
-else(WINDOWS)
-  set(PLUGIN_NAME tiffPlugin)
-endif(WINDOWS)
+set(PLUGIN_NAME tiffPlugin)
 
 vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET_OBJECTS:common>)
 

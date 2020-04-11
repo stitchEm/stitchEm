@@ -3,3 +3,4 @@
 
 Source: "{#io_dir}\jpg.dll"; DestDir: "{app}\{#plugin_dir}"; Flags: ignoreversion
 Source: "{#io_dir}\png.dll"; DestDir: "{app}\{#plugin_dir}"; Flags: ignoreversion
+Source: "{#io_dir}\tiffPlugin.dll"; DestDir: "{app}\{#plugin_dir}"; Flags: ignoreversion
