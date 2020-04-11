@@ -18,7 +18,6 @@ fi
 array=("..\..\bin\x64\Release\batchstitcher.exe" "..\..\bin\x64\Release\videostitch-studio.exe" "..\..\bin\x64\Release\videostitch-cmd.exe")
 for exe in "${array[@]}" ; do
 	verpatch.exe /va $exe $vsver4 /pv $vsver4 /s desc "VideoStitch Studio" /s copyright "Copyright VideoStitch SAS 2017" /s product "VideoStitch Studio"
-	./sign.bat $exe
 done
 
 #generate installer			  
