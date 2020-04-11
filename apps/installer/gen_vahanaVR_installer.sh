@@ -17,7 +17,6 @@ fi
 #set details and sign executables
 exe="..\..\bin\x64\Release\VahanaVR.exe"
 verpatch.exe /va $exe $vsver4 /pv $vsver4 /s desc "Vahana VR" /s copyright "Copyright VideoStitch SAS 2017" /s product "Vahana VR"
-./sign.bat $exe
 
 #generate installer			  
 sed -e "s/__APPVERSION__/$vsver/g" -e "s/__INFOVERSION__/$vsver3/g" -e "s/__GPU__/$1/g" -e "s/__OTHER_GPU__/$optionalGpu/g" VideoStitch64_vahanaVR.iss > tmp.iss
