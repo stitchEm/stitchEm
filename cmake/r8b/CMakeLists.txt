@@ -27,10 +27,6 @@ if(LINUX OR APPLE)
   find_package(Threads REQUIRED)
 endif(LINUX OR APPLE)
 
-if(WINDOWS)
-  find_package(Kernel32 REQUIRED)
-endif(WINDOWS)
-
 set(R8B_SOURCES
     r8bbase.cpp)
 
@@ -42,9 +38,5 @@ if(LINUX OR APPLE)
   target_link_libraries(r8b Threads::Threads)
   set_target_properties(r8b PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif(LINUX OR APPLE)
-
-if(WINDOWS)
-  target_link_libraries(r8b Kernel32)
-endif(WINDOWS)
 
 set(R8B_LIBRARY r8b PARENT_SCOPE)

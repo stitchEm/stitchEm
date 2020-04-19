@@ -9,11 +9,7 @@ set(SOURCE_FILES
 set(HEADER_FILES
     include/tiffOutput.hpp)
 
-if(WINDOWS)
-  set(PLUGIN_NAME tiff)
-else(WINDOWS)
-  set(PLUGIN_NAME tiffPlugin)
-endif(WINDOWS)
+set(PLUGIN_NAME tiffPlugin)
 
 vs_add_IO_library(${PLUGIN_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES} $<TARGET_OBJECTS:common>)
 
@@ -24,8 +20,7 @@ target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
 if(WINDOWS)
-  find_library(TIFF NAMES "libtiff" PATHS "${CMAKE_EXTERNAL_DEPS}/lib/libtiff")
-  target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/libtiff")
+  find_library(TIFF NAMES "tiff")
 elseif(LINUX)
   if(CMAKE_CROSSCOMPILING)
     target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/libtiff)
@@ -41,4 +36,3 @@ endif()
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${TIFF} ${VS_DISCOVERY})
 link_target_to_libvideostitch(${PLUGIN_NAME})
-

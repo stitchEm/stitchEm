@@ -13,8 +13,9 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 sudo port install CMake bison doxygen yasm ninja ccache
 
 # Libraries
-sudo port install opencv glew gsed jpeg libpng openal \
-          tiff faac faad2 ceres-solver glfw ffmpeg glm OpenEXR
+sudo port install opencv glew gsed jpeg libpng \
+          tiff faac faad2 ceres-solver glfw glm OpenEXR \
+          ffmpeg +gpl2 +librtmp +nonfree
 ```
 
 ```
@@ -24,6 +25,8 @@ cmake -DCREATE_BOX_PACKAGE=OFF \
       -DMACPORTS=ON \
       -G Ninja \
       stitchEm
+
+ninja
 ```
 
 ### Using Homebrew
@@ -57,11 +60,15 @@ sudo apt install
   libturbojpeg0-dev \
   libx264-dev \
   ninja-build \
+  ocl-icd-opencl-dev \
+  opencl-headers \
   portaudio19-dev \
   qt5-default \
   qtmultimedia5-dev \
   qttools5-dev \
-  swig
+  swig \
+  wget \
+  xxd
 
 # Set up gcc-6 and g++-6 as your compiler
 sudo apt-get install gcc-6 g++-6
@@ -80,7 +87,47 @@ export CXX=g++-6
 cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -G Ninja \
       stitchEm
+
+ninja
 ```
+
+## Building on windows
+
+You need visual studio 2017, QT >= 5.9 and CUDA 10
+Install [vcpkg](https://github.com/microsoft/vcpkg)
+Then installs all of this:
+```
+./vcpkg install --triplet x64 ceres eigen3 ffmpeg[avresample,core,gpl,x264,opencl] gflags glfw3 glog libjpeg-turbo liblzma libpng librtmp libwebp mp3lame opencl opencv3 openexr opengl openssl openvr portaudio protobuf tiff x264 zlib glm
+./vcpkg install glew:x64-windows-static
+```
+* install manually [bison/flex](https://sourceforge.net/projects/winflexbison/files) and put the executables in the PATH
+* install manually [Intel SDK 2017](https://software.intel.com/en-us/media-sdk)
+* install manually [Magewell SDK](http://www.magewell.com/files/sdk/Magewell_Capture_SDK_3.3.1.1004.zip)
+* install manually [Oculus SDK (1.4.0)](https://developer.oculus.com/downloads/package/oculus-sdk-for-windows/1.4.0)
+* install manually [Decklink SDK](https://www.blackmagicdesign.com/developer/product/capture-and-playback) v10.9.12
+* install manually [XIMEA SDK](https://www.ximea.com/support/documents/4)
+
+clone the repo and create a directory next to it, and configure with cmake:
+```
+git clone https://github.com/stitchEm/stitchEm.git
+mkdir build
+cd build
+cmake -G "Visual Studio 15 2017 Win64" \
+    -DCMAKE_TOOLCHAIN_FILE=PATH_TO_YOUR_vcpkg_REPOSITORY\scripts\buildsystems\vcpkg.cmake \
+    -DQt5_DIR=PATH_TO_QT_5\msvc2017\lib\cmake\Qt5 \
+    -DGPU_BACKEND_CUDA=ON \
+    -DGPU_BACKEND_OPENCL=OFF \
+    -DCUDA_LOCAL_ARCH_ONLY=ON \
+    -DVCPKG_ROOT="PATH_TO_YOUR_vcpkg_REPOSITORY" \
+    -DVCPKG_TARGET_TRIPLET="x64-windows" \
+    -DMAGEWELL_PATH="PATH_TO_MAGEWELL_SDK" \
+    -DXIMEA_PATH="PATH_TO_XIMEA_API" \
+    -DDECKLINK_PATH="PATH_TO_DECK_LINK_OVR" \
+    -DINTEL_MEDIA_SDK_PATH="PATH_TO_INTEL_SDK" \
+    ..\stitchEm\
+```
+
+Then open the generated project with visual studio and build it.
 
 ## CMake flags
 

@@ -82,7 +82,7 @@ Status ControllerInputFrames<destinationColor, readbackType>::load(
     std::map<readerid_t, PotentialValue<GPU::HostBuffer<readbackType>>>& processedFrames, mtime_t* date) {
   std::map<readerid_t, Input::PotentialFrame> framesFromReader;
   processedFrames.clear();
-  std::vector<Audio::audioBlockGroupMap_t> audioBlocks;
+  Audio::audioBlocks_t audioBlocks;
   mtime_t tempDate = 0;
   Input::MetadataChunk metadata;
   auto loadStatus = readerController->load(tempDate, framesFromReader, audioBlocks, metadata);

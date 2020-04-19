@@ -13,7 +13,7 @@ Copyright(c) 2014 Intel Corporation. All Rights Reserved.
 
 #include <stdio.h>
 
-#include "mfx/mfxstructures.h"
+#include "mfxstructures.h"
 
 #include <atomic>
 #include <mutex>

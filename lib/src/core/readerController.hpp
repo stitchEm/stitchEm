@@ -14,6 +14,7 @@
 #include "libvideostitch/inputDef.hpp"
 #include "libvideostitch/panoDef.hpp"
 
+#include <list>
 #include <mutex>
 
 namespace VideoStitch {
@@ -54,7 +55,7 @@ class ReaderController {
 
   std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> load(
       mtime_t&, std::map<readerid_t, Input::PotentialFrame>& frames,
-      std::vector<Audio::audioBlockGroupMap_t>& audioBlocks, Input::MetadataChunk& imu_metadata);
+      Audio::audioBlocks_t& audioBlocks, Input::MetadataChunk& imu_metadata);
   mtime_t reload(std::map<readerid_t, Input::PotentialFrame>& frames);
   void releaseBuffer(std::map<readerid_t, Input::PotentialFrame>& frames);
 
@@ -147,7 +148,7 @@ class ReaderController {
 
  private:
   Input::ReadStatus loadVideo(mtime_t& date, std::map<readerid_t, Input::PotentialFrame>& frames);
-  Input::ReadStatus loadAudio(std::vector<Audio::audioBlockGroupMap_t>& audioIn, groupid_t gr);
+  Input::ReadStatus loadAudio(Audio::audioBlocks_t& audioIn, groupid_t gr);
   Input::ReadStatus loadMetadata(Input::MetadataChunk& Measure);
 
   /**

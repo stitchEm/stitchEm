@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y \
   bison \
   ccache \
+  clang \
   doxygen \
   flex \
   git \
@@ -22,13 +23,16 @@ RUN apt update && apt install -y \
   librtmp-dev \
   libx264-dev \
   ninja-build \
+  ocl-icd-opencl-dev \
+  opencl-headers \
   portaudio19-dev \
   python-pip \
   qt5-default \
   qtmultimedia5-dev \
   qttools5-dev \
   swig \
-  wget
+  wget \
+  xxd
 RUN pip install cmake
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 RUN apt-key add 7fa2af80.pub

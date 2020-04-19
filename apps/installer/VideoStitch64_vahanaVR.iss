@@ -43,57 +43,25 @@ Source: "installer\examples\*.vah"; DestDir: "{%HOMEPATH}\{#MyAppName}\Projects"
 Source: "{#vah_dir}\decklink.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 Source: "{#vah_dir}\magewell.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 Source: "{#vah_dir}\magewellpro.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
-Source: "{#vah_dir}\aja_64.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 Source: "{#vah_dir}\rtmp.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 Source: "{#vah_dir}\portaudio.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 Source: "{#vah_dir}\ximea_64.dll"; DestDir: "{app}\{#vah_plugin_dir}"; Flags: ignoreversion
 
 ; Magewell dependencies
-Source: "{#bin_dir}\LibXIProperty.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\LibXIStream2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\LibMWCapture.dll"; DestDir: "{app}"; Flags: ignoreversion
-
-;AJA CORVID88 NTV2 dependencies
-Source: "{#bin_dir}\ajastuffdll_64.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\classesDLL_64.dll"; DestDir: "{app}"; Flags: ignoreversion
-
-; Point Gray & Ladybug dependencies
-;Source: "installer\vcredist_x64_2010.exe"; DestDir: "{app}"; Flags: deleteafterinstall ignoreversion
-;Source: "{#bin_dir}\ActiveFlyCap_v100.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#bin_dir}\FlyCapture2_v100.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#bin_dir}\libiomp5md.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#bin_dir}\ladybug.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Windows\System32\LibXIProperty.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Windows\System32\LibXIStream2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Windows\System32\LibMWCapture.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Ximea dependencies
-Source: "{#bin_dir}\vcredist_x64_2012.exe"; DestDir: "{app}"; Flags: deleteafterinstall ignoreversion
-;Source: "{#bin_dir}\xi4Api_x64.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\xiapi64.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\dev\XIMEA\vcredist_2013_x64.exe"; DestDir: "{app}"; Flags: deleteafterinstall ignoreversion
+Source: "D:\dev\XIMEA\API\x64\xiapi64.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-; rtmp dependencies
-Source: "{#bin_dir}\librtmp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\librtmp-1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\libx264-148.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\libmp3lame-0.dll"; DestDir: "{app}"; Flags: ignoreversion
-
-; rtmp and Youtube output dependencies
-Source: "{#bin_dir}\ssleay32.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\libeay32.dll"; DestDir: "{app}"; Flags: ignoreversion
-
-; Youtube output dependencies
-Source: "{#bin_dir}\roots.pem"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\libglog.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#bin_dir}\libcurl.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#ExeName}"; IconFilename: "{app}\{#ExeName}"
-;Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}" ; create a shortcut in the startmenu
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#ExeName}"; Tasks: desktopicon
 
 [Run]
-;Filename: "{app}\vcredist_x64_2010.exe"; Parameters: "/q /norestart"; StatusMsg: "Installing Microsoft Visual C++ 2010 Redistributable Package (x64)"
-Filename: "{app}\vcredist_x64_2012.exe"; Parameters: "/q /norestart"; StatusMsg: "Installing Microsoft Visual C++ 2012 Redistributable Package (x64)"
-Filename: "{app}\vcredist_x64_2013.exe"; Parameters: "/q /norestart"; StatusMsg: "Installing Microsoft Visual C++ 2013 Redistributable Package (x64)"
 Filename: {app}\{#ExeName}; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent runascurrentuser
 
 [Tasks]

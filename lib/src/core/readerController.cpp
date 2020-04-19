@@ -13,6 +13,7 @@
 #include "libvideostitch/logging.hpp"
 
 #include <future>
+#include <list>
 #include <vector>
 #include <unordered_set>
 #include <cstdlib>
@@ -185,7 +186,7 @@ ReaderController::~ReaderController() {
 
 std::tuple<Input::ReadStatus, Input::ReadStatus, Input::ReadStatus> ReaderController::load(
     mtime_t& date, std::map<readerid_t, Input::PotentialFrame>& frames,
-    std::vector<Audio::audioBlockGroupMap_t>& audioBlocks, Input::MetadataChunk& metadata) {
+    Audio::audioBlocks_t& audioBlocks, Input::MetadataChunk& metadata) {
   // protect from concurrent seeks
   std::lock_guard<std::mutex> lock(inputMutex);
 
@@ -369,8 +370,8 @@ Input::ReadStatus ReaderController::loadVideo(mtime_t& date, std::map<readerid_t
 /// \param audioBlocks First dimension is the block, second index the input
 ///                    (e.g. audioIn[1][0] => second block of the input 0)
 /// \return Code::Ok on success, else an error code
-Input::ReadStatus ReaderController::loadAudio(std::vector<Audio::audioBlockGroupMap_t>& audioBlocks, groupid_t gr) {
-  std::vector<std::map<readerid_t, Audio::Samples>> audioIn;
+Input::ReadStatus ReaderController::loadAudio(Audio::audioBlocks_t& audioBlocks, groupid_t gr) {
+  std::list<std::map<readerid_t, Audio::Samples>> audioIn;
 
   size_t nbSamples = audioPipeDef->getBlockSize();
 
@@ -488,9 +489,10 @@ Input::ReadStatus ReaderController::loadAudio(std::vector<Audio::audioBlockGroup
 
   Audio::AudioBlock blk;
   // First dimension is the block, second dimension the input (e.g. audioIn[1][0] => second block of the first input)
-  for (size_t i = 0; i < audioIn.size(); ++i) {  // for each block
+  int64_t audioInIdx = 0;
+  for (auto& samplesByReader : audioIn) {  // for each block
     Audio::audioBlockReaderMap_t audioBlockPerReader;
-    for (auto& readerData : audioIn[i]) {  // for each reader
+    for (auto& readerData : samplesByReader) {  // for each reader
       readerData.second.setTimestamp(readerData.second.getTimestamp() + audioTimestampOffsets.at(gr));
       // find the audio reader corresponding to this block
       for (size_t j = 0; j < audioAsyncReaders.at(gr).size(); ++j) {
@@ -502,17 +504,19 @@ Input::ReadStatus ReaderController::loadAudio(std::vector<Audio::audioBlockGroup
       audioBlockPerReader[readerData.first] = std::move(blk);
     }
 
-    if (i < audioBlocks.size()) {
-      audioBlocks.at(i)[gr] = std::move(audioBlockPerReader);
+    if (audioBlocks.find(audioInIdx) != audioBlocks.end()) {
+      audioBlocks[audioInIdx][gr] = std::move(audioBlockPerReader);
     } else {
       Audio::audioBlockGroupMap_t audioBlockPerGroup;
       audioBlockPerGroup[gr] = std::move(audioBlockPerReader);
-      audioBlocks.push_back(std::move(audioBlockPerGroup));
+      audioBlocks[audioInIdx] = std::move(audioBlockPerGroup);
     }
+
+    audioInIdx++;
   }
 
   Logger::verbose(CTRLtag) << "read group " << gr << " " << audioIn.size() << " audio blocks starting at timestamp "
-                           << audioIn[0].begin()->second.getTimestamp() << std::endl;
+                           << audioIn.front().begin()->second.getTimestamp() << std::endl;
 
   return Input::ReadStatus::OK();
 }

@@ -136,8 +136,20 @@ cuda_include_directories(src ${CMAKE_EXTERNAL_DEPS}/include)
 cuda_include_directories(${VS_DISCOVERY_PUBLIC_HEADERS_DIR})
 cuda_include_directories(${VS_LIB_PUBLIC_HEADERS_DIR})
 
+if(MSVC)
+  string(FIND ${CMAKE_CXX_FLAGS_RELEASE} "/GL" CONTAINS_GL_FLAG)
+  # /GL option will cause CUDA runtime errors when building with Visual Studio 2017 and CUDA 10.2
+  STRING(REPLACE " /GL" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+endif()
+
 # CMake object libs don't work with CUDA
 cuda_compile(BACKEND_OBJECTS_CUDA ${CUDA_SOURCES})
+
+if(MSVC)
+  if (CONTAINS_GL_FLAG GREATER 0)
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /GL")
+  endif()
+endif()
 
 add_library(${VS_LIB_OBJECTS_CUDA} OBJECT ${CORE_LIB_SOURCES} ${CORE_LIB_HEADERS} ${CUDA_BACKEND_SOURCES} ${CUDA_BACKEND_HEADERS})
 add_cppcheck(${VS_LIB_OBJECTS_CUDA} VS)
@@ -148,9 +160,9 @@ if(ANDROID)
   vs_lib_link_libraries("CUDA" ${GLEW} log)
   message(STATUS "CUDA_LIBRARIES = ${CUDA_LIBRARIES}")
 else()
-  vs_lib_link_libraries("PUBLIC_CUDA" ${CUDART} ${CUDA_LIBRARIES} ${NVTX})
+  vs_lib_link_libraries("CUDA" ${CUDART} ${NVTX})
   vs_lib_link_libraries("CUDA" ${OpenGL} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLEW})
-  vs_lib_link_libraries("PUBLIC_CUDA" ${NVML})
+  vs_lib_link_libraries("PUBLIC_CUDA" ${NVML} ${CUDA_LIBRARIES})
   if(CMAKE_CROSSCOMPILING)
     # needed by ceres
     vs_lib_link_libraries("CUDA" -fopenmp)
@@ -161,5 +173,5 @@ else()
   else()
     vs_lib_link_libraries("PUBLIC_CUDA" ${CUDA})
   endif()
-endif(ANDROID)
+endif()
 

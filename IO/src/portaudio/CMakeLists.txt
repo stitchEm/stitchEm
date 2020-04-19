@@ -25,14 +25,9 @@ include_discovery_vs_headers(${PLUGIN_NAME})
 
 target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
-target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/portaudio)
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
-if(WINDOWS)
-  find_library(PORTAUDIO NAMES "portaudio_x64" PATHS ${CMAKE_EXTERNAL_DEPS}/lib/portaudio REQUIRED)
-else()
-  find_library(PORTAUDIO NAMES "portaudio" REQUIRED)
-endif()
+find_library(PORTAUDIO NAMES "portaudio" REQUIRED)
 
 # FIXME: portAudioReader.cpp
 if(COMPILER_GCC)
@@ -41,4 +36,3 @@ endif()
 
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${PORTAUDIO} ${VS_DISCOVERY})
 link_target_to_libvideostitch(${PLUGIN_NAME})
-

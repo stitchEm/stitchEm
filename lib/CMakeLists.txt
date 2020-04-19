@@ -691,7 +691,7 @@ endif()
 # ----------------------------------------------------------------------------
 # Calibration && AutoCrop && CameraAmbisonics
 # ----------------------------------------------------------------------------
-find_package(OpenCV)
+find_package(OpenCV REQUIRED)
 
 add_subdirectory(src/calibration)
 add_subdirectory(src/autocrop)

@@ -103,8 +103,6 @@ endforeach(OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES)
 option(DISABLE_RTMP      "Create RTMP I/O      plugin" OFF)
 option(DISABLE_PORTAUDIO "Create Portaudio I/O plugin" ${CMAKE_CROSSCOMPILING})
 
-add_subdirectory(src/rtmp)
-
 if(LINUX OR ANDROID)
   add_subdirectory(src/v4l2)
 endif(LINUX OR ANDROID)
@@ -114,12 +112,16 @@ if(LINUX OR WINDOWS)
 endif(LINUX OR WINDOWS)
 
 if(WINDOWS)
-  add_subdirectory(src/aja)
+  find_library(libmfxhw64 libmfx_vs2015 HINTS "${INTEL_MEDIA_SDK_PATH}\\lib\\x64" REQUIRED)
+  include_directories("${INTEL_MEDIA_SDK_PATH}\\include")
+  include_directories("${INTEL_MEDIA_SDK_PATH}\\igfx_s3dcontrol\\include")
+  #add_subdirectory(src/aja)
   add_subdirectory(src/decklink)
   add_subdirectory(src/magewell)
   add_subdirectory(src/magewellpro)
   add_subdirectory(src/ximea_2)
 endif(WINDOWS)
+add_subdirectory(src/rtmp)
 
 # ----------------------------------------------------------------------------
 

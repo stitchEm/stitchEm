@@ -1,11 +1,11 @@
 [license-badge]: https://img.shields.io/badge/license-MIT-green.svg
 [license-link]: https://opensource.org/licenses/MIT
 
-[travis-badge]: https://img.shields.io/travis/stitchEm/stitchEm/master.svg?label=Build
-[travis-link]: https://travis-ci.org/stitchEm/stitchEm
+[actions-badge]: https://github.com/stitchEm/stitchEm/workflows/Build/badge.svg
+[actions-link]: https://github.com/stitchEm/stitchEm/actions
 
 [![License][license-badge]][license-link]
-[![Build][travis-badge]][travis-link]
+[![Build][actions-badge]][actions-link]
 
 Vahana VR & VideoStitch Studio: software to create immersive 360° VR video, live and in post-production.
 
@@ -36,4 +36,6 @@ The software can be built on Windows, macOS and Linux. Not all features are avai
 
 The stitchEm project is licensed under the terms of the [MIT License](LICENSE.md).
 
-The repository includes several third-party open source files, which are licensed under their own respective licenses. They are listed in [doc/LICENSE-3RD-PARTY.md](doc/LICENSE-3RD-PARTY.md).
+The repository includes several third-party open source files, which are licensed under their own respective licenses. They are listed in [doc/LICENSE-3RD-PARTY-SOURCES.md](doc/LICENSE-3RD-PARTY-SOURCES.md).
+
+The stitchEm software uses code from third-party libraries, listed in [doc/LICENSE-3RD-PARTY-LIBRARIES.md](doc/LICENSE-3RD-PARTY-LIBRARIES.md).

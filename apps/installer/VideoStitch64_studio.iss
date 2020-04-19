@@ -52,9 +52,6 @@ Name: "{group}\{#batchName}"; Filename: "{app}\{#batch}"; IconFilename: "{app}\{
 ;Name: "{group}\Uninstall {#MyAppName}"; Filename: "{uninstallexe}" ; create a shortcut in the startmenu
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#ExeName}"; WorkingDir: {app}; Tasks: desktopicon
 
-[Run]
-Filename: "{app}\vcredist_x64_2013.exe"; Parameters: "/q /norestart"; WorkingDir: "{app}"; StatusMsg: "Installing Microsoft Visual C++ 2013 Redistributable Package (x64)"
-
 [Tasks]
 Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"
 

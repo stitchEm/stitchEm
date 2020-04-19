@@ -47,7 +47,7 @@ function(setup_av_plugin PLUGIN_NAME BACKEND_NAME USE_CUDA)
   target_include_directories(${PLUGIN_NAME} PRIVATE include)
   target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
   target_include_directories(${PLUGIN_NAME} PRIVATE ../common/format/include)
-  target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/Intel_Media_SDK)
+  target_include_directories(${PLUGIN_NAME} PRIVATE "${INTEL_MEDIA_SDK_PATH}\\include")
 
   if(USE_CUDA)
     target_include_directories(${PLUGIN_NAME} PRIVATE ${CUDA_TOOLKIT_TARGET_DIR}/include)
@@ -58,14 +58,12 @@ function(setup_av_plugin PLUGIN_NAME BACKEND_NAME USE_CUDA)
 
   set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
-  set(FFMPEG_INCLUDE_PATH ${CMAKE_EXTERNAL_DEPS}/include/ffmpeg)
   if(MACPORTS)
     set(FFMPEG_INCLUDE_PATH /opt/local/include)
+    target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE ${FFMPEG_INCLUDE_PATH})
   else()
     set(FFMPEG_INCLUDE_PATH /usr/local/include)
   endif()
-
-  target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE ${FFMPEG_INCLUDE_PATH})
 
   if(LINUX OR APPLE OR ANDROID)
     # VSA-5342: we're using functionality that has been deprecated in ffmpeg 3

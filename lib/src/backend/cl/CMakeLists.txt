@@ -47,7 +47,7 @@ set(VS_LIB_ROOT_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 if(APPLE)
 
   find_program(OPENCL_OFFLINE_COMPILER openclc
-               PATHS ${OpenCL_LIBRARY}/Libraries/
+               PATHS ${OpenCL_LIBRARIES}/Libraries/
                      /System/Library/Frameworks/OpenCL.framework/Libraries
                DOC "OpenCL offline compiler to build spir files from kernel sources")
   if (ALTERNATIVE_OPENCL_SPIR)

@@ -196,7 +196,7 @@ Matrix4 SteamVRRenderer::getHMDMatrixProjectionEye(vr::Hmd_Eye eye) {
     return Matrix4();
   }
 
-  vr::HmdMatrix44_t mat = hmd->GetProjectionMatrix(eye, nearClip, farClip, vr::API_OpenGL);
+  vr::HmdMatrix44_t mat = hmd->GetProjectionMatrix(eye, nearClip, farClip);
   return Matrix4(mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0], mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
                  mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2], mat.m[0][3], mat.m[1][3], mat.m[2][3],
                  mat.m[3][3]);
@@ -284,10 +284,11 @@ void SteamVRRenderer::setupDistortion() {
       u = x * w;
       v = 1 - y * h;
       vert.position = Vector2(Xoffset + u, -1 + 2 * y * h);
-      vr::DistortionCoordinates_t dc0 = hmd->ComputeDistortion(vr::Eye_Left, u, v);
-      vert.texCoordRed = Vector2(dc0.rfRed[0], 1 - dc0.rfRed[1]);
-      vert.texCoordGreen = Vector2(dc0.rfGreen[0], 1 - dc0.rfGreen[1]);
-      vert.texCoordBlue = Vector2(dc0.rfBlue[0], 1 - dc0.rfBlue[1]);
+      vr::DistortionCoordinates_t *dc0;
+      hmd->ComputeDistortion(vr::Eye_Left, u, v, dc0);
+      vert.texCoordRed = Vector2(dc0->rfRed[0], 1 - dc0->rfRed[1]);
+      vert.texCoordGreen = Vector2(dc0->rfGreen[0], 1 - dc0->rfGreen[1]);
+      vert.texCoordBlue = Vector2(dc0->rfBlue[0], 1 - dc0->rfBlue[1]);
       vertices.push_back(vert);
     }
   }
@@ -299,10 +300,11 @@ void SteamVRRenderer::setupDistortion() {
       u = x * w;
       v = 1 - y * h;
       vert.position = Vector2(Xoffset + u, -1 + 2 * y * h);
-      vr::DistortionCoordinates_t dc0 = hmd->ComputeDistortion(vr::Eye_Right, u, v);
-      vert.texCoordRed = Vector2(dc0.rfRed[0], 1 - dc0.rfRed[1]);
-      vert.texCoordGreen = Vector2(dc0.rfGreen[0], 1 - dc0.rfGreen[1]);
-      vert.texCoordBlue = Vector2(dc0.rfBlue[0], 1 - dc0.rfBlue[1]);
+      vr::DistortionCoordinates_t *dc0;
+      hmd->ComputeDistortion(vr::Eye_Right, u, v, dc0);
+      vert.texCoordRed = Vector2(dc0->rfRed[0], 1 - dc0->rfRed[1]);
+      vert.texCoordGreen = Vector2(dc0->rfGreen[0], 1 - dc0->rfGreen[1]);
+      vert.texCoordBlue = Vector2(dc0->rfBlue[0], 1 - dc0->rfBlue[1]);
       vertices.push_back(vert);
     }
   }
@@ -668,9 +670,10 @@ void SteamVRRenderer::render() {
     renderStereoTargets();
     renderDistortion();
 
-    vr::Texture_t leftEyeTexture = {(void *)leftEyeDesc.resolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma};
+    vr::Texture_t leftEyeTexture = {(void *)leftEyeDesc.resolveTextureId, vr::TextureType_OpenGL, vr::ColorSpace_Gamma};
     vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
-    vr::Texture_t rightEyeTexture = {(void *)rightEyeDesc.resolveTextureId, vr::API_OpenGL, vr::ColorSpace_Gamma};
+    vr::Texture_t rightEyeTexture = {(void *)rightEyeDesc.resolveTextureId, vr::TextureType_OpenGL,
+                                     vr::ColorSpace_Gamma};
     vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
   }
 
@@ -794,9 +797,9 @@ void SteamVRRenderer::renderVideoFrame(vr::Hmd_Eye eye) {
     }
   }
 
-  bool isInputCapturedByAnotherProcess = hmd->IsInputFocusCapturedByAnotherProcess();
+  bool isInputAvailable = hmd->IsInputAvailable();
 
-  if (!isInputCapturedByAnotherProcess) {
+  if (isInputAvailable) {
     // draw the controller axis lines
     glUseProgram(controllerTransformProgramID);
     glUniformMatrix4fv(controllerMatrixLocation, 1, GL_FALSE, getCurrentViewProjectionMatrix(eye).get());
@@ -818,7 +821,7 @@ void SteamVRRenderer::renderVideoFrame(vr::Hmd_Eye eye) {
       continue;
     }
 
-    if (isInputCapturedByAnotherProcess &&
+    if (!isInputAvailable &&
         hmd->GetTrackedDeviceClass(trackedDevice) == vr::TrackedDeviceClass_Controller) {
       continue;
     }
@@ -872,7 +875,7 @@ void SteamVRRenderer::renderDistortion() {
 
 void SteamVRRenderer::drawControllers() {
   // don't draw controllers if somebody else has input focus
-  if (hmd->IsInputFocusCapturedByAnotherProcess()) {
+  if (!hmd->IsInputAvailable()) {
     return;
   }
 
@@ -1007,7 +1010,7 @@ void SteamVRRenderer::updateHMDMatrixPose() {
           case vr::TrackedDeviceClass_Invalid:
             devClassChar[device] = 'I';
             break;
-          case vr::TrackedDeviceClass_Other:
+          case vr::TrackedDeviceClass_GenericTracker:
             devClassChar[device] = 'O';
             break;
           case vr::TrackedDeviceClass_TrackingReference:
