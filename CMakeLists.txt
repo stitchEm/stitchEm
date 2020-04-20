@@ -34,6 +34,17 @@ option(GPU_BACKEND_OPENCL "Build with OpenCL backend" OFF)
 message(STATUS "GPU_BACKEND_CUDA='${GPU_BACKEND_CUDA}'")
 message(STATUS "GPU_BACKEND_OPENCL='${GPU_BACKEND_OPENCL}'")
 
+# Windows: actually delays loading to runtime
+# Mac: create symlink to either libvideostitch_cuda/libvideostitch_opencl,
+#      change symlink at runtime and restart if necessary
+# Linux: not implemented
+option(USE_DELAY_LOAD "Delay loading of GPU backend to runtime" OFF)
+
+if(${GPU_BACKEND_CUDA} AND ${GPU_BACKEND_OPENCL})
+  set(USE_DELAY_LOAD "ON" CACHE BOOL "Defaulting to USE_DELAY_LOAD=ON as both GPU backends are built" FORCE)
+endif()
+message(STATUS "USE_DELAY_LOAD=${USE_DELAY_LOAD}")
+
 set(GPU_BACKEND_DEFAULT "CUDA" CACHE STRING "Default GPU backend")
 set_property(CACHE GPU_BACKEND_DEFAULT PROPERTY STRINGS OPENCL CUDA)
 
@@ -397,13 +408,7 @@ endif(GPU_BACKEND_CUDA)
 # ----------------------------------------------------------------------------
 # Delay load on Windows
 # ----------------------------------------------------------------------------
-set(USE_DELAY_LOAD "OFF")
-if(GPU_BACKEND_CUDA AND GPU_BACKEND_OPENCL AND MSVC)
-  set(USE_DELAY_LOAD "ON")
-endif()
-message(STATUS "USE_DELAY_LOAD = ${USE_DELAY_LOAD}")
-
-if(USE_DELAY_LOAD)
+if(USE_DELAY_LOAD AND MSVC)
   find_library(DELAY_LOAD_LIB NAMES "DelayImp.lib")
 endif()
 
@@ -419,7 +424,7 @@ if(CMAKE_BUILD_TYPE)
                     -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
                     -P ${CMAKE_SOURCE_DIR}/lib/generateFakeLibvideostitch.cmake
                     DEPENDS ${VS_LIB_DEFAULT})
-  if(USE_DELAY_LOAD)
+  if(USE_DELAY_LOAD AND MSVC)
     add_dependencies(generateFakeLibvideostitch ${VS_LIB_FAKE})
   endif()
 else()
@@ -431,7 +436,7 @@ else()
                       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UP}}
                       -P ${CMAKE_SOURCE_DIR}/lib/generateFakeLibvideostitch.cmake
                       DEPENDS ${VS_LIB_DEFAULT})
-    if(USE_DELAY_LOAD)
+    if(USE_DELAY_LOAD AND MSVC)
       add_dependencies(generateFakeLibvideostitch_${OUTPUTCONFIG_UP} ${VS_LIB_FAKE})
     endif()
   endforeach()
@@ -439,6 +444,7 @@ endif()
 
 # This function should be use by every dll/exe that links on libvideostitch
 function(link_target_to_libvideostitch TARGET_NAME)
+
   if(WINDOWS)
     if(CMAKE_BUILD_TYPE)
       add_dependencies(${TARGET_NAME} generateFakeLibvideostitch)
@@ -448,19 +454,26 @@ function(link_target_to_libvideostitch TARGET_NAME)
         add_dependencies(${TARGET_NAME} generateFakeLibvideostitch_${OUTPUTCONFIG_UP})
       endforeach()
     endif(CMAKE_BUILD_TYPE)
-  endif(WINDOWS)
-  if(USE_DELAY_LOAD)
-    target_link_libraries(${TARGET_NAME} PRIVATE ${DELAY_LOAD_LIB})
-    target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
-    target_compile_definitions(${TARGET_NAME} PRIVATE DELAY_LOAD_ENABLED=1)
-    set(new_link_flags "/DELAYLOAD:${VS_LIB_FAKE}.dll")
-    get_target_property(existing_link_flags ${TARGET_NAME} LINK_FLAGS)
-    if(existing_link_flags)
-      set(new_link_flags "${existing_link_flags} ${new_link_flags}")
+
+    if(USE_DELAY_LOAD)
+      target_link_libraries(${TARGET_NAME} PRIVATE ${DELAY_LOAD_LIB})
+      target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
+      target_compile_definitions(${TARGET_NAME} PRIVATE DELAY_LOAD_ENABLED=1)
+      set(new_link_flags "/DELAYLOAD:${VS_LIB_FAKE}.dll")
+      get_target_property(existing_link_flags ${TARGET_NAME} LINK_FLAGS)
+      if(existing_link_flags)
+        set(new_link_flags "${existing_link_flags} ${new_link_flags}")
+      endif()
+      set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS ${new_link_flags})
     endif()
-    set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS ${new_link_flags})
   elseif(APPLE)
-    target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
+
+    if (USE_DELAY_LOAD)
+      target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_FAKE})
+    else()
+      target_link_libraries(${TARGET_NAME} PRIVATE ${VS_LIB_DEFAULT})
+    endif()
+
     # ensure the non-fake backend libs are built
     if(GPU_BACKEND_CUDA)
       add_dependencies(${TARGET_NAME} ${VS_LIB_CUDA})
@@ -470,9 +483,8 @@ function(link_target_to_libvideostitch TARGET_NAME)
     endif()
   else()
     target_link_libraries(${TARGET_NAME} PUBLIC ${VS_LIB_DEFAULT})
-  endif(USE_DELAY_LOAD)
+  endif()
 endfunction()
-
 
 # ----------------------------------------------------------------------------
 # Android specific after android.toolchain.cmake

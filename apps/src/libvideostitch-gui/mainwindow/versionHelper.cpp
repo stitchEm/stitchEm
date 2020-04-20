@@ -172,9 +172,9 @@ bool getAppsInfoComponents(const QString& infoString, QString& appName, AppsVers
   // Release versions won't have commits count and commit hash
 
   QRegularExpression versionInfoExpression(
-      "(VahanaVR|Studio)-[0-9.a-zA-Z]+-?\\d*-[a-zA-Z0-9]*-[a-zA-Z0-9-]+\\.\\d{4}-\\d{2}-\\d{2}");
+      R"((VahanaVR|Studio)-[0-9.a-zA-Z]+-?\d*-[a-zA-Z0-9]*-[a-zA-Z0-9-\/]+\.\d{4}-\d{2}-\d{2})");
   if (!versionInfoExpression.match(infoString).hasMatch()) {
-    LogManager::getInstance()->writeToLogFile("Error: the current version doesn't respect the version template");
+    LogManager::getInstance()->writeToLogFile("Error: the current version doesn't respect the version template (regex)");
     return false;
   }
 
@@ -198,7 +198,7 @@ bool getAppsInfoComponents(const QString& infoString, QString& appName, AppsVers
   if (isDevVersion) {
     components = branchName.split("-");
     if (components.size() < 3) {
-      LogManager::getInstance()->writeToLogFile("Error: the current version doesn't respect the version template");
+      LogManager::getInstance()->writeToLogFile("Error: the current version doesn't respect the version template (dev version branch name)");
       return false;
     }
     commitCount = components.takeFirst().toInt();

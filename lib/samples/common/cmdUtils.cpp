@@ -122,9 +122,8 @@ bool loadGPUBackend(const int deviceId, int& returnCode) {
   PfnDliHook oldFailureHook = __pfnDliFailureHook2;
   __pfnDliFailureHook2 = &delayFailureHook;
   try {
-#endif
+    // call any lib function
     Status::OK();
-#ifdef DELAY_LOAD_ENABLED
   } catch (std::exception& e) {
     std::cerr << "Error using backend library: " << e.what() << std::endl;
   }

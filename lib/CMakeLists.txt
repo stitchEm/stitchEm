@@ -815,31 +815,31 @@ endif()
 # To be sure, the generated dll on Windows will be replaced by an empty one in generateFakeLibvideostitch,
 # while VS_LIB will be loaded using the delay load function
 # ----------------------------------------------------------------------------
-if(USE_DELAY_LOAD OR APPLE)
+if(USE_DELAY_LOAD)
   # Use any backend, we don't care, we just want the .lib with the common exported symbols
   configure_lib_main_target(${VS_LIB_FAKE} ${GPU_BACKEND_DEFAULT} "SHARED")
-endif(USE_DELAY_LOAD OR APPLE)
 
-if(USE_DELAY_LOAD)
-  function(generate_lib_symbols BACKEND_NAME LIB_DIR)
-    add_custom_command(TARGET ${VS_LIB_${BACKEND_NAME}}
-                       POST_BUILD
-                       COMMAND dumpbin /EXPORTS /OUT:lib_symbols_${BACKEND_NAME}.txt ${LIB_DIR}/${VS_LIB_${BACKEND_NAME}}.lib
-                       COMMAND cat lib_symbols_${BACKEND_NAME}.txt | grep ? > lib_symbols_only_${BACKEND_NAME}.txt)
-  endfunction()
-  # Check that VS_LIB_CUDA and VS_LIB_OPENCL have the same symbols
-  if(CMAKE_BUILD_TYPE)
-    generate_lib_symbols("CUDA" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    generate_lib_symbols("OPENCL" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-  else()
-    generate_lib_symbols("CUDA" ${VS_OUT_DIR}/${CMAKE_CFG_INTDIR})
-    generate_lib_symbols("OPENCL" ${VS_OUT_DIR}/${CMAKE_CFG_INTDIR})
-  endif(CMAKE_BUILD_TYPE)
+  if(MSVC)
+    function(generate_lib_symbols BACKEND_NAME LIB_DIR)
+      add_custom_command(TARGET ${VS_LIB_${BACKEND_NAME}}
+                         POST_BUILD
+                         COMMAND dumpbin /EXPORTS /OUT:lib_symbols_${BACKEND_NAME}.txt ${LIB_DIR}/${VS_LIB_${BACKEND_NAME}}.lib
+                         COMMAND cat lib_symbols_${BACKEND_NAME}.txt | grep ? > lib_symbols_only_${BACKEND_NAME}.txt)
+    endfunction()
+    # Check that VS_LIB_CUDA and VS_LIB_OPENCL have the same symbols
+    if(CMAKE_BUILD_TYPE)
+      generate_lib_symbols("CUDA" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+      generate_lib_symbols("OPENCL" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+    else()
+      generate_lib_symbols("CUDA" ${VS_OUT_DIR}/${CMAKE_CFG_INTDIR})
+      generate_lib_symbols("OPENCL" ${VS_OUT_DIR}/${CMAKE_CFG_INTDIR})
+    endif(CMAKE_BUILD_TYPE)
 
-  add_custom_target(compareLibsSymbols ALL
-                    COMMAND ${CMAKE_COMMAND} -E compare_files lib_symbols_only_CUDA.txt lib_symbols_only_OPENCL.txt
-                    DEPENDS ${VS_LIB_CUDA} ${VS_LIB_OPENCL})
-endif(USE_DELAY_LOAD)
+    add_custom_target(compareLibsSymbols ALL
+                      COMMAND ${CMAKE_COMMAND} -E compare_files lib_symbols_only_CUDA.txt lib_symbols_only_OPENCL.txt
+                      DEPENDS ${VS_LIB_CUDA} ${VS_LIB_OPENCL})
+  endif()
+endif()
 
 # ----------------------------------------------------------------------------
 # static lib
