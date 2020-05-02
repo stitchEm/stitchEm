@@ -23,7 +23,7 @@ Status ImageProcessing::findCropCircle(const int& width, const int& height, void
   r = 0;
   cv::Mat originalImage(cv::Size(width, height), CV_8UC4, data);
   cv::Mat inputImage;
-  cv::cvtColor(originalImage, inputImage, CV_RGBA2BGR);
+  cv::cvtColor(originalImage, inputImage, cv::COLOR_RGBA2BGR);
   std::unique_ptr<VideoStitch::Ptv::Value> fake(VideoStitch::Ptv::Value::stringObject("fake"));
   VideoStitch::AutoCrop::AutoCropConfig config(algoConfig ? algoConfig : fake.get());
 

@@ -30,7 +30,7 @@ Status Compression::polylineEncodeBinaryMask(const int width, const int height, 
             "Corrupted input mask in polylines encoding (width * height != data.size())"};
   }
   FAIL_RETURN(
-      Util::GeometryProcessing::findImageContours<unsigned char>(size, data, 1, contours, CV_CHAIN_APPROX_TC89_KCOS));
+      Util::GeometryProcessing::findImageContours<unsigned char>(size, data, 1, contours, cv::CHAIN_APPROX_TC89_KCOS));
 
   std::vector<int> encodedSizes;
   for (size_t i = 0; i < contours.size(); i++) {

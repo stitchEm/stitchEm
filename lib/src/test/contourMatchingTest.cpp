@@ -70,13 +70,13 @@ Status loadBoundaryCoords(const std::string& filename, int64_t& width, int64_t& 
   const int thresh = 100;
   cv::Mat src_gray;
   cv::Mat canny_output;
-  cv::cvtColor(image, src_gray, CV_RGBA2GRAY);
+  cv::cvtColor(image, src_gray, cv::COLOR_RGBA2GRAY);
   // Detect edges using canny
   cv::Canny(src_gray, canny_output, thresh, thresh * 2, 3);
   // Find contours
   std::vector<std::vector<cv::Point>> contours;
   std::vector<cv::Vec4i> hierarchy;
-  cv::findContours(canny_output, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE, cv::Point(0, 0));
+  cv::findContours(canny_output, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE, cv::Point(0, 0));
   points.clear();
   if (contours.size() > 0) {
     for (size_t i = 0; i < contours[0].size(); i++) {

@@ -82,7 +82,7 @@ Status AutoCrop::setupImage(const cv::Mat& inputImage) {
       inputCvImage, blurredImage,
       cv::Size((int)autoCropConfig.getGaussianBlurKernelSize(), (int)autoCropConfig.getGaussianBlurKernelSize()),
       autoCropConfig.getGaussianBlurSigma(), 0);
-  cv::cvtColor(blurredImage, inputLabImage, CV_BGR2Lab);
+  cv::cvtColor(blurredImage, inputLabImage, cv::COLOR_BGR2Lab);
 
   cv::Size downSize = cv::Size(inputLabImage.cols, inputLabImage.rows);
   while (downSize.width > 512 && downSize.height > 512) {
