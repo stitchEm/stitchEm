@@ -465,6 +465,8 @@ function(link_target_to_libvideostitch TARGET_NAME)
         set(new_link_flags "${existing_link_flags} ${new_link_flags}")
       endif()
       set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS ${new_link_flags})
+    else()
+      target_link_libraries(${TARGET_NAME} PUBLIC ${VS_LIB_DEFAULT})
     endif()
   elseif(APPLE)
 
