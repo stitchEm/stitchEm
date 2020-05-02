@@ -1,5 +1,5 @@
 #define MyAppName "VideoStitch Studio"
-#define VersionName "Studio-v2"
+#define VersionName "Studio"
 #define ExeName "videostitch-studio.exe"
 #define batch "batchstitcher.exe"
 #define batchName "VideoStitch Batch"
