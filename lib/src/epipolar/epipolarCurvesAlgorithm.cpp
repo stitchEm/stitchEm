@@ -274,7 +274,7 @@ static Status loadInputImages(std::map<frameid_t, std::vector<cv::Mat>>& inputIm
 
       cv::Mat bgrImage;
       cv::Mat rgbaImage(cv::Size(width, height), CV_8UC4, frame.hostPtr(), cv::Mat::AUTO_STEP);
-      cv::cvtColor(rgbaImage, bgrImage, CV_RGBA2BGR);
+      cv::cvtColor(rgbaImage, bgrImage, cv::COLOR_RGBA2BGR);
 
       inputImages[frameNumber].push_back(bgrImage);
 

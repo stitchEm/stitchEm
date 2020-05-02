@@ -395,7 +395,7 @@ Status GeometryProcessing::findImageContours(const cv::Size size, const std::vec
   cv::Mat src_gray(size, CV_8UC1, &image[0]);
   /// Find contours
   std::vector<cv::Vec4i> hierarchy;
-  cv::findContours(src_gray, contours, hierarchy, CV_RETR_EXTERNAL, method, cv::Point(0, 0));
+  cv::findContours(src_gray, contours, hierarchy, cv::RETR_EXTERNAL, method, cv::Point(0, 0));
   return Status::OK();
 }
 

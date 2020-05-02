@@ -12,7 +12,7 @@ KeypointExtractor::KeypointExtractor(unsigned int nb_octaves, unsigned int nb_su
   this->nOctaves = nb_octaves;
   this->nSubLevels = nb_sublevels;
   this->threshold = threshold;
-  extractor = cv::AKAZE::create(5, 0, 3, (float)threshold, nOctaves, nSubLevels, 1);
+  extractor = cv::AKAZE::create(AKAZE::DESCRIPTOR_MLDB, 0, 3, (float)threshold, nOctaves, nSubLevels, KAZE::DIFF_PM_G2);
 }
 
 Status KeypointExtractor::extract(const cv::Mat& image, KPList& keypoints, DescriptorList& descriptors,

@@ -57,7 +57,7 @@ Potential<Ptv::Value> AutoCropAlgorithm::apply(Core::PanoDefinition* pano, Progr
     std::memcpy(hostFrame.hostPtr(), frame.hostPtr(), frame.byteSize());
     cv::Mat cvImage;
     cv::Mat originalImage(cv::Size((int)width, (int)height), CV_8UC4, frame.hostPtr(), cv::Mat::AUTO_STEP);
-    cv::cvtColor(originalImage, cvImage, CV_RGBA2BGR);
+    cv::cvtColor(originalImage, cvImage, cv::COLOR_RGBA2BGR);
 
     cv::Point3i circle;
     FAIL_RETURN(autoCrop.findCropCircle(cvImage, circle));

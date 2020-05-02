@@ -66,7 +66,7 @@ class VS_EXPORT GeometryProcessing {
    */
   template <typename T>
   static Status findImageContours(const cv::Size size, const std::vector<T>& data, const T bitMask,
-                                  std::vector<std::vector<cv::Point>>& points, const int method = CV_CHAIN_APPROX_NONE);
+                                  std::vector<std::vector<cv::Point>>& points, const int method = cv::CHAIN_APPROX_NONE);
 
   /**
    * @brief Draw polygon to an output buffer
