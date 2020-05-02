@@ -131,12 +131,12 @@ const std::string errorString(const int errorCode) {
 #ifndef __clang_analyzer__
 bool isStream(const std::string& filename) {
   std::regex rtsp("RTSP://", std::regex_constants::ECMAScript | std::regex_constants::icase);
-  // std::regex rtmp("RTMP://", std::regex_constants::ECMAScript | std::regex_constants::icase);
+   std::regex rtmp("RTMP://", std::regex_constants::ECMAScript | std::regex_constants::icase);
   if (std::regex_search(filename, rtsp)) {
     return true;
-  } /*else if (std::regex_search(filename, rtmp)) {
+  } else if (std::regex_search(filename, rtmp)) {
     return true;
-  }*/
+  }
   return false;
 }
 #endif  // __clang_analyzer__
