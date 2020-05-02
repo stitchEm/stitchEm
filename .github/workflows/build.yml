@@ -45,7 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Deps
-      run: brew install bison ceres-solver CMake doxygen faac faad2 ffmpeg glew glfw glm jpeg libpng libtiff ninja opencv@3 qt yasm
+      run: brew install bison ceres-solver CMake doxygen faac faad2 ffmpeg glew glfw glm jpeg libpng libtiff ninja opencv qt yasm
     - name: CMake
       run: mkdir build && cd build && PATH="/usr/local/opt/bison/bin:${PATH}" cmake -DCREATE_BOX_PACKAGE=OFF -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DMACPORTS=OFF -DQt5_DIR=/usr/local/opt/qt/lib/cmake/Qt5 -G Ninja ..
     - name: Build
