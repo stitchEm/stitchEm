@@ -7,11 +7,13 @@
 
 ; other I/O dependencies
 Source: "{#vcpkg_dir}\tiff.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#vcpkg_dir}\lzma.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\libpng16.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\jpeg62.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\turbojpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\openvr_api.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\portaudio_x64.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#vcpkg_dir}\glfw3.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; qt dependencies
 Source: "{#qt_bin}\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -35,6 +37,7 @@ Source: "{#qt_platform}\qwindows.dll"; DestDir: "{app}\platforms"; Flags: recurs
 ; Ceres dependencies
 Source: "{#vcpkg_dir}\ceres.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\glog.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#vcpkg_dir}\gflags.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; OpenCV dependencies
 Source: "{#vcpkg_dir}\opencv_calib3d.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -64,6 +67,7 @@ Source: "{#vcpkg_dir}\avcodec-58.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\avformat-58.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\avresample-4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#vcpkg_dir}\avutil-56.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#vcpkg_dir}\swresample-3.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "D:\dev\Visual Studio 2017\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\vcruntime140.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\dev\Visual Studio 2017\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64\msvcp140.dll"; DestDir: "{app}"; Flags: ignoreversion
