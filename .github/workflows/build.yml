@@ -4,41 +4,25 @@ on: [push]
 
 jobs:
 
-  LinuxCuda8:
+  LinuxCuda:
     runs-on: ubuntu-latest
+    container: stitchem/stitchem:latest
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda8:latest --build-arg version=8
+      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Release -DRTMP_NVENC=OFF -DCUDA_TARGET_ARCH="50" -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
     - name: Build
-      run: docker run stitchem-cuda8:latest
-
-  LinuxCuda9:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: CMake
-      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda9:latest --build-arg version=9
-    - name: Build
-      run: docker run stitchem-cuda9:latest
-
-  LinuxCuda10:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: CMake
-      run: docker build . --file docker/ci-cuda.dockerfile --tag stitchem-cuda10:latest --build-arg version=10
-    - name: Build
-      run: docker run stitchem-cuda10:latest
+      run: cd ../build && ninja
 
   LinuxOpenCL:
     runs-on: ubuntu-latest
+    container: stitchem/stitchem:latest
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: docker build . --file docker/ci-opencl.dockerfile --tag stitchem-opencl:latest
+      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Release -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
     - name: Build
-      run: docker run stitchem-opencl:latest
+      run: cd ../build && ninja
 
   MacOpenCL:
     runs-on: macos-latest
