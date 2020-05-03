@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Release -DRTMP_NVENC=OFF -DCUDA_TARGET_ARCH="50" -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
+      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Debug -DRTMP_NVENC=OFF -DCUDA_TARGET_ARCH="50" -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
     - name: Build
       run: cd ../build && ninja
 
@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: CMake
-      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Release -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
+      run: mkdir ../build && cd ../build && cmake -DCMAKE_BUILD_TYPE=Debug -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DDISABLE_OPENCL_SPIR=ON -G Ninja ../stitchEm
     - name: Build
       run: cd ../build && ninja
 

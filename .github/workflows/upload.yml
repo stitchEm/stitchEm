@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  LinuxCuda:
+    runs-on: ubuntu-latest
+    container: stitchem/stitchem:latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DRTMP_NVENC=OFF -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DLIB_TESTS=OFF -DBUILD_APPS_TESTS=OFF -G Ninja ..
+    - name: Build
+      run: cd build && ninja
+    - name: Upload CUDA build
+      uses: actions/upload-artifact@v2
+      with:
+        name: Linux CUDA build
+        path: build/bin/x64/release
+
+  LinuxOpenCL:
+    runs-on: ubuntu-latest
+    container: stitchem/stitchem:latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake
+      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DGPU_BACKEND_CUDA=OFF -DGPU_BACKEND_OPENCL=ON -DDISABLE_OPENCL_SPIR=ON -DLIB_TESTS=OFF -DBUILD_APPS_TESTS=OFF -G Ninja ..
+    - name: Build
+      run: cd build && ninja
+    - name: Upload OpenCL build
+      uses: actions/upload-artifact@v2
+      with:
+        name: Linux OpenCL build
+        path: build/bin/x64/release
