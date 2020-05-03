@@ -11,7 +11,7 @@ if((VS_LIB_UNIT_TEST EQUAL VS_LIB_STATIC) AND (NOT BUILD_STATIC_LIB))
   message(FATAL_ERROR "Static libvideostitch (BUILD_STATIC_LIB) needed for unit tests")
 endif()
 
-option(LIB_TESTS "Build libvideostitch unit tests" ON)
+option(BUILD_LIB_TESTS "Build libvideostitch unit tests" ON)
 
 #-----------------------------------------------------------------------------
 # Python bindings
