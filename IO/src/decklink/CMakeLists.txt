@@ -39,7 +39,6 @@ target_include_directories(${PLUGIN_NAME} PRIVATE .)
 # but only reference DeckLinkAPI_h.h? Then the search path should be fine.
 
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
-target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/decklink")
 
 set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 
