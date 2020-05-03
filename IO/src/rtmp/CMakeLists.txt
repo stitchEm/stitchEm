@@ -188,10 +188,6 @@ endif(USE_AVFORMAT)
 
 include_lib_vs_headers(${PLUGIN_NAME})
 
-target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include)
-
-target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/Intel_Media_SDK)
-
 if(RTMP_QUICKSYNC)
   target_include_directories(${PLUGIN_NAME} PRIVATE Intel/include)
   target_compile_definitions(${PLUGIN_NAME} PRIVATE SUP_QUICKSYNC)
@@ -213,11 +209,6 @@ elseif(RTMP_NVENC_M)
   target_link_libraries(${PLUGIN_NAME} PRIVATE ${libv4l2})
 endif(RTMP_NVENC)
 
-if(LINUX)
-  # needed to include x264.h
-  target_include_directories(${PLUGIN_NAME} PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/ffmpeg)
-endif(LINUX)
-
 target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 target_include_directories(${PLUGIN_NAME} PRIVATE "${INTEL_MEDIA_SDK_PATH}\\include")
@@ -230,7 +221,6 @@ if(WINDOWS)
   find_library(libx264 libx264 REQUIRED)
   find_library(librtmp librtmp REQUIRED)
   find_package(mp3lame CONFIG REQUIRED)
-  find_library(libmpghip libmpghip-static HINTS "${CMAKE_EXTERNAL_LIB}/lame" REQUIRED NO_DEFAULT_PATH)
   set(DirectX_LIB
       dxva2
       d3d9

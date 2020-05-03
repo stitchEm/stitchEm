@@ -18,10 +18,7 @@ function(configure_target BACKEND_NAME)
 
   target_include_directories(epipolar_${BACKEND_NAME}
                              SYSTEM
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/ceres
                              PRIVATE ${EIGEN3_INCLUDE_DIRS}
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/glog
                              PRIVATE ${OpenCV_INCLUDE_DIRS})
 
   if (WINDOWS)

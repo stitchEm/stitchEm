@@ -85,10 +85,7 @@ function(configure_target BACKEND_NAME)
 
   target_include_directories(calibration_${BACKEND_NAME}
                              SYSTEM
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/ceres
                              PRIVATE ${EIGEN3_INCLUDE_DIRS}
-                             PRIVATE ${CMAKE_EXTERNAL_DEPS}/include/glog
                              PRIVATE ${OpenCV_INCLUDE_DIRS})
 
   set_property(TARGET calibration_${BACKEND_NAME} PROPERTY CXX_STANDARD 14)

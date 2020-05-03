@@ -43,7 +43,6 @@ if(LINUX)
     find_library(CUDART cudart PATHS ${LINUX_CUDA_PATH})
     find_library(NVML nvidia-ml PATHS "${LINUX_CUDA_PATH}/stubs")
   endif()
-  include_directories(${CMAKE_EXTERNAL_DEPS}/include)
   find_library(CUVID nvcuvid)
 endif(LINUX)
 
