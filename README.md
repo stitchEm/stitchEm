@@ -28,6 +28,14 @@ VideoStitch Studio supports input synchronization, automatic calibration, exposu
 
 ![Screenshot VideoStitch Studio](https://stitchEm.github.io/images/Screen-Shot-VideoStitch-Studio.png)
 
+### Orah 4i
+
+The Orah 4i is a camera with 4 fisheye lenses designed for live 4K 360° Video streaming. Information on setting up the camera is found in a the dedicated [camorah](https://github.com/stitchEm/camorah) respository.
+
+## Download
+
+Builds of Vahana VR and VideoStitch Studio for Windows and macOS can be downloaded in the [release section](https://github.com/stitchEm/stitchEm/releases/latest).
+
 ## Build
 
 The software can be built on Windows, macOS and Linux. Not all features are available on all platforms. See [doc/BUILD.md](doc/BUILD.md) for details.
