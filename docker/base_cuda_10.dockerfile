@@ -1,8 +1,8 @@
 FROM stitchem/stitchem-base:latest
 
-ENV CUDA=10.1.105-1
-ENV CUDA_APT=10-1
-ENV CUDA_SHORT=10.1
+ENV CUDA=10.2.89-1
+ENV CUDA_APT=10-2
+ENV CUDA_SHORT=10.2
 ENV CUDA_INSTALLER=cuda-repo-ubuntu1804_${CUDA}_amd64.deb
 ENV NV_LIB=libnvidia-compute-418
 
