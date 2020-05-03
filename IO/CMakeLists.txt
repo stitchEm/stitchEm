@@ -5,6 +5,8 @@ if(NOT VIDEOSTITCH_CMAKE)
   message(FATAL_ERROR "Please configure CMake from the root folder!")
 endif(NOT VIDEOSTITCH_CMAKE)
 
+option(BUILD_IO_TESTS "Build plugins unit tests" ON)
+
 # ----------------------------------------------------------------------------
 # Helper macro to create a list of all I/O plugins
 # ----------------------------------------------------------------------------
@@ -64,9 +66,9 @@ option(DISABLE_JPEG "Create JPEG I/O    plugin" ${ANDROID})
 option(DISABLE_TIFF "Create TIFF Output plugin" ${ANDROID})
 option(DISABLE_MP4  "Create MP4  Input  plugin" ${NANDROID})
 
-if(${GPU_BACKEND_DEFAULT} STREQUAL CUDA OR NOT WINDOWS)
+if(BUILD_IO_TESTS AND (${GPU_BACKEND_DEFAULT} STREQUAL CUDA OR NOT WINDOWS))
   add_subdirectory(src/test)
-endif(${GPU_BACKEND_DEFAULT} STREQUAL CUDA OR NOT WINDOWS)
+endif()
 
 add_subdirectory(src/common)
 add_subdirectory(src/av)
