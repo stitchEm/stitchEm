@@ -68,23 +68,12 @@ sudo apt install
   qttools5-dev \
   swig \
   wget \
-  xxd
-
-# Set up gcc-6 and g++-6 as your compiler
-sudo apt-get install gcc-6 g++-6
+  xxd \
 
 
-# As system-wide configuration
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 20
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 20
+# Install CUDA: https://developer.nvidia.com/cuda-downloads
 
-# Or for the local build
-export CC=gcc-6
-export CXX=g++-6
-
-# Install CUDA: https://developer.nvidia.com/cuda-90-download-archive
-
-cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
+cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DRTMP_NVENC=OFF \
       -G Ninja \
       stitchEm
 
