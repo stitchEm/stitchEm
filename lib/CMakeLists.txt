@@ -692,6 +692,11 @@ endif()
 # Calibration && AutoCrop && CameraAmbisonics
 # ----------------------------------------------------------------------------
 find_package(OpenCV REQUIRED)
+if(MACPORTS AND (OpenCV_VERSION GREATER_EQUAL 4))
+  find_package(ade REQUIRED)
+  find_package(openjpeg REQUIRED)
+  # set(OpenCV_LIBRARIES ${OpenCV_LIBRARIES} ${ADE_LIBRARIES})
+endif()
 
 add_subdirectory(src/calibration)
 add_subdirectory(src/autocrop)
