@@ -21,9 +21,9 @@ if(CUDA_LOCAL_ARCH_ONLY)
                   OUTPUT_VARIABLE QUERY_CUDA_OUT
                   ERROR_VARIABLE QUERY_CUDA_ERR)
 
-  if((QUERY_CUDA_EXIT EQUAL 1) OR QUERY_CUDA_ERR)
+  if((QUERY_CUDA_EXIT EQUAL 1) OR ${QUERY_CUDA_ERR})
     message(FATAL_ERROR "Query for CUDA_LOCAL_ARCH_ONLY failed with message: ${QUERY_CUDA_OUT}\n${QUERY_CUDA_ERR}")
-  endif((QUERY_CUDA_EXIT EQUAL 1) OR QUERY_CUDA_ERR)
+  endif()
 
   # try out these settings with nvcc
   execute_process(COMMAND ${NVCC} --run cmake/configuration/helloWorld.cu ${CUDA_LOCAL_ARCH_FLAGS} --output-file ${CMAKE_CURRENT_BINARY_DIR}/testCUDACompilationFlags
