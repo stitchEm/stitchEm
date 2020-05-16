@@ -693,6 +693,10 @@ endif()
 # ----------------------------------------------------------------------------
 find_package(OpenCV REQUIRED)
 
+if(OpenCV_VERSION_MAJOR LESS 3)
+  message(FATAL_ERROR "OpenCV minimum required version is 3.0, found ${OpenCV_VERSION}")
+endif()
+
 add_subdirectory(src/calibration)
 add_subdirectory(src/autocrop)
 add_subdirectory(src/audio/orah/orah4i2b)
