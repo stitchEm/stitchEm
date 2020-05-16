@@ -122,7 +122,7 @@ void ptsToPanoDefinitionTest() {
            "# input images:\n"
            "#-dummyimage\n"
            "# The following line contains a 'dummy image' containing some global parameters for the project\n"
-           "o w1 h1 y0 r0 p0 v124.785166312651 a-0.1712794685889779 b0.6799971985994054 c-0.7660565920132166 f3 "
+           "o w1 h1 y0 r0 p0 v1.24785166312651e+02 a-0.1712794685889779 b0.6799971985994054 c-0.7660565920132166 f3 "
            "d0.0009362105412644209 e-0.0007190110954970641 g0 t0\n"
            "#-imgfile 1920 1440 \"input-00.jpg\"\n"
            "#-metadata -1 -1 -1 0000-00-00T00:00:00 3*8 0 -1 -1 -1 * * * curve -1 * T *\n"
