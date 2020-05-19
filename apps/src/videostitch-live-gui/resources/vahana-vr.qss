@@ -876,7 +876,10 @@ WorkflowDialog QPushButton#buttonCancel,
 SimpleThumbnailWidget QPushButton#buttonRemove,
 BackgroundContainer QPushButton#buttonCloseWidget,
 AboutWidget QPushButton#buttonClose,
-LogDialog QPushButton#buttonClose,
+LogDialog QPushButton#buttonClose {
+  border-image: url(:/live/icons/assets/icon/live/close.png);
+  qProperty-text:"";
+}
 
 CropInputTab QPushButton#buttonRestore,
 LogWidget QPushButton#clearLogButton {
