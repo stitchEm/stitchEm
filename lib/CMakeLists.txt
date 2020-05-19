@@ -894,7 +894,7 @@ add_subdirectory(samples/depth)
 # ----------------------------------------------------------------------------
 # libvideostitch unit tests
 # ----------------------------------------------------------------------------
-if(LIB_TESTS)
+if(BUILD_LIB_TESTS)
   add_subdirectory(src/test)
 endif()
 

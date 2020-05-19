@@ -538,8 +538,8 @@ Potential<ReaderInputDefinition> ReaderInputDefinition::parseFromPtoLine(
         }
         break;
       default:
-        //[0-9.eE]
-        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-')) {
+        //[0-9.eE+-]
+        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-' || *lp == '+')) {
           char c = *lp;
           *lp = 0;
           switch (state) {
@@ -758,8 +758,8 @@ Potential<InputDefinition> InputDefinition::parseFromPtoLine(char* line,
         }
         break;
       default:
-        //[0-9.eE]
-        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-')) {
+        //[0-9.eE+-]
+        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-' || *lp == '+')) {
           char c = *lp;
           *lp = 0;
           switch (state) {
@@ -1062,8 +1062,8 @@ Status PanoDefinition::readParams(char* line) {
         }
         break;
       default:
-        //[0-9.eE]
-        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-')) {
+        //[0-9.eE+-]
+        if (!(('0' <= *lp && *lp <= '9') || *lp == 'e' || *lp == 'E' || *lp == '.' || *lp == '-' || *lp == '+')) {
           char c = *lp;
           *lp = 0;
           switch (state) {
