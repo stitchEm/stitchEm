@@ -108,6 +108,11 @@ void VideoProcess::updateSupportedCodecs() {
   ui->comboCodec->clear();
   QStringList codecs = currentFormat->getSupportedCodecs();
   codecs.removeOne(VideoStitch::VideoCodec::getStringFromEnum(VideoStitch::VideoCodec::VideoCodecEnum::MPEG4));
+
+  // TODO: not implemented in Studio (CodecFactory, formats/codecs)
+  codecs.removeOne(VideoStitch::VideoCodec::getStringFromEnum(VideoStitch::VideoCodec::VideoCodecEnum::NVENC_H264));
+  codecs.removeOne(VideoStitch::VideoCodec::getStringFromEnum(VideoStitch::VideoCodec::VideoCodecEnum::NVENC_HEVC));
+
   for (const QString& data : codecs) {
     const VideoStitch::VideoCodec::VideoCodecEnum codec = VideoStitch::VideoCodec::getEnumFromString(data);
     ui->comboCodec->addItem(VideoStitch::VideoCodec::getDisplayNameFromEnum(codec), data);
