@@ -92,11 +92,13 @@ You can play, pause, select specific frames & time and set a working area.
 
 
 **Play button**
+
 On the top left of the timeline you can find the Play button. Depending on the panel you are in you can either view the source videos or preview the stitched result in real time.
 
 
 
 **Select working area**
+
 Below the Play button you will find two timecodes. By default the first one is 00:00:00 and the second is the total time of the video. Changing these values will limit the working area which allows you to start a video later or end earlier than the original source. You can also grab the grey markers and drag them to the desired position in the timeline.
 Synchronization, calibration, exposure will only be calculated for the working area.
 
@@ -105,6 +107,7 @@ Synchronization, calibration, exposure will only be calculated for the working a
 
 
 **Zoom in and out the timeline**
+
 For precise navigating in the timeline you can zoom in or out using the slider on the bottom right.
 Zooming in also helps seeing the values for algorithms, like color correction more precisely.
 
@@ -113,11 +116,13 @@ Zooming in also helps seeing the values for algorithms, like color correction mo
 
 
 **Navigate to the desired frame**
+
 If you want to view a specific frame you can use the Shortcut "Ctrl+J". You also zoom in as mentioned above and then drag the orange marker to the desired time and use the arrow keys to jump one frame forward or backward. "Shift+Home" and "Shift+End" will select the first / last frame of your current working area.
 
 
 
 **Keyframes**
+
 Keyframes for Stabilization, Orientation & Color Correction are automatically created by VideoStitch Studio.
 If you click on a keyframe marker on the timeline and drag it up or down this will affect the corresponding function (e.g. increasing or decreasing exposure).
 If you want to add a new keyframe you can do so with the shortcut "Ctrl+K". You can jump between keyframes with the shortcuts "K" (next keyframe) and "J" (previous keyframe).
