@@ -27,7 +27,7 @@ There are two ways to do so:
 
 ● Add media by clicking on "File" > "Open media"
 
-![Open Media](https://github.com/HePTaset/stitchEm/blob/master/Images/Open%20Media.jpg)**&nbsp;** 
+![Open Media](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Open%20Media.jpg)**&nbsp;** 
 
 You then have to select the videos you want to stitch in the file explorer.
 
@@ -35,7 +35,7 @@ You then have to select the videos you want to stitch in the file explorer.
 
 ● Alternatively you can drag the videos you want to stitch from your file explorer and drop into VideoStitch Studio user interface.
 
-![Drag Media](\Images\Drag Media.jpg)
+![Drag Media](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Drag%20Media.jpg)
 
 
 
@@ -44,7 +44,7 @@ You then have to select the videos you want to stitch in the file explorer.
 
 After importing your media it will look like this and is listed in the "Source" panel:
 
-![Media in Source](\Images\Media in Source.jpg)
+![Media in Source](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Media%20in%20Source.jpg)
 
 # **VideoStitch Studio user interface**
 
@@ -52,7 +52,7 @@ After importing your media it will look like this and is listed in the "Source" 
 
 ## 1. VideoStitch Studio panels
 
-![Panels](\Images\Panels.jpg)
+![Panels](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Panels.jpg)
 
 
 
@@ -70,13 +70,13 @@ There are four panels in VideoStitch Studio
 
 
 
-<img src="\Images\Output.jpg" alt="Output"  />
+<img src="https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Output.jpg" alt="Output"  />
 
 *Output panel*
 
 
 
-![Interactive](\Images\Interactive.jpg)
+![Interactive](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Interactive.jpg)
 
 *Interactive Panel*
 
@@ -87,7 +87,7 @@ There are four panels in VideoStitch Studio
 The timeline of VideoStitch Studio allows you to preview your source videos and stitched result.
 You can play, pause, select specific frames & time and set a working area.
 
-![Timeline](\Images\Timeline.jpg)
+![Timeline](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Timeline.jpg)
 
 
 
@@ -100,7 +100,7 @@ On the top left of the timeline you can find the Play button. Depending on the p
 Below the Play button you will find two timecodes. By default the first one is 00:00:00 and the second is the total time of the video. Changing these values will limit the working area which allows you to start a video later or end earlier than the original source. You can also grab the grey markers and drag them to the desired position in the timeline.
 Synchronization, calibration, exposure will only be calculated for the working area.
 
-![Timeline Limiter](\Images\Timeline Limiter.jpg)
+![Timeline Limiter](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Timeline%20Limiter.jpg)
 
 
 
@@ -108,7 +108,7 @@ Synchronization, calibration, exposure will only be calculated for the working a
 For precise navigating in the timeline you can zoom in or out using the slider on the bottom right.
 Zooming in also helps seeing the values for algorithms, like color correction more precisely.
 
-![Zoom timeline](\Images\Zoom timeline.jpg)
+![Zoom timeline](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Zoom%20timeline.jpg)
 
 
 
@@ -135,7 +135,7 @@ At the bottom right of the interface, you will find more useful information:
 3. Graphics card model and its GPU memory
 4. Rendered frame: The current frame selected in the timelime
 
-![Bottom Information](\Images\Bottom Information.jpg)
+![Bottom Information](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Bottom%20Information.jpg)
 
 
 
@@ -167,13 +167,13 @@ While most 360° camera setups are synchronized hardware-wise nowadays, synchron
 To open the synchronization tool, navigate to the bar at the top, click on "Window" > "Synchronization". The synchronization tool appears on the top left of the user interface.
 
 
-![Synchronization Bar](\Images\Synchronization Bar.jpg)**&nbsp;** 
+![Synchronization Bar](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronization%20Bar.jpg)**&nbsp;** 
 
 
 
 ### 1.1 Automatic synchronization
 
-![Synchronizaition Auto](\Images\Synchronizaition Auto.jpg)**&nbsp;** 
+![Synchronizaition Auto](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronizaition%20Auto.jpg)**&nbsp;** 
 
 
 
@@ -209,7 +209,7 @@ Make sure the change of lighting is within the working area.
 
 ### 1.2 Manual synchronization
 
-![Synchronizaition Manual](\Images\Synchronizaition Manual.jpg)**&nbsp;** 
+![Synchronizaition Manual](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronizaition%20Manual.jpg)**&nbsp;** 
 
 
 
@@ -218,7 +218,7 @@ By clicking on "Manual" you will reach the Manual tab where you see the source v
 
 
 
-<img src="\Images\ghosting.jpg" alt="ghosting" style="zoom: 67%;" />**&nbsp;** 
+<img src="https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;" />**&nbsp;** 
 
 *badly synchronized / ghosting example*
 
@@ -236,13 +236,13 @@ VideoStitch Studio provides you an automatic calibration tool, but it is also po
 
 
 
-![Before the stitch](\Images\Before the stitch.jpg)
+![Before the stitch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Before%20the%20stitch.jpg)
 
 *before calibration (source videos)*
 
 
 
-![Stitched](\Images\Stitched.jpg)
+![Stitched](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Stitched.jpg)
 
 *stitched result after calibration (shown in "Output" panel)*
 
@@ -250,7 +250,7 @@ VideoStitch Studio provides you an automatic calibration tool, but it is also po
 
 To open the calibration tool, navigate to the bar at the top, click on "Window" > "Calibration". The calibration tool appears on the top left of the user interface.
 
-![Calibration Tab](\Images\Calibration Tab.jpg)
+![Calibration Tab](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Tab.jpg)
 
 
 
@@ -258,7 +258,7 @@ To open the calibration tool, navigate to the bar at the top, click on "Window" 
 
 VideoStitch Studio is able to automatically calibrate your footage using custom camera settings.
 
-![Calibration Window](\Images\Calibration Window.jpg)
+![Calibration Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Window.jpg)
 
 
 
@@ -281,13 +281,13 @@ Our example project uses 3 cams with a FOV of ~200°. You can adjust by grabbing
 
 
 
-![Inputs crop2](\Images\Inputs crop2.jpg)
+![Inputs crop2](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Inputs%20crop2.jpg)
 
 *Source Video*
 
 
 
-![Inputs crop](\Images\Inputs crop.jpg)
+![Inputs crop](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Inputs%20crop.jpg)
 
 *Cropped video*
 
@@ -298,7 +298,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 
 
-![Frame selection](\Images\Frame selection.jpg)
+![Frame selection](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Frame%20selection.jpg)
 
 
 
@@ -327,13 +327,13 @@ To solve this VideoStitch Studio is compatible with templates from PTGui and Hug
 If you want to work with PTGui or Hugin you need to create the template using still images. VideoStitch Studio helps you with exporting images.
 Go to "Edit" > "Extract stills to..." OR "Extract stills" and it will export image files you can use. Make sure to keep the names and order the same to be able to quickly apply the template in VideoStitch Studio once it is done.
 
-![Calibration Extract Stills](\Images\Calibration Extract Stills.jpg)
+![Calibration Extract Stills](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Extract%20Stills.jpg)
 
 
 
 In the Calibration window select "Import a template" > "Browse calibration..." and select the file in the file browser. If you have used a template in the past and want to use it again simply click on "Recent calibrations" and apply the desired one.
 
-![Import Calibration](\Images\Import Calibration.jpg)
+![Import Calibration](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Import%20Calibration.jpg)
 
 
 
@@ -343,13 +343,13 @@ Color correction optimizes the stitched 360° video by automatically adjusting v
 
 To open the color correction tool, navigate to the bar at the top, click on "Window" > "Color correction". The color correction tool appears on the top left of the user interface.
 
-![Color correction](\Images\Color correction.jpg)**&nbsp;** 
+![Color correction](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20correction.jpg)**&nbsp;** 
 
 
 
 ### 3.1 Photometric parameters
 
-![Color Corretion base tab](\Images\Color Corretion base tab.jpg)**&nbsp;** **&nbsp;** 
+![Color Corretion base tab](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Corretion%20base%20tab.jpg)**&nbsp;** **&nbsp;** 
 
 By clicking "Calibrate photometry" under "Photometric parameters" VideoStitch Studio will automatically calculate the response curves and vignetting of the used cameras to improve the blending of the stitched 360° panorama.
 
@@ -359,9 +359,9 @@ Explaining ***camera response*** would take to much time here, but is basically 
 
 "Vignette" and "Camera response" tabs will appear under "Photometric parameters".
 
-![Color Correction window](\Images\Color Correction window.jpg)
+![Color Correction window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20window.jpg)
 
-![ColorCorrection Camera response](\Images\ColorCorrection Camera response.jpg)
+![ColorCorrection Camera response](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/ColorCorrection%20Camera%20response.jpg)
 
 
 
@@ -372,14 +372,14 @@ You can choose to either "Adjust on current frame" or "Adjust sequence" which ca
 
 
 
-**Example**![Color Correction Examples](\Images\Color Correction Examples.jpg)
+**Example**![Color Correction Examples](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20Examples.jpg)
 
 
 
 **Advanced parameters**
 You can set advanced parameters by ticking the box next to "Advanced parameters".
 
-![Color Correction advanced parameters](\Images\Color Correction advanced parameters.jpg)
+![Color Correction advanced parameters](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20advanced%20parameters.jpg)
 
 
 
@@ -401,7 +401,7 @@ You can also pick "All" and VideoStitch Studio will compare colors between sourc
 
 You can manually adjust the exposure as well as the Red and  Blue correction by heading to the timeline, expanding the "Exposure compensation" window and manually dragging the keyframe markers up (increase exposure/correction value) or down (decrease exposure/correction value).
 
-![keyframes exposure](\Images\keyframes exposure.jpg)
+![keyframes exposure](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/keyframes%20exposure.jpg)
 
 
 
@@ -412,9 +412,9 @@ You can manually adjust the exposure as well as the Red and  Blue correction by 
 **Orientation** is used if the horizon in your stitched panorama isn't right. Straight vertical lines that look tilted in your stitched panorama are often a sign that you need to set the horizon right. You can also choose the starting perspective by rotating your panorama without adjusting the horizon.
 Depending on how the cameras are arranged in your camera rig your panorama orientation might be completely wrong like in the panorama below.
 
-*![Adfter Stitch](\Images\Orientation.jpg)Wrong Orientation*
+*![After Stitch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Orientation.jpg)Wrong Orientation*
 
-![Orientation2](\Images\Orientation2.jpg)
+![Orientation2](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Orientation2.jpg)
 
 Wrong Orientation, too
 
@@ -422,9 +422,9 @@ Wrong Orientation, too
 
 To open the stabilization & orientation tool, navigate to the bar at the top, click on "Window" > "Stabilization & Orientation". The stabilization & orientation tool appears on the top left of the user interface.
 
-![Stabilization & Orientation](\Images\Stabilization & Orientation.jpg)**&nbsp;** **&nbsp;** 
+![Stabilization & Orientation](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Stabilization%20Orientation.jpg)**&nbsp;** **&nbsp;** 
 
-![Stabilization & Orientation Window](\Images\Stabilization & Orientation Window.jpg)**&nbsp;** **&nbsp;** 
+![Stabilization & Orientation Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Stabilization%20Orientation%20Window.jpg)**&nbsp;** **&nbsp;** 
 
 
 
@@ -461,12 +461,12 @@ To change the orientation:
 
 To open the output configuration tool, navigate to the bar at the top, click on "Window" > "Output configuration". The output configuration tool appears on the top left of the user interface.
 
-![Output Configuration](\Images\Output Configuration.jpg)**&nbsp;** **&nbsp;** 
+![Output Configuration](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Output%20Configuration.jpg)**&nbsp;** **&nbsp;** 
 
 
 There are two options in the output configuration window:
 
-![Output Configuration Window](\Images\Output Configuration Window.jpg)
+![Output Configuration Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Output%20Configuration%20Window.jpg)
 
 
 
@@ -486,7 +486,7 @@ Try to find the perfect level of sharpness for you scene by trying and checking 
 
 ## **6. Output rendering**
 
-![Process Panel](\Images\Process Panel.jpg)
+![Process Panel](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Process%20Panel.jpg)
 
 To export your 360° video or change the preview resolution you have to go to the "Process“ panel.
 
@@ -516,7 +516,7 @@ You can select if you want to output the whole video or just the current working
 
 ### 6.2 Encoder settings
 
-![Advanced settings](\Images\Advanced settings.jpg)
+![Advanced settings](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Advanced%20settings.jpg)
 
 
 
@@ -563,7 +563,7 @@ Ask yourself what you are using your panorama video for; if you want to render a
 
 ### 6.3 Audio settings
 
-![Audio Settings](\Images\Audio Settings.jpg)
+![Audio Settings](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Audio%20Settings.jpg)
 
 
 
@@ -598,7 +598,7 @@ VideoStitch Studio outputs Stereo audio.
 
 ### 6.4 Batch stitcher
 
-![Send to batch](\Images\Send to batch.jpg)
+![Send to batch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Send%20to%20batch.jpg)
 
 If you want to prepare multiple videos for stitching and stitch them all later you can select "Send to batch". You will then be asked to create a copy of your project which is send to the VideoStitch Studio batch stitcher. You can close the current project and open the next, and also send it to the batch stitcher once done.
 
@@ -606,7 +606,7 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 
 
-![Batch Stitcher](\Images\Batch Stitcher.jpg)
+![Batch Stitcher](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Batch%20Stitcher.jpg)
 
 
 
@@ -692,7 +692,7 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 ### 4. Keyboard shortcuts
 
-![Shortcuts](\Images\Shortcuts.jpg)**&nbsp;** **&nbsp;** 
+![Shortcuts](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Shortcuts.jpg)**&nbsp;** **&nbsp;** 
 
 
 
