@@ -1,0 +1,2 @@
+This footage is for testing and analysis purposes. Modifications and non-commercial use, especially for educational reasons, are allowed. 
+Commercial use including but not limited to offering the stitched panorama for sale is specifically NOT allowed.
