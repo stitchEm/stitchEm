@@ -2,28 +2,29 @@
 
 **User Guide**
 
-
+<br>
 
 **Table of contents**
 
 [TOC]
 
+<br>
 
-
-
+<br>
+<br>
 
 # **Getting started with VideoStitch Studio**
 
-
+<br>
 
 ## 1. Starting a new project
 
-
+<br>
 
 To start a new project you need to import the videos you want to stitch.
 There are two ways to do so:
 
-
+<br>
 
 ● Add media by clicking on "File" > "Open media"
 
@@ -37,7 +38,7 @@ You then have to select the videos you want to stitch in the file explorer.
 
 ![Drag Media](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Drag%20Media.jpg)
 
-
+<br>
 
 
 
@@ -48,13 +49,13 @@ After importing your media it will look like this and is listed in the "Source" 
 
 # **VideoStitch Studio user interface**
 
-
+<br>
 
 ## 1. VideoStitch Studio panels
 
 ![Panels](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Panels.jpg)
 
-
+<br>
 
 There are four panels in VideoStitch Studio
 
@@ -80,7 +81,7 @@ There are four panels in VideoStitch Studio
 
 *Interactive Panel*
 
-
+<br>
 
 ## 2. Working with the timeline
 
@@ -91,14 +92,12 @@ You can play, pause, select specific frames & time and set a working area.
 
 
 
-**Play button**
-
+**Play button**<br>
 On the top left of the timeline you can find the Play button. Depending on the panel you are in you can either view the source videos or preview the stitched result in real time.
 
 
 
-**Select working area**
-
+**Select working area**<br>
 Below the Play button you will find two timecodes. By default the first one is 00:00:00 and the second is the total time of the video. Changing these values will limit the working area which allows you to start a video later or end earlier than the original source. You can also grab the grey markers and drag them to the desired position in the timeline.
 Synchronization, calibration, exposure will only be calculated for the working area.
 
@@ -106,8 +105,7 @@ Synchronization, calibration, exposure will only be calculated for the working a
 
 
 
-**Zoom in and out the timeline**
-
+**Zoom in and out the timeline**<br>
 For precise navigating in the timeline you can zoom in or out using the slider on the bottom right.
 Zooming in also helps seeing the values for algorithms, like color correction more precisely.
 
@@ -115,19 +113,17 @@ Zooming in also helps seeing the values for algorithms, like color correction mo
 
 
 
-**Navigate to the desired frame**
-
+**Navigate to the desired frame**<br>
 If you want to view a specific frame you can use the Shortcut "Ctrl+J". You also zoom in as mentioned above and then drag the orange marker to the desired time and use the arrow keys to jump one frame forward or backward. "Shift+Home" and "Shift+End" will select the first / last frame of your current working area.
 
 
 
-**Keyframes**
-
+**Keyframes** <br>
 Keyframes for Stabilization, Orientation & Color Correction are automatically created by VideoStitch Studio.
 If you click on a keyframe marker on the timeline and drag it up or down this will affect the corresponding function (e.g. increasing or decreasing exposure).
 If you want to add a new keyframe you can do so with the shortcut "Ctrl+K". You can jump between keyframes with the shortcuts "K" (next keyframe) and "J" (previous keyframe).
 
-
+<br>
 
 ## 3. Project and system information
 
@@ -144,15 +140,15 @@ At the bottom right of the interface, you will find more useful information:
 
 
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 # **VideoStitch Studio workflow**
 
-
+<br>
 
 ## **1. Synchronization**
 
@@ -174,7 +170,7 @@ To open the synchronization tool, navigate to the bar at the top, click on "Wind
 
 ![Synchronization Bar](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronization%20Bar.jpg)**&nbsp;** 
 
-
+<br>
 
 ### 1.1 Automatic synchronization
 
@@ -188,13 +184,13 @@ To open the synchronization tool, navigate to the bar at the top, click on "Wind
 
 There are three different approches to synchronizing your source videos.
 
-
+<br>
 
 #### 1.1.1 Audio based synchronization
 
 Videos are being automatically synchronized based on a loud sound, that stands out from the background noise. A loud clap or a dog training clicker can create such sounds, but it is still not recommended for noisy environments. Make sure the sound is within the working area!
 
-
+<br>
 
 #### 1.1.2 Motion based synchronization
 
@@ -202,7 +198,7 @@ Videos are being automatically synchronized based on a strong motion of the came
 If your rig allows it, a short, but strong spin would be ideal for this synchronization method.
 Make sure both, the start and end of the spin are within the working area.
 
-
+<br>
 
 #### 1.1.3 Flash based synchronization
 
@@ -210,7 +206,7 @@ Videos are being automatically synchronized based on a sudden change in lighting
 Turning on bright lights in a room or using synchronized professional flashes would work for this method.
 Make sure the change of lighting is within the working area.
 
-
+<br>
 
 ### 1.2 Manual synchronization
 
@@ -230,7 +226,7 @@ By clicking on "Manual" you will reach the Manual tab where you see the source v
 To get rid of the ghosting of moving objects in the 360° panorama go to a frame where you can clearly see the ghosting in the "Output" panel, enable input numbers ("Window" > "Output configuration" > "Show input numbers"), locate the source file that isn't synchronized well and the input number assigned to it and manually change the offset until no ghosting occurs. You can see the changes live in the "Output" and "Interactive" panel. Click play and see if there is any ghosting remaining – repeat if necessary.
 You can also link source videos by clicking the checkbox on the right if you are certain some source videos are already synchronized. VideoStitch Studio will use this information to enhance the automatic synchronization.
 
-
+<br>
 
 ## **2. Calibration**
 
@@ -257,7 +253,7 @@ To open the calibration tool, navigate to the bar at the top, click on "Window" 
 
 ![Calibration Tab](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Tab.jpg)
 
-
+<br>
 
 ### 2.1 Automatic calibration
 
@@ -267,7 +263,7 @@ VideoStitch Studio is able to automatically calibrate your footage using custom 
 
 
 
-**Custom parameters calibration**
+**Custom parameters calibration**<br>
 You can always try to keep everything on auto first. 
 If that doesn't give you a good result you should create a custom calibration:
 
@@ -279,7 +275,7 @@ If that doesn't give you a good result you should create a custom calibration:
 
 
 
-**Crop source videos**
+**Crop source videos**<br>
 You can crop  source videos. 
 This is especially useful for when you are filming with high FOV lenses. 
 Our example project uses 3 cams with a FOV of ~200°. You can adjust by grabbing the orange circle and drag it to the desired position. In our example we can easily crop out the parts we don't want to use for our 360° video.
@@ -298,7 +294,7 @@ Our example project uses 3 cams with a FOV of ~200°. You can adjust by grabbing
 
 
 
-**Manual frame selection**
+**Manual frame selection**<br>
 VideoStitch Studio will automatically choose frames from the calibration sequence you defined as reference for the calibration. If you want more control, you can calibrate on frames you select yourself.
 
 
@@ -319,7 +315,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 You can remove one or all frames by clicking on "Remove selected" and "Clear all".
 
-
+<br>
 
 ### 2.2 Manual calibration
 
@@ -340,7 +336,7 @@ In the Calibration window select "Import a template" > "Browse calibration..." a
 
 ![Import Calibration](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Import%20Calibration.jpg)
 
-
+<br>
 
 ## **3. Color Correction**
 
@@ -350,7 +346,7 @@ To open the color correction tool, navigate to the bar at the top, click on "Win
 
 ![Color correction](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20correction.jpg)**&nbsp;** 
 
-
+<br>
 
 ### 3.1 Photometric parameters
 
@@ -368,7 +364,7 @@ Explaining ***camera response*** would take to much time here, but is basically 
 
 ![ColorCorrection Camera response](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/ColorCorrection%20Camera%20response.jpg)
 
-
+<br>
 
 ### 3.2 Exposure compensation
 
@@ -377,30 +373,30 @@ You can choose to either "Adjust on current frame" or "Adjust sequence" which ca
 
 
 
-**Example**![Color Correction Examples](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20Examples.jpg)
+**Example**<br>![Color Correction Examples](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20Examples.jpg)
 
 
 
-**Advanced parameters**
+**Advanced parameters**<br>
 You can set advanced parameters by ticking the box next to "Advanced parameters".
 
 ![Color Correction advanced parameters](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Color%20Correction%20advanced%20parameters.jpg)
 
 
 
-**Adjust every **
+**Adjust every **<br>
 Allows you to change the interval between each exposure (& white balance) adjustment, frames in between will be interpolated.
 
 Depending on how the light changes in you scene a lower value will deliver better results, if the lighting doesn't change in your scene, setting a higher frame interval is okay, too.
 
 
 
-**Anchor**
+**Anchor**<br>
 Allows you to anchor the exposure to a specified source video that has the correct color (even lighting – not pointing to a bright light source or too dark area).
 This specified source video will be used as a reference for the color correction. 
 You can also pick "All" and VideoStitch Studio will compare colors between source videos automatically.
 
-
+<br>
 
 ### 3.3 Manual Adjustments
 
@@ -408,7 +404,7 @@ You can manually adjust the exposure as well as the Red and  Blue correction by 
 
 ![keyframes exposure](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/keyframes%20exposure.jpg)
 
-
+<br>
 
 ## **4. Stabilization & Orientation**
 
@@ -431,7 +427,7 @@ To open the stabilization & orientation tool, navigate to the bar at the top, cl
 
 ![Stabilization & Orientation Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Stabilization%20Orientation%20Window.jpg)**&nbsp;** **&nbsp;** 
 
-
+<br>
 
 ### 4.1 Stabilization
 
@@ -445,7 +441,7 @@ To stabilize the footage:
 
 *If you are not happy with the result you can set a different working area, click on "Reset sequence" and "Stabilize sequence" again.*
 
-
+<br>
 
 ### 4.2 Orientation
 
@@ -460,7 +456,7 @@ To change the orientation:
 
 *Select any frame for stationary footage, otherwise you have to make sure to select a frame where you can easily see certain points as references. (e.g. straight lines, trees, the ocean)*
 
-
+<br>
 
 ## **5. Output configuration**
 
@@ -487,7 +483,7 @@ The *feathering* slider allows you to control how sharp or smooth the blending b
 While a smoother blending is useful for scenes without sharp detail (e.g. blending blue sky) it might create some ghosting where parallax is visible. Sharp blending is useful for keeping all the detail (e.g. text or mosaic), some seames might look too hard.
 Try to find the perfect level of sharpness for you scene by trying and checking in the live preview of the "Output" panel.
 
-
+<br>
 
 ## **6. Output rendering**
 
@@ -495,18 +491,18 @@ Try to find the perfect level of sharpness for you scene by trying and checking 
 
 To export your 360° video or change the preview resolution you have to go to the "Process“ panel.
 
-
+<br>
 
 ### 6.1 General settings
 
 
 
-**File**
+**File**<br>
 Change the output filename and path. The file is created in the same directory as your input videos by default. Click on "Browse" and you can select thelocation in the file explorer.
 
 
 
-**Size**
+**Size**<br>
 Resolution of the live-preview and output. Remember the output will always automatically be a 2:1 format as VideoStitch Studio will render a 360*180 output.
 
 By clicking "Set optimal size" VideoStitch Studio will pick the maximal true resolution for the panorama video without interpolation. 
@@ -514,10 +510,10 @@ The optimal size may differ even if you always use the same rig. The reason for 
 
 
 
-**Length**
+**Length**<br>
 You can select if you want to output the whole video or just the current working area ("Process selected sequence") .
 
-
+<br>
 
 ### 6.2 Encoder settings
 
@@ -525,46 +521,46 @@ You can select if you want to output the whole video or just the current working
 
 
 
-**Format**
+**Format**<br>
 Switch between ***MP4*** or ***MOV*** Video formats or export an image sequence as ***JPEG***, ***PNG*** or ***TIFF.***
 
 
 
-**Codec**
+**Codec**<br>
 Choose your desired codec: ***ProRes***, ***H264***, ***H264 (Nvidia NVENC), HEVC (Nvidia NVENC)*** ***MPEG2*** and ***Motion JPEG***.
 
-**Profile** (ProRes)
+**Profile** (ProRes)<br>
 You can choose between Proxy, LT, Standard & High Quality.
 If you want to continue working on your 360° video in an editing software like Adobe Premiere or Davinci Resolve you usually want to export „High Quality“.
 
 
 
-**Bitrate mode** (H*264*, *H264 (Nvidia NVENC), HEVC (Nvidia NVENC) & MPEG2*)
+**Bitrate mode** (H*264*, *H264 (Nvidia NVENC), HEVC (Nvidia NVENC) & MPEG2*)<br>
 You can choose between VBR (variable bitrate) and CBR(constant bitrate).
 
 
 
-**Bitrate** (H*264*, *H264 (Nvidia NVENC), HEVC (Nvidia NVENC) & MPEG2*)
-*File size = bitrate (kilobits per second) \* duration*
+**Bitrate** (H*264*, *H264 (Nvidia NVENC), HEVC (Nvidia NVENC) & MPEG2*)<br>
+*File size = bitrate (kilobits per second) \* duration*<br>
 Higher bitrate means higher quality and bigger filesize. The value heavily depends on your desired platform; if you are exporting specifically for a certain VR headset you can usually find the right values online. 
 
 
 
-**Quality Scale** (Motion JPEG)
+**Quality Scale** (Motion JPEG)<br>
 You can drag the slider to choose between more quailty vs more compression.
 
 
 
-**Advanced settings**
+**Advanced settings**<br>
 If you enable advanced settings you will be able to customize the GOP and B-Frames number.
 If you don't know what this is either look it up or keep as is, as explaining it here would take (p)ages.
 
 
 
-**Which encoding setting to pick?**
+**Which encoding setting to pick?**<br>
 Ask yourself what you are using your panorama video for; if you want to render a quick preview a small H264 is enough, if you want to edit your footage in an editing software like Adobe Premiere Pro or Davinci Resolve you need to export either a High Quality MOV or an image sequence for maximum quality.
 
-
+<br>
 
 ### 6.3 Audio settings
 
@@ -576,30 +572,30 @@ By default the audio settings are disabled, to activate the settings, click on t
 
 
 
-**Source**
+**Source**<br>
 Select which source videos audio you want to use.
 
 
 
-**Codec**
+**Codec**<br>
 Choose if your audio should be in ***MP3*** or ***AAC***.
 
 
 
-**Bitrate**
+**Bitrate**<br>
 Choose the bitrate of the Audio in kbps: **64**, **96**, **128**, **192**, **256**, **512**
 
 
 
-**Sample rate**
+**Sample rate**<br>
 Sample rate is fixed to ***44100Hz*** for ***MP3*** output and ***48000Hz*** for ***AAC***
 
 
 
-**Channel layout**
+**Channel layout**<br>
 VideoStitch Studio outputs Stereo audio.
 
-
+<br>
 
 ### 6.4 Batch stitcher
 
@@ -615,11 +611,11 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 # **Useful Tips & Troubleshooting**
 
@@ -641,7 +637,7 @@ You can remove, reset or edit a project by right clicking on the project name in
 
   
 
-   
+   <br>
 
 ### 2. Filming with a 360° camera rig
 
@@ -657,43 +653,42 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 - Hiding lighting is hard in 360° videos, but you can place a cylindrical light below your camera (at the tripod).
   
-  
-
+  <br>
 
 ### 3. Working with VideoStitch Studio - Troubleshooting
 
 
 
-- **Live preview in Output and Interactive panel is very slow.**
+- **Live preview in Output and Interactive panel is very slow.**<br>
   	Try setting a lower "Size" in the "Process" panel.
 
   
 
-- **I see ghosting, but can't figure out which source videos are affected.**
+- **I see ghosting, but can't figure out which source videos are affected.**<br>
    	Enable „Show input numbers“ in the „Output configuration“.
 
 
 
-- **Clicking „Set optimal size“ gives a different result for different scenes shot with the same camera rig.**
+- **Clicking „Set optimal size“ gives a different result for different scenes shot with the same camera rig.**<br>
   This is to be expected, as the stitching is dependend on the distance of objects to the camera because of  the overlap between videos. A shot on the ocean would 	deliver a smaller resolution than a shot in a small room, because there is less 	overlap in the small room.
 
 
 
-- **The stitched 360° video is too bright / dark!**
+- **The stitched 360° video is too bright / dark!**<br>
   While this can obviously be fixed in any video editing software you can also 	manually drag the exposure keyframes down / up for the stitched panorama to 	increase / decrese exposure.
   
   
 
-- **I created a template in PTGui / Hugin, but my stitched video looks different in Videostitch Studio!**
+- **I created a template in PTGui / Hugin, but my stitched video looks different in Videostitch Studio!**<br>
   Make sure to keep the import order just the same as in VideoStitch Studio. 
   Keep in mind VideoStitch Studio imports the position of every source video and the red masks (mask out) from PTGui or Hugin, most other adjustments are not imported.
 
 
 
-- **Stitchlines between images are looking to soft / hard!**
+- **Stitchlines between images are looking to soft / hard!**<br>
   Head to the "Output configuration" window, go to "Blending" and adjust the "Feather" slider.
 
-
+<br>
 
 ### 4. Keyboard shortcuts
 
@@ -701,19 +696,19 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 
 
-**Check out the project on Github:
-**https://github.com/stitchEm/stitchEm
+**Check out the project on Github:<br>**https://github.com/stitchEm/stitchEm
 
 
-**Join the VideoStitch Studio (2020) Users group on Facebook:**
+
+**Join the VideoStitch Studio (2020) Users group on Facebook:**<br>
 https://www.facebook.com/groups/VideoStitch
 
 
 
+<br>
 
+<br>
 
-
-
-
+<br>
 
 # **Have fun creating breathtaking 360° content!**
