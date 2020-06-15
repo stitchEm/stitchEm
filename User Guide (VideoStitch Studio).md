@@ -6,7 +6,7 @@
 
 **Table of contents**
 
-- [Getting started with VideoStitch Studio](#getting-started-with-videostitch-studio)
+- [**Getting started with VideoStitch Studio**](#getting-started-with-videostitch-studio)
   * [1. Starting a new project](#1-starting-a-new-project)
 - [**VideoStitch Studio user interface**](#videostitch-studio-user-interface)
   * [1. VideoStitch Studio panels](#1-videostitch-studio-panels)
