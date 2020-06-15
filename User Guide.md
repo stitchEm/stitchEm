@@ -7,47 +7,47 @@
 **Table of contents**
 
 [**Getting started with VideoStitch Studio**](#getting-started-with-videostitch-studio)<br>
-​    [1. Starting a new project](#1-starting-a-new-project)
+&nbsp;&nbsp;&nbsp;[1. Starting a new project](#1-starting-a-new-project)
 
 [**VideoStitch Studio user interface**](#videostitch-studio-user-interface)<br>
-​    [1. VideoStitch Studio panels](#1-videostitch-studio-panels)<br>
-​    [2. Working with the timeline](#2-working-with-the-timeline)<br>
-​    [3. Project and system information](#3-project-and-system-information)
+&nbsp;&nbsp;&nbsp;[1. VideoStitch Studio panels](#1-videostitch-studio-panels)<br>
+&nbsp;&nbsp;&nbsp;[2. Working with the timeline](#2-working-with-the-timeline)<br>
+&nbsp;&nbsp;&nbsp;[3. Project and system information](#3-project-and-system-information)
 
 [**VideoStitch Studio workflow**](#videostitch-studio-workflow)<br>
-​    [**1. Synchronization**](#1-synchronization)<br>
-​        [1.1 Automatic synchronization](#11-automatic-synchronization)<br>
-​            [1.1.1 Audio based synchronization](#111-audio-based-synchronization)<br>
-​            [1.1.2 Motion based synchronization](#112-motion-based-synchronization)<br>
-​            [1.1.3 Flash based synchronization](#113-flash-based-synchronization)<br>
-​        [1.2 Manual synchronization](#12-manual-synchronization)
+&nbsp;&nbsp;&nbsp;[**1. Synchronization**](#1-synchronization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.1 Automatic synchronization](#11-automatic-synchronization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.1.1 Audio based synchronization](#111-audio-based-synchronization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.1.2 Motion based synchronization](#112-motion-based-synchronization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.1.3 Flash based synchronization](#113-flash-based-synchronization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2 Manual synchronization](#12-manual-synchronization)
 
-​    [**2. Calibration**](#2-calibration)<br>
-​        [2.1 Automatic calibration](#21-automatic-calibration)<br>
-​        [2.2 Manual calibration](#22-manual-calibration)
+&nbsp;&nbsp;&nbsp;[**2. Calibration**](#2-calibration)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.1 Automatic calibration](#21-automatic-calibration)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2 Manual calibration](#22-manual-calibration)
 
-​    [**3. Color Correction**](#3-color-correction)<br>
-​        [3.1 Photometric parameters](#31-photometric-parameters)<br>
-​        [3.2 Exposure compensation](#32-exposure-compensation)<br>
-​        [3.3 Manual Adjustments](#33-manual-adjustments)
+&nbsp;&nbsp;&nbsp;[**3. Color Correction**](#3-color-correction)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.1 Photometric parameters](#31-photometric-parameters)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.2 Exposure compensation](#32-exposure-compensation)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[3.3 Manual Adjustments](#33-manual-adjustments)
 
-​    [**4. Stabilization & Orientation**](#4-stabilization---orientation)<br>
-​        [4.1 Stabilization](#41-stabilization)<br>
-​        [4.2 Orientation](#42-orientation)
+&nbsp;&nbsp;&nbsp;[**4. Stabilization & Orientation**](#4-stabilization---orientation)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.1 Stabilization](#41-stabilization)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[4.2 Orientation](#42-orientation)
 
-​    [**5. Output configuration**](#5-output-configuration)
+&nbsp;&nbsp;&nbsp;[**5. Output configuration**](#5-output-configuration)
 
-​    [**6. Output rendering**](#6-output-rendering)<br>
-​        [6.1 General settings](#61-general-settings)<br>
-​        [6.2 Encoder settings](#62-encoder-settings)<br>
-​        [6.3 Audio settings](#63-audio-settings)<br>
-​        [6.4 Batch stitcher](#64-batch-stitcher)
+&nbsp;&nbsp;&nbsp;[**6. Output rendering**](#6-output-rendering)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.1 General settings](#61-general-settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.2 Encoder settings](#62-encoder-settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.3 Audio settings](#63-audio-settings)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[6.4 Batch stitcher](#64-batch-stitcher)
 
 [**Useful Tips & Troubleshooting**](#useful-tips--troubleshooting)<br>
-​    [1. Building your own 360° camera rig](#1-building-your-own-360-camera-rig)<br>
-​    [2. Filming with a 360° camera rig](#2-filming-with-a-360-camera-rig)<br>
-​    [3. Working with VideoStitch Studio - Troubleshooting](#3-working-with-videostitch-studio---troubleshooting)<br>
-​    [4. Keyboard shortcuts](#4-keyboard-shortcuts)
+&nbsp;&nbsp;&nbsp;[1. Building your own 360° camera rig](#1-building-your-own-360-camera-rig)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[2. Filming with a 360° camera rig](#2-filming-with-a-360-camera-rig)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[3. Working with VideoStitch Studio - Troubleshooting](#3-working-with-videostitch-studio---troubleshooting)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[4. Keyboard shortcuts](#4-keyboard-shortcuts)
 
 [**Have fun creating breathtaking 360° content!**](#have-fun-creating-breathtaking-360-content)
 
