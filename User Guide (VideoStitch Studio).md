@@ -47,6 +47,8 @@ After importing your media it will look like this and is listed in the "Source" 
 
 ![Media in Source](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Media%20in%20Source.jpg)
 
+<br><br><br>
+
 # **VideoStitch Studio user interface**
 
 <br>
@@ -176,7 +178,7 @@ To open the synchronization tool, navigate to the bar at the top, click on "Wind
 
 ![Synchronizaition Auto](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronizaition%20Auto.jpg)**&nbsp;** 
 
-
+<br>
 
 *Note: For optimal results make sure to select an appropriate work area which includes either a specific sound, a motion, like turning the camera or the strong change of lighting in the scene depending on the syncronizing mehtod you want to use.*
 
@@ -184,13 +186,13 @@ To open the synchronization tool, navigate to the bar at the top, click on "Wind
 
 There are three different approches to synchronizing your source videos.
 
-<br>
+
 
 #### 1.1.1 Audio based synchronization
 
 Videos are being automatically synchronized based on a loud sound, that stands out from the background noise. A loud clap or a dog training clicker can create such sounds, but it is still not recommended for noisy environments. Make sure the sound is within the working area!
 
-<br>
+
 
 #### 1.1.2 Motion based synchronization
 
@@ -198,7 +200,7 @@ Videos are being automatically synchronized based on a strong motion of the came
 If your rig allows it, a short, but strong spin would be ideal for this synchronization method.
 Make sure both, the start and end of the spin are within the working area.
 
-<br>
+
 
 #### 1.1.3 Flash based synchronization
 
@@ -212,7 +214,7 @@ Make sure the change of lighting is within the working area.
 
 ![Synchronizaition Manual](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Synchronizaition%20Manual.jpg)**&nbsp;** 
 
-
+<br>
 
 If your footage wasn't optimized for synchronization and it doesn't synchronize good enough with any of the automatic methods (ghosting on moving objects in the calibrated 360° panorama can be a sign for this) you can adjust the frame offset manually.
 By clicking on "Manual" you will reach the Manual tab where you see the source video names and frame offset.
@@ -221,7 +223,7 @@ By clicking on "Manual" you will reach the Manual tab where you see the source v
 
 <img src="https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;" />**&nbsp;** 
 
-*badly synchronized / ghosting example*
+*badly synchronized / ghosting example* <br>
 
 To get rid of the ghosting of moving objects in the 360° panorama go to a frame where you can clearly see the ghosting in the "Output" panel, enable input numbers ("Window" > "Output configuration" > "Show input numbers"), locate the source file that isn't synchronized well and the input number assigned to it and manually change the offset until no ghosting occurs. You can see the changes live in the "Output" and "Interactive" panel. Click play and see if there is any ghosting remaining – repeat if necessary.
 You can also link source videos by clicking the checkbox on the right if you are certain some source videos are already synchronized. VideoStitch Studio will use this information to enhance the automatic synchronization.
@@ -247,7 +249,7 @@ VideoStitch Studio provides you an automatic calibration tool, but it is also po
 
 *stitched result after calibration (shown in "Output" panel)*
 
-
+<br>
 
 To open the calibration tool, navigate to the bar at the top, click on "Window" > "Calibration". The calibration tool appears on the top left of the user interface.
 
@@ -261,7 +263,7 @@ VideoStitch Studio is able to automatically calibrate your footage using custom 
 
 ![Calibration Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Window.jpg)
 
-
+<br>
 
 **Custom parameters calibration**<br>
 You can always try to keep everything on auto first. 
@@ -292,7 +294,7 @@ Our example project uses 3 cams with a FOV of ~200°. You can adjust by grabbing
 
 *Cropped video*
 
-
+<br>
 
 **Manual frame selection**<br>
 VideoStitch Studio will automatically choose frames from the calibration sequence you defined as reference for the calibration. If you want more control, you can calibrate on frames you select yourself.
@@ -301,7 +303,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 ![Frame selection](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Frame%20selection.jpg)
 
-
+<br>
 
 *To calibrate using specified frames:*
 
@@ -330,7 +332,7 @@ Go to "Edit" > "Extract stills to..." OR "Extract stills" and it will export ima
 
 ![Calibration Extract Stills](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Calibration%20Extract%20Stills.jpg)
 
-
+<br>
 
 In the Calibration window select "Import a template" > "Browse calibration..." and select the file in the file browser. If you have used a template in the past and want to use it again simply click on "Recent calibrations" and apply the desired one.
 
@@ -413,13 +415,15 @@ You can manually adjust the exposure as well as the Red and  Blue correction by 
 **Orientation** is used if the horizon in your stitched panorama isn't right. Straight vertical lines that look tilted in your stitched panorama are often a sign that you need to set the horizon right. You can also choose the starting perspective by rotating your panorama without adjusting the horizon.
 Depending on how the cameras are arranged in your camera rig your panorama orientation might be completely wrong like in the panorama below.
 
-*![After Stitch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Orientation.jpg)Wrong Orientation*
+*![After Stitch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Orientation.jpg)*
+
+*Wrong Orientation*
 
 ![Orientation2](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Orientation2.jpg)
 
-Wrong Orientation, too
+*Wrong Orientation, too*
 
-
+<br>
 
 To open the stabilization & orientation tool, navigate to the bar at the top, click on "Window" > "Stabilization & Orientation". The stabilization & orientation tool appears on the top left of the user interface.
 
@@ -469,7 +473,7 @@ There are two options in the output configuration window:
 
 ![Output Configuration Window](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Output%20Configuration%20Window.jpg)
 
-
+<br>
 
 **Show input numbers** overlays the assigned input number of each source video on the stitched panorama. Very helpful if you have to locate a certain source video for optimizing syncronization and problems that might occur.
 
@@ -489,6 +493,7 @@ Try to find the perfect level of sharpness for you scene by trying and checking 
 
 ![Process Panel](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Process%20Panel.jpg)
 
+<br>
 To export your 360° video or change the preview resolution you have to go to the "Process“ panel.
 
 <br>
@@ -519,7 +524,7 @@ You can select if you want to output the whole video or just the current working
 
 ![Advanced settings](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Advanced%20settings.jpg)
 
-
+<br>
 
 **Format**<br>
 Switch between ***MP4*** or ***MOV*** Video formats or export an image sequence as ***JPEG***, ***PNG*** or ***TIFF.***
@@ -566,7 +571,7 @@ Ask yourself what you are using your panorama video for; if you want to render a
 
 ![Audio Settings](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Audio%20Settings.jpg)
 
-
+<br>
 
 By default the audio settings are disabled, to activate the settings, click on the "Audio settings" checkbox.
 
@@ -600,6 +605,8 @@ VideoStitch Studio outputs Stereo audio.
 ### 6.4 Batch stitcher
 
 ![Send to batch](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Send%20to%20batch.jpg)
+
+<br>
 
 If you want to prepare multiple videos for stitching and stitch them all later you can select "Send to batch". You will then be asked to create a copy of your project which is send to the VideoStitch Studio batch stitcher. You can close the current project and open the next, and also send it to the batch stitcher once done.
 
@@ -694,7 +701,7 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 ![Shortcuts](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Shortcuts.jpg)**&nbsp;** **&nbsp;** 
 
-
+<br>
 
 **Check out the project on Github:<br>**https://github.com/stitchEm/stitchEm
 
