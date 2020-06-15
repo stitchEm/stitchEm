@@ -234,7 +234,7 @@ You can also link source videos by clicking the checkbox on the right if you are
 
 ## **2. Calibration**
 
-**What is a calibration?**
+**What is a calibration?**<br>
 Calibration is essentially how the videos have to be moved around and stitched together to get a full 360° panorama. Make sure to synchronize your videos before heading to the "Calibration" tab.
 
 VideoStitch Studio provides you an automatic calibration tool, but it is also possible to import a stitching template from PTGui or Hugin.
