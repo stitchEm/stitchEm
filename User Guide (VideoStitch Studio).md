@@ -27,7 +27,7 @@ There are two ways to do so:
 
 ● Add media by clicking on "File" > "Open media"
 
-![Open Media](\Images\Open Media.jpg)**&nbsp;** 
+![Open Media](https://github.com/HePTaset/stitchEm/blob/master/Images/Open%20Media.jpg)**&nbsp;** 
 
 You then have to select the videos you want to stitch in the file explorer.
 
