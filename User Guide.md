@@ -88,7 +88,7 @@ You then have to select the videos you want to stitch in the file explorer.
 
 After importing your media it will look like this and is listed in the "Source" panel:
 
-![Media in Source](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Media%20in%20Source.jpg)
+![Media in Source](/Images/Media%20in%20Source.jpg)
 
 <br><br><br>
 
@@ -98,7 +98,7 @@ After importing your media it will look like this and is listed in the "Source" 
 
 ## 1. VideoStitch Studio panels
 
-![Panels](https://github.com/stitchEm/stitchEm/blob/master/User%20Guide/Images/Panels.jpg)
+![Panels](/Images/Panels.jpg)
 
 <br>
 
