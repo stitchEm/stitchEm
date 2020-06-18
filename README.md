@@ -36,6 +36,12 @@ The Orah 4i is a camera with 4 fisheye lenses designed for live 4K 360° Video s
 
 Builds of Vahana VR and VideoStitch Studio for Windows and macOS can be downloaded in the [release section](https://github.com/stitchEm/stitchEm/releases/latest).
 
+## Community
+
+If you need help getting started, have an idea for improvements or want to help develop the software, come join the [VideoStitch Studio Users group](https://www.facebook.com/groups/stitchEm) on Facebook.
+
+Technical issues can be directly reported on [GitHub](https://github.com/stitchEm/stitchEm/issues).
+
 ## Build
 
 The software can be built on Windows, macOS and Linux. Not all features are available on all platforms. See [doc/BUILD.md](doc/BUILD.md) for details.
