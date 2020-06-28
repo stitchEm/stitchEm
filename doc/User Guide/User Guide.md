@@ -44,13 +44,13 @@
 To start a new project you need to import the videos you want to stitch.
 There are two ways to do so:
 
-● Add media by clicking on "File" > "Open media"
+- Add media by clicking on "File" > "Open media"
 
 ![Open Media](Images/Open%20Media.jpg)**&nbsp;**
 
 You then have to select the videos you want to stitch in the file explorer.
 
-● Alternatively you can drag the videos you want to stitch from your file explorer and drop into VideoStitch Studio user interface.
+- Alternatively you can drag the videos you want to stitch from your file explorer and drop into VideoStitch Studio user interface.
 
 ![Drag Media](Images/Drag%20Media.jpg)
 
