@@ -58,8 +58,6 @@ After importing your media it will look like this and is listed in the "Source" 
 
 ![Media in Source](Images/Media%20in%20Source.jpg)
 
-<br><br><br>
-
 # VideoStitch Studio user interface
 
 ## 1. VideoStitch Studio panels
