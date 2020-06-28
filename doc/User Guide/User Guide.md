@@ -1,41 +1,40 @@
 **VideoStitch Studio User Guide**
 
 **Table of contents**
-
 - [Getting started with VideoStitch Studio](#getting-started-with-videostitch-studio)
-  * [1. Starting a new project](#1-starting-a-new-project)
+  * [Starting a new project](#starting-a-new-project)
 - [VideoStitch Studio user interface](#videostitch-studio-user-interface)
-  * [1. VideoStitch Studio panels](#1-videostitch-studio-panels)
-  * [2. Working with the timeline](#2-working-with-the-timeline)
-  * [3. Project and system information](#3-project-and-system-information)
+  * [VideoStitch Studio panels](#videostitch-studio-panels)
+  * [Working with the timeline](#working-with-the-timeline)
+  * [Project and system information](#project-and-system-information)
 - [VideoStitch Studio workflow](#videostitch-studio-workflow)
-  * [1. Synchronization](#1-synchronization)
-    + [1.1 Automatic synchronization](#11-automatic-synchronization)
-      - [1.1.1 Audio based synchronization](#111-audio-based-synchronization)
-      - [1.1.2 Motion based synchronization](#112-motion-based-synchronization)
-      - [1.1.3 Flash based synchronization](#113-flash-based-synchronization)
-    + [1.2 Manual synchronization](#12-manual-synchronization)
-  * [2. Calibration](#2-calibration)
-    + [2.1 Automatic calibration](#21-automatic-calibration)
-    + [2.2 Manual calibration](#22-manual-calibration)
-  * [3. Color Correction](#3-color-correction)
-    + [3.1 Photometric parameters](#31-photometric-parameters)
-    + [3.2 Exposure compensation](#32-exposure-compensation)
-    + [3.3 Manual Adjustments](#33-manual-adjustments)
-  * [4. Stabilization & Orientation](#4-stabilization---orientation)
-    + [4.1 Stabilization](#41-stabilization)
-    + [4.2 Orientation](#42-orientation)
-  * [5. Output configuration](#5-output-configuration)
-  * [6. Output rendering](#6-output-rendering)
-    + [6.1 General settings](#61-general-settings)
-    + [6.2 Encoder settings](#62-encoder-settings)
-    + [6.3 Audio settings](#63-audio-settings)
-    + [6.4 Batch stitcher](#64-batch-stitcher)
-- [Useful Tips & Troubleshooting](#--useful-tips---troubleshooting--)
-    + [1. Building your own 360° camera rig](#1-building-your-own-360--camera-rig)
-    + [2. Filming with a 360° camera rig](#2-filming-with-a-360--camera-rig)
-    + [3. Working with VideoStitch Studio - Troubleshooting](#3-working-with-videostitch-studio---troubleshooting)
-    + [4. Keyboard shortcuts](#4-keyboard-shortcuts)
+  * [Synchronization](#synchronization)
+    + [Automatic synchronization](#automatic-synchronization)
+      - [Audio based synchronization](#audio-based-synchronization)
+      - [Motion based synchronization](#motion-based-synchronization)
+      - [Flash based synchronization](#flash-based-synchronization)
+    + [Manual synchronization](#manual-synchronization)
+  * [Calibration](#calibration)
+    + [Automatic calibration](#automatic-calibration)
+    + [Manual calibration](#manual-calibration)
+  * [Color Correction](#color-correction)
+    + [Photometric parameters](#photometric-parameters)
+    + [Exposure compensation](#exposure-compensation)
+    + [Manual Adjustments](#manual-adjustments)
+  * [Stabilization & Orientation](#stabilization---orientation)
+    + [Stabilization](#stabilization)
+    + [Orientation](#orientation)
+  * [Output configuration](#output-configuration)
+  * [Output rendering](#output-rendering)
+    + [General settings](#general-settings)
+    + [Encoder settings](#encoder-settings)
+    + [Audio settings](#audio-settings)
+    + [Batch stitcher](#batch-stitcher)
+- [Useful Tips & Troubleshooting](#useful-tips---troubleshooting)
+    + [Building your own 360° camera rig](#building-your-own-360--camera-rig)
+    + [Filming with a 360° camera rig](#filming-with-a-360--camera-rig)
+    + [Working with VideoStitch Studio - Troubleshooting](#working-with-videostitch-studio---troubleshooting)
+    + [Keyboard shortcuts](#keyboard-shortcuts)
 
 # Getting started with VideoStitch Studio
 
@@ -84,7 +83,7 @@ There are four panels in VideoStitch Studio
 
 ![Interactive](Images/Interactive.jpg)
 
-## 2. Working with the timeline
+## Working with the timeline
 
 The timeline of VideoStitch Studio allows you to preview your source videos and stitched result.
 You can play, pause, select specific frames & time and set a working area.
@@ -114,7 +113,7 @@ Keyframes for Stabilization, Orientation & Color Correction are automatically cr
 If you click on a keyframe marker on the timeline and drag it up or down this will affect the corresponding function (e.g. increasing or decreasing exposure).
 If you want to add a new keyframe you can do so with the shortcut **Ctrl+K/Cmd+K**. You can jump between keyframes with the shortcuts **K** (next keyframe) and **J** (previous keyframe).
 
-## 3. Project and system information
+## Project and system information
 
 At the bottom right of the interface, you will find more useful information:
 
@@ -174,7 +173,7 @@ Make sure the change of lighting is within the working area.
 If your footage wasn't optimized for synchronization and it doesn't synchronize well enough with any of the automatic methods (ghosting on moving objects in the calibrated 360° panorama can be a sign for this) you can adjust the frame offset manually.
 By clicking on *Manual* you will reach the Manual tab where you see the source video names and frame offset.
 
-<img src=*Images/ghosting.jpg* alt=*ghosting* style=*zoom: 67%;* />
+<img src="Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;"/>
 
 *badly synchronized / ghosting example* <br>
 
@@ -244,7 +243,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 You can remove one or all frames by clicking on *Remove selected* and *Clear all*.
 
-### 2.2 Manual calibration
+### Manual calibration
 
 In some cases the automatic calibration might not be precise enough or doesn't work at all. There are multiple reasons for this; Objects close to the rig, not enough detail (e.g. blue sky) or not enough overlap between images.
 To solve this VideoStitch Studio is compatible with templates from PTGui and Hugin – both are thrid party software solutions made specifically for stitching panoramic images.
@@ -261,7 +260,7 @@ In the Calibration window select *Import a template* > *Browse calibration...* a
 
 ![Import Calibration](Images/Import%20Calibration.jpg)
 
-## 3. Color Correction
+## Color Correction
 
 Color correction optimizes the stitched 360° video by automatically adjusting vignetting, camera response curves, exposure and white balance. Depending on the videos you want to stitch you can also choose to only adjust some of the settings.
 
@@ -269,7 +268,7 @@ To open the color correction tool, navigate to the bar at the top, click on *Win
 
 ![Color correction](Images/Color%20correction.jpg)
 
-### 3.1 Photometric parameters
+### Photometric parameters
 
 ![Color Corretion base tab](Images/Color%20Corretion%20base%20tab.jpg)
 
@@ -285,7 +284,7 @@ Explaining ***camera response*** would take to much time here, but is basically 
 
 ![ColorCorrection Camera response](Images/ColorCorrection%20Camera%20response.jpg)
 
-### 3.2 Exposure compensation
+### Exposure compensation
 
 VideoStitch Studio automatically analyzes the input videos and calculates exposure and white balance adjustments.
 You can choose to either *Adjust on current frame* or *Adjust sequence* which calculates a new exposure (and white balance if selected) at a specific frame interval and applies an interpolated exposure (and white balance) to frames in between.
@@ -307,13 +306,13 @@ Allows you to anchor the exposure to a specified source video that has the corre
 This specified source video will be used as a reference for the color correction.
 You can also pick *All* and VideoStitch Studio will compare colors between source videos automatically.
 
-### 3.3 Manual Adjustments
+### Manual Adjustments
 
 You can manually adjust the exposure as well as the Red and  Blue correction by heading to the timeline, expanding the *Exposure compensation* window and manually dragging the keyframe markers up (increase exposure/correction value) or down (decrease exposure/correction value).
 
 ![keyframes exposure](Images/keyframes%20exposure.jpg)
 
-## 4. Stabilization & Orientation
+## Stabilization & Orientation
 
 **Stabilization** is useful if your videos were not shot on a solid tripod. Drone or handheld footage without a gimbal are good examples, but sometimes even a tripod can shake if the environment is rather windy. Stabilizing will smooth out the movements and vertical bumping.
 
@@ -358,7 +357,7 @@ To change the orientation:
 
 You can also create custom keyframes to change the center of the panorama or keep the level if the horizon shifts in your scene.
 
-## 5. Output configuration
+## Output configuration
 
 To open the output configuration tool, navigate to the bar at the top, click on *Window* > *Output configuration*. The output configuration tool appears on the top left of the user interface.
 
@@ -450,7 +449,7 @@ Sample rate is fixed to ***44100Hz*** for ***MP3*** output and ***48000Hz*** for
 **Channel layout**<br>
 VideoStitch Studio outputs Stereo audio.
 
-### 6.4 Batch stitcher
+### Batch stitcher
 
 ![Send to batch](Images/Send%20to%20batch.jpg)
 
@@ -499,7 +498,7 @@ You can remove, reset or edit a project by right clicking on the project name in
 - **Stitchlines between images are looking to soft / hard!**<br>
   Head to the *Output configuration* window, go to *Blending* and adjust the *Feather* slider.
 
-### 4. Keyboard shortcuts
+### Keyboard shortcuts
 
 A list of all available keyboard shortcuts can be brought up by selecting *Help* > *Shortcuts* in the menu bar.
 
