@@ -36,23 +36,23 @@
     + [2. Filming with a 360° camera rig](#2-filming-with-a-360--camera-rig)
     + [3. Working with VideoStitch Studio - Troubleshooting](#3-working-with-videostitch-studio---troubleshooting)
     + [4. Keyboard shortcuts](#4-keyboard-shortcuts)
-<br>
 
-<br>
-<br>
+
+
+
 
 # Getting started with VideoStitch Studio
 
-<br>
+
 
 ## 1. Starting a new project
 
-<br>
+
 
 To start a new project you need to import the videos you want to stitch.
 There are two ways to do so:
 
-<br>
+
 
 ● Add media by clicking on "File" > "Open media"
 
@@ -66,7 +66,7 @@ You then have to select the videos you want to stitch in the file explorer.
 
 ![Drag Media](Images/Drag%20Media.jpg)
 
-<br>
+
 
 
 
@@ -79,13 +79,13 @@ After importing your media it will look like this and is listed in the "Source" 
 
 # VideoStitch Studio user interface
 
-<br>
+
 
 ## 1. VideoStitch Studio panels
 
 ![Panels](Images/Panels.jpg)
 
-<br>
+
 
 There are four panels in VideoStitch Studio
 
@@ -111,7 +111,7 @@ There are four panels in VideoStitch Studio
 
 *Interactive Panel*
 
-<br>
+
 
 ## 2. Working with the timeline
 
@@ -153,7 +153,7 @@ Keyframes for Stabilization, Orientation & Color Correction are automatically cr
 If you click on a keyframe marker on the timeline and drag it up or down this will affect the corresponding function (e.g. increasing or decreasing exposure).
 If you want to add a new keyframe you can do so with the shortcut "Ctrl+K". You can jump between keyframes with the shortcuts "K" (next keyframe) and "J" (previous keyframe).
 
-<br>
+
 
 ## 3. Project and system information
 
@@ -170,15 +170,15 @@ At the bottom right of the interface, you will find more useful information:
 
 
 
-<br>
 
-<br>
 
-<br>
+
+
+
 
 # VideoStitch Studio workflow
 
-<br>
+
 
 ## 1. Synchronization
 
@@ -200,13 +200,13 @@ To open the synchronization tool, navigate to the bar at the top, click on "Wind
 
 ![Synchronization Bar](Images/Synchronization%20Bar.jpg)**&nbsp;**
 
-<br>
+
 
 ### 1.1 Automatic synchronization
 
 ![Synchronizaition Auto](Images/Synchronizaition%20Auto.jpg)**&nbsp;**
 
-<br>
+
 
 *Note: For optimal results make sure to select an appropriate work area which includes either a specific sound, a motion, like turning the camera or the strong change of lighting in the scene depending on the syncronizing mehtod you want to use.*
 
@@ -236,13 +236,13 @@ Videos are being automatically synchronized based on a sudden change in lighting
 Turning on bright lights in a room or using synchronized professional flashes would work for this method.
 Make sure the change of lighting is within the working area.
 
-<br>
+
 
 ### 1.2 Manual synchronization
 
 ![Synchronizaition Manual](Images/Synchronizaition%20Manual.jpg)**&nbsp;**
 
-<br>
+
 
 If your footage wasn't optimized for synchronization and it doesn't synchronize good enough with any of the automatic methods (ghosting on moving objects in the calibrated 360° panorama can be a sign for this) you can adjust the frame offset manually.
 By clicking on "Manual" you will reach the Manual tab where you see the source video names and frame offset.
@@ -256,7 +256,7 @@ By clicking on "Manual" you will reach the Manual tab where you see the source v
 To get rid of the ghosting of moving objects in the 360° panorama go to a frame where you can clearly see the ghosting in the "Output" panel, enable input numbers ("Window" > "Output configuration" > "Show input numbers"), locate the source file that isn't synchronized well and the input number assigned to it and manually change the offset until no ghosting occurs. You can see the changes live in the "Output" and "Interactive" panel. Click play and see if there is any ghosting remaining – repeat if necessary.
 You can also link source videos by clicking the checkbox on the right if you are certain some source videos are already synchronized. VideoStitch Studio will use this information to enhance the automatic synchronization.
 
-<br>
+
 
 ## 2. Calibration
 
@@ -277,13 +277,13 @@ VideoStitch Studio provides you an automatic calibration tool, but it is also po
 
 *stitched result after calibration (shown in "Output" panel)*
 
-<br>
+
 
 To open the calibration tool, navigate to the bar at the top, click on "Window" > "Calibration". The calibration tool appears on the top left of the user interface.
 
 ![Calibration Tab](Images/Calibration%20Tab.jpg)
 
-<br>
+
 
 ### 2.1 Automatic calibration
 
@@ -291,7 +291,7 @@ VideoStitch Studio is able to automatically calibrate your footage using custom 
 
 ![Calibration Window](Images/Calibration%20Window.jpg)
 
-<br>
+
 
 **Custom parameters calibration**<br>
 You can always try to keep everything on auto first.
@@ -322,7 +322,7 @@ Our example project uses 3 cams with a FOV of ~200°. You can adjust by grabbing
 
 *Cropped video*
 
-<br>
+
 
 **Manual frame selection**<br>
 VideoStitch Studio will automatically choose frames from the calibration sequence you defined as reference for the calibration. If you want more control, you can calibrate on frames you select yourself.
@@ -331,7 +331,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 ![Frame selection](Images/Frame%20selection.jpg)
 
-<br>
+
 
 *To calibrate using specified frames:*
 
@@ -345,7 +345,7 @@ VideoStitch Studio will automatically choose frames from the calibration sequenc
 
 You can remove one or all frames by clicking on "Remove selected" and "Clear all".
 
-<br>
+
 
 ### 2.2 Manual calibration
 
@@ -360,13 +360,13 @@ Go to "Edit" > "Extract stills to..." OR "Extract stills" and it will export ima
 
 ![Calibration Extract Stills](Images/Calibration%20Extract%20Stills.jpg)
 
-<br>
+
 
 In the Calibration window select "Import a template" > "Browse calibration..." and select the file in the file browser. If you have used a template in the past and want to use it again simply click on "Recent calibrations" and apply the desired one.
 
 ![Import Calibration](Images/Import%20Calibration.jpg)
 
-<br>
+
 
 ## 3. Color Correction
 
@@ -376,7 +376,7 @@ To open the color correction tool, navigate to the bar at the top, click on "Win
 
 ![Color correction](Images/Color%20correction.jpg)**&nbsp;**
 
-<br>
+
 
 ### 3.1 Photometric parameters
 
@@ -394,7 +394,7 @@ Explaining ***camera response*** would take to much time here, but is basically 
 
 ![ColorCorrection Camera response](Images/ColorCorrection%20Camera%20response.jpg)
 
-<br>
+
 
 ### 3.2 Exposure compensation
 
@@ -426,7 +426,7 @@ Allows you to anchor the exposure to a specified source video that has the corre
 This specified source video will be used as a reference for the color correction.
 You can also pick "All" and VideoStitch Studio will compare colors between source videos automatically.
 
-<br>
+
 
 ### 3.3 Manual Adjustments
 
@@ -434,7 +434,7 @@ You can manually adjust the exposure as well as the Red and  Blue correction by 
 
 ![keyframes exposure](Images/keyframes%20exposure.jpg)
 
-<br>
+
 
 ## 4. Stabilization & Orientation
 
@@ -451,7 +451,7 @@ Depending on how the cameras are arranged in your camera rig your panorama orien
 
 *Wrong Orientation, too*
 
-<br>
+
 
 To open the stabilization & orientation tool, navigate to the bar at the top, click on "Window" > "Stabilization & Orientation". The stabilization & orientation tool appears on the top left of the user interface.
 
@@ -459,7 +459,7 @@ To open the stabilization & orientation tool, navigate to the bar at the top, cl
 
 ![Stabilization & Orientation Window](Images/Stabilization%20Orientation%20Window.jpg)**&nbsp;**&nbsp;
 
-<br>
+
 
 ### 4.1 Stabilization
 
@@ -473,7 +473,7 @@ To stabilize the footage:
 
 *If you are not happy with the result you can set a different working area, click on "Reset sequence" and "Stabilize sequence" again.*
 
-<br>
+
 
 ### 4.2 Orientation
 
@@ -489,7 +489,7 @@ To change the orientation:
 
 You can also create custom keyframes to change the center of the panorama or keep the level if the horizon shifts in your scene.
 
-<br>
+
 
 
 
@@ -504,7 +504,7 @@ There are two options in the output configuration window:
 
 ![Output Configuration Window](Images/Output%20Configuration%20Window.jpg)
 
-<br>
+
 
 **Show input numbers** overlays the assigned input number of each source video on the stitched panorama. Very helpful if you have to locate a certain source video for optimizing syncronization and problems that might occur.
 
@@ -518,16 +518,16 @@ The *feathering* slider allows you to control how sharp or smooth the blending b
 While a smoother blending is useful for scenes without sharp detail (e.g. blending blue sky) it might create some ghosting where parallax is visible. Sharp blending is useful for keeping all the detail (e.g. text or mosaic), some seames might look too hard.
 Try to find the perfect level of sharpness for you scene by trying and checking in the live preview of the "Output" panel.
 
-<br>
+
 
 ## 6. Output rendering
 
 ![Process Panel](Images/Process%20Panel.jpg)
 
-<br>
+
 To export your 360° video or change the preview resolution you have to go to the "Process“ panel.
 
-<br>
+
 
 ### 6.1 General settings
 
@@ -549,13 +549,13 @@ The optimal size may differ even if you always use the same rig. The reason for 
 **Length**<br>
 You can select if you want to output the whole video or just the current working area ("Process selected sequence") .
 
-<br>
+
 
 ### 6.2 Encoder settings
 
 ![Advanced settings](Images/Advanced%20settings.jpg)
 
-<br>
+
 
 **Format**<br>
 Switch between ***MP4*** or ***MOV*** Video formats or export an image sequence as ***JPEG***, ***PNG*** or ***TIFF.***
@@ -596,13 +596,13 @@ If you don't know what this is either look it up or keep as is, as explaining it
 **Which encoding setting to pick?**<br>
 Ask yourself what you are using your panorama video for; if you want to render a quick preview a small H264 is enough, if you want to edit your footage in an editing software like Adobe Premiere Pro or Davinci Resolve you need to export either a High Quality MOV or an image sequence for maximum quality.
 
-<br>
+
 
 ### 6.3 Audio settings
 
 ![Audio Settings](Images/Audio%20Settings.jpg)
 
-<br>
+
 
 By default the audio settings are disabled, to activate the settings, click on the "Audio settings" checkbox.
 
@@ -631,13 +631,13 @@ Sample rate is fixed to ***44100Hz*** for ***MP3*** output and ***48000Hz*** for
 **Channel layout**<br>
 VideoStitch Studio outputs Stereo audio.
 
-<br>
+
 
 ### 6.4 Batch stitcher
 
 ![Send to batch](Images/Send%20to%20batch.jpg)
 
-<br>
+
 
 If you want to prepare multiple videos for stitching and stitch them all later you can select "Send to batch". You will then be asked to create a copy of your project which is send to the VideoStitch Studio batch stitcher. You can close the current project and open the next, and also send it to the batch stitcher once done.
 
@@ -649,11 +649,11 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 
 
-<br>
 
-<br>
 
-<br>
+
+
+
 
 # Useful Tips & Troubleshooting
 
@@ -674,9 +674,6 @@ You can remove, reset or edit a project by right clicking on the project name in
 - Keep the desired output resolution in mind.
 
 
-
-   <br>
-
 ### 2. Filming with a 360° camera rig
 
 
@@ -691,7 +688,6 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 - Hiding lighting is hard in 360° videos, but you can place a cylindrical light below your camera (at the tripod).
 
-  <br>
 
 ### 3. Working with VideoStitch Studio - Troubleshooting
 
@@ -726,13 +722,13 @@ You can remove, reset or edit a project by right clicking on the project name in
 - **Stitchlines between images are looking to soft / hard!**<br>
   Head to the "Output configuration" window, go to "Blending" and adjust the "Feather" slider.
 
-<br>
+
 
 ### 4. Keyboard shortcuts
 
 ![Shortcuts](Images/Shortcuts.jpg)**&nbsp;** **&nbsp;**
 
-<br>
+
 
 **Check out the project on Github:<br>**https://github.com/stitchEm/stitchEm
 
@@ -743,10 +739,10 @@ https://www.facebook.com/groups/VideoStitch
 
 
 
-<br>
 
-<br>
 
-<br>
+
+
+
 
 **Have fun creating breathtaking 360° content!**
