@@ -19,7 +19,7 @@ __global__ void downsampleMonoKernel(global_mem unsigned char* dst, const global
   }
 }
 
-__global__ void downsampleRGBASurfKernel(surface_t dst, const read_only image2d_t src, unsigned dstWidth,
+__global__ void downsampleRGBASurfKernel(surface_t dst, read_only image2d_t src, unsigned dstWidth,
                                          unsigned dstHeight) {
   const unsigned x = get_global_id_x();
   const unsigned y = get_global_id_y();
