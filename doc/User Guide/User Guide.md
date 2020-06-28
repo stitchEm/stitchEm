@@ -1,4 +1,4 @@
-**VideoStitch Studio User Guide**
+# VideoStitch Studio User Guide
 
 **Table of contents**
 - [Getting started with VideoStitch Studio](#getting-started-with-videostitch-studio)
