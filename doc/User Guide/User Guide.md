@@ -46,7 +46,7 @@ There are two ways to do so:
 
 - Add media by clicking on "File" > "Open media"
 
-![Open Media](Images/Open%20Media.jpg)**&nbsp;**
+![Open Media](Images/Open%20Media.jpg)
 
 You then have to select the videos you want to stitch in the file explorer.
 
@@ -76,7 +76,7 @@ There are four panels in VideoStitch Studio
 
 *Note: You can only see “Output“, “Interactive“ & “Process“ after importing media.*
 
-<img src="Images/Output.jpg" alt="Output"  />
+![Output](Images/Output.jpg)
 
 *Output panel*
 
@@ -141,11 +141,11 @@ While most 360° camera setups are synchronized hardware-wise nowadays, synchron
 
 To open the synchronization tool, navigate to the bar at the top, click on "Window" > "Synchronization". The synchronization tool appears on the top left of the user interface.
 
-![Synchronization Bar](Images/Synchronization%20Bar.jpg)**&nbsp;**
+![Synchronization Bar](Images/Synchronization%20Bar.jpg)
 
 ### 1.1 Automatic synchronization
 
-![Synchronizaition Auto](Images/Synchronizaition%20Auto.jpg)**&nbsp;**
+![Synchronizaition Auto](Images/Synchronizaition%20Auto.jpg)
 
 *Note: For optimal results make sure to select an appropriate work area which includes either a specific sound, a motion, like turning the camera or the strong change of lighting in the scene depending on the syncronizing mehtod you want to use.*
 
@@ -169,12 +169,12 @@ Make sure the change of lighting is within the working area.
 
 ### 1.2 Manual synchronization
 
-![Synchronizaition Manual](Images/Synchronizaition%20Manual.jpg)**&nbsp;**
+![Synchronizaition Manual](Images/Synchronizaition%20Manual.jpg)
 
 If your footage wasn't optimized for synchronization and it doesn't synchronize good enough with any of the automatic methods (ghosting on moving objects in the calibrated 360° panorama can be a sign for this) you can adjust the frame offset manually.
 By clicking on "Manual" you will reach the Manual tab where you see the source video names and frame offset.
 
-<img src="Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;" />**&nbsp;**
+<img src="Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;" />
 
 *badly synchronized / ghosting example* <br>
 
@@ -267,11 +267,11 @@ Color correction optimizes the stitched 360° video by automatically adjusting v
 
 To open the color correction tool, navigate to the bar at the top, click on "Window" > "Color correction". The color correction tool appears on the top left of the user interface.
 
-![Color correction](Images/Color%20correction.jpg)**&nbsp;**
+![Color correction](Images/Color%20correction.jpg)
 
 ### 3.1 Photometric parameters
 
-![Color Corretion base tab](Images/Color%20Corretion%20base%20tab.jpg)**&nbsp;** **&nbsp;**
+![Color Corretion base tab](Images/Color%20Corretion%20base%20tab.jpg)
 
 By clicking "Calibrate photometry" under "Photometric parameters" VideoStitch Studio will automatically calculate the response curves and vignetting of the used cameras to improve the blending of the stitched 360° panorama.
 
@@ -330,9 +330,9 @@ Depending on how the cameras are arranged in your camera rig your panorama orien
 
 To open the stabilization & orientation tool, navigate to the bar at the top, click on "Window" > "Stabilization & Orientation". The stabilization & orientation tool appears on the top left of the user interface.
 
-![Stabilization & Orientation](Images/Stabilization%20Orientation.jpg)**&nbsp;** **&nbsp;**
+![Stabilization & Orientation](Images/Stabilization%20Orientation.jpg)
 
-![Stabilization & Orientation Window](Images/Stabilization%20Orientation%20Window.jpg)**&nbsp;**&nbsp;
+![Stabilization & Orientation Window](Images/Stabilization%20Orientation%20Window.jpg)&nbsp;
 
 ### 4.1 Stabilization
 
@@ -362,7 +362,7 @@ You can also create custom keyframes to change the center of the panorama or kee
 
 To open the output configuration tool, navigate to the bar at the top, click on "Window" > "Output configuration". The output configuration tool appears on the top left of the user interface.
 
-![Output Configuration](Images/Output%20Configuration.jpg)**&nbsp;** **&nbsp;**
+![Output Configuration](Images/Output%20Configuration.jpg)
 
 There are two options in the output configuration window:
 
