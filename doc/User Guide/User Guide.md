@@ -501,11 +501,6 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 ### 4. Keyboard shortcuts
 
-![Shortcuts](Images/Shortcuts.jpg)**&nbsp;** **&nbsp;**
-
-**Check out the project on Github:<br>**https://github.com/stitchEm/stitchEm
-
-**Join the VideoStitch Studio (2020) Users group on Facebook:**<br>
-https://www.facebook.com/groups/VideoStitch
+![Shortcuts](Images/Shortcuts.jpg)
 
 **Have fun creating breathtaking 360° content!**
