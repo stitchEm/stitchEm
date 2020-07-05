@@ -43,7 +43,7 @@
       "distortb_mean" : 0.0716241, 
       "distortb_variance" : 0.000115425, 
       "distortc_mean" : 0, 
-      "distortc_variance" : 0.05,
+      "distortc_variance" : 0.05
     },
     {
       "name" : "camera_0", 
@@ -63,7 +63,7 @@
       "distortb_mean" : 0.0716241, 
       "distortb_variance" : 0.000115425, 
       "distortc_mean" : 0, 
-      "distortc_variance" : 0.05,
+      "distortc_variance" : 0.05
     }
   ]
 }
