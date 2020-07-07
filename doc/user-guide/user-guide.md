@@ -75,13 +75,13 @@ There are four panels in VideoStitch Studio
 
 *Note: You can only see “Output“, “Interactive“ & “Process“ after importing media.*
 
-**Output panel**
-
 ![Output](Images/Output.jpg)
 
-**Interactive Panel**
+*Output panel* <br />
 
 ![Interactive](Images/Interactive.jpg)
+
+*Interactive Panel* <br />
 
 ## Working with the timeline
 
