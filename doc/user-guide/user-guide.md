@@ -90,25 +90,25 @@ You can play, pause, select specific frames & time and set a working area.
 
 ![Timeline](Images/Timeline.jpg)
 
-**Play button**<br>
+**Play button**<br />
 On the top left of the timeline you can find the Play button. Depending on the panel you are in you can either view the source videos or preview the stitched result in real time.
 
-**Select working area**<br>
+**Select working area**<br />
 Below the Play button you will find two timecodes. By default the first one is 00:00:00 and the second is the total time of the video. Changing these values will limit the working area which allows you to start a video later or end earlier than the original source. You can also grab the grey markers and drag them to the desired position in the timeline.
 Synchronization, calibration, exposure will only be calculated for the working area.
 
 ![Timeline Limiter](Images/Timeline%20Limiter.jpg)
 
-**Zooming in and out**<br>
+**Zooming in and out**<br />
 For precise navigating in the timeline you can zoom in or out using the slider on the bottom right.
 Zooming in also helps seeing the values for algorithms, like color correction more precisely.
 
 ![Zoom timeline](Images/Zoom%20timeline.jpg)
 
-**Navigating to the desired frame**<br>
+**Navigating to the desired frame**<br />
 If you want to view a specific frame you can use the Shortcut **Ctrl+J/Cmd+J**. You also zoom in as mentioned above and then drag the orange marker to the desired time and use the arrow keys to jump one frame forward or backward. **Shift+Home** and **Shift+End** will select the first / last frame of your current working area.
 
-**Keyframes** <br>
+**Keyframes** <br />
 Keyframes for Stabilization, Orientation & Color Correction are automatically created by VideoStitch Studio.
 If you click on a keyframe marker on the timeline and drag it up or down this will affect the corresponding function (e.g. increasing or decreasing exposure).
 If you want to add a new keyframe you can do so with the shortcut **Ctrl+K/Cmd+K**. You can jump between keyframes with the shortcuts **K** (next keyframe) and **J** (previous keyframe).
@@ -175,14 +175,14 @@ By clicking on *Manual* you will reach the Manual tab where you see the source v
 
 <img src="Images/ghosting.jpg" alt="ghosting" style="zoom: 67%;"/>
 
-*badly synchronized / ghosting example* <br>
+*badly synchronized / ghosting example* <br />
 
 To get rid of the ghosting of moving objects in the 360° panorama go to a frame where you can clearly see the ghosting in the *Output* panel, enable input numbers (*Window* > *Output configuration* > *Show input numbers*), locate the source file that isn't synchronized well and the input number assigned to it and manually change the offset until no ghosting occurs. You can see the changes live in the *Output* and *Interactive* panel. Click play and see if there is any ghosting remaining – repeat if necessary.
 You can also link source videos by clicking the checkbox on the right if you are certain some source videos are already synchronized. VideoStitch Studio will use this information to enhance the automatic synchronization.
 
 ## Calibration
 
-**What is a calibration?**<br>
+**What is a calibration?**<br />
 Calibration is essentially how the videos have to be moved around and stitched together to get a full 360° panorama. Make sure to synchronize your videos before heading to the *Calibration* tab.
 
 VideoStitch Studio provides you an automatic calibration tool, but it is also possible to import a stitching template from PTGui or Hugin.
@@ -205,7 +205,7 @@ VideoStitch Studio is able to automatically calibrate your footage using custom 
 
 ![Calibration Window](Images/Calibration%20Window.jpg)
 
-**Custom parameters calibration**<br>
+**Custom parameters calibration**<br />
 You can always try to keep everything on auto first.
 If that doesn't give you a good result you should create a custom calibration:
 
@@ -215,7 +215,7 @@ If that doesn't give you a good result you should create a custom calibration:
 
 3. Click on *Calibrate on sequence*
 
-**Crop source videos**<br>
+**Crop source videos**<br />
 You can crop source videos.
 This is especially useful for when you are filming with high FOV lenses.
 Our example project uses 3 inputs with a FOV of around 200°. You can adjust by grabbing the orange circle and drag it to the desired position. The size of the cropping circle can quickly be adjusted with the scroll wheel. In our example we can easily crop out the parts we don't want to use for our 360° video.
@@ -228,7 +228,7 @@ Our example project uses 3 inputs with a FOV of around 200°. You can adjust by 
 
 *Cropped video*
 
-**Manual frame selection**<br>
+**Manual frame selection**<br />
 VideoStitch Studio will automatically choose frames from the calibration sequence you defined as reference for the calibration. If you want more control, you can calibrate on frames you select yourself.
 
 ![Frame selection](Images/Frame%20selection.jpg)
@@ -289,19 +289,19 @@ Explaining ***camera response*** would take to much time here, but is basically 
 VideoStitch Studio automatically analyzes the input videos and calculates exposure and white balance adjustments.
 You can choose to either *Adjust on current frame* or *Adjust sequence* which calculates a new exposure (and white balance if selected) at a specific frame interval and applies an interpolated exposure (and white balance) to frames in between.
 
-**Example**<br>![Color Correction Examples](Images/Color%20Correction%20Examples.jpg)
+**Example**<br />![Color Correction Examples](Images/Color%20Correction%20Examples.jpg)
 
-**Advanced parameters**<br>
+**Advanced parameters**<br />
 You can set advanced parameters by ticking the box next to *Advanced parameters*.
 
 ![Color Correction advanced parameters](Images/Color%20Correction%20advanced%20parameters.jpg)
 
-**Adjust every**<br>
+**Adjust every**<br />
 Allows you to change the interval between each exposure (and white balance) adjustment, frames in between will be interpolated.
 
 Depending on how the light changes in you scene a lower value will deliver better results, if the lighting doesn't change in your scene, setting a higher frame interval is okay, too.
 
-**Anchor**<br>
+**Anchor**<br />
 Allows you to anchor the exposure to a specified source video that has the correct color (even lighting – not pointing to a bright light source or too dark area).
 This specified source video will be used as a reference for the color correction.
 You can also pick *All* and VideoStitch Studio will compare colors between source videos automatically.
@@ -385,47 +385,47 @@ To export your 360° video or change the preview resolution you have to go to th
 
 ### General settings
 
-**File**<br>
+**File**<br />
 Change the output filename and path. The file is created in the same directory as your input videos by default. Click on *Browse* and you can select thelocation in the file explorer.
 
-**Size**<br>
+**Size**<br />
 Resolution of the live-preview and output. Remember the output will always automatically be a 2:1 format as VideoStitch Studio will render a 360°x180° output.
 
 By clicking *Set optimal size* VideoStitch Studio will pick the maximal true resolution for the panorama video without interpolation of pixels of the input images.
 The optimal size may differ even if you always use the same rig. The reason for this is the difference in overlap for scenes with objects close by and open environments.
 
-**Length**<br>
+**Length**<br />
 You can select if you want to output the whole video or just the current working area (*Process selected sequence*) .
 
 ### Encoder settings
 
 ![Advanced settings](Images/Advanced%20settings.jpg)
 
-**Format**<br>
+**Format**<br />
 Switch between ***MP4*** or ***MOV*** Video formats or export an image sequence as ***JPEG***, ***PNG*** or ***TIFF.***
 
-**Codec**<br>
+**Codec**<br />
 Choose your desired codec: ***ProRes***, ***H264***, ***MPEG2*** and ***Motion JPEG***.
 
-**Profile** (ProRes)<br>
-You can choose between Proxy, LT, Standard & High Quality.<br>
+**Profile** (ProRes)<br />
+You can choose between Proxy, LT, Standard & High Quality.<br />
 If you want to continue working on your 360° video in an editing software like Adobe Premiere or Davinci Resolve you usually want to export *High Quality*.
 
-**Bitrate mode** (*H264, & MPEG2*)<br>
+**Bitrate mode** (*H264, & MPEG2*)<br />
 You can choose between VBR (variable bitrate) and CBR(constant bitrate).
 
-**Bitrate** (*H264 & MPEG2*)<br>
-*File size = bitrate (kilobits per second) \* duration*<br>
+**Bitrate** (*H264 & MPEG2*)<br />
+*File size = bitrate (kilobits per second) \* duration*<br />
 Higher bitrate means higher quality and bigger filesize. The value heavily depends on your desired platform; if you are exporting specifically for a certain VR headset you can usually find the right values online.
 
-**Quality Scale** (Motion JPEG)<br>
+**Quality Scale** (Motion JPEG)<br />
 You can drag the slider to choose between more quailty vs more compression.
 
-**Advanced settings**<br>
-If you enable advanced settings you will be able to customize the GOP and B-Frames number. <br>
+**Advanced settings**<br />
+If you enable advanced settings you will be able to customize the GOP and B-Frames number. <br />
 If you don't know what this is either look it up or keep as is, as explaining it here would take (p)ages.
 
-**Which encoding setting to pick?**<br>
+**Which encoding setting to pick?**<br />
 Ask yourself what you are using your panorama video for; if you want to render a quick preview a small H264 is enough, if you want to edit your footage in an editing software like Adobe Premiere Pro or Davinci Resolve you need to export either a High Quality MOV or an image sequence for maximum quality.
 
 ### Audio settings
@@ -434,19 +434,19 @@ Ask yourself what you are using your panorama video for; if you want to render a
 
 By default the audio settings are disabled, to activate the settings, click on the *Audio settings* checkbox.
 
-**Source**<br>
+**Source**<br />
 Select which source videos audio you want to use.
 
-**Codec**<br>
+**Codec**<br />
 Choose if your audio should be in ***MP3*** or ***AAC***.
 
-**Bitrate**<br>
+**Bitrate**<br />
 Choose the bitrate of the Audio in kbps: **64**, **96**, **128**, **192**, **256**, **512**
 
-**Sample rate**<br>
+**Sample rate**<br />
 Sample rate is fixed to ***44100Hz*** for ***MP3*** output and ***48000Hz*** for ***AAC***
 
-**Channel layout**<br>
+**Channel layout**<br />
 VideoStitch Studio outputs Stereo audio.
 
 ### Batch stitcher
@@ -479,23 +479,23 @@ You can remove, reset or edit a project by right clicking on the project name in
 
 ### Working with VideoStitch Studio - Troubleshooting
 
-- **Live preview in Output and Interactive panel is very slow.**<br>
+- **Live preview in Output and Interactive panel is very slow.**<br />
   	Try setting a lower *Size* in the *Process* panel.
 
-- **I see ghosting, but can't figure out which source videos are affected.**<br>
+- **I see ghosting, but can't figure out which source videos are affected.**<br />
    	Enable „Show input numbers“ in the „Output configuration“.
 
-- **Clicking *Set optimal size* gives a different result for different scenes shot with the same camera rig.**<br>
+- **Clicking *Set optimal size* gives a different result for different scenes shot with the same camera rig.**<br />
   This is to be expected, as the stitching is dependend on the distance of objects to the camera because of  the overlap between videos. A shot on the ocean would 	deliver a smaller resolution than a shot in a small room, because there is less overlap in the small room.
 
-- **The stitched 360° video is too bright / dark!**<br>
+- **The stitched 360° video is too bright / dark!**<br />
   While this can obviously be fixed in any video editing software you can also 	manually drag the exposure keyframes down / up for the stitched panorama to increase / decrese exposure.
 
-- **I created a template in PTGui / Hugin, but my stitched video looks different in Videostitch Studio!**<br>
+- **I created a template in PTGui / Hugin, but my stitched video looks different in Videostitch Studio!**<br />
   Make sure to keep the import order just the same as in VideoStitch Studio.
   Keep in mind VideoStitch Studio imports the position of every source video and the red masks (mask out) from PTGui or Hugin, most other adjustments are not imported.
 
-- **Stitchlines between images are looking to soft / hard!**<br>
+- **Stitchlines between images are looking to soft / hard!**<br />
   Head to the *Output configuration* window, go to *Blending* and adjust the *Feather* slider.
 
 ### Keyboard shortcuts
