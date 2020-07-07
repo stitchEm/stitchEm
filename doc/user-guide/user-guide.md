@@ -1,5 +1,7 @@
 # VideoStitch Studio User Guide
 
+<br />
+
 **Table of contents**
 - [Getting started with VideoStitch Studio](#getting-started-with-videostitch-studio)
   * [Starting a new project](#starting-a-new-project)
@@ -36,6 +38,8 @@
     + [Working with VideoStitch Studio - Troubleshooting](#working-with-videostitch-studio---troubleshooting)
     + [Keyboard shortcuts](#keyboard-shortcuts)
 
+<br /><br /><br />
+
 # Getting started with VideoStitch Studio
 
 ## Starting a new project
@@ -56,6 +60,8 @@ You then have to select the videos you want to stitch in the file explorer.
 After importing your media it will look like this and is listed in the *Source* panel:
 
 ![Media in Source](Images/Media%20in%20Source.jpg)
+
+<br /><br /><br />
 
 # VideoStitch Studio user interface
 
@@ -123,6 +129,8 @@ At the bottom right of the interface, you will find more useful information:
 4. Rendered frame: The current frame selected in the timelime
 
 ![Bottom Information](Images/Bottom%20Information.jpg)
+
+<br /><br /><br />
 
 # VideoStitch Studio workflow
 
@@ -458,6 +466,8 @@ If you want to prepare multiple videos for stitching and stitch them all later y
 You can remove, reset or edit a project by right clicking on the project name in the batch stitcher.
 
 ![Batch Stitcher](Images/Batch%20Stitcher.jpg)
+
+<br /><br /><br />
 
 # Useful Tips & Troubleshooting
 
