@@ -1,0 +1,69 @@
+{
+  "rig" : {
+    "name" : "YI360 TESTB", 
+    "rigcameras" : [
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : -0.324, 
+        "pitch_mean" : 0.546, 
+        "roll_mean" : -0.046, 
+        "yaw_variance" : 2, 
+        "pitch_variance" : 2, 
+        "roll_variance" : 1.5, 
+        "camera" : "camera_0"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 179.958, 
+        "pitch_mean" : 0.992, 
+        "roll_mean" : -0.1556, 
+        "yaw_variance" : 2, 
+        "pitch_variance" : 2, 
+        "roll_variance" : 1.5, 
+        "camera" : "camera_1"
+      }
+    ]
+  }, 
+  "cameras" : [
+    {
+      "name" : "camera_0", 
+      "format" : "circular_fisheye", 
+      "width" : 2880, 
+      "height" : 5760, 
+      "fu_mean" : 841.338, 
+      "fu_variance" : 100, 
+      "fv_mean" : 0, 
+      "fv_variance" : 0, 
+      "cu_mean" : 1440, 
+      "cu_variance" : 100, 
+      "cv_mean" : 1440, 
+      "cv_variance" : 100, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0.05, 
+      "distortb_mean" : 0.0716241, 
+      "distortb_variance" : 0.000115425, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0.05
+    },
+    {
+      "name" : "camera_0", 
+      "format" : "circular_fisheye", 
+      "width" : 2880, 
+      "height" : 5760, 
+      "fu_mean" : 841.338, 
+      "fu_variance" : 100, 
+      "fv_mean" : 0, 
+      "fv_variance" : 0, 
+      "cu_mean" : 1440, 
+      "cu_variance" : 100, 
+      "cv_mean" : 4320, 
+      "cv_variance" : 100, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0.05, 
+      "distortb_mean" : 0.0716241, 
+      "distortb_variance" : 0.000115425, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0.05
+    }
+  ]
+}
