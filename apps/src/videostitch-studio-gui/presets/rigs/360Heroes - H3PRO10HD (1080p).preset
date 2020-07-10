@@ -160,7 +160,7 @@
       "cv_variance" : 9216, 
       "distorta_mean" : 0, 
       "distorta_variance" : 0, 
-      "distortb_mean" : 0.049, 
+      "distortb_mean" : 0.048, 
       "distortb_variance" : 5.40225e-005, 
       "distortc_mean" : 0, 
       "distortc_variance" : 0
