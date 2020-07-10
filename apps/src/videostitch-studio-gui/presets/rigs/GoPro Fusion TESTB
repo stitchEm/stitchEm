@@ -1,6 +1,6 @@
 {
   "rig" : {
-    "name" : "GoPro Fusion", 
+    "name" : "GoPro Fusion TESTB", 
     "rigcameras" : [
       {
         "angle_unit" : "degrees", 
