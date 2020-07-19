@@ -1,6 +1,6 @@
 {
   "rig" : {
-    "name" : "YI360 TESTB", 
+    "name" : "YI360", 
     "rigcameras" : [
       {
         "angle_unit" : "degrees", 
@@ -32,8 +32,8 @@
       "height" : 5760, 
       "fu_mean" : 841.338, 
       "fu_variance" : 100, 
-      "fv_mean" : 0, 
-      "fv_variance" : 0, 
+      "fv_mean" : 841.338, 
+      "fv_variance" : 100, 
       "cu_mean" : 1440, 
       "cu_variance" : 100, 
       "cv_mean" : 1440, 
@@ -52,8 +52,8 @@
       "height" : 5760, 
       "fu_mean" : 841.338, 
       "fu_variance" : 100, 
-      "fv_mean" : 0, 
-      "fv_variance" : 0, 
+      "fv_mean" : 841.338, 
+      "fv_variance" : 100, 
       "cu_mean" : 1440, 
       "cu_variance" : 100, 
       "cv_mean" : 4320, 
