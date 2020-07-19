@@ -1,6 +1,6 @@
 {
   "rig" : {
-    "name" : "GoPro Fusion TESTB", 
+    "name" : "GoPro Fusion", 
     "rigcameras" : [
       {
         "angle_unit" : "degrees", 
@@ -34,10 +34,10 @@
       "fu_variance" : 150, 
       "fv_mean" : 752.96, 
       "fv_variance" : 200, 
-      "cu_mean" : 61.93, 
-      "cu_variance" : 200, 
-      "cv_mean" : -82.99, 
-      "cv_variance" : 200, 
+      "cu_mean" : 1413.93, 
+      "cu_variance" : 250, 
+      "cv_mean" : 1229.01, 
+      "cv_variance" : 250, 
       "distorta_mean" : 0, 
       "distorta_variance" : 0.05, 
       "distortb_mean" : 0.03, 
@@ -54,9 +54,9 @@
       "fu_variance" : 150, 
       "fv_mean" : 752.96, 
       "fv_variance" : 200, 
-      "cu_mean" : -46.72, 
-      "cu_variance" : 200, 
-      "cv_mean" : -97.88, 
+      "cu_mean" : 1305.28, 
+      "cu_variance" : 250, 
+      "cv_mean" : 1214.13, 
       "cv_variance" : 250, 
       "distorta_mean" : 0, 
       "distorta_variance" : 0.05, 
