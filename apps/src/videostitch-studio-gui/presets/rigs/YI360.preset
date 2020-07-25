@@ -46,7 +46,7 @@
       "distortc_variance" : 0.05
     },
     {
-      "name" : "camera_0", 
+      "name" : "camera_1", 
       "format" : "circular_fisheye", 
       "width" : 2880, 
       "height" : 5760, 
