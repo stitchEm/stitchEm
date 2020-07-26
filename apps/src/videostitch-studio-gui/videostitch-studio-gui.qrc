@@ -10,7 +10,8 @@
         <file>presets/rigs/GoPro Fusion.preset</file>
         <file>presets/rigs/GoPro Fusion TESTB.preset</file>
         <file>presets/rigs/YI360 TESTB.preset</file>
-        <file>presets/rigs/ZCAM S1.preset</file>        
+        <file>presets/rigs/ZCAM S1.preset</file>     
+        <file>presets/rigs/Insta360 Pro2.preset</file>   
         <file>presets/calibration/default_studio.preset</file>
         <file>presets/mask/default_studio.preset</file>
         <file>presets/project/default_project.preset</file>
