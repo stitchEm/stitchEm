@@ -4,7 +4,8 @@
 #include "croprectangleeditor.hpp"
 #include <QMouseEvent>
 #include <QPainter>
-
+#include <QPainterPath>
+ 
 CropRectangleEditor::CropRectangleEditor(const QSize thumbnailSize, const QSize frameSize, const Crop &initCrop,
                                          QWidget *const parent)
     : CropShapeEditor(thumbnailSize, frameSize, initCrop, parent) {}
