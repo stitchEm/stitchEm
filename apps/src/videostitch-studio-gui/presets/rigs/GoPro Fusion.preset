@@ -1,0 +1,69 @@
+{
+  "rig" : {
+    "name" : "GoPro Fusion", 
+    "rigcameras" : [
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 0, 
+        "pitch_mean" : 0, 
+        "roll_mean" : 0, 
+        "yaw_variance" : 0.5, 
+        "pitch_variance" : 0.5, 
+        "roll_variance" : 0.5, 
+        "camera" : "camera_0"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 168.23, 
+        "pitch_mean" : 6.21, 
+        "roll_mean" : 1.22, 
+        "yaw_variance" : 25, 
+        "pitch_variance" : 50, 
+        "roll_variance" : 7, 
+        "camera" : "camera_1"
+      }
+    ]
+  }, 
+  "cameras" : [
+    {
+      "name" : "camera_0", 
+      "format" : "circular_fisheye", 
+      "width" : 2704, 
+      "height" : 2624, 
+      "fu_mean" : 752.5, 
+      "fu_variance" : 150, 
+      "fv_mean" : 752.96, 
+      "fv_variance" : 200, 
+      "cu_mean" : 1413.93, 
+      "cu_variance" : 250, 
+      "cv_mean" : 1229.01, 
+      "cv_variance" : 250, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0.05, 
+      "distortb_mean" : 0.03, 
+      "distortb_variance" : 0.15, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0.05
+    },
+    {
+      "name" : "camera_1", 
+      "format" : "circular_fisheye", 
+      "width" : 2704, 
+      "height" : 2624, 
+      "fu_mean" : 752.5, 
+      "fu_variance" : 150, 
+      "fv_mean" : 752.96, 
+      "fv_variance" : 200, 
+      "cu_mean" : 1305.28, 
+      "cu_variance" : 250, 
+      "cv_mean" : 1214.13, 
+      "cv_variance" : 250, 
+      "distorta_mean" : 0, 
+      "distorta_variance" : 0.05, 
+      "distortb_mean" : 0.02, 
+      "distortb_variance" : 0.15, 
+      "distortc_mean" : 0, 
+      "distortc_variance" : 0.05
+    }
+  ]
+}

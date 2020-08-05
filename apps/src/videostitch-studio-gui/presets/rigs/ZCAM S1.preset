@@ -1,0 +1,129 @@
+{
+  "rig" : {
+    "name" : "ZCAM S1", 
+    "rigcameras" : [
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 0, 
+        "pitch_mean" : -0.28, 
+        "roll_mean" : -90.41, 
+        "yaw_variance" : 0.5, 
+        "pitch_variance" : 2.5, 
+        "roll_variance" : 2.5, 
+        "camera" : "camera_0"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : -88.17, 
+        "pitch_mean" : 0.57, 
+        "roll_mean" : -89.8, 
+        "yaw_variance" : 2.5, 
+        "pitch_variance" : 2, 
+        "roll_variance" : 2, 
+        "camera" : "camera_1"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : -178.99, 
+        "pitch_mean" : -0.17, 
+        "roll_mean" : -89.98, 
+        "yaw_variance" : 2, 
+        "pitch_variance" : 2, 
+        "roll_variance" : 1.5, 
+        "camera" : "camera_2"
+      },
+      {
+        "angle_unit" : "degrees", 
+        "yaw_mean" : 92.37, 
+        "pitch_mean" : 0.02, 
+        "roll_mean" : -89.53, 
+        "yaw_variance" : 3, 
+        "pitch_variance" : 2.2, 
+        "roll_variance" : 2, 
+        "camera" : "camera_3"
+      }
+    ]
+  }, 
+  "cameras" : [
+    {
+      "name" : "camera_0", 
+      "format" : "circular_fisheye", 
+      "width" : 3840, 
+      "height" : 2160, 
+      "fu_mean" : 911.11, 
+      "fu_variance" : 40, 
+      "fv_mean" : 911.11, 
+      "fv_variance" : 40, 
+      "cu_mean" : 1919.13, 
+      "cu_variance" : 30, 
+      "cv_mean" : 1079.89, 
+      "cv_variance" : 30, 
+      "distorta_mean" : -0.1, 
+      "distorta_variance" : 0.2, 
+      "distortb_mean" : 0.09, 
+      "distortb_variance" : 0.2, 
+      "distortc_mean" : -0.04, 
+      "distortc_variance" : 0.1
+    },
+    {
+      "name" : "camera_1", 
+      "format" : "circular_fisheye", 
+      "width" : 3840, 
+      "height" : 2160, 
+      "fu_mean" : 907.09, 
+      "fu_variance" : 40, 
+      "fv_mean" : 907.09, 
+      "fv_variance" : 40, 
+      "cu_mean" : 1919.13, 
+      "cu_variance" : 30, 
+      "cv_mean" : 1079.89, 
+      "cv_variance" : 30, 
+      "distorta_mean" : -0.1, 
+      "distorta_variance" : 0.2, 
+      "distortb_mean" : 0.09, 
+      "distortb_variance" : 0.2, 
+      "distortc_mean" : -0.04, 
+      "distortc_variance" : 0.1
+    },
+    {
+      "name" : "camera_2", 
+      "format" : "circular_fisheye", 
+      "width" : 3840, 
+      "height" : 2160, 
+      "fu_mean" : 907.21, 
+      "fu_variance" : 40, 
+      "fv_mean" : 907.21, 
+      "fv_variance" : 40, 
+      "cu_mean" : 1919.13, 
+      "cu_variance" : 30, 
+      "cv_mean" : 1079.89, 
+      "cv_variance" : 30, 
+      "distorta_mean" : -0.1, 
+      "distorta_variance" : 0.2, 
+      "distortb_mean" : 0.09, 
+      "distortb_variance" : 0.2, 
+      "distortc_mean" : -0.04, 
+      "distortc_variance" : 0.1
+    },
+    {
+      "name" : "camera_3", 
+      "format" : "circular_fisheye", 
+      "width" : 3840, 
+      "height" : 2160, 
+      "fu_mean" : 904.05, 
+      "fu_variance" : 40, 
+      "fv_mean" : 904.05, 
+      "fv_variance" : 40, 
+      "cu_mean" : 1919.13, 
+      "cu_variance" : 30, 
+      "cv_mean" : 1079.89, 
+      "cv_variance" : 30, 
+      "distorta_mean" : -0.1, 
+      "distorta_variance" : 0.2, 
+      "distortb_mean" : 0.09, 
+      "distortb_variance" : 0.2, 
+      "distortc_mean" : -0.04, 
+      "distortc_variance" : 0.1
+    }
+  ]
+}
