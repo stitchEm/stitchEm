@@ -6,6 +6,7 @@
 #include "libvideostitch-gui/mainwindow/vssettings.hpp"
 #include <math.h>
 #include <QPainter>
+#include <QPainterPath>
 #include <QMouseEvent>
 
 #define PRECISION 0.1f
