@@ -6,19 +6,22 @@ Using ccache to speed up recompilation is recommended, but not required, on Linu
 
 ##  Building with macOS:
 
+To install the dependencies on macOS, use either the MacPorts or Homebrew package manager.
+
 ### Using MacPorts
 
 ```
-# Build tools
+# Install build tools
 sudo port install CMake bison doxygen yasm ninja ccache
 
-# Libraries
+# Install library dependencies
 sudo port install opencv glew gsed jpeg libpng \
           tiff faac faad2 ceres-solver glfw glm OpenEXR \
           ffmpeg +gpl2 +librtmp +nonfree
 ```
 
 ```
+# Configure build
 cmake -DCREATE_BOX_PACKAGE=OFF \
       -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=ON \
       -DQt5_DIR=~/Qt/5.9.6/clang_64/lib/cmake/Qt5 \
@@ -26,12 +29,13 @@ cmake -DCREATE_BOX_PACKAGE=OFF \
       -G Ninja \
       stitchEm
 
+# Build!
 ninja
 ```
 
 ### Using Homebrew
 
-See [../.travis.yml](../.travis.yml)
+See the `run` instructions in the MacOpenCL builder in [../.github/workflows/build.yml](build.yml) for a full OpenCL-build with Homebrew dependencies.
 
 
 ##  Building with Linux:
@@ -73,6 +77,7 @@ sudo apt install
 
 # Install CUDA: https://developer.nvidia.com/cuda-downloads
 
+# Configure build
 cmake -DGPU_BACKEND_CUDA=ON -DGPU_BACKEND_OPENCL=OFF -DRTMP_NVENC=OFF \
       -G Ninja \
       stitchEm
