@@ -57,7 +57,7 @@ inline __device__ __host__ float clampf_vs(float v, float minVal, float maxVal) 
 // map scaled sphere to input
 // return color
 template <int PATCH_SIZE>
-__device__ void mapInput(float4* values, bool* written, const read_only image2d_t texture,
+__device__ void mapInput(float4* values, bool* written, read_only image2d_t texture,
                          struct InputParams inputParams, const float3* onRigSphere, const bool debug) {
   for (int k = 0; k < PATCH_SIZE; ++k) {
     *written = false;
