@@ -35,7 +35,7 @@ ninja
 
 ### Using Homebrew
 
-See the `run` instructions in the MacOpenCL builder in [../.github/workflows/build.yml](build.yml) for a full OpenCL-build with Homebrew dependencies.
+See the `run` instructions in the MacOpenCL builder in [build.yml](../.github/workflows/build.yml) for a full OpenCL-build with Homebrew dependencies.
 
 
 ##  Building with Linux:
