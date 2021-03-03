@@ -37,6 +37,45 @@ ninja
 
 See the `run` instructions in the MacOpenCL builder in [build.yml](../.github/workflows/build.yml) for a full OpenCL-build with Homebrew dependencies.
 
+### Creating a binary OpenCL release on macOS
+
+```
+git clone https://github.com/stitchEm/stitchEm.git
+
+# checkout master branch, create a tag in the naming scheme Studio-v2.4.1-macOS
+
+# Using Qt 5.12.10 in this example:
+echo 5.12.10 > stitchEm/qt.version
+
+# path of the build directory is hardcoded in script that creates the package later
+mkdir cmake_build
+cd cmake_build
+
+# BUILD_MACOSX_BUNDLE=ON is required to get an .app bundle
+# DISABLE_OPENCL_SPIR=ON is important, otherwise there will be kernel compilation errors
+# from SPIR incompatibilities
+
+cmake -DBUILD_MACOSX_BUNDLE=ON \
+      -DGPU_BACKEND_CUDA=OFF \
+      -DGPU_BACKEND_OPENCL=ON \
+      -DDISABLE_OPENCL_SPIR=ON \
+      -DQt5_DIR=~/Qt/5.12.10/clang_64/lib/cmake/Qt5 \
+      -DMACPORTS=ON \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      ../stitchEm
+
+ninja
+
+cd ../stitchEm/apps/dmg
+env QT_INSTALL=/Users/{$USER}/Qt ./make_studio_dmg_opencl.sh
+
+# on succes, a VideoStitch-Studio.dmg should have been created in the current directory
+
+# -> extract app to another folder, and zip for upload to a new GitHub release
+# (GitHub doesn't allow .dmg uploads)
+```
+
 
 ##  Building with Linux:
 
