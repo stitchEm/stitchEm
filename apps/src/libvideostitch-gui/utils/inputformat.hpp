@@ -56,7 +56,7 @@ static inline QString getDisplayNameFromEnum(const InputFormatEnum& value) {
     case InputFormatEnum::AJA:
       return QCoreApplication::translate("InputFormat", "AJA (BETA)");
     case InputFormatEnum::NETWORK:
-      return QCoreApplication::translate("InputFormat", "RTSP inputs");
+      return QCoreApplication::translate("InputFormat", "RTSP/RTMP inputs");
     case InputFormatEnum::V4L2:
       return QCoreApplication::translate("InputFormat", "Video for Linux Two");
     case InputFormatEnum::INVALID:
