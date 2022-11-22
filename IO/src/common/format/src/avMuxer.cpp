@@ -9,6 +9,7 @@
 #include "libvideostitch/parse.hpp"
 
 extern "C" {
+#include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 }
 
@@ -351,7 +352,8 @@ VideoStitch::Status AvMuxer::create(const Ptv::Value& config, unsigned width, un
     return {Origin::Output, ErrType::InvalidConfiguration, "AvMuxer \"video_codec\" field error in the configuration"};
   }
 
-  m_codecs[0].codec = avcodec_find_encoder_by_name(avCodec.c_str());
+  // TODO change design AVEncoder design to deal with const AVCodec *, remove cast
+  m_codecs[0].codec = const_cast<AVCodec *>(avcodec_find_encoder_by_name(avCodec.c_str()));
   if (!m_codecs[0].codec) {
     Logger::error(AVtag) << "Missing video codec" << avCodec.c_str() << ", disable output." << std::endl;
     return {Origin::Output, ErrType::InvalidConfiguration, "AvMuxer missing video codec"};
@@ -365,7 +367,7 @@ VideoStitch::Status AvMuxer::create(const Ptv::Value& config, unsigned width, un
   if (Parse::populateString(AVparsetag, config, "audio_codec", audioCodecName, false) != Parse::PopulateResult_Ok) {
     Logger::error(AVtag) << "Audio codec: " << audioCodecName.c_str() << ": invalid audio codec name" << std::endl;
   } else {
-    m_codecs[1].codec = avcodec_find_encoder_by_name(audioCodecName.c_str());
+    m_codecs[1].codec = const_cast<AVCodec *>(avcodec_find_encoder_by_name(audioCodecName.c_str()));
     if (!m_codecs[1].codec) {
       Logger::error(AVtag) << "Audio codec: " << audioCodecName.c_str() << " not found, disable output." << std::endl;
       return {Origin::Output, ErrType::InvalidConfiguration, "AvMuxer missing audio codec"};
@@ -404,7 +406,7 @@ VideoStitch::Status AvMuxer::create(const Ptv::Value& config, unsigned width, un
   if (Parse::populateString(AVparsetag, config, "metadata_codec", metadataCodecName, false) !=
       Parse::PopulateResult_Ok) {
   } else {
-    m_codecs[2].codec = avcodec_find_encoder_by_name(metadataCodecName.c_str());
+    m_codecs[2].codec = const_cast<AVCodec *>(avcodec_find_encoder_by_name(metadataCodecName.c_str()));
     if (!m_codecs[2].codec) {
       Logger::error(AVtag) << "Metadata codec: " << metadataCodecName.c_str() << " not found, disable output."
                            << std::endl;

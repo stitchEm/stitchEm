@@ -27,6 +27,7 @@
 #include <deque>
 
 extern "C" {
+#include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libavutil/channel_layout.h>
 #include <libavutil/error.h>
@@ -70,7 +71,7 @@ static inline void resetCudaError() { cudaGetLastError(); }
 // ------------------------------ Configuration ----------------------------
 
 // Check if the codec can support config sample format
-static bool check_sample_fmt(AVCodec* codec, enum AVSampleFormat sample_fmt) {
+static bool check_sample_fmt(const AVCodec* codec, enum AVSampleFormat sample_fmt) {
   const enum AVSampleFormat* p = codec->sample_fmts;
   while (*p != AV_SAMPLE_FMT_NONE) {
     if (*p == sample_fmt) {
@@ -131,7 +132,6 @@ Output* LibavWriter::create(const Ptv::Value& config, const std::string& name, c
 }
 
 bool LibavWriter::createAudioCodec() {
-  AVCodec* audioCodec = nullptr;
   std::string audioCodecName;
 
   // AUDIO CODEC
@@ -142,7 +142,7 @@ bool LibavWriter::createAudioCodec() {
       audioCodecName = "libmp3lame";
     }
 
-    audioCodec = avcodec_find_encoder_by_name(audioCodecName.c_str());
+    const AVCodec* audioCodec = avcodec_find_encoder_by_name(audioCodecName.c_str());
     if (!audioCodec) {
       Logger::error(AVtag) << "Audio codec: " << audioCodecName.c_str() << " not found, disable output." << std::endl;
       return false;
@@ -235,7 +235,7 @@ bool LibavWriter::createAudioCodec() {
 
     std::string format(LIBAV_WRITER_DEFAULT_CONTAINER);
     if (Parse::populateString("LibavOutputWriter", *m_config, "type", format, true) == Parse::PopulateResult_Ok) {
-      AVOutputFormat* of = av_guess_format(format.c_str(), nullptr, nullptr);
+      const AVOutputFormat* of = av_guess_format(format.c_str(), nullptr, nullptr);
       if (of && (of->flags & AVFMT_GLOBALHEADER)) {
         audioCodecContext->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
       }
@@ -311,7 +311,7 @@ bool LibavWriter::resetCodec(AVCodecContext* codecContext, MuxerThreadStatus& st
       return false;
     }
 
-    AVCodec* audioCodec = avcodec_find_encoder(audioCodecContext->codec_id);
+    const AVCodec* audioCodec = avcodec_find_encoder(audioCodecContext->codec_id);
     if (!audioCodec) {
       Logger::error(AVtag) << "Audio codec: " << audioCodecContext->codec_id << " not found, disable output."
                            << std::endl;
@@ -364,7 +364,6 @@ bool LibavWriter::resetCodec(AVCodecContext* codecContext, MuxerThreadStatus& st
 }
 
 bool LibavWriter::createVideoCodec(AddressSpace type, unsigned width, unsigned height, FrameRate framerate) {
-  AVCodec* videoCodec = nullptr;
   AVBufferRef* hwdevice = nullptr;
   unsigned uEncodeBufferCount = 1;
 
@@ -415,7 +414,7 @@ bool LibavWriter::createVideoCodec(AddressSpace type, unsigned width, unsigned h
     Logger::get(Logger::Error) << "[libavoutput] Invalid AV codec '" << avCodec << "'." << std::endl;
     return false;
   }
-  videoCodec = avcodec_find_encoder_by_name(videoCodecName.c_str());
+  const AVCodec* videoCodec = avcodec_find_encoder_by_name(videoCodecName.c_str());
   if (!videoCodec) {
     Logger::get(Logger::Error) << "[libavoutput] Video codec: " << videoCodecName.c_str()
                                << " not found, disable output." << std::endl;
@@ -713,7 +712,7 @@ bool LibavWriter::createVideoCodec(AddressSpace type, unsigned width, unsigned h
 
   std::string format(LIBAV_WRITER_DEFAULT_CONTAINER);
   if (Parse::populateString("LibavOutputWriter", *m_config, "type", format, true) == Parse::PopulateResult_Ok) {
-    AVOutputFormat* of = av_guess_format(format.c_str(), nullptr, nullptr);
+    const AVOutputFormat* of = av_guess_format(format.c_str(), nullptr, nullptr);
     if (of && (of->flags & AVFMT_GLOBALHEADER)) {
       videoCodecContext->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
     }

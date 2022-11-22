@@ -89,7 +89,6 @@ Libav::Lock::~Lock() { libAvMutex.unlock(); }
 void Libav::checkInitialization() {
   Lock lock;
   if (!isLibavInit) {
-    av_register_all();
     avformat_network_init();
     isLibavInit = true;
     /* custom log */
