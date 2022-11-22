@@ -24,8 +24,6 @@ include_discovery_vs_headers(${PLUGIN_NAME})
 target_include_directories(${PLUGIN_NAME} PRIVATE ${XIMEA_PATH})
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
-
 find_library(XIMEA_LIB NAMES "xiapi64" HINTS "${XIMEA_PATH}\\x64" REQUIRED)
 
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${VS_DISCOVERY} ${XIMEA_LIB})

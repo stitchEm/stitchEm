@@ -28,7 +28,6 @@ set(COMMON_HEADERS
 
 add_library(common OBJECT ${COMMON_SOURCES} ${COMMON_HEADERS})
 set_property(TARGET common PROPERTY FOLDER "plugins")
-set_property(TARGET common PROPERTY CXX_STANDARD 14)
 set_property(TARGET common PROPERTY POSITION_INDEPENDENT_CODE TRUE)
 
 include_lib_vs_headers(common)

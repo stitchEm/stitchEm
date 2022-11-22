@@ -25,8 +25,6 @@ include_discovery_vs_headers(${PLUGIN_NAME})
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 target_include_directories(${PLUGIN_NAME} PRIVATE "${MAGEWELL_PATH}\\SDKv2\\Include")
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
-
 find_library(MAGEWELL_STREAM2 "LibXIStream2" HINTS "${MAGEWELL_PATH}\\SDKv2\\Lib\\x64\\Release")
 find_library(MAGEWELL_PROPERTY "LibXIProperty" HINTS "${MAGEWELL_PATH}\\SDKv2\\Lib\\x64\\Release")
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${VS_DISCOVERY} ${MAGEWELL_STREAM2} ${MAGEWELL_PROPERTY})

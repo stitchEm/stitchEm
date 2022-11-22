@@ -63,7 +63,6 @@ function(add_vs_test_arg test_name test_file test_labels test_args)
       target_link_libraries(${test_name} PRIVATE ${VS_LIB_UNIT_TEST} ${VS_DISCOVERY} ${LIBS})
   endif()
 
-  set_property(TARGET ${test_name} PROPERTY CXX_STANDARD 14)
   set_property(TARGET ${test_name} PROPERTY FOLDER "lib/unit tests")
 
   target_include_directories(${test_name} PRIVATE ../)

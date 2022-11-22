@@ -33,6 +33,5 @@ elseif(APPLE)
     find_library(TIFF NAMES "tiff" PATHS "/opt/local/lib" REQUIRED)
 endif()
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${TIFF} ${VS_DISCOVERY})
 link_target_to_libvideostitch(${PLUGIN_NAME})

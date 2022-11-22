@@ -100,7 +100,6 @@ endif()
 # Configure libdiscovery
 # ----------------------------------------------------------------------------
 
-set_property(TARGET ${VS_DISCOVERY} PROPERTY CXX_STANDARD 14)
 target_compile_definitions(${VS_DISCOVERY} PRIVATE VS_LIB_DISCOVERY)
 set (DISCOVERY_SRC_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 include_discovery_vs_headers(${VS_DISCOVERY})
@@ -122,8 +121,6 @@ endif()
 set(DEVICE_NAME_TEST DeviceNameTest)
 
 add_executable(${DEVICE_NAME_TEST} src/tests/deviceNameTest.cpp src/deviceHelper.cpp)
-
-set_property(TARGET ${DEVICE_NAME_TEST} PROPERTY CXX_STANDARD 14)
 
 target_include_directories(${DEVICE_NAME_TEST} PRIVATE ${TESTING_INCLUDE})
 target_include_directories(${DEVICE_NAME_TEST} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

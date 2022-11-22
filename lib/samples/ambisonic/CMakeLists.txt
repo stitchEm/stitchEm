@@ -18,7 +18,6 @@ option(AMBISONIC_ENCODER_TOOL "Build VideoStitch ambisonic encoder tools" ON)
 # ----------------------------------------------------------------------------
 if(AMBISONIC_ENCODER_TOOL)
   add_executable(aec ambisonicEncoderTool.cpp)
-  set_property(TARGET aec PROPERTY CXX_STANDARD 14)
   include_lib_vs_headers(aec)
   link_target_to_libvideostitch(aec)
 endif()

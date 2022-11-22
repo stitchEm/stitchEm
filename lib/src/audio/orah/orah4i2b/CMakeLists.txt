@@ -17,7 +17,6 @@ set(O2B_LIB_HEADER_FILES
     header/orah4i2b.hpp)
 
 add_library(${O2B_LIB} STATIC ${O2B_LIB_SOURCE_FILES})
-set_property(TARGET ${O2B_LIB} PROPERTY CXX_STANDARD 14)
 
 ### Includes ###
 include_directories("${CMAKE_CURRENT_LIST_DIR}/src")
@@ -42,7 +41,6 @@ target_compile_definitions(${O2B_LIB} PRIVATE SAMPLE_RATE=${SAMPLE_RATE_})
 ### Tests ###
 set(O2B_TEST Orah4iToBFormat)
 add_executable(${O2B_TEST} src/orah4i2b_test.cpp)
-set_property(TARGET ${O2B_TEST} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${O2B_TEST} ${O2B_LIB})
 if(STAGING)
   # XXX: ADD HERE NEW TESTS

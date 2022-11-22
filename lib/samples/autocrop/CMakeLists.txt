@@ -22,7 +22,6 @@ if(AUTOCROP_CMD)
   target_compile_definitions(${CMD_NAME} PRIVATE VS_LIB_COMPILATION _USE_MATH_DEFINES)
   set_property(TARGET ${CMD_NAME} PROPERTY FOLDER "lib/samples")
 
-  set_property(TARGET ${CMD_NAME} PROPERTY CXX_STANDARD 14)
   include_lib_vs_headers(${CMD_NAME})
   link_target_to_libvideostitch(${CMD_NAME})
   target_include_directories(${CMD_NAME} SYSTEM PRIVATE "${CMAKE_EXTERNAL_DEPS}/include")

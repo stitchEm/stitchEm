@@ -270,7 +270,6 @@ target_include_directories(${VS_GUI} PRIVATE mainwindow/ui_header)
 include_lib_vs_headers(${VS_GUI})
 include_discovery_vs_headers(${VS_GUI})
 
-set_property(TARGET ${VS_GUI} PROPERTY CXX_STANDARD 14)
 target_link_libraries(
     ${VS_GUI}
     PRIVATE

@@ -80,7 +80,6 @@ add_library(${VS_BASE} SHARED ${VIDEOSTITCH_BASE_SOURCES} ${VIDEOSTITCH_BASE_HEA
 add_dependencies(${VS_BASE} CheckVersionHeader)
 target_compile_definitions(${VS_BASE} PRIVATE "VS_LIB_COMMON_COMPILATION")
 set_property(TARGET ${VS_BASE} PROPERTY FOLDER "apps")
-set_property(TARGET ${VS_BASE} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${VS_BASE} Qt5::Core Qt5::Gui Qt5::OpenGL Qt5::Widgets Qt5::Concurrent Qt5::Multimedia ${OPENGL_LIBRARIES} ${OVR} ${OPENVR} ${VS_DISCOVERY})
 include_discovery_vs_headers(${VS_BASE})
 include_lib_vs_headers(${VS_BASE})

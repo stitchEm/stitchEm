@@ -83,6 +83,8 @@ else()
   message( FATAL_ERROR "Bitness specified is invalid" )
 endif()
 
+set(CMAKE_CXX_STANDARD 17)
+
 # provide safeguard for subdirectories
 set(VIDEOSTITCH_CMAKE YES)
 

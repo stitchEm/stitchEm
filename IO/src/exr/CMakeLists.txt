@@ -29,7 +29,6 @@ target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
 target_include_directories(${PLUGIN_NAME} SYSTEM PRIVATE ${OpenEXR_INCLUDE_DIRS})
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${OpenEXR_LIBRARIES} ${VS_DISCOVERY})
 link_target_to_libvideostitch(${PLUGIN_NAME})
 

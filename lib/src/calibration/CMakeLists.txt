@@ -88,7 +88,6 @@ function(configure_target BACKEND_NAME)
                              PRIVATE ${EIGEN3_INCLUDE_DIRS}
                              PRIVATE ${OpenCV_INCLUDE_DIRS})
 
-  set_property(TARGET calibration_${BACKEND_NAME} PROPERTY CXX_STANDARD 14)
 endfunction()
 
 if(GPU_BACKEND_CUDA)

@@ -26,7 +26,6 @@ function(setup_format BACKEND_NAME USE_CUDA)
   set(LIST_NAME format_cuda_${USE_CUDA})
   add_library(${LIST_NAME} OBJECT ${COMMON_SOURCES} ${COMMON_HEADERS})
   set_property(TARGET ${LIST_NAME} PROPERTY FOLDER "plugins")
-  set_property(TARGET ${LIST_NAME} PROPERTY CXX_STANDARD 14)
   set_property(TARGET ${LIST_NAME} PROPERTY POSITION_INDEPENDENT_CODE TRUE)
   add_cppcheck(${LIST_NAME} VS)
 

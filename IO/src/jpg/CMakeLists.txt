@@ -26,8 +26,6 @@ include_discovery_vs_headers(${PLUGIN_NAME})
 target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
-
 if(LINUX)
   find_library(JPEG NAMES "jpeg")
 elseif(APPLE)

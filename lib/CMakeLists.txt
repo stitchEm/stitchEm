@@ -759,7 +759,6 @@ function(configure_lib_main_target VS_LIB_TARGET BACKEND_NAME LIB_TYPE)
   target_compile_definitions(${VS_LIB_TARGET} PRIVATE VS_LIB_COMPILATION _USE_MATH_DEFINES)
   target_compile_definitions(${VS_LIB_TARGET} PRIVATE VS_${BACKEND_NAME})
   include_lib_vs_headers(${VS_LIB_TARGET})
-  set_property(TARGET ${VS_LIB_TARGET} PROPERTY CXX_STANDARD 14)
   set_property(TARGET ${VS_LIB_TARGET} PROPERTY FOLDER "lib")
 
   if(("${LIB_TYPE}" STREQUAL "SHARED") AND (LINUX OR APPLE))
@@ -774,7 +773,6 @@ function(configure_lib_main_target VS_LIB_TARGET BACKEND_NAME LIB_TYPE)
 endfunction(configure_lib_main_target)
 
 function(configure_lib_targets BACKEND_NAME)
-  set_property(TARGET ${VS_LIB_OBJECTS_${BACKEND_NAME}} PROPERTY CXX_STANDARD 14)
   set_property(TARGET ${VS_LIB_OBJECTS_${BACKEND_NAME}} PROPERTY FOLDER "lib")
 
   include_discovery_vs_headers(${VS_LIB_OBJECTS_${BACKEND_NAME}})

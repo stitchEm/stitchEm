@@ -421,7 +421,6 @@ target_include_directories(${VS_VAHANA_BIN} PRIVATE ${LIB_VS_GUI_GEN_HEADER_DIR}
 target_include_directories(${VS_VAHANA_BIN} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include")
 target_include_directories(${VS_VAHANA_BIN} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/googleapis")
 target_include_directories(${VS_VAHANA_BIN} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/jsoncpp")
-set_property(TARGET ${VS_VAHANA_BIN} PROPERTY CXX_STANDARD 14)
 target_link_libraries(
   ${VS_VAHANA_BIN}
   PRIVATE

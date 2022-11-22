@@ -36,8 +36,6 @@ target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/includ
 target_include_directories(${PLUGIN_NAME} PRIVATE "${CMAKE_EXTERNAL_DEPS}/include/aja/winclasses")
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
-
 find_debug_and_optimized_library(AJA_STUFFS  "aja/debug" "ajastuffdll_64d" "aja/release" "ajastuffdll_64")
 find_debug_and_optimized_library(AJA_CLASSES "aja/debug" "classesDLL_64d"  "aja/release" "classesDLL_64")
 

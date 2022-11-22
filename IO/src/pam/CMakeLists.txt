@@ -27,7 +27,6 @@ include_discovery_vs_headers(${PLUGIN_NAME})
 target_include_directories(${PLUGIN_NAME} PRIVATE include)
 target_include_directories(${PLUGIN_NAME} PRIVATE ../common/include)
 
-set_property(TARGET ${PLUGIN_NAME} PROPERTY CXX_STANDARD 14)
 link_target_to_libvideostitch(${PLUGIN_NAME})
 target_link_libraries(${PLUGIN_NAME} PRIVATE ${VS_DISCOVERY})
 

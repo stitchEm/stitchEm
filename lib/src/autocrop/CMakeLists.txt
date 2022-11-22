@@ -41,7 +41,6 @@ function(configure_target BACKEND_NAME)
     target_include_directories(autocrop_${BACKEND_NAME} SYSTEM PRIVATE ${vs_lib_sys_include})
   endforeach()
 
-  set_property(TARGET autocrop_${BACKEND_NAME} PROPERTY CXX_STANDARD 14)
 endfunction()
 
 if(GPU_BACKEND_CUDA)

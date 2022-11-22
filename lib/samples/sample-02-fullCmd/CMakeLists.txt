@@ -1,7 +1,6 @@
 set(CMD_NAME "videostitch-cmd")
 add_executable(${CMD_NAME} videostitch-cmd.cpp ../common/cmdUtils.cpp)
 
-set_property(TARGET ${CMD_NAME} PROPERTY CXX_STANDARD 14)
 include_lib_vs_headers(${CMD_NAME})
 include_discovery_vs_headers(${CMD_NAME})
 link_target_to_libvideostitch(${CMD_NAME})

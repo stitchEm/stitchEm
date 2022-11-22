@@ -44,7 +44,6 @@ endfunction()
 
 function(add_qt_unit_test_internal test_name sources)
   add_executable(${test_name} ${sources})
-  set_property(TARGET ${test_name} PROPERTY CXX_STANDARD 14)
   set_property(TARGET ${test_name} PROPERTY FOLDER "apps/tests")
   include_lib_vs_headers(${test_name})
   include_discovery_vs_headers(${test_name})

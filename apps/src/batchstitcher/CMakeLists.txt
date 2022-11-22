@@ -40,7 +40,6 @@ set_property(TARGET ${BIN_NAME} PROPERTY FOLDER "apps")
 include_lib_vs_headers(${BIN_NAME})
 include_discovery_vs_headers(${BIN_NAME})
 add_dependencies(${BIN_NAME} videostitch-cmd)
-set_property(TARGET ${BIN_NAME} PROPERTY CXX_STANDARD 14)
 target_link_libraries(${BIN_NAME} PRIVATE Qt5::Gui Qt5::Network Qt5::Widgets ${VS_GUI} ${VS_BASE} ${VS_DISCOVERY})
 
 link_target_to_libvideostitch(${BIN_NAME})

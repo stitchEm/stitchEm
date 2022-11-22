@@ -30,8 +30,6 @@ function(add_vs_io_test test_name test_file)
     target_link_libraries (${test_name} ${VS_LIB_DEFAULT})
   endif(WINDOWS)
 
-  set_property(TARGET ${test_name} PROPERTY CXX_STANDARD 14)
-
   target_include_directories(${test_name} PRIVATE ../include)
   target_include_directories(${test_name} PRIVATE ${TESTING_INCLUDE})
   include_lib_vs_headers(${test_name})
