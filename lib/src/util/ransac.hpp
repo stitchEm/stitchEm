@@ -26,7 +26,7 @@ class RansacSolver : public Solver<typename Solver_t::Problem_t> {
    * @param minSamplesForFit Minimum number of samples required to fit a model.
    */
   RansacSolver(const typename Solver_t::Problem_t& problem, int minSamplesForFit, int numIters, int minConsensusSamples,
-               std::default_random_engine* gen = nullptr, bool debug = false, bool useFloatPrecision = false)
+               std::default_random_engine* gen, bool debug = false, bool useFloatPrecision = false)
       : Solver<typename Solver_t::Problem_t>(problem),
         minSamplesForFit(minSamplesForFit),
         numIters(numIters),
@@ -154,11 +154,7 @@ class RansacSolver : public Solver<typename Solver_t::Problem_t> {
     for (size_t i = numBitsSets; i < v.size(); ++i) {
       v[i] = 0;
     }
-    if (gen) {
-      std::shuffle(v.begin(), v.end(), *gen);
-    } else {
-      std::random_shuffle(v.begin(), v.end());
-    }
+    std::shuffle(v.begin(), v.end(), *gen);
   }
 
   const int minSamplesForFit;
