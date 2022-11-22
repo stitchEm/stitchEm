@@ -42,7 +42,7 @@ Technical issues can be directly reported on [GitHub](https://github.com/stitchE
 
 ## Download
 
-Builds of Vahana VR and VideoStitch Studio for Windows and macOS can be downloaded in the [release section](https://github.com/stitchEm/stitchEm/releases/latest).
+Builds of Vahana VR and VideoStitch Studio for Windows and macOS can be downloaded in the [release section](https://github.com/stitchEm/stitchEm/releases/).
 
 ## Build
 
